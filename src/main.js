@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import less from 'less'
-Vue.use(less)
+
+
+import { Button, Select } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.component(Button.name, Button);
+Vue.component(Select.name, Select);
+
+import less from 'less';
+Vue.use(less);
+
 Vue.config.productionTip = false
 
 new Vue({
