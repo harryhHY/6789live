@@ -1,17 +1,18 @@
 <template>
   <div id="home">
     <home_herder @changetype="parentEvent"></home_herder>
-    <component :is="componentId"></component>
+    <component :is="component_name"></component>
   </div>
 </template>
 
 <script>
 const home_herder = () => import("../../components/home/home_herder");
-const hoome_content = () => import("../../components/home/hoome_content");
+const home_content = () => import("../../components/home/home_content");
 export default {
   data() {
     return {
       menu_num: "1",
+      component_name:"home_content"
     };
   },
   methods: {
@@ -23,10 +24,10 @@ export default {
     menu_num(newValue, oldValue) {
       switch (newValue) {
         case "1":
-          return hoome_content
+          return this.component_name = 'home_content'
           break;
         case "2":
-          console.log("这个是2");
+          return this.component_name = 'home_herder'
           break;
         case "3":
           console.log("这个是3");
@@ -39,7 +40,7 @@ export default {
   },
   components: {
     home_herder,
-    hoome_content
+    home_content
   },
   created() {},
 };
