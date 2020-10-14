@@ -81,7 +81,7 @@ export default {
   .logo {
     width: 15%;
     height: 84px;
-    background: url("../../../static/image/logo.png") no-repeat;
+    background: url("../../image/logo.png") no-repeat;
     background-size: 100%;
     cursor: pointer;
     image {

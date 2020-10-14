@@ -1,28 +1,17 @@
 <template>
   <div id="home">
     <home_herder @changetype="parentEvent"></home_herder>
-    <div class="swp">
-      <el-carousel height="300px">
-        <el-carousel-item v-for="item in 4" :key="item">
-          <h3 class="small">{{ item }}</h3>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+    <component :is="componentId"></component>
   </div>
 </template>
 
 <script>
 const home_herder = () => import("../../components/home/home_herder");
+const hoome_content = () => import("../../components/home/hoome_content");
 export default {
   data() {
     return {
       menu_num: "1",
-      swiperdata: [
-        {
-          id: 1,
-        //   src: require("../../../static/image/logo"),
-        },
-      ],
     };
   },
   methods: {
@@ -34,7 +23,7 @@ export default {
     menu_num(newValue, oldValue) {
       switch (newValue) {
         case "1":
-          console.log("这个是1");
+          return hoome_content
           break;
         case "2":
           console.log("这个是2");
@@ -50,30 +39,12 @@ export default {
   },
   components: {
     home_herder,
+    hoome_content
   },
   created() {},
 };
 </script>
 
 <style lang="less" scoped>
-.swp {
-  width: 65%;
-  margin-left: 7%;
-  height: 500px;
-}
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 150px;
-  margin: 0;
-}
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
 </style>
