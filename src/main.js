@@ -3,10 +3,9 @@ import App from './App'
 import router from './router'
 
 
-import { Button, Select } from 'element-ui';
+import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.component(Button.name, Button);
-Vue.component(Select.name, Select);
+Vue.use(ElementUI);
 
 import less from 'less';
 Vue.use(less);

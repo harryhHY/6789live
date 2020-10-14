@@ -10,6 +10,6 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
-@import url("./style/index");
+<style lang="less">
+  @import url("./style/index");
 </style>
