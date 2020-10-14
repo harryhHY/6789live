@@ -1,20 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const Login = import('../page/login/login.vue');
-const registered = import('../page/registered/registered.vue');
+const Registered = import('../page/registered/registered.vue');
+const Home = import('../page/home/home.vue');
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: () => Home
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => Login
     },
     {
       path: '/registered',
-      name: 'registered',
-      component: () => registered
+      name: 'Registered',
+      component: () => Registered
     }
   ]
 })
