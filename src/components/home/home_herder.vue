@@ -1,6 +1,8 @@
 <template>
-    <div  id="home">
-        
+    <div id="home_header">
+        <div>
+            
+        </div>
     </div>
 </template>
 
@@ -10,6 +12,6 @@
     }
 </script>
 
-<style lang="less" scoped>
-    
+<style lang="scss" scoped>
+
 </style>
