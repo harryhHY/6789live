@@ -77,6 +77,7 @@ export default {
 <style lang="less" scoped>
 #home_header {
   width: 100%;
+  border-bottom: 1px solid #666666;
   //   background-color: #f00;
   .logo {
     width: 15%;
