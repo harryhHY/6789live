@@ -1,24 +1,30 @@
 <template>
   <div class="login" clearfix>
-      <el-steps :active="active" finish-status="success">
-        <el-step title="步骤 1"></el-step>
-        <el-step title="步骤 2"></el-step>
-        <el-step title="步骤 3"></el-step>
-    </el-steps>
-  <div class="login-wrap">
-    <h1>注册</h1>
+      <div class="step">
+        <el-steps :active="active" finish-status="success">
+            <el-step title="确认账号"></el-step>
+            <el-step title="安全验证"></el-step>
+            <el-step title="重置密码"></el-step>
+        </el-steps>
+      </div>      
+  <div class="login-wrap first_wrap" v-if="active == 0">
+      <el-row type="flex" justify="center">
+          <el-form ref="confirmUser" :model="confirmUser" :rules="confirmRules" status-icon label-width="80px" class="second_con">
+            <el-form-item  class="filed" prop="username" label="">
+              <el-input v-model="confirmUser.username" @blur="checkBlur($event)" placeholder="请填写用户账号，手机号或邮箱" prefix-icon></el-input>
+              <!-- <div class="text"><el-progress :percentage="50" status="exception"></el-progress></div> -->
+            </el-form-item>
+            <el-form-item>
+              <el-button class="first_btn" type="primary" icon="el-icon-upload" @click="doConfirm('confirmUser')">下一步</el-button>
+            </el-form-item>
+            <router-link to="/login" class="register">记得密码直接登录</router-link>
+            <!-- <router-link to="/" class="fogetpass">忘记密码</router-link> -->
+          </el-form>
+        </el-row>
+    </div>
+  <div class="login-wrap sencond_wrap" v-if="active == 1">
       <el-row type="flex" justify="center">
           <el-form ref="register" :model="register" :rules="registerRules" status-icon label-width="80px" class="second_con">
-            <el-form-item  class="filed" prop="username" label="">
-              <el-input v-model="register.username" @blur="checkBlur($event)" placeholder="用户名：4-20位英文或字母或“-”、“_”" prefix-icon></el-input>
-              <div class="text"><el-progress :percentage="50" status="exception"></el-progress></div>
-            </el-form-item>
-            <el-form-item class="filed" prop="password" label="">
-              <el-input v-model="register.password" show-password placeholder="密码：6-16位密码，区分大小写" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item  class="filed" label="" prop="checkPass">
-              <el-input type="password" show-password v-model="register.checkPass" placeholder="确认密码" autocomplete="off"></el-input>
-            </el-form-item>
             <div class="region_con">
                 <!-- 手机区号+用户名 -->
                 <el-form-item label="" prop="region" class="region">
@@ -38,20 +44,33 @@
               </el-form-item>
               <el-button type="primary" class="code_btn">获取验证码</el-button>
             </div>
-            <div class="re_pass">
-              <el-checkbox class="remember_pass" v-model="checked" @change = "changeRadio">同意6789直播条款</el-checkbox>
-              <!-- <router-link to="/" class="findpass">忘记密码</router-link> -->
-            </div>
             <el-form-item>
-              <el-button type="primary" icon="el-icon-upload" @click="doRegiste('register')">注 册</el-button>
+              <el-button class="sencond_btn" type="primary" icon="el-icon-upload" @click="forward()">上一步</el-button>
+              <el-button class="sencond_btn" type="primary" icon="el-icon-upload" @click="doRegiste('register')">下一步</el-button>
             </el-form-item>
             <router-link to="/login" class="register">使用已有账户登录</router-link>
             <!-- <router-link to="/" class="fogetpass">忘记密码</router-link> -->
           </el-form>
         </el-row>
-    <!-- </el-tab-pane>
-  </el-tabs>   -->
-  </div>
+    </div>
+  <div class="login-wrap third_wrap" v-if="active == 2">
+      <el-row type="flex" justify="center">
+          <el-form ref="resetpass" :model="resetpass" :rules="resetpassRules" status-icon label-width="80px" class="second_con">
+            <el-form-item class="filed" prop="password" label="">
+              <el-input v-model="resetpass.password" show-password placeholder="密码：6-16位密码，区分大小写" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-form-item  class="filed" label="" prop="checkPass">
+              <el-input type="password" show-password v-model="resetpass.checkPass" placeholder="确认密码" autocomplete="off"></el-input>
+            </el-form-item>
+            
+            <el-form-item>
+              <el-button class="third_btn" type="primary" icon="el-icon-upload" @click="resetPass('resetpass')">提 交</el-button>
+            </el-form-item>
+            <!-- <router-link to="/login" class="register">使用已有账户登录</router-link> -->
+            <!-- <router-link to="/" class="fogetpass">忘记密码</router-link> -->
+          </el-form>
+        </el-row>
+    </div>
   </div>
 </template>
 
@@ -101,30 +120,45 @@ export default {
         }
       };
     return {
+        //第一步
+        confirmUser:{
+            username: "",
+        },
+        //第二步
       register: {
-        username: "",
-        password: "",
-        checkPass:"",
         region:"+86",
         phoneNum:"",
-        code:""
+        code:"",
       },
-      // 注册规则
-      registerRules: {
-        username: [
+      //第三步
+      resetpass:{
+        password: "",
+        checkPass:"",
+      },
+      // 第一步规则
+      confirmRules:{
+          username: [
           { validator: validateName, trigger: 'blur' }
         ],
-        password: [
+      },
+      //第二步规则
+      registerRules: {
+        phoneNum:[
+          { validator: phoneNumber, trigger: 'blur' }
+        ]
+      },
+      //第三步规则
+      resetpassRules:{
+          password: [
           { validator: validatePass, trigger: 'blur' }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        phoneNum:[
-          { validator: phoneNumber, trigger: 'blur' }
-        ]
       },
-      checked: false  
+      checked: false,
+      //步骤条状态
+      active: 0
     };
   },
   created() {},
@@ -145,19 +179,51 @@ export default {
     changeRadio(){
       console.log(this.checked)
     },
-      doRegiste(register) {
-        this.$refs['register'].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
+    //第一步提交
+    doConfirm(confirmUser) {
+        this.active = this.active+1;
+        this.$refs['confirmUser'].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      }
+    },
+    //上一步
+    forward(){
+        console.log(111);
+        this.active = this.active-1;
+    },
+    //第二步提交
+    doRegiste(register) {
+        this.active = this.active+1;
+        this.$refs['register'].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+        });
+    },
+    //第三步提交
+    resetPass(resetpass) {
+        this.active = this.active+1;
+        this.$refs['resetpass'].validate((valid) => {
+            if (valid) {
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+        });
+    },
+    //移除表单
+    resetForm(formName) {
+    this.$refs[formName].resetFields();
+    }
     
     // doLogin() {
     //   if (!this.user.username) {
@@ -203,11 +269,11 @@ export default {
 }
 .login-wrap {
   width: 100%;
-  height:700px;
+  height:600px;
   // background: url("../assets/images/login_bg.png") no-repeat;
   background-size: cover;
   position:relative;
-  top:200px;
+  top:100px;
   width: 400px;
   // height: 300px;
   margin: auto;
@@ -217,7 +283,18 @@ export default {
   z-index:999;
 }
 .filed{
+    width: 100%;
+    height: 100%;
   margin-bottom:22px;
+}
+.third_wrap .filed{
+    height: 40px;
+}
+.third_wrap .third_btn{
+    width: 100%;
+}
+.first_wrap .first_btn{
+    width: 100%;
 }
 .register{
   float:right;
@@ -245,16 +322,12 @@ a:hover {
 .second_con{
   width: 100%;
 }
-.second_con .filed{
-  position: relative;
-  right: 40px;
-}
 .region_con{
   width: 100%;
   height: 40px;
   margin-bottom: 22px;
-  position: relative;
-  right: 40px;
+//   position: relative;
+//   right: 40px;
 }
 .region_con .filed{
   width: 80%;
@@ -264,15 +337,15 @@ a:hover {
   right: 0;
 }
 .region{
-  width:40%;
+  width:20%;
   position: absolute;
   z-index: 999;
 }
 .code_con{
   width: 100%;
   height: 40px;
-  position: relative;
-  right: 40px;
+//   position: relative;
+//   right: 40px;
 }
 .code{
   width: 70%;
@@ -304,10 +377,29 @@ a:hover {
   top: 0;
   right: -200px;
 }
+.step{
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+}
+.first_wrap .el-input{
+    width: 100% !important;
+}
+.second_con .el-form-item__content{
+    margin-left:0 !important;
+}
+.sencond_btn{
+    width: 48%;
+    float: left;
+}
+
 </style>
 <style>
 .harftab .el-tabs__item{
   width:100% !important;
   text-align:center !important;
+}
+.second_con .el-form-item__content{
+    margin-left:0 !important;
 }
 </style>

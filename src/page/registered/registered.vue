@@ -31,7 +31,17 @@
               <el-form-item class="code" prop="code" label="">
                 <el-input v-model="register.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
               </el-form-item>
-              <el-button type="primary" class="code_btn">获取验证码</el-button>
+              <el-button
+                  class="code_btn"
+                  type="primary"
+                  @click="getVerify"
+                  style="width:175px;"
+                  :disabled="disabled=!show"
+              >
+              <span v-show="show">获取验证码</span>
+              <span v-show="!show" class="count">{{count}} s</span>
+              </el-button>
+              <!-- <el-button type="primary" class="code_btn">{{count}}</el-button> -->
             </div>
             <div class="re_pass">
               <el-checkbox class="remember_pass" v-model="checked" @change = "changeRadio">同意6789直播条款</el-checkbox>
@@ -119,7 +129,10 @@ export default {
           { validator: phoneNumber, trigger: 'blur' }
         ]
       },
-      checked: false  
+      checked: false,
+      count:"",
+      show: true,
+      timer:null
     };
   },
   created() {},
@@ -139,6 +152,28 @@ export default {
     //是否记住密码
     changeRadio(){
       console.log(this.checked)
+    },
+    getVerify() {
+            // 验证手机号
+      // if (this.checkPhone() == false) {
+      //     return false;
+      // } else {
+        console.log(111);
+          const TIME_COUNT = 60; //更改倒计时时间
+          if (!this.timer) {
+              this.count = TIME_COUNT;
+              this.show = false;
+              this.timer = setInterval(() => {
+                  if (this.count > 0 && this.count <= TIME_COUNT) {
+                      this.count--;
+                  } else {
+                      this.show = true;
+                      clearInterval(this.timer); // 清除定时器
+                      this.timer = null;
+                  }
+              }, 1000);
+          }
+      // }
     },
       doRegiste(register) {
         this.$refs['register'].validate((valid) => {
@@ -234,43 +269,43 @@ a:hover {
   color: coral;
 }
 .el-button {
-  width: 80%;
+  width: 100%;
   // margin-left: -50px;
 }
 .second_con{
   width: 100%;
 }
 .second_con .filed{
-  position: relative;
-  right: 40px;
+  // position: relative;
+  // right: 40px;
 }
 .region_con{
   width: 100%;
   height: 40px;
   margin-bottom: 22px;
-  position: relative;
-  right: 40px;
+  // position: relative;
+  // right: 40px;
 }
 .region_con .filed{
   width: 80%;
-  // float: right;
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
+  // position: absolute;
+  // top: 0;
+  // right: 0;
 }
 .region{
-  width:40%;
+  width:20%;
   position: absolute;
   z-index: 999;
 }
 .code_con{
   width: 100%;
   height: 40px;
-  position: relative;
-  right: 40px;
+  // position: relative;
+  // right: 40px;
 }
 .code{
-  width: 70%;
+  width: 50%;
   float: left;
 }
 .code_btn{
@@ -281,8 +316,9 @@ a:hover {
    width: 100%;
 }
 .remember_pass{
-  width: 50%;
+  width: 100%;
   float: left;
+  z-index: 999;
 }
 // .re_pass .findpass{
 //   width: 50%;
@@ -304,5 +340,8 @@ a:hover {
 .harftab .el-tabs__item{
   width:100% !important;
   text-align:center !important;
+}
+.second_con .el-form-item__content{
+    margin-left:0 !important;
 }
 </style>
