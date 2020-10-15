@@ -15,16 +15,48 @@
               <el-input type="password" v-model="user.checkPass" autocomplete="off"></el-input>
             </el-form-item>
             <el-checkbox v-model="checked" @change = "changeRadio">记住密码</el-checkbox>
-            <router-link to="/" class="findpass">忘记密码</router-link>
             <el-form-item>
               <el-button type="primary" icon="el-icon-upload" @click="doLogin('user')">登 录</el-button>
             </el-form-item>
-            <router-link to="/registered" class="findpass">注册账号</router-link>
+            <router-link to="/registered" class="register">注册账号</router-link>
+            <router-link to="/" class="fogetpass">忘记密码</router-link>
           </el-form>
         </el-row>
-      
     </el-tab-pane>
-    <el-tab-pane label="手机号登录" name="second">手机号登录</el-tab-pane>
+    <el-tab-pane label="手机号登录" name="second">
+      <el-row type="flex" justify="center">
+          <el-form ref="iphone" :model="iphone" :rules="phoneRules" status-icon label-width="80px" class="second_con">
+            <div class="region_con">
+                <!-- 手机区号+用户名 -->
+                <el-form-item label="" prop="region" class="region">
+                  <el-select v-model="iphone.region" placeholder="请选择活动区域" @change="changeRegion">
+                    <el-option label="+86" value="86"></el-option>
+                    <!-- <el-option label="区域二" value="beijing"></el-option> -->
+                  </el-select>
+                </el-form-item>
+                <el-form-item  class="filed" prop="phoneNum" label="">
+                  <el-input v-model="iphone.phoneNum" placeholder="11位手机号" prefix-icon></el-input>
+                </el-form-item>
+            </div>
+            <!-- 获取验证码 -->
+            <div class="code_con">
+              <el-form-item class="filed code" prop="code" label="">
+                <el-input v-model="iphone.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-button type="primary" class="code_btn">获取验证码</el-button>
+            </div>
+            <div class="re_pass">
+              <el-checkbox class="remember_pass" v-model="checked" @change = "changeRadio">记住密码</el-checkbox>
+              <!-- <router-link to="/" class="findpass">忘记密码</router-link> -->
+            </div>
+            <el-form-item>
+              <el-button type="primary" icon="el-icon-upload" @click="doLogin('iphone')">登 录</el-button>
+            </el-form-item>
+            <router-link to="/registered" class="register">注册账号</router-link>
+            <router-link to="/" class="fogetpass">忘记密码</router-link>
+          </el-form>
+        </el-row>
+    </el-tab-pane>
   </el-tabs>  
   </div>
   </div>
@@ -36,6 +68,7 @@ import { mapState } from "vuex";
 export default {
   name: "login",
   data() {
+    //用户名登录
     var validateName = (rule, value, callback) => {
       let reg = /^1[3456789]\d{9}$/
         if (value == "") {
@@ -65,12 +98,27 @@ export default {
           callback();
         }
       };
+      //手机号登录
+      var phoneNumber = (rule, value, callback) => {
+      let reg = /^1[3456789]\d{9}$/
+        if (value == "") {
+          return callback(new Error('手机号不能为空'));
+        } else if(new RegExp(reg).test(value) == false){
+          return callback(new Error('手机号格式错误'));
+        }
+      };
     return {
       user: {
         username: "",
         password: "",
         checkPass:"",
       },
+      iphone:{
+        region:"+86",
+        phoneNum:"",
+        code:""
+      },
+      // 用户名登录规则
       rules: {
         username: [
           { validator: validateName, trigger: 'blur' }
@@ -82,17 +130,28 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
+      // 手机号登录规则
+      phoneRules:{
+        phoneNum:[
+          { validator: phoneNumber, trigger: 'blur' }
+        ]
+      },
       activeName: 'first',
       checked: false  
     };
   },
   created() {},
   methods: {
+    //选择手机区号
+    changeRegion(value){
+      console.log(value)
+    },
+    //是否记住密码
     changeRadio(){
       console.log(this.checked)
     },
     handleClick(tab, event) {
-        console.log(tab, event);
+        console.log(tab.name);
     },
       doLogin(user) {
         this.$refs['user'].validate((valid) => {
@@ -152,20 +211,23 @@ export default {
 }
 .login-wrap {
   width: 100%;
-  height:100%;
+  height:700px;
   // background: url("../assets/images/login_bg.png") no-repeat;
   background-size: cover;
+  position:relative;
+  top:200px;
   width: 400px;
   // height: 300px;
   margin: auto;
   overflow: hidden;
   padding-top: 10px;
   line-height: 40px;
+  z-index:999;
 }
 .filed{
   margin-bottom:22px;
 }
-.findpass{
+.register{
   float:right;
 }
 h3 {
@@ -188,7 +250,57 @@ a:hover {
   width: 80%;
   // margin-left: -50px;
 }
-
+.second_con{
+  width: 100%;
+}
+.region_con{
+  width: 100%;
+  height: 40px;
+  margin-bottom: 22px;
+  position: relative;
+  right: 40px;
+}
+.region_con .filed{
+  width: 80%;
+  // float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.region{
+  width:40%;
+  position: absolute;
+  z-index: 999;
+}
+.code_con{
+  width: 100%;
+  height: 40px;
+  position: relative;
+  right: 40px;
+}
+.code{
+  width: 70%;
+  float: left;
+}
+.code_btn{
+  width: 30%;
+  float: right;
+}
+.re_pass{
+   width: 100%;
+}
+.remember_pass{
+  width: 50%;
+  float: left;
+}
+// .re_pass .findpass{
+//   width: 50%;
+//   float: right;
+//   z-index: 999;
+// }
+.fogetpass{
+  float: left;
+}
 </style>
 <style>
 .harftab .el-tabs__item{
