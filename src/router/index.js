@@ -6,11 +6,12 @@ const Resetpass = import('../page/resetpass/resetpass.vue');
 const Home = import('../page/home/home.vue');
 const Leagepoints = import('../page/leagepoints/leagepoints.vue');
 const Live = import('../components/live/live');
+const Livedel = import('../components/live/livedel.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
 Router.prototype.push = function push(location) {
-   return originalPush.call(this, location).catch(err => err)
+  return originalPush.call(this, location).catch(err => err)
 }
 Vue.use(Router)
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/live',
       name: 'Live',
       component: () => Live
+    },
+    {
+      path: '/livedel',
+      name: 'Livedel',
+      component: () => Livedel
     },
     {
       path: '/login',
