@@ -200,35 +200,59 @@ export default {
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
+      },
+      doLogin() {
+        this.$api.login.useLogin({
+            key:'8f3e51cd2e461ab4f858ab48d8b5c027',
+            page:2,
+            pagesize:10,
+            sort:'asc',
+            time:1418745237
+          }).then(res => {
+              console.log(res);
+              // if (res.data.code == 1) {                             
+              //     this.$Message.info(res.data.msg);
+              // } else if (res.data.code == 0) {
+              //     //is_first:0非首次，1是首次 跳转修改密码
+              //         // console.log(res.data.params.is_first);
+              //         if(res.data.params.is_first){
+              //             localStorage.setItem("token", res.data.params.token);
+              //             localStorage.setItem("userName", this.user.username);
+              //             this.$router.push("/changepwd");
+              //         }else{
+              //             // 登陆存储
+              //             localStorage.setItem("token", res.data.params.token);
+              //             localStorage.setItem("userName", this.user.username);
+              //             //登录成功提示信息
+              //             this.$Message.info(res.data.msg);   
+              //             this.$router.push("/");                                 
+              //         }                               
+              // } else if (res.data.code == -1) {
+              //     this.$Message.info(res.data.msg); 
+              //     localStorage.removeItem("token");
+              //     this.$router.push("/login")        
+              // }
+          })
+          .catch(error => {
+            this.$Message.info("账号或密码错误");
+          })
       }
-    
-    // doLogin() {
-    //   if (!this.user.username) {
-    //     this.$message.error("请输入用户名！");
-    //     return;
-    //   } else if (!this.user.password) {
-    //     this.$message.error("请输入密码！");
-    //     return;
-    //   } else {
-    //     //校验用户名和密码是否正确;
-    //     // this.$router.push({ path: "/personal" });
-    //     axios
-    //       .post("/login/", {
-    //         name: this.user.username,
-    //         password: this.user.password
-    //       })
-    //       .then(res => {
-    //         // console.log("输出response.data.status", res.data.status);
-    //         if (res.data.status === 200) {
-    //           this.$router.push({ path: "/personal" });
-    //         } else {
-    //           alert("您输入的用户名或密码错误！");
-    //         }
-    //       });
-    //   }
-    // }
-    // }
   },
+  mounted(){
+    // this.$axios({
+    //   url:
+    //     this.JuheHOST +
+    //     "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
+    //   method: "get",
+    //   timeout: 3000
+    // })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+  }
   // computed: {
   //   ...mapState(["activityDetail"]),
   // },

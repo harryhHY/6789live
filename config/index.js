@@ -10,7 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      "/juhe_api": {
+        target: "http://v.juhe.cn",
+        pathRewrite: {
+          '^/juhe_api': ''
+        },
+        // 允许跨域
+        changeOrigin: true
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

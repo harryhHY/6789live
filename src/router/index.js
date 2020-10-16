@@ -4,6 +4,7 @@ const Login = import('../page/login/login.vue');
 const Registered = import('../page/registered/registered.vue');
 const Resetpass = import('../page/resetpass/resetpass.vue');
 const Home = import('../page/home/home.vue');
+const Leagepoints = import('../page/leagepoints/leagepoints.vue');
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/resetpass',
       name: 'resetpass',
       component: () => Resetpass
-    }
+    },
+    {
+      path: '/leagepoints',
+      name: 'leagepoints',
+      component: () => Leagepoints
+    },
   ]
 })
