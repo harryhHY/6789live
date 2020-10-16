@@ -15,6 +15,7 @@
           v-for="(item, key, index) in title_data"
           :key="index + item.index"
           :index="item.index"
+          @click="gotosm(item.src)"
         >
           <i :class="item.icon"></i>{{ item.title }}</el-menu-item
         >
@@ -46,31 +47,40 @@ export default {
           icon: "el-icon-house",
           index: "1",
           title: "首页",
+          src: "/",
         },
         {
           index: "2",
           title: "直播",
+          src: "/live",
         },
         {
           index: "3",
           title: "新闻",
+          src: "/new",
         },
         {
           index: "4",
           title: "社区",
+          src: "/community",
         },
       ],
     };
   },
+  props: ["headerKey"],
   methods: {
     gotosm(src) {
+      console.log(src);
       this.$router.push(src);
     },
     handleSelect(key, keyPath) {
       this.$emit("changetype", key);
     },
   },
-  created() {},
+  watch: {},
+  created() {
+    this.activeIndex2 = this.headerKey;
+  },
 };
 </script>
 

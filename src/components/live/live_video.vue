@@ -59,7 +59,7 @@ export default {
 
 <style lang="less" scoped>
 .live_video {
-  width: 20%;
+  width: 20.89%;
   border: 1px solid #2a88f3;
   .header {
     font-size: 16px;
