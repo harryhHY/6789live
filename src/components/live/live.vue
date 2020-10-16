@@ -1,6 +1,6 @@
 <template>
   <div id="live" class="cl">
-    <home_herder :headerKey='headerKey'></home_herder>
+    <home_herder :headerKey="headerKey"></home_herder>
     <livemenu @changetype="pve" />
     <div class="live_content left">
       <div class="header cl">
@@ -44,7 +44,7 @@
               v-for="(item, index) in livedata"
               :key="index"
               class="centerimg gamecontent"
-              @click="gotolive()"
+              @click="gotolive(item)"
             >
               <img :src="item.aicon" alt="" />
               {{ item.aname }} Vs {{ item.bname }}
@@ -169,12 +169,14 @@ export default {
         },
       ],
       check: 0,
-      headerKey:'2'
+      headerKey: "2",
     };
   },
   methods: {
     //跳转直播页面
-    gotolive() {
+    gotolive(e) {
+      // console.log(e);
+      this.$store.commit("liveList", e);
       this.$router.push("Livedel");
     },
     //查看所选日期直播

@@ -4,16 +4,16 @@ import createPersistedState from 'vuex-persistedstate'
 Vue.use(Vuex);
 
 const state = {
-  activityDetail: {},
+  liveList: '',
 };
 const mutations = {
   /**
-   * 活动页面跳转活动详情
+   * 跳转直播页面data
    * @param {str} state 
    * @return {str} data 
    */
-  activityDetail(state, data) {
-    state.activityDetail = data;
+  liveList(state, data) {
+    state.liveList = data;
   },
 };
 export default new Vuex.Store({
