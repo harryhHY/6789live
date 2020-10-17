@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "17540915",
+      "name": "新闻",
+      "font_class": "xinwen",
+      "unicode": "edbf",
+      "unicode_decimal": 60863
+    },
+    {
+      "icon_id": "17540917",
+      "name": "网络",
+      "font_class": "wangluo",
+      "unicode": "edc1",
+      "unicode_decimal": 60865
+    },
+    {
+      "icon_id": "17540918",
+      "name": "会员",
+      "font_class": "huiyuan",
+      "unicode": "edc2",
+      "unicode_decimal": 60866
+    }
+  ]
+}

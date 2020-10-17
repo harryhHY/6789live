@@ -6,11 +6,13 @@ import api from "./api"
 import store from '../static/store/index'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+// import less from 'less';
 // import './style/iconfont.css';
+import './assets/font/iconfont.css'
 Vue.use(ElementUI);
 
-import less from 'less';
-Vue.use(less);
+
+// Vue.use(less);
 Vue.prototype.JuheHOST = "/juhe_api"
 Vue.prototype.$api = api;
 Vue.prototype.$axios = Axios;

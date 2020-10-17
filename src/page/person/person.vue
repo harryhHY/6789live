@@ -1,8 +1,9 @@
 <template>
     <div>
         <!-- <publishEditor :editorParams = "editorDataPub" /> -->
-        <publishEditor />
-        <!-- <commonEditor /> -->
+        <!-- <publishEditor /> -->
+        <commonEditor />
+        <i class="iconfont icon-wangluo"></i>
     </div>
 </template>
 <script>
