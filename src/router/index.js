@@ -9,6 +9,7 @@ const Live = import('../components/live/live');
 const Livedel = import('../components/live/livedel.vue');
 const New = import('../page/news/news.vue');
 const Newdel = import('../page/news/newsdel.vue');
+const Person = import('../page/person/person.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -57,6 +58,11 @@ export default new Router({
       path: '/resetpass',
       name: 'resetpass',
       component: () => Resetpass
+    },
+    {
+      path: '/person',
+      name: 'person',
+      component: () => Person
     },
 
     //联赛数据废弃
