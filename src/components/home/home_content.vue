@@ -40,6 +40,7 @@
               v-for="(item, key, index) in footballdata"
               :key="item.id"
               class="live_div left"
+              @click="gotolive(item)"
             >
               <img :src="item.imgsrc" alt="" class="live_img" />
               <span class="live_title">{{ item.title }}</span>
@@ -85,6 +86,7 @@
               v-for="(item, key, index) in footballdata"
               :key="item.id"
               class="live_div left"
+              @click="gotolive(item)"
             >
               <img :src="item.imgsrc" alt="" class="live_img" />
               <span class="live_title">{{ item.title }}</span>
@@ -138,6 +140,7 @@
           v-for="(item, key, index) in livecontentdata"
           :key="item.id"
           class="cl centerimg livecontent_div"
+          @click="gotolive(item)"
         >
           <div class="left ateam">
             <img :src="item.aicon" alt="" />
@@ -352,6 +355,11 @@ export default {
     };
   },
   methods: {
+    gotolive(e) {
+      console.log(e)
+      this.$store.commit("liveList", e);
+      this.$router.push("Livedel");
+    },
     handleCommand(command) {
       console.log(command);
       let data = this.livemenu;
@@ -516,7 +524,7 @@ export default {
     border-bottom: none;
     color: #409eff;
   }
-  .livecontent_div{
+  .livecontent_div {
     border-bottom: 1px #666666 dotted;
     justify-content: center;
   }

@@ -8,6 +8,7 @@ const Home = import('../page/home/home.vue');
 const Live = import('../components/live/live');
 const Livedel = import('../components/live/livedel.vue');
 const New = import('../page/news/news.vue');
+const Newdel = import('../page/news/newsdel.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -31,6 +32,11 @@ export default new Router({
       path: '/new',
       name: 'New',
       component: () => New
+    },
+    {
+      path: '/newdel',
+      name: 'Newdel',
+      component: () => Newdel
     },
     {
       path: '/livedel',

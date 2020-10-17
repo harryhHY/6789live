@@ -51,7 +51,9 @@ export default {
   },
   methods: {
     gotovideo(id) {
-        console.log(id)
+      this.$router.push("/newdel");
+      this.$store.commit("newsList", id);
+      console.log(id);
     },
   },
 };

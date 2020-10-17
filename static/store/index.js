@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 const state = {
   liveList: '',
+  newsList:'',
 };
 const mutations = {
   /**
@@ -15,6 +16,9 @@ const mutations = {
   liveList(state, data) {
     state.liveList = data;
   },
+  newsList(state,data){
+    state.newsList = data
+  }
 };
 export default new Vuex.Store({
   state,

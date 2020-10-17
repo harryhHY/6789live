@@ -31,6 +31,7 @@
           class="news_content cl"
           v-for="(item, index) in newsdata"
           :key="index"
+          @click="gotonewsdel(item)"
         >
           <div class="left img_div">
             <img :src="item.imgsrc" alt="" class="news_img" />
@@ -47,12 +48,26 @@
         </div>
       </div>
     </div>
+    <div>
+      <div class="block">
+        <el-carousel height="150px">
+          <el-carousel-item v-for="(item, index) in swpList" :key="index">
+            <div class="swp">
+              <img :src="item.imgsrc" alt="" />
+              <div class="newstitle">{{ item.newstitle }}</div>
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <newslive></newslive>
+    </div>
   </div>
 </template>
 
 <script>
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
+const newslive = () => import("../../components/new/newslive");
 export default {
   data() {
     return {
@@ -116,9 +131,37 @@ export default {
           time: "10.20",
         },
       ],
+      swpList: [
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+      ],
     };
   },
   methods: {
+    gotonewsdel(e) {
+      this.$router.push({
+        path: "/newdel",
+      });
+      this.$store.commit("newsList", e);
+    },
     sousuo() {
       console.log(this.searchmsg);
     },
@@ -131,6 +174,7 @@ export default {
   components: {
     livemenu,
     home_herder,
+    newslive,
   },
 };
 </script>
@@ -189,8 +233,46 @@ export default {
     border: 1px solid #2a3783;
     padding: 5px 10px;
   }
-  .newstime{
-      margin-left: 50px;
+  .newstime {
+    margin-left: 50px;
+  }
+}
+.el-carousel__item h3 {
+  color: #475669;
+  font-size: 14px;
+  opacity: 0.75;
+  line-height: 150px;
+  margin: 0;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
+.newslive {
+  width: 18%;
+  padding: 20px;
+}
+.swp {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  .newstitle {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 0 10px;
   }
 }
 </style>
