@@ -1,9 +1,11 @@
 <template>
   <div class="home">
+    <input class="articletitle" type="text" placeholder="请输入标题(最多35个字)" v-model="articletitle">
+    <hr>
     <div id="editor"></div>
-    <button type="button" class="btn" @click="getEditorData">获取当前内容</button>
+    <!-- <button type="button" class="btn" @click="getEditorData">获取当前内容</button>
     <h3>内容预览</h3>
-    <div class="webviewtext" v-html='editorData'></div>
+    <div class="webviewtext" v-html='editorData'></div> -->
   </div>
 </template>
 
@@ -15,9 +17,9 @@ import wangEditor from 'wangeditor'
 export default {
   data() {
     return {
+      articletitle:"",
       editor: null,
       editorData: '',
-      bold:""
     }
   },
   props:{
@@ -36,7 +38,8 @@ export default {
                 splitLine:"splitLine",
                 undo:"undo",
                 redo:"redo",
-                isNoPaste:false
+                isNoPaste:false,
+                height:200
               }
           }
       }
@@ -49,7 +52,7 @@ export default {
        this.editorData = newHtml
     }
     //配置编辑器高度
-    editor.config.height = 100
+    editor.config.height = this.editorParams.height;
     //默认提示语
     editor.config.placeholder = '请发表讲话3'
 
@@ -169,12 +172,17 @@ export default {
 
 <style lang="less">
   #editor{
-    width:500px;
+    width:100%;
   }
   .home {
-    width: 500px;
+    width: 100%;
     margin: auto;
     position: relative;
+    .articletitle{
+      width: 100%;
+      padding: 1px 2px;
+      border: none;
+    }
     .btn {
       float: right;
       padding: 5px 10px;

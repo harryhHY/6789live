@@ -10,6 +10,11 @@ const Livedel = import('../components/live/livedel.vue');
 const New = import('../page/news/news.vue');
 const Newdel = import('../page/news/newsdel.vue');
 const Person = import('../page/person/person.vue');
+const Homeperson = import('../page/person/subperson/homeperson.vue');
+const Article = import('../page/person/subperson/article.vue');
+const Attention = import('../page/person/subperson/attention.vue');
+const Fans = import('../page/person/subperson/fans.vue');
+
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -62,7 +67,26 @@ export default new Router({
     {
       path: '/person',
       name: 'person',
-      component: () => Person
+      redirect:"/person/homeperson",
+      component: () => Person,
+      children:[
+        {
+          path:"homeperson",
+          component: () => Homeperson,
+        },
+        {
+          path:"article",
+          component: () => Article,
+        },
+        {
+          path:"attention",
+          component: () => Attention,
+        },
+        {
+          path:"fans",
+          component: () => Fans,
+        },
+      ]
     },
 
     //联赛数据废弃
