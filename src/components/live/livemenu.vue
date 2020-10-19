@@ -4,7 +4,7 @@
       <div class="my_attention">
         <div class="my_attention_header cl">
           <span class="left">我的关注</span>
-          <span class="rigth setting_attention">
+          <span class="rigth setting_attention" @click="gotoattention()">
             <i class="el-icon-setting"></i>
           </span>
         </div>
@@ -124,6 +124,11 @@ export default {
     };
   },
   methods: {
+    gotoattention(){
+      this.$router.push(
+        '/person/attention'
+      )
+    },
     changetype(id) {
       this.$emit("changetype", id);
     },

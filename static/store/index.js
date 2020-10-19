@@ -5,18 +5,33 @@ Vue.use(Vuex);
 
 const state = {
   liveList: '',
-  newsList:'',
+  newsList: '',
+  token: '111'
 };
 const mutations = {
   /**
    * 跳转直播页面data
-   * @param {str} state 
-   * @return {str} data 
+   * @param {obj} state 
+   * @return {obj} data 
    */
   liveList(state, data) {
     state.liveList = data;
   },
-  newsList(state,data){
+  /**
+   * 登录获取的token
+   * @param {str} state 
+   * @param {str} data 
+   * @return {str} data
+   */
+  token(state, data) {
+    state.token = data;
+  },
+  /**
+   * 跳转新闻详情页面
+   * @param {obj} state 
+   * @param {obj} data 
+   */
+  newsList(state, data) {
     state.newsList = data
   }
 };

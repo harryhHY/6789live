@@ -21,9 +21,8 @@
         >
       </el-menu>
     </div>
-    <div class="login_div">
-      <button v-if="!token" class="loginbtn">登陆</button>
-      <div v-if="token">{{ namely }}</div>
+    <div v-if="!token" class="login_div">
+      <button class="loginbtn cu" @click="gotosm('/login')">登陆</button>
       <div class="span_div">
         <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
           >还没注册？</span
@@ -33,14 +32,29 @@
         >
       </div>
     </div>
+    <div v-if="token" class="left istokendiv" >
+      <div class="cl centerimg token_div">
+        <div class="left">
+          <el-dropdown @command="gotosm">
+            <span class="el-dropdown-link cu">
+              {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-for="(item,index) in menuitem" :key="index"  :command='item.src'>{{item.title}}</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div class="exit left cu" @click="exit()">退出</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
-      token: false,
       activeIndex2: "1",
       title_data: [
         {
@@ -65,17 +79,41 @@ export default {
           src: "/community",
         },
       ],
+      namely: "一切都是为了活着",
+      menuitem:[
+        {
+          title:'账号设置',
+          src:'/settings',
+        },
+        {
+          title:'我的主页',
+          src:'/person',
+        },
+        {
+          title:'帮助',
+          src:'',
+        },
+
+      ]
     };
   },
   props: ["headerKey"],
   methods: {
+    exit() {
+      this.$store.commit("token", '');
+    },
+    gptoperson(e){
+      console.log(e)
+    },
     gotosm(src) {
-      console.log(src);
       this.$router.push(src);
     },
     handleSelect(key, keyPath) {
       this.$emit("changetype", key);
     },
+  },
+  computed: {
+    ...mapState(["token"]),
   },
   watch: {},
   created() {
@@ -85,6 +123,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.istokendiv{
+  height: 85px;
+  display: flex;
+  align-items: center;
+}
 #home_header {
   width: 100%;
   border-bottom: 1px solid #666666;
@@ -135,5 +178,14 @@ export default {
   .logon_span:hover {
     cursor: pointer;
   }
+}
+.exit {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #999999;
+  margin-left: 20px;
+}
+.token_div{
+
 }
 </style>

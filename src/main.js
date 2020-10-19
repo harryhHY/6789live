@@ -11,6 +11,8 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/font/iconfont.css'
 Vue.use(ElementUI);
 
+import _ from 'lodash'
+Vue.prototype._ = _
 
 // Vue.use(less);
 Vue.prototype.JuheHOST = "/juhe_api"

@@ -190,6 +190,7 @@ export default {
       width: 300px;
       height: 40px;
       border-radius: 5px;
+      padding-left: 10px;
     }
     .sousuo {
       cursor: pointer;

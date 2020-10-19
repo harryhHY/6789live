@@ -356,7 +356,7 @@ export default {
   },
   methods: {
     gotolive(e) {
-      console.log(e)
+      console.log(e);
       this.$store.commit("liveList", e);
       this.$router.push("Livedel");
     },
@@ -378,6 +378,9 @@ export default {
         }
       }
     },
+    // qiqi:this._.debounce(()=>{
+    //   this.changetodaymenu()
+    // },2000),
     initialization() {
       let data = this.livemenu;
       this.elmenu = data[0].title;
