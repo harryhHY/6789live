@@ -9,13 +9,13 @@
             type="text"
             placeholder="搜话题、用户、新闻"
             v-model="searchmsg"
-            v-on:keyup.enter="sousuo()"
+            v-on:keyup.enter="serach(searchmsg)"
           />
           <img
             src="../../image/sousuo.png"
             alt=""
             class="sousuo"
-            @click="sousuo()"
+            @click="serach(searchmsg)"
           />
         </div>
         <div class="cl news_header">
@@ -162,7 +162,8 @@ export default {
       });
       this.$store.commit("newsList", e);
     },
-    sousuo() {
+    serach(msg) {
+      this.searchmsg= this.$inHTMLData(msg)
       console.log(this.searchmsg);
     },
   },

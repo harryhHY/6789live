@@ -219,7 +219,8 @@ export default {
       this.title = data;
     },
     serach(msg) {
-      console.log(msg);
+      this.serachMsg = this.$inHTMLData(msg)
+      console.log(this.serachMsg);
     },
   },
   components: {

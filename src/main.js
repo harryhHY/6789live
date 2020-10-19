@@ -14,6 +14,13 @@ Vue.use(ElementUI);
 import _ from 'lodash'
 Vue.prototype._ = _
 
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
+import { inHTMLData,uriInUnQuotedAttr } from "xss-filters-es6";
+const xssFilters = require('xss-filters');
+Vue.prototype.$inHTMLData = inHTMLData;
+
 // Vue.use(less);
 Vue.prototype.JuheHOST = "/juhe_api"
 Vue.prototype.$api = api;

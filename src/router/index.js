@@ -16,6 +16,7 @@ const Attention = import('../page/person/subperson/attention.vue');
 const Fans = import('../page/person/subperson/fans.vue');
 const Settings = import('../page/Settings/Setting.vue');
 const Community = import('../page/community/community.vue');
+const Analysis = import('../page/analysis/analysis.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -54,6 +55,11 @@ export default new Router({
       path: '/livedel',
       name: 'Livedel',
       component: () => Livedel
+    },
+    {
+      path: '/analysis',
+      name: 'Analysis',
+      component: () => Analysis
     },
     {
       path: '/login',

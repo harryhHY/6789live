@@ -13,6 +13,7 @@
     "async": "^3.2.0",
     "axios": "^0.20.0",
     "dplayer": "^1.26.0",
+    "echarts": "^4.9.0",
     "element-ui": "^2.13.2",
     "hls.js": "^0.14.15",
     "lodash": "^4.17.20",
@@ -20,7 +21,9 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.5.1",
     "vuex-persistedstate": "^4.0.0-beta.1",
-    "wangeditor": "^4.0.3"
+    "wangeditor": "^4.0.3",
+    "xss-filters": "^1.2.7",
+    "xss-filters-es6": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

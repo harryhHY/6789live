@@ -16,6 +16,14 @@
       </div>
       <div>
         <div class="looktoday" @click="gotolive()">【点击观看今日直播】</div>
+        <div>
+          <div>
+
+          </div>
+          <div>
+            
+          </div>
+        </div>
       </div>
     </div>
     <liveVideo />
