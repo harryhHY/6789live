@@ -14,6 +14,7 @@ const Homeperson = import('../page/person/subperson/homeperson.vue');
 const Article = import('../page/person/subperson/article.vue');
 const Attention = import('../page/person/subperson/attention.vue');
 const Fans = import('../page/person/subperson/fans.vue');
+const Settings = import('../page/Settings/Setting.vue');
 
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
@@ -63,6 +64,11 @@ export default new Router({
       path: '/resetpass',
       name: 'resetpass',
       component: () => Resetpass
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => Settings
     },
     {
       path: '/person',
