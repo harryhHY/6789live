@@ -15,7 +15,7 @@ const Article = import('../page/person/subperson/article.vue');
 const Attention = import('../page/person/subperson/attention.vue');
 const Fans = import('../page/person/subperson/fans.vue');
 const Settings = import('../page/Settings/Setting.vue');
-
+const Community = import('../page/community/community.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -39,6 +39,11 @@ export default new Router({
       path: '/new',
       name: 'New',
       component: () => New
+    },
+    {
+      path: '/community',
+      name: 'Community',
+      component: () => Community
     },
     {
       path: '/newdel',
