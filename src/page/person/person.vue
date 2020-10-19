@@ -102,6 +102,7 @@ export default {
     width: 80%;
     float: left;
     margin-left: 1%;
+    margin-top: 1%;
 }
 .person_board{
     padding: 20px 0;

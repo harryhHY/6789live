@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <input class="articletitle" type="text" placeholder="请输入标题(最多35个字)" v-model="articletitle">
+    <input class="articletitle" type="text" maxlength="5" placeholder="请输入标题(最多5个字)" v-model="articletitle">
     <hr>
     <div id="editor"></div>
     <!-- <button type="button" class="btn" @click="getEditorData">获取当前内容</button>

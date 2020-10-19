@@ -15,16 +15,18 @@
                 <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
             </span>
         </el-dialog>
-        
+        <personarticlelist />
     </div>
 </template>
 <script>
 import wangEditor from 'wangeditor'
 const publishEditor = () => import("@/components/editor/editor");
+const personarticlelist = () => import("./personarticlelist");
 export default {
     name:"",
     components:{
-        publishEditor
+        publishEditor,
+        personarticlelist
     },
     data(){
         return{
