@@ -1,72 +1,100 @@
 <template>
   <div class="login" clearfix>
   <div class="login-wrap">
+    <el-dialog
+    class="dialog_box"
+    title=""
+    :visible="centerDialogVisible"
+    width="100%"
+    center
+    :before-close="handleClose">
+    <p class="line_top"></p>
+    <p class="line_bottom"></p>
+  <p class="title">6789专注于为您提供体育赛事直播与互动交流平台</p>
   <el-tabs class="harftab" v-model="activeName" @tab-click="handleClick">
     <el-tab-pane  label="账号密码登录" name="first">
         <el-row type="flex" justify="center">
           <el-form ref="user" :model="user" :rules="rules" status-icon label-width="80px">
-            <el-form-item  class="filed" prop="username" label="用户名">
-              <el-input v-model="user.username" placeholder="账户/手机号/邮箱" prefix-icon></el-input>
+            <el-form-item  class="filed" prop="username" label="">
+              <img class="username" :src="imgs.user" alt="">
+              <el-input v-model="user.username" placeholder="请输入账户/手机号/邮箱" prefix-icon></el-input>
             </el-form-item>
-            <el-form-item class="filed" prop="password" label="密码">
+            <el-form-item class="filed" prop="password" label="">
+              <img class="password" :src="imgs.pass" alt="">
               <el-input v-model="user.password" show-password placeholder="请输入密码" autocomplete="off"></el-input>
             </el-form-item>
-            <el-form-item  class="filed" label="确认密码" prop="checkPass">
-              <el-input type="password" v-model="user.checkPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-checkbox v-model="checked" @change = "changeRadio">记住密码</el-checkbox>
+            <div class="auto_box">
+                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
+                <router-link to="/registered" class="register">注册账号</router-link>
+                <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
+            </div>
             <el-form-item>
-              <el-button type="primary" icon="el-icon-upload" @click="doLogin('user')">登 录</el-button>
+              <el-button type="primary" class="userlogin" @click="doLogin('user')">登 录</el-button>
             </el-form-item>
-            <router-link to="/registered" class="register">注册账号</router-link>
-            <router-link to="/resetpass" class="fogetpass">忘记密码</router-link>
           </el-form>
         </el-row>
+        
     </el-tab-pane>
     <el-tab-pane label="手机号登录" name="second">
       <el-row type="flex" justify="center">
           <el-form ref="iphone" :model="iphone" :rules="phoneRules" status-icon label-width="80px" class="second_con">
             <div class="region_con">
-                <!-- 手机区号+用户名 -->
-                <el-form-item label="" prop="region" class="region">
-                  <el-select v-model="iphone.region" placeholder="请选择活动区域" @change="changeRegion">
-                    <el-option label="+86" value="86"></el-option>
-                    <!-- <el-option label="区域二" value="beijing"></el-option> -->
-                  </el-select>
-                </el-form-item>
                 <el-form-item  class="filed" prop="phoneNum" label="">
-                  <el-input v-model="iphone.phoneNum" placeholder="11位手机号" prefix-icon></el-input>
+                  <img class="password" :src="imgs.phone" alt="">
+                  <el-input v-model="iphone.phoneNum" placeholder="请输入11位手机号" prefix-icon></el-input>
                 </el-form-item>
             </div>
             <!-- 获取验证码 -->
             <div class="code_con">
               <el-form-item class="filed code" prop="code" label="">
-                <el-input v-model="iphone.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
+                <img class="password" :src="imgs.code" alt="">
+                <el-input class="code" v-model="iphone.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
               </el-form-item>
               <el-button
                   class="code_btn"
                   type="primary"
                   @click="getVerify"
-                  style="width:175px;"
                   :disabled="disabled=!show"
               >
               <span v-show="show">获取验证码</span>
               <span v-show="!show" class="count">{{count}} s</span>
               </el-button>
             </div>
-            <div class="re_pass">
-              <el-checkbox class="remember_pass" v-model="checked" @change = "changeRadio">记住密码</el-checkbox>
-              <!-- <router-link to="/" class="findpass">忘记密码</router-link> -->
+            <div class="auto_box">
+                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
+                <router-link to="/registered" class="register">注册账号</router-link>
+                <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
             <el-form-item>
-              <el-button type="primary" icon="el-icon-upload" @click="doLogin('iphone')">登 录</el-button>
+              <el-button type="primary" class="userlogin" @click="doLogin('iphone')">登 录</el-button>
             </el-form-item>
-            <router-link to="/registered" class="register">注册账号</router-link>
-            <router-link to="/resetpass" class="fogetpass">忘记密码</router-link>
           </el-form>
         </el-row>
     </el-tab-pane>
-  </el-tabs>  
+  </el-tabs>
+  <div class="other-way-login">
+      <span class="line"></span>  
+      <span class="txt">其他登录方式</span>  
+      <span class="line"></span>  
+  </div>
+  <div class="other-way-img">
+      <div class="one">
+        <img :src="imgs.qq" alt="">
+      </div>
+      <div class="two"><img :src="imgs.wx" alt=""></div>
+      <div class="three"><img :src="imgs.wb" alt=""></div>
+  </div>
+  
+  <span slot="footer" class="dialog-footer">
+    <div class="other">
+        <span class="help">帮助<span class="italic_line">/</span></span>  
+        <span class="secret">隐私<span class="italic_line">/</span></span>  
+        <span class="rule">条款</span>
+    </div>
+    <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
+  </span>
+</el-dialog>
   </div>
   </div>
 </template>
@@ -117,6 +145,16 @@ export default {
         }
       };
     return {
+      imgs:{
+        qq:require("@/image/imgs/qq.png"),
+        wx:require("@/image/imgs/wx.png"),
+        wb:require("@/image/imgs/wb.png"),
+        pass:require("@/image/imgs/pass.png"),
+        phone:require("@/image/imgs/phone.png"),
+        user:require("@/image/imgs/user.png"),
+        code:require("@/image/imgs/code.png"),
+        login:require("@/image/imgs/login.png")
+      },
       user: {
         username: "",
         password: "",
@@ -145,8 +183,9 @@ export default {
           { validator: phoneNumber, trigger: 'blur' }
         ]
       },
+      centerDialogVisible:true,
       activeName: 'first',
-      checked: false,
+      checked: true,
       count:"",
       show: true,
       timer:null 
@@ -164,6 +203,9 @@ export default {
     },
     handleClick(tab, event) {
         console.log(tab.name);
+    },
+    handleClose(done) {
+      this.centerDialogVisible=false
     },
     //获取验证码倒计时
     getVerify() {
@@ -263,111 +305,233 @@ export default {
 .login {
   width: 100%;
   height:100%;
-  // height: 740px;
-  // background: url("../assets/images/bg1.png") no-repeat;
   background-size: cover;
   overflow: hidden;
 }
 .login-wrap {
-  width: 100%;
+  width: 25%;
   height:700px;
-  // background: url("../assets/images/login_bg.png") no-repeat;
   background-size: cover;
   position:relative;
-  top:200px;
-  width: 400px;
-  // height: 300px;
   margin: auto;
-  overflow: hidden;
-  padding-top: 10px;
-  line-height: 40px;
-  z-index:999;
 }
-.filed{
-  margin-bottom:22px;
-}
-.register{
-  float:right;
-}
-h3 {
-  color: #0babeab8;
-  font-size: 24px;
-}
-hr {
-  background-color: #444;
-  margin: 20px auto;
-}
-a {
-  text-decoration: none;
-  color: #aaa;
-  font-size: 15px;
-}
-a:hover {
-  color: coral;
-}
-.el-button {
+.title{
   width: 100%;
-  // margin-left: -50px;
-}
-.second_con{
-  width: 100%;
-}
-.region_con{
-  width: 100%;
-  height: 40px;
-  margin-bottom: 22px;
-  // position: relative;
-  // right: 40px;
-}
-.region_con .filed{
-  width: 80%;
-  float: right;
-  // position: absolute;
-  // top: 0;
-  // right: 0;
-}
-.region{
-  width:20%;
   position: absolute;
-  z-index: 999;
+  font-size: 16px;
+  color: #FFF;
+  text-align: center;
+  top: -45px;
+}
+.dialog_box{
+  position: relative;
+  border-radius: 10px;
+  width: 100%;
+  // height: 500px;
+  .line_top,.line_bottom{
+    width: 100%;
+    height: 5px;
+    background-color: #1A90FC;
+    position: absolute;
+  }
+  .line_top{
+    top: 0;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .line_bottom{
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  .harftab{
+    width: 100%;
+    .filed{
+      img{
+        width: 40px;
+        position: absolute;
+        top: 10px;
+        z-index: 999;
+      }
+    }
+  }
+}
+.register,.fogetpass{
+  color: #406380 !important;
+  float: right;
+}
+.auto_box{
+  padding: 10px 0;
+  font-size: 13px;
+}
+.userlogin{
+  margin: 20px 0 0;
+  width: 100%;
+  display: inline-block;
+  border-radius: 25px;
+  background: linear-gradient(to right,#00CBFE,#0894EC);
+}
+.userlogin:hover{
+  background: linear-gradient(to right,#17B0FF,#016DFF);
+}
+.autologin{
+  float: left;
+  color: #406380 !important;
+}
+.other-way-login {
+    height: 30px;
+    line-height: 30px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #bebebe;
+}
+.other-way-login .line {
+    display: inline-block;
+    width: 50px;
+    height: 1px;
+    border-top: 1px solid #bebebe;
+}
+.other-way-login .txt {
+    color: #bebebe;
+    vertical-align: middle;
+    margin: 0 10px;
+}
+.other-way-img{
+  width: 50%;
+  height: 42px;
+  margin: auto;
+  .one{
+    width: 42px;
+    height: 42px;
+    float: left;
+    cursor: pointer;
+  }
+  .two{
+    width: 42px;
+    height: 42px;
+    float: left;
+    margin-left: 18%;
+    cursor: pointer;
+  }
+  .three{
+    width: 42px;
+    height: 42px;
+    float: right;
+    cursor: pointer;
+  }
 }
 .code_con{
   width: 100%;
-  height: 40px;
-  // position: relative;
-  // right: 40px;
+  overflow: hidden;
+  .el-form-item{
+    width: 60% !important;
+  }
+  .code{
+    width: 100%;
+    float: left;
+  }
+  .code_btn{
+    width: 40% !important;
+    margin-bottom: 22px;
+    float: right;
+    border-radius: 25px;
+    color: #FD8758;
+    font-weight: 500;
+    background-color: #FFF;
+    border: 2px solid #FD8758;
+  }
 }
-.code{
+.other{
+  width: 60%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  color: #FFF;
+  text-align: center;
+  bottom: -44px;
+  .secret{
+    cursor: pointer;
+  }
+  .help{
+    float: left;
+    cursor: pointer;
+  }
+  .rule{
+    float: right;
+    cursor: pointer;
+  }
+  .italic_line{
+    margin-left: 35px;
+  }
+}
+/deep/.el-dialog__body{
+  padding: 0;
+}
+/deep/.el-tabs__nav{
   width: 50%;
-  float: left;
 }
-.code_btn{
-  width: 30%;
-  float: right;
+/deep/.el-tabs__item{
+  width:100%;
+  text-align:center;
+  font-size: 16px;
+  left: 5px;
+  font-weight: 500 !important;
 }
-.re_pass{
-   width: 100%;
+/deep/.el-dialog{
+  border-radius: 5px;
 }
-.remember_pass{
-  width: 100%;
-  float: left;
-  z-index: 999;
+.el-form{
+  width: 300px;
 }
-// .re_pass .findpass{
-//   width: 50%;
-//   float: right;
-//   z-index: 999;
-// }
-.fogetpass{
-  float: left;
+/deep/.el-form-item__content{
+  margin-left: 0 !important;
+  clear: both;
+}
+/deep/.el-checkbox__label{
+  font-size:13px
+}
+/deep/.el-input__inner{
+  border: none;
+  border-bottom:1px solid #CACACA;
+  border-radius: 0;
+  font-size: 12px;
+  width: 85%;
+  margin-left: 15%;
+  margin-top: 2px;
+}
+/deep/.el-tabs__active-bar{
+  // width: 185px !important;
+  color: #1A90FC;
+}
+/deep/.el-tabs__item.is-active{
+    color:#1A90FC;
+  }
+
+/deep/.el-tabs__active-bar{
+    background-color:#1A90FC;
+}
+/deep/.el-tabs__item{
+  color: #848484;
+}
+/deep/.el-dialog__headerbtn .el-dialog__close{
+  border: 1px solid;
+  border-radius: 50%;
+}
+/deep/.el-dialog__headerbtn .el-dialog__close:hover{
+  color:#000000;
+}
+/deep/.el-dialog__header{
+  padding-bottom: 20px;
 }
 </style>
 <style>
-.harftab .el-tabs__item{
-  width:100% !important;
-  text-align:center !important;
-}
 .second_con .el-form-item__content{
     margin-left:0 !important;
+}
+.code .el-input__inner{
+  margin-left: 25%;
+  width: 75%;
 }
 </style>
