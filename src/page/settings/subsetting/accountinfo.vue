@@ -4,41 +4,41 @@
           <div class="first_box">头像：</div>
           <div>
               <img src="" alt="">
-              <a href="#">更新</a>
+              <el-link type="primary">更新</el-link>
           </div>
       </div>
       <div class="info_box">
           <div class="first_box">昵称：</div>
           <div>
               <p>12345</p>
-              <a href="#">设置</a>
+              <el-link type="primary" @click="goSetinfo('changename')">设置</el-link>
           </div>
       </div>
       <div class="info_box">
           <div class="first_box">登录密码：</div>
           <div>
-              <a href="#">修改</a>
+              <el-link type="primary" @click="goSetinfo('changepass')">修改</el-link>
           </div>
       </div>
       <div class="info_box">
           <div class="first_box">绑定手机：</div>
           <div>
               <p>13XXXXXXXX25</p>
-              <a href="#">修改</a>
+              <el-link type="primary" @click="goSetinfo('changephone')">修改</el-link>
           </div>
       </div>
       <div class="info_box">
           <div class="first_box">邮箱认证：</div>
           <div>
               <p>未认证</p>
-              <a href="#">立即验证</a>
+              <el-link type="primary" @click="goSetinfo('changemail')">立即验证</el-link>
           </div>
       </div>
       <div class="info_box">
           <div class="first_box">身份认证：</div>
           <div>
               <p>未认证</p>
-              <a href="#">立即验证</a>
+              <el-link type="primary" @click="goSetinfo('authentication')">立即验证</el-link>
           </div>
       </div>
   </div>
@@ -51,6 +51,13 @@ export default {
         return{
 
         }
+    },
+    methods:{
+        goSetinfo(value){
+            this.$router.push({ name: 'in-ex-record', params: { tim:this.pushTimeArray }})
+            // this.$router.push("/setinfo/a")
+            this.$router.push({ name: 'setinfo', params: { compontentName:value }})
+        }
     }
 }   
 </script>
@@ -61,8 +68,8 @@ export default {
     height: 500px;
     .info_box{
         width: 100%;
-        height: 80px;
-        line-height: 80px;
+        height: 70px;
+        line-height: 59px;
         div{
             display: inline-block;
             float: left;

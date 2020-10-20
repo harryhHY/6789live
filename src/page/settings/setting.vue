@@ -6,9 +6,9 @@
                 <el-tab-pane label="基本资料" name="first"><basicdata /></el-tab-pane>
                 <el-tab-pane label="账号信息" name="second"><accountinfo /></el-tab-pane>
                 <el-tab-pane label="关注设置" name="third"><attentionset /></el-tab-pane>
-                <el-tab-pane label="隐私设置" name="fourth">隐私设置</el-tab-pane>
+                <el-tab-pane label="隐私设置" name="fourth"><privacyset /></el-tab-pane>
             </el-tabs>
-        </div>        
+        </div>       
   </div>
 </template>
 
@@ -17,13 +17,15 @@ const home_herder = () => import("../../components/home/home_herder");
 const basicdata = () => import("./subsetting/basicdata");
 const accountinfo = () => import("./subsetting/accountinfo");
 const attentionset = () => import("./subsetting/attentionset");
+const privacyset = () => import("./subsetting/privacyset");
 export default {
     name:"setting",
     components:{
         home_herder,
         basicdata,
         accountinfo,
-        attentionset
+        attentionset,
+        privacyset
     },
     data(){
         return{

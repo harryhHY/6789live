@@ -5,34 +5,35 @@
             :class="{active : active == item.name}" 
             @click="selected(item.name)">{{item.name}}</el-button>
         </el-row>
-        <div>
-            <p>足球</p>
-            <el-radio-group :id="id" v-model="footradio" @change="footHandler(id,footradio)">
-                <el-radio :label="1">选项一</el-radio>
-                <el-radio :label="2">选项二</el-radio>
-                <el-radio :label="3">选项三</el-radio>
-            </el-radio-group>
+       <div>
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="足球" prop="footradio">
+                    <el-checkbox-group v-model="ruleForm.footradio">
+                    <el-checkbox label="选项一" name="footradio"></el-checkbox>
+                    <el-checkbox label="选项二" name="footradio"></el-checkbox>
+                    <el-checkbox label="选项三" name="footradio"></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="篮球" prop="basradio">
+                    <el-checkbox-group v-model="ruleForm.basradio">
+                    <el-checkbox label="选项一" name="basradio"></el-checkbox>
+                    <el-checkbox label="选项二" name="basradio"></el-checkbox>
+                    <el-checkbox label="选项三" name="basradio"></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="其他" prop="otherradio">
+                    <el-checkbox-group v-model="ruleForm.otherradio">
+                    <el-checkbox label="选项一" name="otherradio"></el-checkbox>
+                    <el-checkbox label="选项二" name="otherradio"></el-checkbox>
+                    <el-checkbox label="选项三" name="otherradio"></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button @click="resetForm('ruleForm')">取消</el-button>
+                </el-form-item>
+            </el-form>
         </div>
-        <div>
-            <p>篮球</p>
-            <el-radio-group v-model="basradio">
-                <el-radio :label="4">选项一</el-radio>
-                <el-radio :label="5">选项二</el-radio>
-                <el-radio :label="6">选项三</el-radio>
-            </el-radio-group>
-        </div>
-        <div>
-            <p>综合</p>
-            <el-radio-group v-model="otherradio">
-                <el-radio :label="7">选项一</el-radio>
-                <el-radio :label="8">选项二</el-radio>
-                <el-radio :label="9">选项三</el-radio>
-            </el-radio-group>
-        </div>
-        <div></div>
-        <br>
-        <el-button type="primary" @click="confirm">修改</el-button>
-        <el-button  @click="cancel">修改</el-button>
   </div>
 </template>
 
@@ -53,24 +54,33 @@ export default {
                 }
             ],
             active:'直播',
-            footradio:1,
-            basradio:4,
-            otherradio:7,
-            id:5
+            ruleForm:{
+                footradio: [],
+                basradio:[],
+                otherradio:[]
+            },
+            rules:{
+
+            },
         }
     },
     methods: {
         selected(name){
             this.active = name;
         },
-        footHandler(id,value){
-            console.log(id,value);
+        submitForm(ruleForm) {
+            this.$refs[ruleForm].validate((valid) => {
+            if (valid) {
+                console.log(this.ruleForm.footradio);
+                alert('submit!');
+            } else {
+                console.log('error submit!!');
+                return false;
+            }
+            });
         },
-        confirm(){
-
-        },
-        cancel(){
-
+        resetForm(formName) {
+            this.$refs[formName].resetFields();
         }
     }
 }

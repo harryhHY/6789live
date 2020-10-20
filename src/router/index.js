@@ -15,6 +15,7 @@ const Article = import('../page/person/subperson/article.vue');
 const Attention = import('../page/person/subperson/attention.vue');
 const Fans = import('../page/person/subperson/fans.vue');
 const Settings = import('../page/Settings/Setting.vue');
+const Setinfo = import('../page/Settings/subsetinfo/setinfo.vue');
 const Community = import('../page/community/community.vue');
 const Analysis = import('../page/analysis/analysis.vue');
 const Exponent = import('../page/exponent/exponent.vue');
@@ -86,6 +87,11 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: () => Settings
+    },
+    {
+      path: '/setinfo',
+      name: 'setinfo',
+      component: () => Setinfo
     },
     {
       path: '/person',
