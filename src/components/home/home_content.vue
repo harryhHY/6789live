@@ -2,8 +2,13 @@
   <div class="home_content cl">
     <!-- 直播信息左半部分 -->
     <div class="cl homecontentleft left">
+      <div class="newsheader">
+        <img src="../../image/home_new.png" alt="" />
+        <div class="newstitle">新闻热点</div>
+        <div class="newstitle_en">NEWS HOTSPOT</div>
+      </div>
       <div class="swp left">
-        <el-carousel height="300px">
+        <el-carousel :interval="4000" type="card" height="300px">
           <el-carousel-item
             v-for="(item, key, index) in swiperdata"
             :key="key + item.id"
@@ -12,119 +17,125 @@
           </el-carousel-item>
         </el-carousel>
       </div>
+      <!-- 足球部分 -->
       <div class="foot_div left cl">
-        <div class="sort cl">
-          <div class="left">足球</div>
-          <div class="right">FOOTBALL</div>
-        </div>
-        <div class="cl">
-          <div class="football_class left">
-            <span
-              v-for="(item, key, index) in football"
-              :key="item.id"
-              class="foot_span"
-              @click="changtype(item.id, item.name)"
-              >{{ item.name }}</span
-            >
+        <div>
+          <div class="foot_divsort cl">
+            <img src="../../image/home_footer.png" alt="" />
+            <div class="foot_divsort_div">足球</div>
+            <div class="foot_divsort_div1">FOOTBALL</div>
           </div>
-          <div class="community right">
-            <div class="cl community_title_div">
-              <div class="community_title left">足球社区</div>
-              <div class="community_title2 right">更多</div>
+
+          <div class="cl footer_content">
+            <div class="cl footerheader">
+              <div class="football_class left">
+                <div
+                  v-for="(item, key, index) in football"
+                  :key="item.id"
+                  class="foot_span"
+                >
+                  <span @click="changtype(item.id, item.name)">{{
+                    item.name
+                  }}</span>
+                  <i>|</i>
+                </div>
+              </div>
+              <span class="cu right morespan">更多》</span>
             </div>
-          </div>
-        </div>
-        <div class="cl">
-          <div class="left livemsg cl">
-            <div
-              v-for="(item, key, index) in footballdata"
-              :key="item.id"
-              class="live_div left"
-              @click="gotolive(item)"
-            >
-              <img :src="item.imgsrc" alt="" class="live_img" />
-              <span class="live_title">{{ item.title }}</span>
+            <div class="livemsg cl">
+              <div
+                v-for="(item, key, index) in footballdata"
+                :key="item.id"
+                class="live_div left cu"
+                @click="gotolive(item)"
+              >
+                <img :src="item.imgsrc" alt="" class="live_img" />
+                <span class="live_title ov">{{ item.title }}</span>
+              </div>
             </div>
-          </div>
-          <div class="left communitymsg">
-            <div
-              v-for="(item, key, index) in foot_communitymsg"
-              :key="item.id"
-              class="communitymsg_div"
-            >
-              <span class="communitymsg_class">[{{ item.class }}]</span>
-              <span class="communitymsg_title">标题： {{ item.title }} </span>
+            <div class="communitymsg_header cl">
+              <div class="left footercomm">足球社区</div>
+              <div class="right cu">更多》</div>
+            </div>
+            <div class="communitymsg">
+              <div
+                v-for="(item, key, index) in foot_communitymsg"
+                :key="item.id"
+                class="communitymsg_div cl cu"
+              >
+                <div class="communitymsg_class left">{{ item.class }}</div>
+                <div class="communitymsg_title left">
+                  标题 ： {{ item.title }}
+                </div>
+                <div class="communitymsg_time right">
+                  {{ item.time }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <!-- 篮球 -->
       <div class="foot_div left">
-        <div class="sort cl">
-          <div class="left">篮球</div>
-          <div class="right">BASKETBALL</div>
+        <div class="foot_divsort cl">
+          <img src="../../image/home_bb.png" alt="" />
+          <div class="foot_divsort_div">篮球</div>
+          <div class="foot_divsort_div1">BASKETBALL</div>
         </div>
-        <div class="cl">
-          <div class="football_class left">
-            <span
-              v-for="(item, key, index) in baskeball"
-              :key="item.id"
-              class="foot_span"
-              @click="changtype1(item.id, item.name)"
-              >{{ item.name }}</span
-            >
-          </div>
-          <div class="community right">
-            <div class="cl community_title_div">
-              <div class="community_title left">足球社区</div>
-              <div class="community_title2 right">更多</div>
+
+        <div class="cl footer_content">
+          <div class="cl footerheader">
+            <div class="football_class left">
+              <div
+                v-for="(item, key, index) in baskeball"
+                :key="item.id"
+                class="foot_span"
+              >
+                <span @click="changtype(item.id, item.name)">{{
+                  item.name
+                }}</span>
+                <i>|</i>
+              </div>
             </div>
+            <span class="cu right morespan">更多》</span>
           </div>
-        </div>
-        <div class="cl">
-          <div class="left livemsg cl">
+          <div class="livemsg cl">
             <div
               v-for="(item, key, index) in footballdata"
               :key="item.id"
-              class="live_div left"
+              class="live_div left cu"
               @click="gotolive(item)"
             >
               <img :src="item.imgsrc" alt="" class="live_img" />
-              <span class="live_title">{{ item.title }}</span>
+              <span class="live_title ov">{{ item.title }}</span>
             </div>
           </div>
-          <div class="left communitymsg">
+          <div class="communitymsg_header cl">
+            <div class="left footercomm">篮球社区</div>
+            <div class="right cu">更多》</div>
+          </div>
+          <div class="communitymsg">
             <div
               v-for="(item, key, index) in foot_communitymsg"
               :key="item.id"
-              class="communitymsg_div"
+              class="communitymsg_div cl cu"
             >
-              <span class="communitymsg_class">[{{ item.class }}]</span>
-              <span class="communitymsg_title">标题： {{ item.title }} </span>
+              <div class="communitymsg_class left">{{ item.class }}</div>
+              <div class="communitymsg_title left">
+                标题 ： {{ item.title }}
+              </div>
+              <div class="communitymsg_time right">
+                {{ item.time }}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 直播信息右半部分 -->
-    <div class="homecontentright right">
+    <div class="homecontentright left">
       <div class="homecontentright_menu_div cl">
-        <div class="dropdown left">
-          <el-dropdown @command="handleCommand">
-            <span class="el-dropdown-link">
-              <i class=""></i>
-              {{ elmenu }}<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                v-for="(item, key, index) in livemenu"
-                :key="item.id"
-                :command="item.id"
-                >{{ item.title }}</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-        <div class="livestatus left cl">
+        <div class="livestatus cl">
           <div
             v-for="(item, key, index) in todaymenu"
             :key="item.id"
@@ -135,16 +146,48 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="livecotentleft">
         <div
           v-for="(item, key, index) in livecontentdata"
           :key="item.id"
-          class="cl centerimg livecontent_div"
+          class="cl livecontent_div"
           @click="gotolive(item)"
         >
-          <div class="left ateam">
-            <img :src="item.aicon" alt="" />
+          <div class="left livegametype_div">
+            <div class="livegametype">{{ item.gametype }}</div>
+            <div>{{ item.game }}</div>
+          </div>
+          <div class="cl leftcontent left">
+            <div class="left aname ov">
+              {{ item.aname }}
+            </div>
+            <div class="aicon left">
+              <img :src="item.aicon" alt="" />
+            </div>
+            <div class="ascore left">
+              {{ item.ascore }}
+            </div>
+          </div>
+
+          <div class="left time_div">
+            <div class="time">{{ item.time }}</div>
+            <div>{{ item.gamestate }}</div>
+          </div>
+          <div class="rightcontent left cl">
+            <div class="right ascore">
+              {{ item.bscore }}
+            </div>
+            <div class="aicon right">
+              <img :src="item.bicon" alt="" />
+            </div>
+            <div class="right aname ov">
+              {{ item.bname }}
+            </div>
+          </div>
+
+          <!-- <div class="left ateam">
             <div>{{ item.aname }}</div>
+            <img :src="item.aicon" alt="" />
           </div>
           <div class="left livetype">
             <div>直播</div>
@@ -155,7 +198,7 @@
           <div class="left ateam">
             <img :src="item.aicon" alt="" />
             <div>{{ item.bteam }}</div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -203,15 +246,31 @@ export default {
         },
         {
           id: 5,
-          name: "德甲",
+          name: "法甲",
         },
         {
           id: 6,
-          name: "国内",
+          name: "欧冠",
         },
         {
           id: 7,
-          name: "更多",
+          name: "欧联",
+        },
+        {
+          id: 8,
+          name: "英冠",
+        },
+        {
+          id: 9,
+          name: "澳超",
+        },
+        {
+          id: 10,
+          name: "俄超",
+        },
+        {
+          id: 11,
+          name: "国足",
         },
       ],
       baskeball: [
@@ -275,80 +334,103 @@ export default {
           id: 1,
           class: "中超版块",
           title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          time: "10/10",
         },
         {
           id: 2,
           class: "中超版块",
           title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          time: "10/10",
         },
         {
           id: 3,
           class: "中超版块",
           title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        },
-      ],
-      livemenu: [
-        {
-          id: 1,
-          title: "足球直播",
-        },
-        {
-          id: 2,
-          title: "篮球直播",
+          time: "10/10",
         },
       ],
       todaymenu: [
         {
           id: 1,
-          title: "今日",
+          title: "今日直播",
           clicktype: true,
         },
         {
           id: 2,
-          title: "完结",
+          title: "足球直播",
+          clicktype: false,
+        },
+        {
+          id: 3,
+          title: "已完结",
           clicktype: false,
         },
       ],
       livecontentdata: [
         {
           id: 1,
+          game: "日足联",
+          gametype: "足球",
           aname: "Ateam",
-          bteam: "Bteam",
-          aicon: require("../../image/logo.png"),
-          bicon: require("../../image/logo.png"),
+          bname: "Bteam",
+          aicon: require("../../image/team.jpg"),
+          bicon: require("../../image/team.jpg"),
           time: "10.20",
+          ascore: 1,
+          bscore: 2,
+          gamestate: "结束",
         },
         {
           id: 2,
+          game: "日足联",
+          gametype: "足球",
           aname: "Ateam",
-          bteam: "Bteam",
-          aicon: require("../../image/logo.png"),
-          bicon: require("../../image/logo.png"),
+          bname: "Bteam",
+          aicon: require("../../image/team.jpg"),
+          bicon: require("../../image/team.jpg"),
           time: "10.20",
+          ascore: 1,
+          bscore: 2,
+          gamestate: "结束",
         },
         {
           id: 3,
-          aname: "Ateam",
-          bteam: "Bteam",
-          aicon: require("../../image/logo.png"),
-          bicon: require("../../image/logo.png"),
+          game: "日足联",
+          gametype: "足球",
+          aname: "asdasdasdasdasdasdasdasdasdasdasdasdasdasd",
+          bname: "Bteam",
+          aicon: require("../../image/team.jpg"),
+          bicon: require("../../image/team.jpg"),
           time: "10.20",
+          ascore: 1,
+          bscore: 2,
+          gamestate: "结束",
         },
         {
           id: 4,
+          game: "日足联",
+          gametype: "足球",
           aname: "Ateam",
-          bteam: "Bteam",
-          aicon: require("../../image/logo.png"),
-          bicon: require("../../image/logo.png"),
+          bname: "Bteam",
+          aicon: require("../../image/team.jpg"),
+          bicon: require("../../image/team.jpg"),
           time: "10.20",
+          ascore: 1,
+          bscore: 2,
+          gamestate: "结束",
         },
         {
           id: 5,
+          game: "日足联",
+          gametype: "足球",
           aname: "Ateam",
-          bteam: "Bteam",
-          aicon: require("../../image/logo.png"),
-          bicon: require("../../image/logo.png"),
+          bname: "Bteam",
+          aicon: require("../../image/team.jpg"),
+          bicon: require("../../image/team.jpg"),
           time: "10.20",
+          ascore: 1,
+          bscore: 2,
+          gamestate: "结束",
         },
       ],
       elmenu: "",
@@ -382,8 +464,8 @@ export default {
     //   this.changetodaymenu()
     // },2000),
     initialization() {
-      let data = this.livemenu;
-      this.elmenu = data[0].title;
+      // let data = this.livemenu;
+      // this.elmenu = data[0].title;
     },
     changtype(id, name) {
       console.log(id, name);
@@ -399,10 +481,73 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.aname {
+  width: 50px;
+  font-size: 12px;
+}
+.rightcontent {
+  width: 25%;
+  display: flex;
+  align-items: center;
+}
+.leftcontent {
+  width: 25%;
+  display: flex;
+  align-items: center;
+}
+.aicon {
+  img {
+    width: 35px;
+    height: 35px;
+  }
+}
+.ascore {
+  font-size: 18px;
+  color: #014681;
+}
+.newsheader {
+  margin-top: 4px;
+  font-size: 22px;
+  position: relative;
+  color: #014681;
+  .newstitle {
+    position: absolute;
+    left: 53px;
+    top: 15px;
+  }
+  .newstitle_en {
+    font-size: 17px;
+    position: absolute;
+    left: 149px;
+    top: 23px;
+  }
+}
+.communitymsg_header {
+  font-size: 16px;
+  color: #a9a9a9;
+  margin: 10px 40px 10px 32px;
+  border-left: 5px solid #014681;
+}
+.footerheader {
+  margin: 10px 40px 10px 32px;
+  .football_class {
+    border-left: 5px solid #014681;
+  }
+  .football_class .foot_span:first-child {
+    margin-left: 10px;
+  }
+}
+.footercomm {
+  margin-left: 15px;
+  color: #1a90fc;
+}
 .swp {
   width: 93%;
   margin-left: 7%;
-  height: 500px;
+  height: 300px;
+  .is-active{
+    color: #1a90fc;
+  }
 }
 .el-carousel__item h3 {
   color: #475669;
@@ -423,31 +568,34 @@ export default {
   width: 100%;
 }
 .homecontentleft {
-  width: 75%;
+  width: 920px;
+  margin-left: 307px;
   .foot_div {
     width: 100%;
-    .sort {
-      color: #2945e4;
-      font-size: 18px;
-      font-weight: 600;
-      border-bottom: 3px #2945e4 solid;
-      padding: 10px 20px;
-    }
-    .football_class {
-      width: 50%;
-      margin: 10px 0;
-    }
-    .football_class .foot_span:first-child {
-      margin-left: 10px;
+    .foot_divsort {
+      color: #014681;
+      position: relative;
+      .foot_divsort_div {
+        font-size: 22px;
+        position: absolute;
+        left: 97px;
+        top: 15px;
+      }
+      .foot_divsort_div1 {
+        font-size: 17px;
+        position: absolute;
+        left: 149px;
+        top: 23px;
+      }
     }
     .foot_span {
-      width: 20px;
+      display: inline-block;
       height: 30px;
       line-height: 30px;
-      font-size: 17px;
+      font-size: 16px;
       border: 1px 0 1px 0 solid #2945e4;
       padding: 5px;
-      color: #2945e4;
+      color: #a9a9a9;
       cursor: pointer;
     }
     .community {
@@ -461,26 +609,48 @@ export default {
       }
     }
   }
+  .morespan {
+    color: #a9a9a9;
+    font-size: 16px;
+    line-height: 30px;
+  }
+  .footer_content {
+    padding: 16px 16px;
+    background-color: #fff;
+    border-radius: 15px;
+  }
   .livemsg,
   .communitymsg {
-    width: 50%;
+    font-size: 16px;
     color: #666666;
     .communitymsg_div {
+      margin-left: 45px;
       margin-top: 5px;
     }
+    .communitymsg_div:hover {
+      color: #1a90fc;
+    }
     .communitymsg_class {
-      padding-right: 10px;
+      border: 1px solid #b1b1b1;
+      display: inline-block;
+      padding: 5px;
     }
     .communitymsg_title {
+      display: inline-block;
       padding-left: 10px;
-      border-left: 1px solid #666666;
+      line-height: 33px;
+    }
+    .communitymsg_time {
+      margin-right: 54px;
     }
   }
   .live_div {
     width: 24%;
-    margin: 10px 0 0 1%;
+    margin: 20px 0 0 1%;
     .live_title {
       width: 100%;
+      font-size: 16px;
+      color: #848484;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
@@ -493,7 +663,8 @@ export default {
   }
 }
 .homecontentright {
-  width: 25%;
+  margin-top: 4px;
+  width: 380px;
   .homecontentright_menu_div {
     font-size: 20px;
     .dropdown {
@@ -510,26 +681,31 @@ export default {
       font-size: 20px;
     }
   }
-  .livestatus {
-    width: 50%;
+  .livecotentleft {
+    background-color: #fff;
+    border-radius: 0 15px 15px 15px;
+    padding: 10px 12px;
   }
   .todaymenu {
     cursor: pointer;
     display: inline-block;
-    width: 50%;
+    width: 33%;
     text-align: center;
-    background: #fff;
-    color: #666666;
-    border-bottom: 1px solid #666666;
+    font-size: 18px;
+    color: #014681;
   }
   .clicktype {
-    border-top: 1px solid #409eff;
-    border-bottom: none;
+    background: #fff;
+    border-top: 6px solid #409eff;
     color: #409eff;
+    border-radius: 10px 10px 0 0;
   }
   .livecontent_div {
-    border-bottom: 1px #666666 dotted;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    border-bottom: 1px #d2d2d2 solid;
+    padding: 10px 0;
   }
   .ateam {
     width: 33%;
@@ -540,10 +716,32 @@ export default {
       text-align: center;
     }
   }
+  .livegametype_div {
+    width: 15%;
+    margin-left: 5px;
+  }
+  .livegametype {
+    width: 38px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    font-size: 14px;
+    color: #ffffff;
+    background-image: url("../../image/liveclass.png");
+    background-size: 100%;
+  }
   .livetype {
     width: 33%;
     height: 100%;
     text-align: center;
   }
+}
+.time_div {
+  width: 10%;
+  text-align: center;
+  padding: 0 18px;
+}
+.time {
+  border-bottom: 1px solid #d2d2d2;
 }
 </style>

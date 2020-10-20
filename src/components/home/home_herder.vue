@@ -2,14 +2,26 @@
   <div id="home_header" class="cl">
     <h1 @click="gotosm('/')" class="logo left"></h1>
     <div class="menu left">
+      <!-- <div class="cl menu_title_div">
+        <div
+          v-for="(item, key, index) in title_data"
+          :key="index + item.index"
+          @click="gotosm(item.src)"
+          class="left menu_title"
+        >
+          <i> 
+            <img :src="item.icon" alt="" />
+          </i>
+          <span class="">{{ item.title }}</span>
+        </div>
+      </div> -->
       <el-menu
         :default-active="activeIndex2"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
-        background-color="#ffffff"
-        text-color="#000"
-        active-text-color="#2a88f3"
+        text-color="#ffffff"
+        active-text-color="#1a90fc"
       >
         <el-menu-item
           v-for="(item, key, index) in title_data"
@@ -17,22 +29,35 @@
           :index="item.index"
           @click="gotosm(item.src)"
         >
-          <i :class="item.icon"></i>{{ item.title }}</el-menu-item
-        >
+          <i>
+            <img
+              :src="item.index == activeIndex2 ? item.icon1 : item.icon"
+              alt=""
+            />
+          </i>
+          {{ item.title }}
+          <i class="fenlei">|</i>
+        </el-menu-item>
       </el-menu>
     </div>
-    <div v-if="!token" class="login_div">
-      <button class="loginbtn cu" @click="gotosm('/login')">登陆</button>
-      <div class="span_div">
+    <div v-if="!token" class="login_div left cl">
+      <div class="loginbtn left cu" @click="gotosm('/login')">
+        <img src="../../image/loginbtn.png" alt="" />
+      </div>
+      <div class="span_div left">
+        <span class="logon_span" v-if="!token" @click="gotosm('/registered')">
+          <i>
+            <img src="../../image/registeredicon.png" alt="" class="registeredicon" />
+          </i>
+          注册
+        </span>
+        <i class="fenlei1">|</i>
         <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
-          >还没注册？</span
-        >
-        <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
-          >|　忘记密码</span
+          >忘记密码</span
         >
       </div>
     </div>
-    <div v-if="token" class="left istokendiv" >
+    <div v-if="token" class="left istokendiv">
       <div class="cl centerimg token_div">
         <div class="left">
           <el-dropdown @command="gotosm">
@@ -40,11 +65,21 @@
               {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="(item,index) in menuitem" :key="index"  :command='item.src'>{{item.title}}</el-dropdown-item>
+              <el-dropdown-item
+                v-for="(item, index) in menuitem"
+                :key="index"
+                :command="item.src"
+                >{{ item.title }}</el-dropdown-item
+              >
             </el-dropdown-menu>
           </el-dropdown>
         </div>
-        <div class="exit left cu" @click="exit()">退出</div>
+        <div class="exit left cu" @click="exit()">
+          <i>
+            <img src="../../image/exiticon.png" alt="" />
+          </i>
+          退出
+        </div>
       </div>
     </div>
   </div>
@@ -58,52 +93,58 @@ export default {
       activeIndex2: "1",
       title_data: [
         {
-          icon: "el-icon-house",
+          icon: require("../../image/homeicon.png"),
+          icon1: require("../../image/homeicon1.png"),
           index: "1",
           title: "首页",
           src: "/",
         },
         {
+          icon: require("../../image/liveicon.png"),
+          icon1: require("../../image/liveicon1.png"),
           index: "2",
           title: "直播",
           src: "/live",
         },
         {
+          icon: require("../../image/newicon.png"),
+          icon1: require("../../image/newicon1.png"),
           index: "3",
           title: "新闻",
           src: "/new",
         },
         {
+          icon: require("../../image/communityicon.png"),
+          icon1: require("../../image/communityicon1.png"),
           index: "4",
           title: "社区",
           src: "/community",
         },
       ],
       namely: "一切都是为了活着",
-      menuitem:[
+      menuitem: [
         {
-          title:'账号设置',
-          src:'/settings',
+          title: "账号设置",
+          src: "/settings",
         },
         {
-          title:'我的主页',
-          src:'/person',
+          title: "我的主页",
+          src: "/person",
         },
         {
-          title:'帮助',
-          src:'',
+          title: "帮助",
+          src: "",
         },
-
-      ]
+      ],
     };
   },
   props: ["headerKey"],
   methods: {
     exit() {
-      this.$store.commit("token", '');
+      this.$store.commit("token", "");
     },
-    gptoperson(e){
-      console.log(e)
+    gptoperson(e) {
+      console.log(e);
     },
     gotosm(src) {
       this.$router.push(src);
@@ -123,20 +164,49 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.istokendiv{
+.fenlei1{
+  color: #ffffff;
+  margin: 0 10px;
+}
+.registeredicon{
+  margin-top: 3px;
+}
+.menu_title_div {
+  color: #ffffff;
+  font-size: 22px;
+  margin-top: 28px;
+  margin-left: 138px;
+  .menu_title {
+  }
+}
+.icon1 {
+  background-image: url("../../image/homeicon.png");
+  background-size: 100%;
+  width: 18px;
+  height: 17px;
+}
+#home_header {
+  background-image: url("../../image/header.png");
+  background-size: 100%;
+}
+.istokendiv {
+  margin-left: 330px;
   height: 85px;
   display: flex;
   align-items: center;
 }
 #home_header {
   width: 100%;
-  border-bottom: 1px solid #666666;
-  //   background-color: #f00;
+  .el-dropdown {
+    color: #1a90fc;
+  }
   .logo {
-    width: 15%;
-    height: 84px;
+    width: 212px;
+    height: 71px;
     background: url("../../image/logo.png") no-repeat;
     background-size: 100%;
+    margin-left: 349px;
+    margin-top: 4px;
     cursor: pointer;
     image {
       width: 100%;
@@ -145,47 +215,53 @@ export default {
   }
 
   .menu {
-    width: 65%;
+    .el-menu.el-menu--horizontal {
+      border: none;
+    }
     ul {
-      margin-top: 20px;
+      margin-left: 138px;
+      margin-top: 9px;
+      background-color: rgba(0, 0, 0, 0);
       .el-menu--horizontal {
         border: none;
       }
+      .el-menu-item {
+        padding: 0;
+        margin: 0 10px;
+      }
       .el-menu-item:hover {
-        background: #ffffff !important;
+        background-color: rgba(0, 0, 0, 0) !important;
       }
     }
   }
+  .fenlei {
+    color: #ffffff;
+    margin-left: 10px;
+  }
   .login_div {
+    margin-left: 250px;
+    margin-top: 26px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
   }
   .loginbtn {
-    color: #ffffff;
-    border: none;
-    font-size: 18px;
-    background-color: rgb(42, 136, 243);
-    padding: 15px 20px;
-    border-radius: 5px;
-    margin-left: 20px;
-    margin-top: (81px- 54px)/2;
   }
   .span_div {
     margin-left: 20px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
   }
   .logon_span {
-    color: #777777;
+    color: #ffffff;
   }
   .logon_span:hover {
     cursor: pointer;
   }
 }
 .exit {
+  color: #ffffff;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid #999999;
-  margin-left: 20px;
-}
-.token_div{
-
 }
 </style>
