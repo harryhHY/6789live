@@ -6,6 +6,7 @@
     <!-- <button type="button" class="btn" @click="getEditorData">获取当前内容</button>
     <h3>内容预览</h3>
     <div class="webviewtext" v-html='editorData'></div> -->
+    <p>{{getReplyInfo}}</p>
   </div>
 </template>
 
@@ -13,7 +14,7 @@
 
 // 引入 wangEditor
 import wangEditor from 'wangeditor'
-
+import {mapGetters,mapActions} from "vuex"
 export default {
   data() {
     return {
@@ -46,10 +47,11 @@ export default {
   },
   mounted() {
     console.log(this.editorParams);
-    const editor = new wangEditor(`#editor`)
+    const editor = new wangEditor(`#editor`);
     // 配置 onchange 回调函数，将数据同步到 vue 中
     editor.config.onchange = (newHtml) => {
-       this.editorData = newHtml
+       this.editorData = newHtml;
+       this.setReplyInfoActions(newHtml);
        console.log(this.editorData);
     }
     //配置编辑器高度
@@ -154,6 +156,7 @@ export default {
     this.editor = editor
   },
   methods: {
+    ...mapActions(["setReplyInfoActions"]),
     getEditorData() {
       // 通过代码获取编辑器内容
       let data = this.editor.txt.html()
@@ -162,6 +165,9 @@ export default {
       //清空编辑器
       this.editor.txt.clear()
     }
+  },
+  computed:{
+    ...mapGetters(["getReplyInfo"]),
   },
   beforeDestroy() {
     // 调用销毁 API 对当前编辑器实例进行销毁

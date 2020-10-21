@@ -15,14 +15,17 @@
                 <publishEditor/>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="dialogVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="submitReply">确 定</el-button>
                 </span>
             </el-dialog>
+            <p>{{getReplyInfo}}</p>
+            <p>{{newReplyInfo}}</p>
             <suggestlist />
         </div>
     </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex';
 const home_herder = () => import("../../components/home/home_herder");
 import wangEditor from 'wangeditor'
 const publishEditor = () => import("@/components/editor/editor");
@@ -39,11 +42,12 @@ export default {
             menu_num: "1",
             headerKey:'',
             dialogVisible: false,
-
+            newReplyInfo: {}
         }
     },
     mounted(){
-        
+        console.log(this.getReplyInfo);
+        console.log(this.replyInfo);
     },
     methods:{
         parentEvent(data) {
@@ -52,7 +56,10 @@ export default {
         showEditor(){
             this.dialogVisible = true;
         },
-
+        submitReply(){
+            //打印回复的内容
+            console.log(this.newReplyInfo);
+        },
         //关闭编辑器
         handleClose(done) {
             this.$confirm('确认关闭？')
@@ -61,8 +68,16 @@ export default {
             })
             .catch(_ => {});
         } 
+    },
+    computed:{
+        ...mapState(['replyInfo']),
+        ...mapGetters(["getReplyInfo"]),
+    },
+    watch: {
+        "getReplyInfo"() {
+            this.newReplyInfo = this.getReplyInfo;
+        }
     }
-
 }
 </script>
 <style lang="less" scoped>

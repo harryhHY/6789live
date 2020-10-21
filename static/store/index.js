@@ -6,7 +6,8 @@ Vue.use(Vuex);
 const state = {
   liveList: '',
   newsList: '',
-  token: '111'
+  token: '111',
+  replyInfo:{}
 };
 const mutations = {
   /**
@@ -33,10 +34,30 @@ const mutations = {
    */
   newsList(state, data) {
     state.newsList = data
+  },
+    /**
+   * 获取回复信息
+   * @param {obj} state 
+   * @param {obj} reply 
+   */
+  setReplyInfo(state,reply){
+    state.replyInfo = reply
   }
 };
+const actions = {
+  setReplyInfoActions({commit},reply){
+    commit("setReplyInfo",reply)
+  }
+};
+const getters = {
+  getReplyInfo(state){
+    return state.replyInfo
+  }
+}
 export default new Vuex.Store({
   state,
   mutations,
+  actions,
+  getters,
   plugins: [createPersistedState()],
 });
