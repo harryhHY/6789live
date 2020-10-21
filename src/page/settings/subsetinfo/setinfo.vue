@@ -13,7 +13,7 @@
           <hr style="margin-top:10px">
       </div>
       <div class="info_con">
-          <component :is="iscomponent"></component>
+          <component :is="iscomponent" :infoParams="infoList"></component>
       </div>      
       
   </div>
@@ -45,7 +45,14 @@ export default {
                 changephone: changephone,
                 changemail: changemail,
                 changepass: changepass,
-                authentication: authentication
+                authentication: authentication,
+                infoList:{
+                    id:"",
+                    name:"shdishd",
+                    password:"xxxx",
+                    email:"56616126@sina.com",
+                    phone:"15682672305",
+                }
             }
 			
 		},
@@ -107,7 +114,7 @@ export default {
     top: -10px;
 }
 .info_con{
-    width: 70%;
+    width: 60%;
     margin: auto;
     margin-top: 20px;
     position: relative;
