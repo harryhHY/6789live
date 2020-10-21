@@ -2,80 +2,105 @@
   <div class="livemenu left cl">
     <div class="live_class">
       <div class="my_attention">
-        <div class="my_attention_header cl">
-          <span class="left">我的关注</span>
-          <span class="rigth setting_attention" @click="gotoattention()">
-            <i class="el-icon-setting"></i>
-          </span>
+        <!-- 我的关注 -->
+        <div class="my_attention_header cl" @click="gotoattention()">
+          <img
+            src="../../image/news/attention.png"
+            alt=""
+            class="attention_img"
+          />
+          <span class="">我的关注</span>
         </div>
-        <div class="mylike">
+        <div class="mylike cl">
           <div
             v-for="(item, key, index) in mylike"
             :key="item.id"
-            class="playnum"
+            class="playnum cu left"
             @click="changetype(item.id)"
           >
             {{ item.playnum }}
           </div>
         </div>
-      </div>
-      <div class="live_category cl">
-        <div class="live_category_header cl">
-          <span class="left"> 直播分类 </span>
+        <!-- 直播分类 -->
+        <div class="liveclass">
+          <div class="liveclass_header">
+            <img src="../../image/news/sort.png" alt="" />
+            直播分类
+          </div>
         </div>
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :collapse="isCollapse"
-        >
-          <el-submenu index="1">
-            <template slot="title">
-              <i class="temp_i"> 足球 </i>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item
-                v-for="(item, key, index) in footData"
+        <!-- 足球 -->
+        <div class="footerclass">
+          <div
+            class="footerclass_header cu"
+            @click="changebbkUnfold(1, footdataflag)"
+          >
+            <div>足球</div>
+            <div
+              :class="
+                footdataflag
+                  ? 'footerclass_header_img'
+                  : 'footerclass_header_img1'
+              "
+            ></div>
+          </div>
+          <div class="cl mylike" v-if="!footdataflag">
+            <div class="cl">
+              <div
+                v-for="(item, index) in footData"
                 :key="item.id"
-                :index="'1-' + item.id"
+                class="playnum cu left"
                 @click="changetype(item.id)"
-                >{{ item.playname }}</el-menu-item
               >
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="temp_i"> 篮球 </i>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item
-                v-for="(item, key, index) in footData"
+                {{ item.playname }}
+              </div>
+            </div>
+            <div class="cu">
+              <div class="lookmore"></div>
+            </div>
+          </div>
+        </div>
+        <!-- 篮球 -->
+        <div>
+          <div
+            class="footerclass_header cu"
+            @click="changebbkUnfold(2, bbflag)"
+          >
+            <div>篮球</div>
+            <div
+              :class="
+                bbflag ? 'footerclass_header_img' : 'footerclass_header_img1'
+              "
+            ></div>
+          </div>
+          <div class="cl mylike" v-if="!bbflag">
+            <div class="cl">
+              <div
+                v-for="(item, index) in backetballdata"
                 :key="item.id"
-                :index="'2-' + item.id"
-                @click="changetype(item.id)"
-                >{{ item.playname }}</el-menu-item
+                class="playnum cu left"
+                @click="changetype1(item.id)"
               >
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="temp_i"> 综合 </i>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item
-                v-for="(item, key, index) in footData"
-                :key="item.id"
-                :index="'3-' + item.id"
-                @click="changetype(item.id)"
-                >{{ item.playname }}</el-menu-item
-              >
-            </el-menu-item-group>
-          </el-submenu>
-        </el-menu>
+                {{ item.playname }}
+              </div>
+            </div>
+            <div class="cu">
+              <div class="lookmore"></div>
+            </div>
+          </div>
+        </div>
+        <!-- 综合 -->
+        <div>
+          <div class="footerclass_header cu">
+            <div>综合</div>
+            <div
+              :class="
+                isCollapse
+                  ? 'footerclass_header_img'
+                  : 'footerclass_header_img1'
+              "
+            ></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -101,6 +126,16 @@ export default {
           playtype: 3,
           playnum: "CBA",
         },
+        {
+          id: 4,
+          playtype: 4,
+          playnum: "NBA",
+        },
+        {
+          id: 5,
+          playtype: 5,
+          playnum: "CBA",
+        },
       ],
       footData: [
         {
@@ -120,14 +155,41 @@ export default {
           playname: "英超",
         },
       ],
+      footdataflag: false,
+      backetballdata: [
+        {
+          id: 1,
+          playname: "NBA",
+        },
+        {
+          id: 2,
+          playname: "CBA",
+        },
+      ],
+      bbflag: false,
       isCollapse: true,
     };
   },
   methods: {
-    gotoattention(){
-      this.$router.push(
-        '/person/attention'
-      )
+    //是否收齐直播栏目
+    changebbkUnfold(id, even) {
+      switch (id) {
+        case 1:
+          this.footdataflag = !even;
+          break;
+        case 2:
+          this.bbflag = !even;
+          break;
+        case 3:
+          this.isCollapse = !even;
+          break;
+      }
+    },
+    changetype1(id) {
+      this.$emit("changetype", id);
+    },
+    gotoattention() {
+      this.$router.push("/person/attention");
     },
     changetype(id) {
       this.$emit("changetype", id);
@@ -144,47 +206,109 @@ export default {
 
 <style lang="less" scoped>
 .livemenu {
-  width: 10%;
+  width: 279px;
+  margin-top: -24px;
+  background-image: url("../../image/news/leftbg.png");
+  background-size: 100%;
+  height: 1027px;
+  .mylike {
+    margin: 19px 25px 0 25px;
+  }
+  .my_attention_header {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-top: 36px;
+    margin-left: 23px;
+    font-size: 18px;
+    .attention_img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .playnum {
+    line-height: 23px;
+    width: 66px;
+    text-align: center;
+    background-color: #112a40;
+    color: #205789;
+    margin-top: 6px;
+    margin-right: 6px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  .playnum:hover {
+    background-color: #014681;
+    color: #47a7ff;
+  }
+  .clck {
+    background-color: #014681;
+    color: #47a7ff;
+  }
+
+  .liveclass {
+    .liveclass_header {
+      font-size: 18px;
+      margin-top: 36px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      margin-left: 23px;
+    }
+  }
+  .footerclass_header {
+    font-size: 16px;
+    background-color: #112a40;
+    color: #1a90fc;
+    width: 216px;
+    height: 26px;
+    line-height: 26px;
+    margin: 12px auto;
+    position: relative;
+  }
+  .footerclass_header_img {
+    background-image: url("../../image/news/Unfold.png");
+    background-size: 100%;
+    position: absolute;
+    width: 21px;
+    height: 13px;
+    right: 8px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  .footerclass_header_img1 {
+    background-image: url("../../image/news/Unfold1.png");
+    background-size: 100%;
+    position: absolute;
+    width: 21px;
+    height: 13px;
+    right: 8px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  .lookmore {
+    width: 17px;
+    height: 14px;
+    margin: 19px auto;
+    background-image: url("../../image/news/Unfoldicon.png");
+    background-size: 100%;
+  }
+  .lookmore:hover {
+    background-image: url("../../image/news/Unfoldicon1.png");
+  }
 }
+
 .live_class {
   text-align: center;
   font-size: 20px;
   color: #fff;
-  background: rgb(84, 92, 100);
   .setting_attention {
     cursor: pointer;
   }
-  .my_attention {
-    .my_attention_header {
-    }
-
-    .my_attention_header span:first-child {
-      margin-left: 5%;
-    }
-  }
-  .playnum {
-    padding: 20px 0;
-  }
-  .playnum:hover {
-    cursor: pointer;
-    color: #000000;
-    background: #fff;
-  }
-  .live_category_header {
-    span {
-      margin-left: 5%;
-    }
-  }
-  .el-submenu .el-menu-item {
-    min-width: 0;
-  }
-  .el-menu--collapse {
-    font-size: 20px;
-    width: 100%;
-  }
-  .temp_i {
-    color: #fff;
-    font-style: normal;
-  }
+}
+.my_attention {
+  width: 266px;
 }
 </style>

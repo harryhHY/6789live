@@ -26,7 +26,7 @@
             <div class="foot_divsort_div1">FOOTBALL</div>
           </div>
 
-          <div class="cl footer_content">
+          <div class="cl footer_content boxshadow">
             <div class="cl footerheader">
               <div class="football_class left">
                 <div
@@ -34,9 +34,11 @@
                   :key="item.id"
                   class="foot_span"
                 >
-                  <span @click="changtype(item.id, item.name)">{{
-                    item.name
-                  }}</span>
+                  <span
+                    @click="changtype(item.id, item.name)"
+                    :class="item.id == footballflag ? 'footerclick' : ''"
+                    >{{ item.name }}</span
+                  >
                   <i>|</i>
                 </div>
               </div>
@@ -83,7 +85,7 @@
           <div class="foot_divsort_div1">BASKETBALL</div>
         </div>
 
-        <div class="cl footer_content">
+        <div class="cl footer_content boxshadow">
           <div class="cl footerheader">
             <div class="football_class left">
               <div
@@ -91,9 +93,11 @@
                 :key="item.id"
                 class="foot_span"
               >
-                <span @click="changtype(item.id, item.name)">{{
-                  item.name
-                }}</span>
+                <span
+                  @click="changtype1(item.id, item.name)"
+                  :class="item.id == baskeballflag ? 'footerclick' : ''"
+                  >{{ item.name }}</span
+                >
                 <i>|</i>
               </div>
             </div>
@@ -146,7 +150,7 @@
           </div>
         </div>
       </div>
-      <div class="livecotentleft">
+      <div class="livecotentleft boxshadow">
         <div
           v-for="(item, key, index) in livecontentdata"
           :key="item.id"
@@ -184,21 +188,9 @@
               {{ item.bname }}
             </div>
           </div>
-
-          <!-- <div class="left ateam">
-            <div>{{ item.aname }}</div>
-            <img :src="item.aicon" alt="" />
-          </div>
-          <div class="left livetype">
-            <div>直播</div>
-            <div>
-              {{ item.time }}
-            </div>
-          </div>
-          <div class="left ateam">
-            <img :src="item.aicon" alt="" />
-            <div>{{ item.bteam }}</div>
-          </div> -->
+        </div>
+        <div class="lookmore_div centerimg">
+          <div class="lookmore cu">查看更多赛事</div>
         </div>
       </div>
     </div>
@@ -273,6 +265,7 @@ export default {
           name: "国足",
         },
       ],
+      footballflag: 1,
       baskeball: [
         {
           id: 1,
@@ -287,6 +280,7 @@ export default {
           name: "NBA",
         },
       ],
+      baskeballflag: 1,
       footballdata: [
         {
           id: 1,
@@ -468,9 +462,12 @@ export default {
       // this.elmenu = data[0].title;
     },
     changtype(id, name) {
+      
+      this.footballflag = id;
       console.log(id, name);
     },
     changtype1(id, name) {
+      this.baskeballflag = id;
       console.log(id, name);
     },
   },
@@ -543,9 +540,8 @@ export default {
 }
 .swp {
   width: 93%;
-  margin-left: 7%;
   height: 300px;
-  .is-active{
+  .is-active {
     color: #1a90fc;
   }
 }
@@ -572,6 +568,7 @@ export default {
   margin-left: 307px;
   .foot_div {
     width: 100%;
+    margin-top: 5px;
     .foot_divsort {
       color: #014681;
       position: relative;
@@ -662,6 +659,18 @@ export default {
     }
   }
 }
+.lookmore_div {
+  margin: 18px 0;
+}
+.lookmore {
+  display: inline-block;
+  line-height: 28px;
+  color: #1a90fc;
+  border: 1px solid #1a90fc;
+  text-align: center;
+  padding: 0 20px;
+  border-radius: 15px;
+}
 .homecontentright {
   margin-top: 4px;
   width: 380px;
@@ -743,5 +752,12 @@ export default {
 }
 .time {
   border-bottom: 1px solid #d2d2d2;
+}
+.boxshadow {
+  box-shadow: 1px 4px 1px 1px #d2d2d2;
+}
+
+.footerclick {
+  color: #1a90fc;
 }
 </style>
