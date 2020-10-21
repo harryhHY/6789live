@@ -19,6 +19,7 @@ const Setinfo = import('../page/Settings/subsetinfo/setinfo.vue');
 const Community = import('../page/community/community.vue');
 const Analysis = import('../page/analysis/analysis.vue');
 const Exponent = import('../page/exponent/exponent.vue');
+const Helps = import('../page/helps/helps.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -116,6 +117,11 @@ export default new Router({
           component: () => Fans,
         },
       ]
+    },
+    {
+      path: '/helps',
+      name: 'helps',
+      component: () => Helps
     },
 
     //联赛数据废弃
