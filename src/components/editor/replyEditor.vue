@@ -43,6 +43,7 @@ export default {
     },
     submit(){
       console.log(this.content);
+      this.$emit("receiveMsg",this.content)
     }
   },
   created() {},

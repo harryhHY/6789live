@@ -54,7 +54,6 @@ export default {
     },
     methods:{
         goSetinfo(value){
-            this.$router.push({ name: 'in-ex-record', params: { tim:this.pushTimeArray }})
             // this.$router.push("/setinfo/a")
             this.$router.push({ name: 'setinfo', params: { compontentName:value }})
         }

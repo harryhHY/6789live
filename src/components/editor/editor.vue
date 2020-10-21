@@ -50,6 +50,7 @@ export default {
     // 配置 onchange 回调函数，将数据同步到 vue 中
     editor.config.onchange = (newHtml) => {
        this.editorData = newHtml
+       console.log(this.editorData);
     }
     //配置编辑器高度
     // editor.config.height = this.editorParams.height;
