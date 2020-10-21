@@ -52,7 +52,7 @@ export default {
        this.editorData = newHtml
     }
     //配置编辑器高度
-    editor.config.height = this.editorParams.height;
+    // editor.config.height = this.editorParams.height;
     //默认提示语
     editor.config.placeholder = '请发表讲话3'
 
@@ -173,6 +173,10 @@ export default {
 <style lang="less">
   #editor{
     width:100%;
+    resize: vertical;
+  }
+  .w-e-text-container{
+    resize: vertical !important;
   }
   .home {
     width: 100%;

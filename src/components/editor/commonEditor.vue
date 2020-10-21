@@ -3,7 +3,7 @@
     <h3><p><b>评论</b></p></h3>
     <div id="editor" contenteditable="true">
     </div>
-    <div id="toolbar-container" class="toolbar"></div>
+    <!-- <div id="toolbar-container" class="toolbar"></div> -->
     <button type="button" class="btn" @click="getEditorData">获取当前内容</button>
     <h3>内容预览</h3>
     <div class="webviewtext" v-html='editorData'></div>
@@ -47,7 +47,8 @@ export default {
   },
   mounted() {
     console.log(this.editorParams);
-    const editorCommon = new wangEditor('#toolbar-container',`#editor`)
+    // const editorCommon = new wangEditor('#toolbar-container',`#editor`)
+    const editorCommon = new wangEditor(`#editor`)
     // 配置 onchange 回调函数，将数据同步到 vue 中
     editorCommon.config.onchange = (newHtml) => {
        this.editorData = newHtml
@@ -135,9 +136,10 @@ export default {
 <style lang="less">
   #editor{
     width:500px;
-    min-height: 45px; 
-    max-height: 300px;
     border:1px solid #292828;
+  }
+  .w-e-text-container{
+    resize: vertical !important;
   }
   .home {
     width: 500px;
