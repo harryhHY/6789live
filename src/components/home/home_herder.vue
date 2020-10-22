@@ -176,6 +176,15 @@ export default {
       this.showLogin = !this.showLogin;
       this.loginVisible = true
     },
+    getVisible(value){
+      console.log(value);
+      this.showLogin = value;
+      //登录页内去注册
+      if(value == 'go'){
+        this.showLogin = false;
+        this.goregistered()
+      }
+    },
     //注册
     goregistered(){
       this.showRegistered = !this.showLogin;
@@ -183,9 +192,11 @@ export default {
     },
     getRegisterVisible(value){
       this.showRegistered = value;
-    },
-    getVisible(value){
-      this.showLogin = value;
+      //注册页内去登录
+      if(value == 'go'){
+        this.showRegistered = false;
+        this.gologin()
+      }
     },
     handleSelect(key, keyPath) {
       this.$emit("changetype", key);

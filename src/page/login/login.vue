@@ -26,7 +26,7 @@
             </el-form-item>
             <div class="auto_box">
                 <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
-                <router-link to="/registered" class="register">注册账号</router-link>
+                <span @click="toRegistered('go')" class="register">注册账号</span>
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
             <el-form-item>
@@ -63,7 +63,7 @@
             </div>
             <div class="auto_box">
                 <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
-                <router-link to="/registered" class="register">注册账号</router-link>
+                <span class="register" @click="toRegistered('go')">注册账号</span>
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
             <el-form-item>
@@ -211,6 +211,10 @@ export default {
     handleClose(done) {
       this.dialogVisible=false
       this.$emit("chidVisible",this.onmodalclick)
+    },
+    //去注册
+    toRegistered(go){
+      this.$emit("chidVisible",go)
     },
     //获取验证码倒计时
     getVerify() {
@@ -366,6 +370,7 @@ export default {
 .register,.fogetpass{
   color: #406380 !important;
   float: right;
+  cursor: pointer;
 }
 .auto_box{
   padding: 10px 0;

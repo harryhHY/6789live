@@ -60,7 +60,7 @@
         </el-row>
     </div>
   <div class="other-way-login">
-      <span class="txt" @click="goLogin">使用已有账户登录</span>  
+      <span class="txt" @click="goLogin('go')">使用已有账户登录</span>  
   </div>
   
   <span slot="footer" class="dialog-footer">
@@ -226,8 +226,8 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      goLogin(){
-        this.$router.push("/login")
+      goLogin(go){
+        this.$emit("chidRegisterVisible",go)
       }
       // doLogin() {
       //   this.$api.login.useLogin({
