@@ -19,9 +19,7 @@
           {{ item.videotitle }}
         </div>
       </div>
-      <div class="lookmore cu">
-        查看更多视频
-      </div>
+      <div class="lookmore cu">查看更多视频</div>
     </div>
   </div>
 </template>
@@ -123,7 +121,7 @@ export default {
   .videotitle_div:hover .videotype {
     border: 1px solid #1a90fc;
   }
-  .lookmore{
+  .lookmore {
     color: #1a90fc;
     border: 1px solid #1a90fc;
     width: 128px;
@@ -133,8 +131,8 @@ export default {
     line-height: 30px;
     border-radius: 15px;
   }
-  .boxshadow{
-      box-shadow: 1px 4px 1px 1px #d2d2d2;
-  }
+}
+.boxshadow {
+  box-shadow: 1px 4px 1px 1px #d2d2d2;
 }
 </style>

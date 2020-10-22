@@ -263,14 +263,14 @@ export default {
   width: 100%;
   height:100%;
   // height: 740px;
-  // background: url("../assets/images/bg1.png") no-repeat;
+  // background: url("../assets/images/bg1.png")  ;
   background-size: cover;
   overflow: hidden;
 }
 .login-wrap {
   width: 100%;
   height:600px;
-  // background: url("../assets/images/login_bg.png") no-repeat;
+  // background: url("../assets/images/login_bg.png")  ;
   background-size: cover;
   position:relative;
   top:100px;

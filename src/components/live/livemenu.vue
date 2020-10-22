@@ -208,7 +208,7 @@ export default {
 .livemenu {
   width: 279px;
   margin-top: -24px;
-  background-image: url("../../image/news/leftbg.png");
+  background-image: url("../../image/news/leftbg.png")  ;
   background-size: 100%;
   height: 1027px;
   .mylike {
@@ -267,7 +267,7 @@ export default {
     position: relative;
   }
   .footerclass_header_img {
-    background-image: url("../../image/news/Unfold.png");
+    background-image: url("../../image/news/Unfold.png")  ;
     background-size: 100%;
     position: absolute;
     width: 21px;
@@ -278,7 +278,7 @@ export default {
     margin: auto;
   }
   .footerclass_header_img1 {
-    background-image: url("../../image/news/Unfold1.png");
+    background-image: url("../../image/news/Unfold1.png")  ;
     background-size: 100%;
     position: absolute;
     width: 21px;
@@ -292,11 +292,11 @@ export default {
     width: 17px;
     height: 14px;
     margin: 19px auto;
-    background-image: url("../../image/news/Unfoldicon.png");
+    background-image: url("../../image/news/Unfoldicon.png")  ;
     background-size: 100%;
   }
   .lookmore:hover {
-    background-image: url("../../image/news/Unfoldicon1.png");
+    background-image: url("../../image/news/Unfoldicon1.png")  ;
   }
 }
 

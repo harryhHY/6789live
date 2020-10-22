@@ -59,17 +59,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#home{
-  background-image: url('../../image/bj.jpg');
+#home {
+  background-image: url("../../image/bj.jpg");
+  background-repeat: no-repeat;
   background-size: 100%;
 }
-  .footer {
-    margin-top: 50px;
-    font-size: 18px;
-    line-height: 17px;
-    text-align: center;
-    div{
-      padding: 7px 0;
-    }
+.footer {
+  margin-top: 50px;
+  font-size: 18px;
+  line-height: 17px;
+  text-align: center;
+  div {
+    padding: 7px 0;
   }
+}
 </style>

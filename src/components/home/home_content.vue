@@ -736,7 +736,8 @@ export default {
     line-height: 22px;
     font-size: 14px;
     color: #ffffff;
-    background-image: url("../../image/liveclass.png");
+    background-image: url("../../image/liveclass.png")  ;
+    background-repeat: no-repeat;
     background-size: 100%;
   }
   .livetype {

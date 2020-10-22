@@ -3,21 +3,7 @@
     <home_herder :headerKey="headerKey"></home_herder>
     <livemenu @changetype="pve" />
     <div class="live_content left">
-      <div class="header cl">
-        <div class="left">
-          <div class="header_column">
-            <img src="../../image/news/sicon.png" alt="" class="sicon" />
-            <img
-              :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
-              v-for="(item, key, index) in liveList"
-              :key="item.id"
-              @click="changetype(item.id, key)"
-              alt=""
-              class="cu siconimg"
-            />
-          </div>
-        </div>
-      </div>
+      <liveheader></liveheader>
       <div class="livemain boxshadow">
         <div class="cl footerheader">
           <div class="football_class left">
@@ -92,7 +78,7 @@
             <div class="left type_div">
               {{ item.type }}
             </div>
-            <div class="liveicon left cu"></div>
+            <div class="liveicon left cu" @click="gotolive(item)"></div>
             <div class="left hqlive">高清直播</div>
           </div>
         </div>
@@ -106,26 +92,10 @@
 const livemenu = () => import("../live/livemenu");
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
+const liveheader = () => import("./liveheader");
 export default {
   data() {
     return {
-      liveList: [
-        {
-          id: 1,
-          playdata: "足球",
-          imgsrc: require("../../image/news/ftb.png"),
-          imgsrc1: require("../../image/news/ftb1.png"),
-          clicktype: true,
-        },
-        {
-          id: 2,
-          playdata: "篮球",
-          imgsrc: require("../../image/news/bbk.png"),
-          imgsrc1: require("../../image/news/bbk1.png"),
-          clicktype: false,
-        },
-      ],
-      liveListflag: 1,
       football: [
         {
           id: 1,
@@ -335,17 +305,6 @@ export default {
     pve(e) {
       console.log(e);
     },
-    //中间切换足球、篮球种类的
-    changetype(id, index) {
-      let data = this.liveList;
-      for (let i = 0; i < data.length; i++) {
-        if (i == index) {
-          data[i].clicktype = true;
-        } else {
-          data[i].clicktype = false;
-        }
-      }
-    },
     //日期函数
     getDate1(num) {
       let myDate = new Date();
@@ -381,6 +340,7 @@ export default {
     livemenu,
     liveVideo,
     home_herder,
+    liveheader,
   },
   created() {
     this.changeButtonList();
@@ -401,6 +361,7 @@ export default {
 }
 #live {
   background-image: url("../../image/bj.jpg");
+  background-repeat: no-repeat;
   background-size: 100%;
 }
 .playname {
@@ -413,17 +374,7 @@ export default {
   width: 1195px;
   margin-left: 29px;
 }
-.header {
-  .header_column {
-    .sicon {
-      margin-top: 7px;
-    }
-    .siconimg {
-      margin-top: 23px;
-      margin-right: 35px;
-    }
-  }
-}
+
 .live_all {
   .live_title {
     background-color: #2a88f3;
@@ -494,6 +445,7 @@ export default {
     height: 22px;
     line-height: 22px;
     background-image: url("../../image/liveclass.png");
+    background-repeat: no-repeat;
     background-size: 100%;
     text-align: center;
     color: #fff;
@@ -542,6 +494,7 @@ export default {
     align-items: center;
     .anaimg {
       background-image: url("../../image/news/ana.png");
+      background-repeat: no-repeat;
       background-size: 100%;
       width: 20px;
       height: 20px;
@@ -551,6 +504,7 @@ export default {
     color: #01c029;
     .anaimg {
       background-image: url("../../image/news/ana1.png");
+      background-repeat: no-repeat;
     }
   }
   .indnxdiv {
@@ -561,6 +515,7 @@ export default {
     margin-left: 20px;
     .indeximg {
       background-image: url("../../image/news/index.png");
+      background-repeat: no-repeat;
       background-size: 100%;
       width: 20px;
       height: 20px;
@@ -570,6 +525,7 @@ export default {
     color: #fe6102;
     .indeximg {
       background-image: url("../../image/news/index1.png");
+      background-repeat: no-repeat;
     }
   }
   .type_div {
@@ -581,11 +537,13 @@ export default {
     width: 104px;
     height: 30px;
     background-image: url("../../image/news/liveicon.png");
+    background-repeat: no-repeat;
     background-size: 100%;
     margin: 0 10px;
   }
   .liveicon:hover {
     background-image: url("../../image/news/liveicon1.png");
+    background-repeat: no-repeat;
   }
   .hqlive {
     font-size: 14px;
@@ -603,7 +561,7 @@ export default {
   margin: 14px 85px;
   border: 1px solid #848484;
 }
-.buttonList_div{
+.buttonList_div {
   margin: 0 50px;
 }
 .buttonList_span {
@@ -615,7 +573,7 @@ export default {
   color: #a7a7a7;
   border-radius: 5px;
 }
-.buttonList_span:hover{
+.buttonList_span:hover {
   color: #014681;
   background-color: #e1f1fe;
 }

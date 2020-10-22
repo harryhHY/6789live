@@ -232,6 +232,7 @@ export default {
 }
 .icon1 {
   background-image: url("../../image/homeicon.png");
+  background-repeat: no-repeat;
   background-size: 100%;
   width: 18px;
   height: 17px;
