@@ -75,6 +75,7 @@ export default {
 
 <style lang="less" scoped>
 .live_video {
+  font-size: 14px;
   width: 325px;
   margin-left: 7px;
   background-color: #fff;

@@ -302,8 +302,9 @@ export default {
     margin-left: 10px;
   }
   .login_div {
-    margin-left: 250px;
-    margin-top: 26px;
+    position: absolute;
+    left: 1234px;
+    top: 26px;
     font-size: 17px;
     display: flex;
     align-items: center;

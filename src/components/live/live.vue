@@ -371,6 +371,7 @@ export default {
   color: #2a88f3;
 }
 .live_content {
+  font-size: 14px;
   width: 1195px;
   margin-left: 29px;
 }

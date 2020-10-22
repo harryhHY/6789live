@@ -672,6 +672,7 @@ export default {
   border-radius: 15px;
 }
 .homecontentright {
+  font-size: 14px;
   margin-top: 4px;
   width: 380px;
   .homecontentright_menu_div {
