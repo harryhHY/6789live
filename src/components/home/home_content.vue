@@ -480,7 +480,7 @@ export default {
 <style lang="less" scoped>
 .aname {
   width: 50px;
-  font-size: 12px;
+  font-size: 12px /**no */;
 }
 .rightcontent {
   width: 25%;

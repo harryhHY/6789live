@@ -14,5 +14,17 @@
   <!-- built files will be auto injected -->
 </body>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+  (function (n, e) {
+    var t = n.documentElement,
+      i = "orientationchange" in window ? "orientationchange" : "resize",
+      d = function () {
+        var n = t.clientWidth;
+        n && (t.style.fontSize = n / 19.2 + "px")
+      };
+    n.addEventListener && (e.addEventListener(i, d, !1), n.addEventListener("DOMContentLoaded", d, !1))
+  })(document, window);
+
+</script>
 
 </html>
