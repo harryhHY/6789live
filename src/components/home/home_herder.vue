@@ -167,6 +167,9 @@ export default {
     gptoperson(e) {
       console.log(e);
     },
+    gotosm(src) {
+      this.$router.push(src);
+    },
     //登录
     gologin() {
       // this.$router.push(src);
