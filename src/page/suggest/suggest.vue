@@ -21,6 +21,10 @@
             <p>{{getReplyInfo}}</p>
             <p>{{newReplyInfo}}</p>
             <suggestlist />
+            <div v-for="(item,index) in testData" :key="index">
+                <p @click="remove(index)">{{item}}</p>
+            </div>
+            <button @click="add">++</button>
         </div>
     </div>
 </template>
@@ -42,7 +46,14 @@ export default {
             menu_num: "1",
             headerKey:'',
             dialogVisible: false,
-            newReplyInfo: {}
+            newReplyInfo: {},
+            testData:[
+                'one',
+                'two',
+                'three',
+                'four',
+                'five'
+            ]
         }
     },
     mounted(){
@@ -50,6 +61,14 @@ export default {
         console.log(this.replyInfo);
     },
     methods:{
+        remove(index){
+            console.log(index);
+            this.$delete(this.testData,index);
+            console.log(this.testData);
+        },
+        add(){
+            this.testData.push('six')
+        },
         parentEvent(data) {
             this.menu_num = data;
         },

@@ -2,9 +2,10 @@
   <div class="login" clearfix>
   <div class="login-wrap">
     <el-dialog
+    :close-on-click-modal = "onmodalclick"
     class="dialog_box"
     title=""
-    :visible="centerDialogVisible"
+    :visible="dialogVisible"
     width="100%"
     center
     :before-close="handleClose">
@@ -183,14 +184,17 @@ export default {
           { validator: phoneNumber, trigger: 'blur' }
         ]
       },
-      centerDialogVisible:true,
+      // centerDialogVisible:false,
       activeName: 'first',
       checked: true,
       count:"",
       show: true,
-      timer:null 
+      timer:null,
+      dialogVisible:this.loginVisible,
+      onmodalclick:false 
     };
   },
+  props:["loginVisible"],
   created() {},
   methods: {
     //选择手机区号
@@ -205,7 +209,8 @@ export default {
         console.log(tab.name);
     },
     handleClose(done) {
-      this.centerDialogVisible=false
+      this.dialogVisible=false
+      this.$emit("chidVisible",this.onmodalclick)
     },
     //获取验证码倒计时
     getVerify() {
@@ -231,6 +236,7 @@ export default {
       // }
     },
       doLogin(user) {
+        console.log("登录");
         this.$refs['user'].validate((valid) => {
           if (valid) {
             alert('submit!');
@@ -243,42 +249,42 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      doLogin() {
-        this.$api.login.useLogin({
-            key:'8f3e51cd2e461ab4f858ab48d8b5c027',
-            page:2,
-            pagesize:10,
-            sort:'asc',
-            time:1418745237
-          }).then(res => {
-              console.log(res);
-              // if (res.data.code == 1) {                             
-              //     this.$Message.info(res.data.msg);
-              // } else if (res.data.code == 0) {
-              //     //is_first:0非首次，1是首次 跳转修改密码
-              //         // console.log(res.data.params.is_first);
-              //         if(res.data.params.is_first){
-              //             localStorage.setItem("token", res.data.params.token);
-              //             localStorage.setItem("userName", this.user.username);
-              //             this.$router.push("/changepwd");
-              //         }else{
-              //             // 登陆存储
-              //             localStorage.setItem("token", res.data.params.token);
-              //             localStorage.setItem("userName", this.user.username);
-              //             //登录成功提示信息
-              //             this.$Message.info(res.data.msg);   
-              //             this.$router.push("/");                                 
-              //         }                               
-              // } else if (res.data.code == -1) {
-              //     this.$Message.info(res.data.msg); 
-              //     localStorage.removeItem("token");
-              //     this.$router.push("/login")        
-              // }
-          })
-          .catch(error => {
-            this.$Message.info("账号或密码错误");
-          })
-      }
+      // doLogin() {
+      //   this.$api.login.useLogin({
+      //       key:'8f3e51cd2e461ab4f858ab48d8b5c027',
+      //       page:2,
+      //       pagesize:10,
+      //       sort:'asc',
+      //       time:1418745237
+      //     }).then(res => {
+      //         console.log(res);
+      //         // if (res.data.code == 1) {                             
+      //         //     this.$Message.info(res.data.msg);
+      //         // } else if (res.data.code == 0) {
+      //         //     //is_first:0非首次，1是首次 跳转修改密码
+      //         //         // console.log(res.data.params.is_first);
+      //         //         if(res.data.params.is_first){
+      //         //             localStorage.setItem("token", res.data.params.token);
+      //         //             localStorage.setItem("userName", this.user.username);
+      //         //             this.$router.push("/changepwd");
+      //         //         }else{
+      //         //             // 登陆存储
+      //         //             localStorage.setItem("token", res.data.params.token);
+      //         //             localStorage.setItem("userName", this.user.username);
+      //         //             //登录成功提示信息
+      //         //             this.$Message.info(res.data.msg);   
+      //         //             this.$router.push("/");                                 
+      //         //         }                               
+      //         // } else if (res.data.code == -1) {
+      //         //     this.$Message.info(res.data.msg); 
+      //         //     localStorage.removeItem("token");
+      //         //     this.$router.push("/login")        
+      //         // }
+      //     })
+      //     .catch(error => {
+      //       this.$Message.info("账号或密码错误");
+      //     })
+      // }
   },
   mounted(){
     // this.$axios({
@@ -305,6 +311,7 @@ export default {
 .login {
   width: 100%;
   height:100%;
+  position: relative;
   background-size: cover;
   overflow: hidden;
 }

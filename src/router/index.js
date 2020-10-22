@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Login = import('../page/login/login.vue');
-const Registered = import('../page/registered/registered.vue');
+// const Login = import('../page/login/login.vue');
+// const Registered = import('../page/registered/registered.vue');
 const Resetpass = import('../page/resetpass/resetpass.vue');
 const Home = import('../page/home/home.vue');
 // const Leagepoints = import('../page/leagepoints/leagepoints.vue');
@@ -71,16 +71,16 @@ export default new Router({
       name: 'Exponent',
       component: () => Exponent
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => Login
-    },
-    {
-      path: '/registered',
-      name: 'Registered',
-      component: () => Registered
-    },
+    // {
+    //   path: '/login',
+    //   name: 'login',
+    //   component: () => Login
+    // },
+    // {
+    //   path: '/registered',
+    //   name: 'Registered',
+    //   component: () => Registered
+    // },
     {
       path: '/resetpass',
       name: 'resetpass',

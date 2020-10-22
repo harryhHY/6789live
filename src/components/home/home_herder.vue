@@ -1,5 +1,7 @@
 <template>
+<div class="header_box">
   <div id="home_header" class="cl">
+    
     <h1 @click="gotosm('/')" class="logo left"></h1>
     <div class="menu left">
       <!-- <div class="cl menu_title_div">
@@ -41,11 +43,11 @@
       </el-menu>
     </div>
     <div v-if="!token" class="login_div left cl">
-      <div class="loginbtn left cu" @click="gotosm('/login')">
+      <div class="loginbtn left cu" @click="gologin">
         <img src="../../image/loginbtn.png" alt="" />
       </div>
       <div class="span_div left">
-        <span class="logon_span" v-if="!token" @click="gotosm('/registered')">
+        <span class="logon_span" v-if="!token" @click="goregistered">
           <i>
             <img src="../../image/registeredicon.png" alt="" class="registeredicon" />
           </i>
@@ -83,11 +85,24 @@
       </div>
     </div>
   </div>
+  <div class="footlogin">
+      <login v-if="showLogin" :loginVisible = "loginVisible" @chidVisible="getVisible"/>
+  </div>
+  <div class="footregistered">
+    <registered v-if="showRegistered" :RegisteredVisible = "RegisteredVisible" @chidRegisterVisible="getRegisterVisible"/>
+  </div>
+</div>
 </template>
 
 <script>
+const login = () => import("@/page/login/login");
+const registered = () => import("@/page/registered/registered");
 import { mapState } from "vuex";
 export default {
+  components:{
+    login,
+    registered
+  },
   data() {
     return {
       activeIndex2: "1",
@@ -136,6 +151,12 @@ export default {
           src: "",
         },
       ],
+      //登录
+      showLogin:false,
+      loginVisible:false,
+      //注册
+      showRegistered:false,
+      RegisteredVisible:false
     };
   },
   props: ["headerKey"],
@@ -146,8 +167,22 @@ export default {
     gptoperson(e) {
       console.log(e);
     },
-    gotosm(src) {
-      this.$router.push(src);
+    //登录
+    gologin() {
+      // this.$router.push(src);
+      this.showLogin = !this.showLogin;
+      this.loginVisible = true
+    },
+    //注册
+    goregistered(){
+      this.showRegistered = !this.showLogin;
+      this.RegisteredVisible = true
+    },
+    getRegisterVisible(value){
+      this.showRegistered = value;
+    },
+    getVisible(value){
+      this.showLogin = value;
     },
     handleSelect(key, keyPath) {
       this.$emit("changetype", key);
@@ -164,6 +199,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.header_box{
+  width: 100%;
+  position: relative;
+  .footlogin{
+    width: 100%;
+    position: absolute;
+  }
+  .footregistered{
+    width: 100%;
+    position: absolute;
+    top: 10px;
+  }
+}
 .fenlei1{
   color: #ffffff;
   margin: 0 10px;

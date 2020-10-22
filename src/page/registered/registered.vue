@@ -2,9 +2,10 @@
   <div class="login" clearfix>
   <div class="login-wrap">
     <el-dialog
+    :close-on-click-modal = "onmodalclick"
     class="dialog_box"
     title=""
-    :visible="centerDialogVisible"
+    :visible="dialogVisible"
     width="100%"
     center
     :before-close="handleClose">
@@ -155,15 +156,17 @@ export default {
           { validator: phoneNumber, trigger: 'blur' }
         ]
       },
-      centerDialogVisible:true,
       activeName: 'first',
       checked: false,
       count:"",
       show: true,
-      timer:null 
+      timer:null,
+      dialogVisible:this.RegisteredVisible,
+      onmodalclick:false
     };
   },
   created() {},
+  props:["RegisteredVisible"],
   methods: {
     checkBlur(e){
       console.log(e.target.value);
@@ -184,7 +187,8 @@ export default {
         console.log(tab.name);
     },
     handleClose(done) {
-      this.centerDialogVisible=false
+      this.dialogVisible=false
+      this.$emit("chidRegisterVisible",this.onmodalclick)
     },
     //获取验证码倒计时
     getVerify() {
