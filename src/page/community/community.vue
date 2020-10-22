@@ -1,41 +1,6 @@
 <template>
   <div class="community cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <div class="community_header cl">
-      <div class="logo left">
-        <img :src="community_logo" alt="" />
-      </div>
-      <div class="left cl">
-        <div class="left menuheader">足球</div>
-        <div
-          v-for="(item, index) in communityMenuClass_foot"
-          :key="index"
-          class="left menuClass cu"
-        >
-          {{ item.type }}
-        </div>
-      </div>
-      <div class="left cl">
-        <div class="left menuheader">篮球</div>
-        <div
-          v-for="(item, index) in communityMenuClass_foot"
-          :key="index"
-          class="left menuClass cu"
-        >
-          {{ item.type }}
-        </div>
-      </div>
-      <div class="left cl">
-        <div class="left menuheader">综合</div>
-        <div
-          v-for="(item, index) in communityMenuClass_foot"
-          :key="index"
-          class="left menuClass cu"
-        >
-          {{ item.type }}
-        </div>
-      </div>
-    </div>
     <livemenu></livemenu>
     <div class="community_content left">
       <div class="community_content_header cl">
