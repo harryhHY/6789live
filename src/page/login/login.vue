@@ -30,7 +30,7 @@
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
             <el-form-item>
-              <el-button type="primary" class="userlogin" @click="doLogin('user')">登 录</el-button>
+              <el-button type="primary" class="userlogin" @click="doLogin('user')" v-preventReClick>登 录</el-button>
             </el-form-item>
           </el-form>
         </el-row>
@@ -320,7 +320,7 @@ export default {
   overflow: hidden;
 }
 .login-wrap {
-  width: 25%;
+  width: 438px;
   height:700px;
   background-size: cover;
   position:relative;
@@ -329,7 +329,7 @@ export default {
 .title{
   width: 100%;
   position: absolute;
-  font-size: 16px;
+  font-size: 18px;
   color: #FFF;
   text-align: center;
   top: -45px;
@@ -368,9 +368,13 @@ export default {
   }
 }
 .register,.fogetpass{
-  color: #406380 !important;
+  color: #406380;
   float: right;
   cursor: pointer;
+}
+.register:hover{
+  text-decoration: underline;
+  color: #0894EC;
 }
 .auto_box{
   padding: 10px 0;
@@ -410,25 +414,29 @@ export default {
     margin: 0 10px;
 }
 .other-way-img{
-  width: 50%;
-  height: 42px;
+  width: 234px;
+  height: 34px;
   margin: auto;
+  img{
+    width: 34px;
+    height: 34px;
+  }
   .one{
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     float: left;
     cursor: pointer;
   }
   .two{
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     float: left;
-    margin-left: 18%;
+    margin-left: 65px;
     cursor: pointer;
   }
   .three{
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     float: right;
     cursor: pointer;
   }
@@ -463,6 +471,7 @@ export default {
   color: #FFF;
   text-align: center;
   bottom: -44px;
+  font-size: 16px;
   .secret{
     cursor: pointer;
   }
@@ -474,7 +483,11 @@ export default {
     float: right;
     cursor: pointer;
   }
+  .secret:hover,.help:hover,.rule:hover{
+    color: #0894EC;
+  }
   .italic_line{
+    color: #FFF;
     margin-left: 35px;
   }
 }

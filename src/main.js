@@ -27,7 +27,18 @@ Vue.prototype.$api = api;
 Vue.prototype.$axios = Axios;
 Vue.config.productionTip = false
 
-
+Vue.directive('preventReClick', {
+  inserted (el, binding) {
+    el.addEventListener('click', () => {
+      if (!el.disabled) {
+        el.disabled = true
+        setTimeout(() => {
+          el.disabled = false
+        }, binding.value || 3000)
+      }
+    })
+  }
+})
 
 // import * as directive from "./page/storage.js/index"
 // Object.keys (directive).forEach(keys=>{

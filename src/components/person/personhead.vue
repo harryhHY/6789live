@@ -1,6 +1,9 @@
 <template>
     <div class="head_bg">
         <div>
+            <report v-if="showReport" :visible = "visible" @chidVisible="getVisible"/>
+        </div>
+        <div>
             <div class="avator_con">
                 <img :src="avator" alt="">
             </div>
@@ -11,7 +14,7 @@
                 </div>
                 <div class="btn_con">
                     <div class="btn">
-                        <el-button type="info" plain>举报</el-button>
+                        <el-button type="info" plain @click="reportHandler('id')">举报</el-button>
                         <el-button type="primary">加关注</el-button>
                     </div>
                 </div>
@@ -32,13 +35,29 @@
     </div>
 </template>
 <script>
+import report from "./report"
 export default {
     name:"personhead",
+    components:{
+        report
+    },
     data(){
         return {
             avator:require("@/image/news.jpeg"),
             nowWeekend:"",
-            date:""
+            date:"",
+            visible:false,
+            showReport:false
+        }
+    },
+    methods:{
+        reportHandler(){
+            console.log(1111);
+            this.showReport = !this.showReport;
+            this.visible = true;
+        },
+        getVisible(value){
+            this.showReport = value;
         }
     },
     mounted(){

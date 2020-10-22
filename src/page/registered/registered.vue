@@ -295,8 +295,8 @@ export default {
   overflow: hidden;
 }
 .login-wrap {
-  width: 25%;
-  height:700px;
+  width: 438px;
+  height:800px;
   background-size: cover;
   position:relative;
   margin: auto;
@@ -304,7 +304,7 @@ export default {
 .title{
   width: 100%;
   position: absolute;
-  font-size: 16px;
+  font-size: 18px;
   color: #FFF;
   text-align: center;
   top: -45px;
@@ -320,8 +320,8 @@ export default {
     font-size: 18px;
     color: #014681;
     text-align: left;
-    top: 3%;
-    left: 15%;
+    top: 30px;
+    left: 70px;
   }
   .line_top,.line_bottom{
     width: 100%;
@@ -388,6 +388,10 @@ export default {
     vertical-align: middle;
     cursor: pointer;
 }
+.other-way-login .txt:hover{
+  text-decoration: underline;
+  color: #0894EC;
+}
 .other-way-img{
   width: 50%;
   height: 42px;
@@ -445,6 +449,7 @@ export default {
   color: #FFF;
   text-align: center;
   bottom: -44px;
+  font-size: 16px;
   .secret{
     cursor: pointer;
   }
@@ -456,7 +461,11 @@ export default {
     float: right;
     cursor: pointer;
   }
+  .secret:hover,.help:hover,.rule:hover{
+    color: #0894EC;
+  }
   .italic_line{
+    color: #FFF;
     margin-left: 35px;
   }
 }
@@ -517,7 +526,8 @@ export default {
   color:#000000;
 }
 /deep/.el-dialog__header{
-  padding-bottom: 20px;
+  height: 50px;
+  // margin-bottom: 50px;
 }
 /deep/ .el-form-item{
     margin-bottom: 20px;
