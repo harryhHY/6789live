@@ -408,9 +408,7 @@ export default {
   background-color: #fff;
   border-radius: 15px;
 }
-.boxshadow {
-  box-shadow: 1px 4px 1px 1px #d2d2d2;
-}
+
 .footerclick {
   color: #1a90fc;
 }

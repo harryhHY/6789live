@@ -11,5 +11,10 @@ export default {
 </script>
 
 <style lang="less">
-  @import url("./style/index");
+@import url("./style/index");
+#app {
+  background-image: url("./image/bj.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
 </style>

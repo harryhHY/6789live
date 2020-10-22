@@ -133,7 +133,5 @@ export default {
     border-radius: 15px;
   }
 }
-.boxshadow {
-  box-shadow: 1px 4px 1px 1px #d2d2d2;
-}
+
 </style>

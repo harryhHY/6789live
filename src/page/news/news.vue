@@ -2,30 +2,26 @@
   <div class="new cl">
     <home_herder :headerKey="headerKey"></home_herder>
     <livemenu></livemenu>
-    <div class="new_content left">
+    <div class="new_content boxshadow left">
       <div>
+        <div class="newsclass_div cl">
+          <div
+            v-for="(item, index) in newsClass"
+            :key="index"
+            class="newsclass left cu"
+          >
+            {{ item.name }}
+            <div class="newsclass_click"></div>
+          </div>
+        </div>
         <div class="search">
           <input
             type="text"
-            placeholder="搜话题、用户、新闻"
+            placeholder="请输入搜索内容"
             v-model="searchmsg"
             v-on:keyup.enter="serach(searchmsg)"
           />
-          <img
-            src="../../image/sousuo.png"
-            alt=""
-            class="sousuo"
-            @click="serach(searchmsg)"
-          />
-        </div>
-        <div class="cl news_header">
-          <div
-            class="news_header_menu left"
-            v-for="(item, index) in newsClass"
-            :key="index"
-          >
-            {{ item.name }}
-          </div>
+          <div class="sousuo" @click="serach(searchmsg)"></div>
         </div>
         <div
           class="news_content cl"
@@ -37,20 +33,38 @@
             <img :src="item.imgsrc" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
-            <div class="news_title">
-              {{ item.title }}
+            <div class="news_title cl">
+              <div class="newstype1 left">
+                {{ item.newstype1 }}
+              </div>
+              <div class="left ov">{{ item.title }}</div>
             </div>
-            <div class="news_content_right_bottom">
-              <span class="newstype">{{ item.newstype }}</span>
-              <span class="newstime"> {{ item.time }}</span>
+            <div class="details ov">详情：{{ item.details }}</div>
+            <div class="label_div cl">
+              <div class="label left cu">
+                {{ item.newstype }}
+              </div>
+            </div>
+            <div class="newstime">
+              {{ item.time }}
+            </div>
+            <div class="cl share_div">
+              <div class="centerimg left cu">
+                <img src="../../image/news/share.png" alt="" />
+                分享
+              </div>
+              <div class="centerimg left cu">
+                <img src="../../image/news/share.png" alt="" />
+                更多
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div>
+    <div class="left newslive_div">
       <div class="block">
-        <el-carousel height="150px">
+        <el-carousel   height='238px'>
           <el-carousel-item v-for="(item, index) in swpList" :key="index">
             <div class="swp">
               <img :src="item.imgsrc" alt="" />
@@ -107,26 +121,34 @@ export default {
       ],
       newsdata: [
         {
+          newstype1: "篮球",
           imgsrc: require("../../image/news.jpeg"),
           title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
           newstype: "国际新闻",
           time: "10.20",
         },
         {
+          newstype1: "篮球",
           imgsrc: require("../../image/news.jpeg"),
           title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
           newstype: "国际新闻",
           time: "10.20",
         },
         {
+          newstype1: "篮球",
           imgsrc: require("../../image/news.jpeg"),
           title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
           newstype: "国际新闻",
           time: "10.20",
         },
         {
+          newstype1: "篮球",
           imgsrc: require("../../image/news.jpeg"),
           title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
           newstype: "国际新闻",
           time: "10.20",
         },
@@ -163,7 +185,7 @@ export default {
       this.$store.commit("newsList", e);
     },
     serach(msg) {
-      this.searchmsg= this.$inHTMLData(msg)
+      this.searchmsg = this.$inHTMLData(msg);
       console.log(this.searchmsg);
     },
   },
@@ -181,17 +203,71 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.newslive_div{
+  width: 350px;
+  margin-left: 18px;
+  margin-top: 23px;
+  border-radius: 5px;
+}
+.newstype1 {
+  background-image: url("../../image/liveclass.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 38px;
+  color: #fff;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  height: 22px;
+  margin-right: 5px;
+}
+.newsclass {
+  width: 88px;
+  height: 24px;
+  color: #848484;
+  border-left: 4px solid #848484;
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+}
+.newsclass:last-child {
+  border-right: 4px solid #848484;
+}
+.newsclass:hover {
+  color: #1a90fc;
+}
+.newsclass:hover .newsclass_click {
+  background-color: #1a90fc;
+}
+.newsclass_click {
+  height: 4px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  width: 15px;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 .new_content {
-  width: 69%;
+  width: 1031px;
+  margin-top: 7px;
+  margin-left: 48px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 0 48px 76px 42px;
   .search {
     display: inline-block;
-    margin: 20px 30px;
     position: relative;
+    margin: 20px 0;
     input {
-      width: 300px;
-      height: 40px;
-      border-radius: 5px;
+      width: 970px;
+      height: 35px;
+      border-radius: 20px;
       padding-left: 10px;
+      border: none;
+      background-color: #e1e2e4;
     }
     .sousuo {
       cursor: pointer;
@@ -201,34 +277,34 @@ export default {
     }
   }
 }
-.news_header {
-  font-size: 18px;
-  color: #fff;
-  background-color: #2a3783;
-  padding-left: 30px;
-  .news_header_menu {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-}
+
 .news_content {
   padding: 20px 0;
-  border-bottom: 1px solid #999999;
+  border-top: 1px solid #999999;
   .img_div {
-    width: 20%;
+    width: 200px;
+    height: 135px;
+    margin-left: 80px;
     .news_img {
       width: 100%;
     }
   }
   .news_content_right {
-    padding: 10px 20px;
+    height: 135px;
+    position: relative;
+    margin-left: 32px;
   }
   .news_title {
-    font-size: 20px;
-    height: 100px;
+    font-size: 18px;
   }
-  .news_content_right_bottom {
-    font-size: 16px;
+  .share_div {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 14px;
+  }
+  .share_div div:nth-child(2) {
+    margin-left: 15px;
   }
   .newstype {
     color: #2a3783;
@@ -236,7 +312,10 @@ export default {
     padding: 5px 10px;
   }
   .newstime {
-    margin-left: 50px;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 43px;
   }
 }
 .el-carousel__item h3 {
@@ -255,16 +334,14 @@ export default {
   background-color: #d3dce6;
 }
 .newslive {
-  width: 18%;
   padding: 20px;
 }
 .swp {
-  width: 100%;
-  height: 100%;
+  width: 356px;
+ 
   position: relative;
   img {
     width: 100%;
-    height: 100%;
   }
   .newstitle {
     position: absolute;
@@ -275,6 +352,38 @@ export default {
     font-size: 18px;
     color: #ffffff;
     padding: 0 10px;
+  }
+}
+.details {
+  margin: 7px 0 7px 43px;
+  font-size: 14px;
+  color: #aeaeae;
+}
+.sousuo {
+  background-image: url("../../image/news/sousuo.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 29px;
+  height: 29px;
+}
+.sousuo:hover {
+  background-image: url("../../image/news/sousuo1.png");
+}
+.label_div {
+  font-size: 14px;
+  margin-left: 43px;
+  .label {
+    background-color: #aeaeae;
+    color: #848484;
+    width: 79px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  .label:hover {
+    color: #014681;
+    background-color: #1a90fc;
   }
 }
 </style>

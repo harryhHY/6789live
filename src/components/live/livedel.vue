@@ -36,30 +36,46 @@
           <div class="live_div">
             <div id="dplayer" ref="dplayer"></div>
           </div>
-        </div>
-
-        <div>
-          <div class="looktoday" @click="gotolive()">【点击观看今日直播】</div>
-          <div class="cl share_div">
-            <div class="left share_class">分享到:</div>
+          <div class="cl liveroom_div">
             <div
-              v-for="(item, index) in shareList"
-              :key="item.id"
-              class="left share_class cu"
-              @click="sharegoto(item.id)"
+              v-for="(item, index) in liveroom"
+              :key="index"
+              class="liveroom left"
             >
-              {{ item.name }}
+              直播{{ index + 1 }}
             </div>
           </div>
-          <div class="cl analysis_div">
-            <div class="left analysis cu" @click="goto('/analysis')">
-              <i class="icon-shujufenxi1 iconfont"></i>
-              数据分析
+          <div class="livebottom cl">
+            <div class="looktoday left" @click="gotolive()">
+              【点击观看今日直播】
             </div>
-            <div class="left exponent cu" @click="goto('/exponent')">
-              <i class="icon-shujufenxi iconfont"></i>
-              指数
+            <div class="share_div left">
+              <img src="../../image/news/share.png" alt="" />
+              分享
+              <img src="../../image/news/shareicon1.png" alt="" class="cu" />
+              <img src="../../image/news/shareicon2.png" alt="" class="cu" />
+              <img src="../../image/news/shareicon3.png" alt="" class="cu" />
+              <img src="../../image/news/shareicon4.png" alt="" class="cu" />
             </div>
+            <div class="right ana_div">
+              <div class="cl left anadiv cu">
+                <div class="anaimg left"></div>
+                <div class="ana left">数据分析</div>
+              </div>
+              <div class="indnxdiv left cu cl">
+                <div class="left indeximg"></div>
+                <div>指数</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="news_div">
+          <div class="cu">
+            上一篇：{{pre}}
+          </div>
+          <div class="cu">
+            下一篇：{{nex}}
           </div>
         </div>
       </div>
@@ -100,6 +116,9 @@ export default {
       ],
       videosrc:
         "https://sm.lssjy.cn/liveb/321951454287900672/playlist.m3u8?wsSecret=fe83b327ebebd00500126b6af37a8d41&wsABSTime=5f899248",
+      liveroom: [{}, {}],
+      pre:"asdasdasdasdadasd",
+      nex:'asdasdasdasdasdasdsad'
     };
   },
   methods: {
@@ -183,19 +202,19 @@ export default {
   }
   .content_box {
     border: 1px solid #f2f3f5;
-    margin:0 83px;
+    margin: 0 83px;
     padding: 0 31px;
   }
 }
 .livedel {
-  background-image: url("../../image/bj.jpg")  ;
+  background-image: url("../../image/bj.jpg");
   background-size: 100%;
 }
 .livedel_content {
   margin-left: 29px;
   .live_div {
     width: 968px;
-    height: 542px;
+    height: 485px;
   }
   .live_title {
     font-size: 20px;
@@ -204,10 +223,11 @@ export default {
   .looktoday {
     color: #2a88f3;
     font-size: 18px;
+    line-height: 43px;
   }
   .share_div {
+    height: 46px;
     font-size: 16px;
-    color: #2a88f3;
   }
   .share_class {
     color: #2a88f3;
@@ -225,6 +245,63 @@ export default {
     .exponent {
       margin: 5px 10px;
     }
+  }
+}
+.share_div{
+  display: flex;
+  align-items: center;
+}
+.livebottom {
+  font-size: 14px;
+}
+.anadiv {
+  font-size: 16px;
+  color: #848484;
+  display: flex;
+  align-items: center;
+}
+.ana_div{
+  display: flex;
+  align-items: center;
+  height: 46px;
+}
+.anaimg {
+  background-image: url("../../image/news/ana.png");
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+}
+.anadiv:hover {
+  color: #01c029;
+  .anaimg {
+    background-image: url("../../image/news/ana1.png");
+  }
+}
+.news_div{
+  font-size: 14px;
+  color: #2a88f3;
+  margin-left: 115px;
+  div{
+    padding: 11px 0;
+  }
+}
+.indnxdiv {
+  font-size: 16px;
+  color: #848484;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.indeximg {
+  background-image: url("../../image/news/index.png");
+  background-size: 100%;
+  width: 20px;
+  height: 20px;
+}
+.indnxdiv:hover {
+  color: #fe6102;
+  .indeximg {
+    background-image: url("../../image/news/index1.png");
   }
 }
 .livecontent {
@@ -255,43 +332,7 @@ export default {
     width: 125px;
     text-align: left;
   }
-  .anadiv {
-    font-size: 14px;
-    color: #848484;
-    display: flex;
-    align-items: center;
-    .anaimg {
-      background-image: url("../../image/news/ana.png")  ;
-      background-size: 100%;
-      width: 20px;
-      height: 20px;
-    }
-  }
-  .anadiv:hover {
-    color: #01c029;
-    .anaimg {
-      background-image: url("../../image/news/ana1.png")  ;
-    }
-  }
-  .indnxdiv {
-    font-size: 14px;
-    color: #848484;
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    .indeximg {
-      background-image: url("../../image/news/index.png")  ;
-      background-size: 100%;
-      width: 20px;
-      height: 20px;
-    }
-  }
-  .indnxdiv:hover {
-    color: #fe6102;
-    .indeximg {
-      background-image: url("../../image/news/index1.png")  ;
-    }
-  }
+
   .type_div {
     width: 100px;
     text-align: right;
@@ -300,12 +341,12 @@ export default {
   .liveicon {
     width: 104px;
     height: 30px;
-    background-image: url("../../image/news/liveicon.png")  ;
+    background-image: url("../../image/news/liveicon.png");
     background-size: 100%;
     margin: 0 10px;
   }
   .liveicon:hover {
-    background-image: url("../../image/news/liveicon1.png")  ;
+    background-image: url("../../image/news/liveicon1.png");
   }
   .hqlive {
     font-size: 14px;
@@ -314,7 +355,20 @@ export default {
     color: #014681;
   }
 }
-.boxshadow {
-  box-shadow: 1px 4px 1px 1px #d2d2d2;
+
+.liveroom_div {
+  display: flex;
+  justify-content: center;
+  margin: 7px 0;
+  .liveroom {
+    font-size: 14px;
+    width: 73px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #2a88f3;
+    border: 1px solid #2a88f3;
+    margin-right: 22px;
+  }
 }
 </style>
