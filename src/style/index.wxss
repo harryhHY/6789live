@@ -74,3 +74,9 @@ body {
   /* 超出部分显示省略号 */
   white-space: nowrap;
 }
+.cu {
+  cursor: pointer;
+}
+.boxshadow {
+  box-shadow: 1px 4px 1px 1px #d2d2d2;
+}

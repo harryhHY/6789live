@@ -182,6 +182,7 @@ export default {
     width:100%;
     resize: vertical;
   }
+  //可拉伸高度
   .w-e-text-container{
     resize: vertical !important;
   }

@@ -1,8 +1,7 @@
 <template>
-    <div>
+    <div id="home">
         <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
-        <div class="person_wrap">
-            <personhead />
+        <div class="person_wrap cl">
             <div class="person_left">
                 <div class="person_board">
                     <ul>
@@ -13,12 +12,15 @@
                         :to="'/person/'+ item.id"
                         :key="index"
                         >
-                        {{item.title}}
+                        <i :class="['iconfont',item.icon]"></i>{{item.title}}&nbsp;&nbsp;
+                        <div class="line"></div>
                         </router-link>
+                        
                     </ul>
                 </div>
             </div>
             <div class="person_right">
+                <personhead />
                 <router-view></router-view>
             </div>
             <!-- <publishEditor :editorParams = "editorDataPub" /> -->
@@ -48,20 +50,24 @@ export default {
             headerKey:'',
             personNav:[
                 {
-                    title:"主页",
-                    id:"homeperson"
+                    title:"个人主页",
+                    id:"homeperson",
+                    icon:"icon-caiyouduo_wode-gerenzhuye"
                 },
                 {
-                    title:"帖子",
-                    id:"article"
+                    title:"我的帖子",
+                    id:"article",
+                    icon:"icon-fatie"
                 },
                 {
-                    title:"关注",
-                    id:"attention"
+                    title:"我的关注",
+                    id:"attention",
+                    icon:"icon-guanzhu"
                 },
                 {
-                    title:"粉丝",
-                    id:"fans"
+                    title:"我的粉丝",
+                    id:"fans",
+                    icon:"icon-wodeguanzhu"
                 },
             ],
             editorDataPub:{
@@ -89,35 +95,67 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+html #app{
+    height: 100% !important;
+}
+#home{
+    width: 100%;
+    background-image: url("../../image/bj.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 .person_wrap{
-    width: 90%;
+    width: 1273px;
+    height: 100%;
     margin: auto;
+    margin-top: 10px;
+    background-color: #FFF;
+    padding: 13px 13px 0;
+    box-shadow: 0 3px 3px 3px #DBDBDB; 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .person_left{
-    width: 19%;
+    width: 157px;
     float: left;
     text-align: center;
 }
 .person_right{
-    width: 80%;
+    width: 1096px;
     float: left;
-    margin-left: 1%;
-    margin-top: 1%;
+    border: 1px solid #ECECEC;
+    margin-left: 13px;
 }
 .person_board{
-    padding: 20px 0;
-    background-color: #b3a5a5;
-    .ul{
-        margin-top: 20px;
-    }
+    padding: 5px 0 200px;
+    border: 1px solid #ECECEC;
+    margin-top: 10px;
     li{
-        padding: 10px 15px;
+        width: 75%;
+        margin: auto;
+        margin-top: 30px;
+        padding: 10px 5px;
         cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        color: #054982;
+        i{
+            font-size: 20px !important;
+        }
+    }
+    .line{
+        width: 100%;
+        margin: auto;
+        position: relative;
+        top: 25px;
+        height: 1px;
+        background-color: #d2d2d2;
     }
 }
 .person_board li.active,
 .person_board li:hover{
-    background-color: darkcyan;
+    border-radius: 30px;
+    background: linear-gradient(#51ACFF,#0671FE);
     color: #FFF;
 }
 

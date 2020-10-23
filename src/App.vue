@@ -13,6 +13,7 @@ export default {
 <style lang="less">
 @import url("./style/index");
 #app {
+  height: 100%;
   background-image: url("./image/bj.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
