@@ -74,6 +74,83 @@
           <span class="access"> 评论 </span>
           <span class="remind">文明上网理性发言，请遵守新闻评论服务协议</span>
         </div>
+        <div class="cl">
+          <div class="cl user_comment_div">
+            <div class="left user_comment_img centerimg">
+              <img :src="avatar" alt="" />
+            </div>
+            <div class="left user_comment">
+              <textarea
+                type="text"
+                v-model="commentmsg"
+                placeholder="来说两句吧！"
+              ></textarea>
+            </div>
+          </div>
+          <div class="otheruser_comment_div">
+            <div
+              class="otheruser_comment cl"
+              v-for="(item, index) in commentList"
+              :key="index"
+            >
+              <div class="cl">
+                <div class="otheruser_img left">
+                  <img :src="avatar" alt="" />
+                </div>
+                <div class="left">
+                  <div class="otheruser_name_div">
+                    <span class="otheruser_name">
+                      {{ item.name }}
+                    </span>
+                    <span class="otheruser_time">
+                      {{ item.time }}
+                    </span>
+                    <div class="otheruser_msg">
+                      {{ item.msg }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="replynum">查看全部{{ item.replynum }}回复></div>
+              <div class="otherusergoodreply cl">
+                <div class="otherusergood left cu">
+                  <div class="otheruser_goods_img left"></div>
+                  <div class="left">赞{{ item.goodsnum }}</div>
+                </div>
+                <div class="otheruserreply left cu">
+                  <div class="otheruser_reply_img left"></div>
+                  回复
+                </div>
+              </div>
+            </div>
+            <div class="lookmore_div centerimg">
+              <div class="lookmore cu">查看更多评论</div>
+            </div>
+          </div>
+        </div>
+        <div class="access_header comment_content">
+          <img
+            src="../../image/news/sicon.png"
+            alt=""
+            class="access_header_img"
+          />
+          <span class="access"> 为你推荐 </span>
+        </div>
+        <div
+          class="cl tuijian_div"
+          v-for="(item, index) in recommend"
+          :key="index"
+        >
+          <div class="tuijian_img left">
+            <img :src="item.avatar" alt="" />
+          </div>
+          <div class="left">
+            <div class="certerimg tuijian_title_div">
+              <div class="tuijian_title">{{ item.title }}</div>
+              <div class="tuijian_time">{{ item.time }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <newslive></newslive>
@@ -120,6 +197,45 @@ export default {
           time: "10.20",
         },
       ],
+      commentmsg: "",
+      avatar: require("../../image/team.jpg"),
+      commentList: [
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+          msg: "阿萨德大大多数",
+          replynum: 7,
+          goodsnum: 55,
+          replyflag: false,
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+          msg: "阿萨德大大多数",
+          replynum: 7,
+          goodsnum: 55,
+          replyflag: false,
+        },
+      ],
+      recommend: [
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+      ],
     };
   },
   methods: {
@@ -153,6 +269,7 @@ export default {
   font-size: 14px;
   margin-left: 29px;
   margin-top: 7px;
+  width: 1090px;
   background-color: #ffffff;
   .banner {
     width: 1112px;
@@ -274,12 +391,122 @@ export default {
     height: 70px;
   }
 }
-.comment_content{
+.comment_content {
   margin-top: 30px;
-  .remind{
+  .remind {
     color: #848484;
     font-size: 14px;
-    margin:9px 0 0 5px;
+    margin: 9px 0 0 5px;
+  }
+}
+.user_comment_div {
+  margin: 0 50px 0 50px;
+  padding: 19px 38px;
+  border-bottom: 1px solid #848484;
+  .user_comment_img {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .user_comment {
+    textarea {
+      width: 816px;
+      height: 91px;
+      border: 1px solid #848484;
+      padding: 10px;
+      border-radius: 9px;
+    }
+  }
+}
+.otheruser_comment_div {
+  margin: 0 92px;
+  .otheruser_comment {
+    border-bottom: solid 1px #848484;
+    margin-top: 30px;
+  }
+  .otheruser_img {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .otheruser_name {
+    color: #1a90fc;
+    margin-right: 10px;
+  }
+  .otheruser_msg {
+    margin: 20px 0;
+  }
+  .otherusergoodreply {
+    color: #848484;
+    margin: 19px 0;
+    .otherusergood {
+      display: flex;
+      align-items: center;
+      .otheruser_goods_img {
+        background-image: url("../../image/news/goods.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        width: 13px;
+        height: 13px;
+      }
+    }
+    .otherusergood:hover .otheruser_goods_img {
+      background-image: url("../../image/news/goods1.png");
+    }
+    .otheruserreply {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      .otheruser_reply_img {
+        width: 13px;
+        height: 13px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-image: url("../../image/news/reply.png");
+      }
+    }
+    .otheruserreply:hover .otheruser_reply_img {
+      background-image: url("../../image/news/reply1.png");
+    }
+  }
+  .replynum,
+  .otherusergoodreply {
+    margin-left: 50px;
+    color: #848484;
+  }
+  .otheruser_time {
+    color: #848484;
+  }
+  .lookmore {
+    display: inline-block;
+    line-height: 28px;
+    color: #1a90fc;
+    border: 1px solid #1a90fc;
+    text-align: center;
+    padding: 0 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+  }
+}
+.tuijian_div {
+  .tuijian_img {
+    margin: 15px 28px 0 104px;
+    img {
+      height: 95px;
+      width: 142px;
+    }
+  }
+  .tuijian_title_div{
+    .tuijian_title{
+      font-size: 18px;
+      margin-top: 37px;
+    }
+    .tuijian_time{
+      margin-top: 21px;
+      color: #848484;
+    }
   }
 }
 </style>

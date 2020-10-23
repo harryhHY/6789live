@@ -23,16 +23,7 @@
           <span class="cu right morespan">更多》</span>
         </div>
         <div class="time_class">
-          <div class="buttonList_div cl">
-            <div
-              v-for="(item, index) in buttonList"
-              :key="index"
-              class="buttonList_span left"
-            >
-              <div>{{ item.text1 }}</div>
-              <div>{{ item.text }}</div>
-            </div>
-          </div>
+          {{todaydate}}
         </div>
         <div class="live_all">
           <div></div>
@@ -287,6 +278,7 @@ export default {
       check: 0,
       headerKey: "2",
       footballflag: 1,
+      todaydate:''
     };
   },
   methods: {
@@ -319,21 +311,23 @@ export default {
     },
     //循环出多日期
     changeButtonList() {
-      let buttonList = this.buttonList;
-      let list = [];
-      let list1 = [];
-      for (let v = 0; v < 7; v++) {
-        let nowdate = this.getDate1(v);
-        let nowdate2 = this.getDate(v);
-        list.push(nowdate);
-        list1.push(nowdate2);
-      }
-      for (let i = 0; i < list.length; i++) {
-        buttonList[i].text = list[i];
-        buttonList[i].text1 = list1[i];
-      }
-      this.buttonList = buttonList;
-      console.log(buttonList);
+      console.log(this.getDate1(0))
+      this.todaydate = this.getDate1(0)
+      // let buttonList = this.buttonList;
+      // let list = [];
+      // let list1 = [];
+      // for (let v = 0; v < 7; v++) {
+      //   let nowdate = this.getDate1(v);
+      //   let nowdate2 = this.getDate(v);
+      //   list.push(nowdate);
+      //   list1.push(nowdate2);
+      // }
+      // for (let i = 0; i < list.length; i++) {
+      //   buttonList[i].text = list[i];
+      //   buttonList[i].text1 = list1[i];
+      // }
+      // this.buttonList = buttonList;
+      // console.log(buttonList);
     },
   },
   components: {
@@ -556,24 +550,38 @@ export default {
 }
 .time_class {
   height: 46px;
-  line-height: 46px;
-  margin: 14px 85px;
-  border: 1px solid #848484;
+  margin: 14px 50px;
 }
-.buttonList_div {
-  margin: 0 50px;
+
+::-moz-selection {
+  /* Code for Firefox */
+
+  background: #01a0fc;
 }
-.buttonList_span {
-  width: 75px;
-  height: 35px;
-  line-height: 16px;
-  text-align: center;
-  margin: 5px 15px;
-  color: #a7a7a7;
-  border-radius: 5px;
+
+
+
+.time_class {
+  position: relative;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  width: 20%;
+  margin-top: 0;
+  padding-left: 10px;
+  font-size: 18px;
+  color: #ffffff;
+  background: #01a0fc;
 }
-.buttonList_span:hover {
-  color: #014681;
-  background-color: #e1f1fe;
+.time_class:after {
+  border-left: 25px solid #01a0fc;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  content: "";
+  height: 0px;
+  right: -25px;
+  position: absolute;
+  top: 0;
+  width: 0;
 }
 </style>

@@ -1,25 +1,37 @@
 <template>
-  <div class="live_video boxshadow left cl" id="live_video">
-    <div class="header_div">
-      <div class="header">
-        {{ title }}
-      </div>
+  <div class="newslive_div left">
+    <div class="block">
+      <el-carousel height="238px">
+        <el-carousel-item v-for="(item, index) in swpList" :key="index">
+          <div class="swp">
+            <img :src="item.imgsrc" alt="" />
+            <div class="newstitle">{{ item.newstitle }}</div>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
-    <div>
-      <div
-        v-for="(item, key, index) in videoData"
-        :key="item.id"
-        @click="gotovideo(item.id)"
-        class="videotitle_div cu"
-      >
-        <div class="videotype left">
-          {{ item.videotype }}
-        </div>
-        <div class="videotitle left ov">
-          {{ item.videotitle }}
+    <div class="live_video boxshadow left cl" id="live_video">
+      <div class="header_div">
+        <div class="header">
+          {{ title }}
         </div>
       </div>
-      <div class="lookmore cu">查看更多直播</div>
+      <div>
+        <div
+          v-for="(item, key, index) in videoData"
+          :key="item.id"
+          @click="gotovideo(item.id)"
+          class="videotitle_div cu"
+        >
+          <div class="videotype left">
+            {{ item.videotype }}
+          </div>
+          <div class="videotitle left ov">
+            {{ item.videotitle }}
+          </div>
+        </div>
+        <div class="lookmore cu">查看更多直播</div>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +71,28 @@ export default {
           id: 6,
           videotype: "正在直播",
           videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
+        },
+      ],
+      swpList: [
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
+        },
+        {
+          imgsrc: require("../../image/news.jpeg"),
+          newstitle:
+            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
         },
       ],
     };
@@ -131,4 +165,29 @@ export default {
     border-radius: 15px;
   }
 }
+.newslive_div{
+  width: 350px;
+  margin-left: 18px;
+  margin-top: 23px;
+  border-radius: 5px;
+}
+.swp {
+  width: 356px;
+
+  position: relative;
+  img {
+    width: 100%;
+  }
+  .newstitle {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 18px;
+    color: #ffffff;
+    padding: 0 10px;
+  }
+}
+
 </style>

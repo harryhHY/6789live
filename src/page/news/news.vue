@@ -62,19 +62,7 @@
         </div>
       </div>
     </div>
-    <div class="left newslive_div">
-      <div class="block">
-        <el-carousel   height='238px'>
-          <el-carousel-item v-for="(item, index) in swpList" :key="index">
-            <div class="swp">
-              <img :src="item.imgsrc" alt="" />
-              <div class="newstitle">{{ item.newstitle }}</div>
-            </div>
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-      <newslive></newslive>
-    </div>
+    <newslive></newslive>
   </div>
 </template>
 
@@ -153,28 +141,6 @@ export default {
           time: "10.20",
         },
       ],
-      swpList: [
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-      ],
     };
   },
   methods: {
@@ -203,12 +169,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.newslive_div{
-  width: 350px;
-  margin-left: 18px;
-  margin-top: 23px;
-  border-radius: 5px;
-}
 .newstype1 {
   background-image: url("../../image/liveclass.png");
   background-size: 100%;
@@ -318,42 +278,11 @@ export default {
     left: 43px;
   }
 }
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 150px;
-  margin: 0;
-}
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
 .newslive {
   padding: 20px;
 }
-.swp {
-  width: 356px;
- 
-  position: relative;
-  img {
-    width: 100%;
-  }
-  .newstitle {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-size: 18px;
-    color: #ffffff;
-    padding: 0 10px;
-  }
-}
+
 .details {
   margin: 7px 0 7px 43px;
   font-size: 14px;

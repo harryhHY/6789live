@@ -3,12 +3,11 @@
     <!-- 直播信息左半部分 -->
     <div class="cl homecontentleft left">
       <div class="newsheader">
-        <img src="../../image/home_new.png" alt="" />
         <div class="newstitle">新闻热点</div>
         <div class="newstitle_en">NEWS HOTSPOT</div>
       </div>
       <div class="swp left">
-        <el-carousel :interval="4000" type="card" height="300px">
+        <el-carousel :interval="4000" type="card">
           <el-carousel-item
             v-for="(item, key, index) in swiperdata"
             :key="key + item.id"
@@ -21,9 +20,8 @@
       <div class="foot_div left cl">
         <div>
           <div class="foot_divsort cl">
-            <img src="../../image/home_footer.png" alt="" />
-            <div class="foot_divsort_div">足球</div>
-            <div class="foot_divsort_div1">FOOTBALL</div>
+            <span class="foot_divsort_div">足球</span>
+            <span class="foot_divsort_div1">FOOTBALL</span>
           </div>
 
           <div class="cl footer_content boxshadow">
@@ -79,10 +77,9 @@
       </div>
       <!-- 篮球 -->
       <div class="foot_div left">
-        <div class="foot_divsort cl">
-          <img src="../../image/home_bb.png" alt="" />
-          <div class="foot_divsort_div">篮球</div>
-          <div class="foot_divsort_div1">BASKETBALL</div>
+        <div class="bbk_divsort cl">
+          <div class="bbk_divsort_div">篮球</div>
+          <div class="bbk_divsort_div1">BASKETBALL</div>
         </div>
 
         <div class="cl footer_content boxshadow">
@@ -462,7 +459,6 @@ export default {
       // this.elmenu = data[0].title;
     },
     changtype(id, name) {
-      
       this.footballflag = id;
       console.log(id, name);
     },
@@ -507,6 +503,11 @@ export default {
   font-size: 22px;
   position: relative;
   color: #014681;
+  background-image: url('../../image/home_new.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 950px;
+  height: 50px;
   .newstitle {
     position: absolute;
     left: 53px;
@@ -539,7 +540,7 @@ export default {
   color: #1a90fc;
 }
 .swp {
-  width: 93%;
+  width: 100%;
   height: 300px;
   .is-active {
     color: #1a90fc;
@@ -571,18 +572,38 @@ export default {
     margin-top: 5px;
     .foot_divsort {
       color: #014681;
-      position: relative;
+      display: flex;
+      align-items: center;
+      background-image: url("../../image/home_footer.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 950px;
+      height: 50px;
       .foot_divsort_div {
         font-size: 22px;
-        position: absolute;
-        left: 97px;
-        top: 15px;
+        margin: 20px 0 0 100px;
       }
       .foot_divsort_div1 {
         font-size: 17px;
-        position: absolute;
-        left: 149px;
-        top: 23px;
+        margin: 25px 0 0 5px;
+      }
+    }
+    .bbk_divsort {
+      color: #014681;
+      display: flex;
+      align-items: center;
+      background-image: url("../../image/home_bb.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 950px;
+      height: 50px;
+      .bbk_divsort_div {
+        font-size: 22px;
+        margin: 20px 0 0 100px;
+      }
+      .bbk_divsort_div1 {
+        font-size: 17px;
+        margin: 25px 0 0 5px;
       }
     }
     .foot_span {
@@ -674,6 +695,7 @@ export default {
 .homecontentright {
   font-size: 14px;
   margin-top: 4px;
+  margin-left: 5px;
   width: 380px;
   .homecontentright_menu_div {
     font-size: 20px;
@@ -737,7 +759,7 @@ export default {
     line-height: 22px;
     font-size: 14px;
     color: #ffffff;
-    background-image: url("../../image/liveclass.png")  ;
+    background-image: url("../../image/liveclass.png");
     background-repeat: no-repeat;
     background-size: 100%;
   }
