@@ -1,6 +1,6 @@
 <template>
   <div>
-        <el-form :label-position="labelPosition" :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form :label-position="labelPosition" :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
             <el-form-item label="性别" prop="gender">
                 <el-select v-model="ruleForm.gender" placeholder="请选择性别">
                 <el-option label="男" value="boy"></el-option>
@@ -34,9 +34,9 @@
                 <el-input type="textarea" v-model="ruleForm.desc"></el-input>
             </el-form-item>
             <br>
-            <el-form-item>
-                <el-button type="primary" @click="submitForm('ruleForm')">修改</el-button>
-                <el-button @click="resetForm('ruleForm')">取消</el-button>
+            <el-form-item class="btn_box">
+                <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>
+                <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">修改</el-button>
             </el-form-item>
         </el-form>
   </div>
@@ -61,7 +61,7 @@ export default {
                     { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
                 ],
                 gender: [
-                    { required: true, message: '请选择活动区域', trigger: 'change' }
+                    { required: false, message: '请选择活动区域', trigger: 'change' }
                 ],
                 date1: [
                     { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
@@ -94,6 +94,18 @@ export default {
 <style lang="less" scoped>
 /deep/ .el-textarea{
     width: 200%;
+}
+.btn_box{
+    // width: 200px;
+    margin: auto;
+}
+.canclebtn{
+    width: 120px;
+    margin-left: 250px;
+}
+.submitbtn{
+    width: 120px;
+    margin-left: 10px;
 }
 </style>>
 

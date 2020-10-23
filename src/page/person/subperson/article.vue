@@ -166,15 +166,15 @@ export default {
     width: 100%;
     position: relative;
     margin-bottom:40px;
-    #editor{
-        width:1012px;
-        margin: auto;
-        resize: vertical
-    }
     .editor_con{
         width: 1012px;
+        margin: auto;
         margin-bottom: 50px;
         position: relative;
+        #editor{
+            width:1012px;         
+            resize: vertical
+        }
         .articletitle{
             padding: 1px 2px;
             border: none;

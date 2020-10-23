@@ -1,28 +1,26 @@
 <template>
-    <div class="">
-        <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
+    <div class="attention">
+        <p class="p_title">我的关注</p>
+        <div class="attention_list">
+            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
-            <div class="attenhead">
-                <img :src="item.person_avotor" alt="">
-                <!-- <el-button class="attenbtn" type="primary">取消关注</el-button> -->
-                <p class="attendes">{{item.sign}}</p>
-            </div>
-            <div class="attenmid">
-                <div>
-                    <p>帖子</p>
-                    <p class="article_one" :style="{ width: item.one>100 ? 100 + 'px': item.one + 'px'}" >{{item.one}}</p>
+                <div class="attenhead">
+                    <img :src="item.person_avotor" alt="">
                 </div>
-                <div>
-                    <p>粉丝</p>
-                    <p class="fans_two" :style="{ width: item.two>100 ? 100 + 'px': item.two + 'px'}">{{item.two}}</p>
+                <div class="attenmid">
+                    <div class="sign">{{item.sign}}</div>
+                    <div class="desc">
+                        <p>个性签名{{item.desc}}</p>
+                    </div>
+                    <div class="mid_con">
+                        <p>帖子:{{item.one}}</p>
+                        <p>粉丝:{{item.two}}</p>
+                        <p>关注:{{item.three}}</p>
+                    </div>
                 </div>
-                <div>
-                    <p>关注</p>
-                    <p class="atten_three" :style="{ width: item.three>100 ? 100 + 'px': item.three + 'px'}">{{item.three}}</p>
+                <div class="attenfoot">               
+                    <el-button class="attenbtn" size="mini">取消关注</el-button>
                 </div>
-            </div>
-            <div class="attenfoot">
-                {{item.desc}}
             </div>
         </div>
     </div>
@@ -48,51 +46,35 @@ export default {
                 {
                     person_avotor:require("@/image/news.jpeg"),
                     sign:"小清新",
-                    one:50,
-                    two:68,
-                    three:39,
+                    one:101,
+                    two:26,
+                    three:85,
                     desc:"专业就是不一样+++++++++++++++++++"
                 },
                 {
                     person_avotor:require("@/image/news.jpeg"),
                     sign:"小清新",
-                    one:48,
-                    two:268,
-                    three:58,
+                    one:101,
+                    two:26,
+                    three:85,
                     desc:"专业就是不一样+++++++++++++++++++"
                 },
                 {
                     person_avotor:require("@/image/news.jpeg"),
                     sign:"小清新",
-                    one:28,
-                    two:8,
-                    three:35,
+                    one:101,
+                    two:26,
+                    three:85,
                     desc:"专业就是不一样+++++++++++++++++++"
                 },
                 {
                     person_avotor:require("@/image/news.jpeg"),
                     sign:"小清新",
-                    one:158,
-                    two:8,
-                    three:100,
+                    one:101,
+                    two:26,
+                    three:85,
                     desc:"专业就是不一样+++++++++++++++++++"
                 },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:58,
-                    two:8,
-                    three:0,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:58,
-                    two:268,
-                    three:30,
-                    desc:"专业就是不一样+是的hi上帝是来访接待来访+回复收到回复对方hi后方i的花费多少覅打回访电话"
-                }
             ]
         }
     },
@@ -108,90 +90,110 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.subatten{
-    width: 20%;
-    height: 300px;
-    float: left;
-    position: relative;
-    margin-bottom: 10px;
-    box-shadow: 0px 1px 1px 1px #e7e2e2;
-    transition: all .2s linear;
-    border-radius: 1px;
-    .attenhead{
-        height: 100px;
-        width: 100%;
-        background-color: aquamarine;
-        img{
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }
-        .attenbtn{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 12px;
-            color: #FFF;
-            background-color: #CACACA;
-            border: none;
-            border-radius: 5px;
+.attention{
+    width: 100%;
+    margin-top: 5px;
+    .p_title{
+        border-left: 5px solid #014681;
+        color: #014681;
+        font-size: 18px;
+        height: 20px;
+        line-height: 20px;
+        padding:0 10px;
+        font-weight: 600;
+        position: relative;
+    }
+    .p_title:after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        height: 1px;
+        width: 950px;
+        background-color: #d2d2d2;
+        left: 100px;
+    }
+    .attention_list{
+        margin-top: 20px;
+        .subatten{
+            width: 470px;
+            height: 130px;
+            float: left;
+            position: relative;
+            margin: 0 0 30px 43px;
             padding: 5px;
-            cursor: pointer;
-        }
-        .attendes{
-            position: absolute;
-            top: 70px;
-            left: 10px;
+            background-color: #F4F9FF;
+            box-shadow: 0px 1px 1px 1px #e7e2e2;
+            transition: all .2s linear;
+            border-radius: 1px;
+            border-radius: 5px;
+            .attenhead{
+                height: 120px;
+                width: 80px;
+                float: left;
+                position: relative;
+                img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    margin: auto;
+                }
+            }
+            .attenmid{
+                height: 120px;
+                width: 300px;
+                float: left;   
+                p{
+                    display: inline-block;
+                }
+                .sign{
+                    width: 100%;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #1a90fc;
+                }
+                .desc{
+                    width: 100%;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 14px;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    color: #aeaeae;
+                }
+                .mid_con{
+                    width: 100%;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 12px;
+                    color: #aeaeae;
+                    p{
+                        margin-right: 10px;
+                    }
+                }
+            }
+            .attenfoot{
+                width: 80px;
+                float: left;
+                .attenbtn{
+                    border-radius: 20px;
+                    font-size: 12px;
+                    background-color: #d2d2d2;
+                    color: #3c3c3c;
+                }
+            }
         }
     }
-    .attenmid{
-        height: 135px;
-        width: 100%;       
-        p{
-            height: 25px;
-            line-height: 25px;
-            padding: 0 5px;
-            display: inline-block;
-        }
-        .article_one{
-            background-color: #3d7aeb;
-            margin: 10px 0;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            text-align: right;
-            padding-right: 10px;
-        }
-        .fans_two{
-            background-color: #d40b2c;
-            margin: 10px 0;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            text-align: right;
-            padding-right: 10px;
-        }
-        .atten_three{
-            background-color: #0bd447;
-            margin: 10px 0;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            text-align: right;
-            padding-right: 10px;
-        }
-    }
-    .attenfoot{
-        height: 50px;
-        margin-bottom: 15px;
-        padding:0 5px;
-        line-height: 25px;
-        text-align: center;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-    }
+    
 }
+
 .subatten:hover{
     transform: translateY(-3px);
     box-shadow: 0 5px 10px #CACACA;
