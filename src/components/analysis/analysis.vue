@@ -1,22 +1,284 @@
 <template>
-  <div class="dataanalysis_header">
-    <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-    >
-      <el-menu-item
-        :index="item.id"
-        v-for="(item, index) in dataList"
-        :key="index"
-        >{{ item.title }}</el-menu-item
-      >
-    </el-menu>
+  <div id="analysis">
+    <home_herder :headerKey="headerKey"></home_herder>
+    <div class="analys boxshadow">
+      <div class="analysteaminfo">
+        <div class="cl header_menu">
+          <div
+            v-for="(item, index) in dataList"
+            :key="index"
+            class="left header_title cu"
+          >
+            {{ item.title }}
+          </div>
+        </div>
+        <div class="analysisgametype1_div">
+          {{ liveList.gametype1 }}
+          {{ liveList.time }}
+        </div>
+        <div class="against">
+          <div class="against_aname ov">{{ liveList.aname }}</div>
+          <div class="against_type">{{ liveList.type }}</div>
+          <div class="against_bname ov">{{ liveList.bname }}</div>
+        </div>
+        <div class="cl team_score">
+          <img :src="liveList.aicon" alt="" class="left analysteaminfo_aicon" />
+          <div class="left analysteaminfo_ascore">
+            {{ liveList.ascore }}
+          </div>
+          <img src="../../image/news/vs.png" alt="" class="left vs" />
+          <div class="left analysteaminfo_bscore">
+            {{ liveList.bscore }}
+          </div>
+          <img :src="liveList.bicon" alt="" class="left analysteaminfo_aicon" />
+        </div>
+      </div>
+      <!-- 联赛积分 -->
+      <div class="title_alliancepoints"></div>
+      <div class="alliancepoints_div cl">
+        <div class="alliancepoints_left left">
+          <div class="alliancepoints_left_header">
+            <img :src="liveList.aicon" alt="" />
+            <span class="alliancepoints_left_header_team">{{
+              liveList.aname
+            }}</span>
+          </div>
+          <div class="alliancepoints_main">
+            <div class="alliancepoints_main_intr cl">
+              <div class="left gamenum">比赛场数</div>
+              <div class="left win">胜</div>
+              <div class="left lose">负</div>
+              <div class="left win">平</div>
+              <div class="left goal">进球</div>
+              <div class="left conceded">失球</div>
+              <div class="left goaldiff">净胜球</div>
+              <div class="left integral">积分</div>
+              <div class="left rank">排名</div>
+              <div class="left winrate">胜率</div>
+            </div>
+            <div class="alliancepoints_main_intr1 cl">
+              <div class="left gamenum">76</div>
+              <div class="left win">8</div>
+              <div class="left lose">2</div>
+              <div class="left win">4</div>
+              <div class="left goal">50</div>
+              <div class="left conceded">6</div>
+              <div class="left goaldiff">12</div>
+              <div class="left integral">20</div>
+              <div class="left rank">1</div>
+              <div class="left winrate">84.45%</div>
+            </div>
+          </div>
+        </div>
+        <div class="alliancepoints_right left">
+          <div class="alliancepoints_left_header">
+            <img :src="liveList.bicon" alt="" />
+            <span class="alliancepoints_left_header_team">{{
+              liveList.bname
+            }}</span>
+          </div>
+          <div class="alliancepoints_main">
+            <div class="alliancepoints_main_intr cl">
+              <div class="left gamenum">比赛场数</div>
+              <div class="left win">胜</div>
+              <div class="left lose">负</div>
+              <div class="left win">平</div>
+              <div class="left goal">进球</div>
+              <div class="left conceded">失球</div>
+              <div class="left goaldiff">净胜球</div>
+              <div class="left integral">积分</div>
+              <div class="left rank">排名</div>
+              <div class="left winrate">胜率</div>
+            </div>
+            <div class="alliancepoints_main_intr1 cl">
+              <div class="left gamenum">76</div>
+              <div class="left win">8</div>
+              <div class="left lose">2</div>
+              <div class="left win">4</div>
+              <div class="left goal">50</div>
+              <div class="left conceded">6</div>
+              <div class="left goaldiff">12</div>
+              <div class="left integral">20</div>
+              <div class="left rank">1</div>
+              <div class="left winrate">84.45%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 历史交锋 -->
+      <div class="title_history"></div>
+      <div class="game_history_div">
+        <div class="game_history_main">
+          <div class="game_histor_header cl">
+            <div class="left cu b1b">全部赛事</div>
+            <div class="left cu b1b">主客相同</div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  5场<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
+          <div>
+            <div class="cl game_column">
+              <div class="left match">赛事</div>
+              <div class="left matchtime">比赛日期</div>
+              <div class="left ateam">主队</div>
+              <div class="left score">比分</div>
+              <div class="left bteam">客队</div>
+              <div class="left halftime">半场</div>
+              <div class="left corner">角球</div>
+              <div class="left winlose">胜负</div>
+              <div class="left winlosescore">胜负得分</div>
+              <div class="left handicap">让球</div>
+              <div class="left trend">走势</div>
+              <div class="left goals">进球数</div>
+            </div>
+            <div class="cl game_column1">
+              <div class="left match">足协杯</div>
+              <div class="left matchtime">2020-05-01</div>
+              <div class="left ateam">青岛啤酒对</div>
+              <div class="left score">1:4</div>
+              <div class="left bteam">广州搓澡队</div>
+              <div class="left halftime">0:2</div>
+              <div class="left corner">0：5</div>
+              <div class="left winlose green">负</div>
+              <div class="left winlosescore">10.08 20.08 20.08</div>
+              <div class="left handicap">10.08 20.08 20.08</div>
+              <div class="left trend green">输</div>
+              <div class="left goals red">大</div>
+            </div>
+            <div class="sum">
+              近5场交锋，胜<span class="red">0</span>出场，平局<span
+                class="blue"
+                >0</span
+              >场，输<span class="green">1</span>场；近5场走势，<span
+                class="red"
+                >0</span
+              >赢<span class="blue">0</span>平<span class="green">1</span
+              >输；其中<span class="red">1</span>场为大球，<span class="green"
+                >1</span
+              >场为小球
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 近期战绩 -->
+      <div class="title_recrd"></div>
+      <div class="recrd cl">
+        <div class="left recrdleft">
+          <div class="recrdleft_header">
+            <div class="left centerimg">
+              <img :src="liveList.aicon" alt="" />
+              <span class="recrd_left_header_team">{{ liveList.aname }}</span>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  5场<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  全部<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(item, index) in game_num"
+                    :key="index"
+                    >{{ item.inquirenum }}</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  赛事筛选<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
+          <div class="recrdleft_main">
+            <div class="cl recrdleft_main_column">
+              <div class="left recrd_match">赛事</div>
+              <div class="left recrd_date">比赛日期</div>
+              <div class="left recrd_ateam">主队</div>
+              <div class="left recrd_score">比分</div>
+              <div class="left recrd_bteam">客队</div>
+              <div class="left recrd_half">半场</div>
+              <div class="left recrd_winlose">胜负</div>
+              <div class="left recrd_trend">走势</div>
+              <div class="left recrd_goalnum">进球数</div>
+            </div>
+            <div
+              v-for="(item, index) in aRecrdList"
+              :key="index"
+              class="cl recrdleft_main_data"
+            >
+              <div class="left recrd_match ov">{{ item.recrd_match }}</div>
+              <div class="left recrd_date">{{ item.recrd_date }}</div>
+              <div class="left recrd_ateam ov">{{ item.recrd_ateam }}</div>
+              <div class="left recrd_score">{{ item.recrd_score }}</div>
+              <div class="left recrd_bteam ov">{{ item.recrd_bteam }}</div>
+              <div class="left recrd_half">{{ item.recrd_half }}</div>
+              <div class="left recrd_winlose">{{ item.recrd_winlose }}</div>
+              <div class="left recrd_trend">{{ item.recrd_trend }}</div>
+              <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div>
+            </div>
+            <div class="Echarts">
+              <div id="main" style="width: 600px; height: 400px"></div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+const home_herder = () => import("../home/home_herder");
+
 export default {
   data() {
     return {
@@ -38,21 +300,659 @@ export default {
           src: "/exponent",
         },
       ],
+      headerKey: "2",
+      game_num: [
+        {
+          id: 1,
+          inquirenum: "5场",
+          network: 5,
+        },
+        {
+          id: 2,
+          inquirenum: "10场",
+          network: 10,
+        },
+      ],
+      aRecrdList: [
+        {
+          recrd_match: "中超",
+          recrd_date: "2020/9/15",
+          recrd_ateam: "洗澡一队",
+          recrd_score: "12:12",
+          recrd_bteam: "洗澡二队",
+          recrd_half: "1:0",
+          recrd_winlose: "胜",
+          recrd_trend: "负",
+          recrd_goalnum: "负",
+        },
+        {
+          recrd_match: "中超",
+          recrd_date: "2020/9/15",
+          recrd_ateam: "洗澡一队",
+          recrd_score: "12:12",
+          recrd_bteam: "洗澡二队",
+          recrd_half: "1:0",
+          recrd_winlose: "胜",
+          recrd_trend: "负",
+          recrd_goalnum: "负",
+        },
+      ],
     };
   },
   methods: {
-    handleSelect(key, keyPath) {
-     for(let i =0;i<this.dataList.length;i++){
-         
-     }
+    myEcharts() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = this.$echarts.init(document.getElementById("main"));
+      var option = {
+        color: ["#c0e2ff"],
+        xAxis: {
+          type: "category",
+
+          boundaryGap: false,
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        },
+        yAxis: {
+          // type: "value",
+          data: ["负", "平", "胜"],
+        },
+        series: [
+          {
+            data: [1, 0, 1, 2, 0],
+            type: "line",
+            areaStyle: {},
+          },
+        ],
+      };
+      myChart.setOption(option);
     },
+    handleSelect(key, keyPath) {
+      for (let i = 0; i < this.dataList.length; i++) {}
+    },
+  },
+  computed: {
+    ...mapState(["liveList"]),
+  },
+  components: {
+    home_herder,
+  },
+  mounted() {
+    this.myEcharts();
+  },
+  created() {
+    console.log(this.liveList);
   },
 };
 </script>
 
 <style lang="less" scoped>
-.dataanalysis_header{
+.analys {
+  padding: 17px 16px;
+  width: 1288px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 15px;
+}
+.header_menu {
+  display: flex;
+  justify-content: center;
+  font-family: "黑体";
+  font-size: 24px;
+  color: #014681;
+  .header_title {
+    width: 226px;
+    height: 48px;
+    text-align: center;
+    line-height: 48px;
+  }
+}
+.header_menu:nth-child(2) .header_title {
+}
+.analysisgametype1_div {
+  font-size: 18px;
+  padding: 22px 0;
+  text-align: center;
+}
+.against {
+  line-height: 31px;
+  height: 31px;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  text-align: center;
+
+  .against_aname {
+    width: 159px;
+    background-color: #51247f;
+    color: #fff;
+    border-radius: 15px 0 0 15px;
+  }
+  .against_type {
+    width: 579px;
+    background-color: #f6f6f6;
+    color: #fd5503;
+  }
+  .against_bname {
+    border-radius: 0 15px 15px 0;
+    width: 159px;
+    background-color: #700202;
+    color: #fff;
+  }
+}
+.analysteaminfo {
+  background-color: #f9fcff;
+}
+.analysteaminfo_aicon {
+  width: 58px;
+  height: 58px;
+}
+.analysteaminfo_ascore {
+  font-family: "黑体";
+  color: #014681;
+  font-size: 28px;
+  font-weight: 600;
+  margin-left: 35px;
+}
+.vs {
+  width: 44px;
+  height: 23px;
+  margin: 0 268px;
+}
+.team_score {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 0;
+}
+.analysteaminfo_bscore {
+  font-family: "黑体";
+  color: #014681;
+  font-size: 28px;
+  font-weight: 600;
+  margin-right: 35px;
+}
+#analysis {
+  font-size: 14px;
+}
+.title_alliancepoints {
+  background-image: url("../../image/al/alliancepoints.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 1251px;
+  height: 19px;
+  margin: 13px auto;
+}
+.alliancepoints_div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  .alliancepoints_left {
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    width: 640px;
+    margin-right: 3px;
+    .alliancepoints_left_header {
+      font-size: 16px;
+      margin: 25px 0 25px 11px;
+      padding-left: 13px;
+      border-left: 3px solid #51247f;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+      .alliancepoints_left_header_team {
+        color: #848484;
+      }
+    }
+    .alliancepoints_main {
+      border: 1px solid #dedede;
+      margin: 0 3px;
+      .alliancepoints_main_intr {
+        text-align: center;
+        line-height: 40px;
+        background-color: #e2f1fe;
+        color: #848484;
+        .gamenum {
+          width: 91px;
+        }
+        .win {
+          width: 48px;
+        }
+        .lose {
+          width: 46px;
+        }
+        .goal {
+          width: 59px;
+        }
+        .conceded {
+          width: 69px;
+        }
+        .goaldiff {
+          width: 75px;
+        }
+        .integral {
+          width: 68px;
+        }
+        .rank {
+          width: 45px;
+        }
+        .winrate {
+          width: 74px;
+        }
+      }
+      .alliancepoints_main_intr1 {
+        text-align: center;
+        line-height: 40px;
+        color: #848484;
+        div {
+          border-right: 1px solid #dedede;
+        }
+
+        .gamenum {
+          width: 90px;
+        }
+        .win {
+          background-color: #f7f8fd;
+          color: #1a90fc;
+          width: 47px;
+        }
+        .lose {
+          background-color: #f7f8fd;
+          color: #1a90fc;
+          width: 45px;
+        }
+        .goal {
+          width: 58px;
+        }
+        .conceded {
+          width: 68px;
+        }
+        .goaldiff {
+          width: 74px;
+        }
+        .integral {
+          width: 67px;
+        }
+        .rank {
+          width: 44px;
+        }
+        .winrate {
+          background-color: #f7f8fd;
+          width: 74px;
+        }
+      }
+      .alliancepoints_main_intr1 div:last-child {
+        border-right: none;
+      }
+    }
+  }
+  .alliancepoints_right {
+    border: 1px solid #dedede;
+    border-radius: 5px;
+    width: 640px;
+    .alliancepoints_left_header {
+      font-size: 16px;
+      margin: 25px 0 25px 11px;
+      padding-left: 13px;
+      border-left: 3px solid #700202;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+      .alliancepoints_left_header_team {
+        color: #848484;
+      }
+    }
+    .alliancepoints_main {
+      border: 1px solid #dedede;
+      margin: 0 3px;
+      .alliancepoints_main_intr {
+        text-align: center;
+        line-height: 40px;
+        background-color: #e2f1fe;
+        color: #848484;
+        .gamenum {
+          width: 91px;
+        }
+        .win {
+          width: 48px;
+        }
+        .lose {
+          width: 46px;
+        }
+        .goal {
+          width: 59px;
+        }
+        .conceded {
+          width: 69px;
+        }
+        .goaldiff {
+          width: 75px;
+        }
+        .integral {
+          width: 68px;
+        }
+        .rank {
+          width: 45px;
+        }
+        .winrate {
+          width: 74px;
+        }
+      }
+      .alliancepoints_main_intr1 {
+        text-align: center;
+        line-height: 40px;
+        color: #848484;
+        div {
+          border-right: 1px solid #dedede;
+        }
+
+        .gamenum {
+          width: 90px;
+        }
+        .win {
+          background-color: #f7f8fd;
+          color: #1a90fc;
+          width: 47px;
+        }
+        .lose {
+          background-color: #f7f8fd;
+          color: #1a90fc;
+          width: 45px;
+        }
+        .goal {
+          width: 58px;
+        }
+        .conceded {
+          width: 68px;
+        }
+        .goaldiff {
+          width: 74px;
+        }
+        .integral {
+          width: 67px;
+        }
+        .rank {
+          width: 44px;
+        }
+        .winrate {
+          background-color: #f7f8fd;
+          width: 74px;
+        }
+      }
+      .alliancepoints_main_intr1 div:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+.title_history {
+  background-image: url("../../image/al/history.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 1251px;
+  height: 19px;
+  margin: 13px auto;
+}
+.game_history_div {
+  // display: flex;
+  // justify-content: center;
+  margin-bottom: 25px;
+  .game_history_main {
+    border: 1px solid #dedede;
+    padding: 0 4px;
+    border-radius: 5px;
+    .game_histor_header {
+      margin: 7px 0;
+      color: #848484;
+
+      text-align: center;
+      .b1b {
+        width: 98px;
+        border: 1px solid #848484;
+        border-radius: 12px;
+        margin: 0 7px;
+        height: 25px;
+        line-height: 25px;
+      }
+      .b1b:hover {
+        background-color: #1a90fc;
+        color: #ffffff;
+        border: 1px solid #1a90fc;
+      }
+      .el-dropdown {
+        color: #848484;
+      }
+    }
+    .game_column {
+      color: #848484;
+      line-height: 40px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      div {
+        background-color: #e2f1fe;
+      }
+      .match {
+        width: 120px + 2px;
+      }
+      .matchtime {
+        width: 116px + 1px;
+      }
+      .ateam,
+      .score,
+      .bteam {
+        width: 108px + 1px;
+      }
+      .halftime {
+        width: 73px + 1px;
+      }
+      .corner {
+        width: 73px + 1px;
+      }
+      .winlose {
+        width: 75px + 1px;
+      }
+      .winlosescore {
+        width: 150px + 1px;
+      }
+      .handicap {
+        width: 150px + 1px;
+      }
+      .trend {
+        width: 74px + 1px;
+      }
+      .goals {
+        width: 100px + 1px;
+      }
+    }
+    .game_column1 {
+      color: #848484;
+      line-height: 40px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      div {
+        border-right: 1px solid #dedede;
+        border-bottom: 1px solid #dedede;
+      }
+      .match {
+        width: 120px;
+        border-left: 1px solid #dedede;
+      }
+      .matchtime {
+        width: 116px;
+      }
+      .ateam,
+      .score,
+      .bteam {
+        width: 108px;
+        color: #000;
+      }
+      .halftime {
+        width: 73px;
+      }
+      .green {
+        color: green;
+      }
+      .red {
+        color: red;
+      }
+      .corner {
+        width: 73px;
+      }
+      .winlose {
+        width: 75px;
+      }
+      .winlosescore {
+        width: 150px;
+      }
+      .handicap {
+        width: 150px;
+      }
+      .trend {
+        width: 74px;
+      }
+      .goals {
+        width: 100px;
+      }
+    }
+    .sum {
+      text-align: center;
+      color: #848484;
+      margin: 18px 0;
+    }
+    .blue {
+      color: #1a90fc;
+    }
+    .red {
+      color: red;
+    }
+    .green {
+      color: green;
+    }
+  }
+}
+.title_recrd {
+  background-image: url("../../image/al/record.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 1251px;
+  height: 19px;
+  margin: 13px auto;
+}
+.recrdleft {
+  width: 650px;
+  border: 1px solid #dedede;
+  .recrdleft_header {
+    font-size: 16px;
+    margin: 25px 0 25px 11px;
+    padding-left: 13px;
+    border-left: 3px solid #51247f;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    img {
+      width: 27px;
+      height: 27px;
+    }
+    .alliancepoints_left_header_team {
+      color: #848484;
+    }
+    .b1b {
+      width: 98px;
+      border: 1px solid #848484;
+      border-radius: 12px;
+      margin: 0 7px;
+      line-height: 25px;
+      height: 25px;
+      text-align: center;
+    }
+    .b1b:hover {
+      background-color: #1a90fc;
+      color: #ffffff;
+      border: 1px solid #1a90fc;
+    }
+    .el-dropdown {
+      color: #848484;
+    }
+  }
+  .recrdleft_main {
+    text-align: center;
+    line-height: 39px;
+    color: #848484;
+    border: 1px solid #dedede;
+    margin: 0 4px;
+    .recrdleft_main_column {
+      .recrd_match {
+        width: 88px + 1px;
+      }
+      .recrd_date {
+        width: 86px + 1px;
+      }
+      .recrd_ateam {
+        width: 94.5px + 1px;
+      }
+      .recrd_score {
+        width: 50px + 1px;
+      }
+      .recrd_bteam {
+        width: 94.5px + 1px;
+      }
+      .recrd_half {
+        width: 49px + 1px;
+      }
+      .recrd_winlose {
+        width: 50px + 1px;
+      }
+      .recrd_trend {
+        width: 44px + 1px;
+      }
+      .recrd_goalnum {
+        width: 69px + 1px;
+      }
+    }
+    .recrdleft_main_data {
+      div {
+        border-top: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+      }
+      div:last-child {
+        border-right: none;
+      }
+      .recrd_match {
+        width: 88px;
+      }
+      .recrd_date {
+        width: 86px;
+      }
+      .recrd_ateam {
+        width: 94.5px;
+      }
+      .recrd_score {
+        width: 50px;
+      }
+      .recrd_bteam {
+        width: 94.5px;
+      }
+      .recrd_half {
+        width: 49px;
+      }
+      .recrd_winlose {
+        width: 50px;
+      }
+      .recrd_trend {
+        width: 44px;
+      }
+      .recrd_goalnum {
+        width: 69px;
+      }
+    }
+  }
+  .recrdleft_main_data:nth-child(2n) {
+    background-color: #f7f8fd;
+  }
 }
 </style>

@@ -8,10 +8,19 @@
           <div
             v-for="(item, index) in newsClass"
             :key="index"
-            class="newsclass left cu"
+            :class="
+              changemenuflag == index
+                ? 'newsclass1 left cu'
+                : 'newsclass left cu'
+            "
+            @click="changemenu(index)"
           >
             {{ item.name }}
-            <div class="newsclass_click"></div>
+            <div
+              :class="
+                changemenuflag == index ? 'newsclass_click1' : 'newsclass_click'
+              "
+            ></div>
           </div>
         </div>
         <div class="search">
@@ -141,9 +150,13 @@ export default {
           time: "10.20",
         },
       ],
+      changemenuflag: "0",
     };
   },
   methods: {
+    changemenu(idx) {
+      this.changemenuflag = idx;
+    },
     gotonewsdel(e) {
       this.$router.push({
         path: "/newdel",
@@ -195,6 +208,26 @@ export default {
 }
 .newsclass:hover {
   color: #1a90fc;
+}
+.newsclass1 {
+  width: 88px;
+  height: 24px;
+  border-left: 4px solid #848484;
+  font-size: 18px;
+  text-align: center;
+  position: relative;
+  color: #1a90fc;
+}
+.newsclass_click1 {
+  height: 4px;
+  border-radius: 2px;
+  width: 15px;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #1a90fc;
 }
 .newsclass:hover .newsclass_click {
   background-color: #1a90fc;

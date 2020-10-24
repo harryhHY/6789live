@@ -58,7 +58,7 @@
             <div class="bname ov left">
               {{ item.bname }}
             </div>
-            <div class="cl left anadiv cu">
+            <div class="cl left anadiv cu" @click="gotoanalysis()">
               <div class="anaimg left"></div>
               <div class="ana left">数据分析</div>
             </div>
@@ -282,6 +282,9 @@ export default {
     };
   },
   methods: {
+    gotoanalysis(){
+      this.$router.push('/analysis');
+    },
     // 切换最新栏目
     changtype(id, name) {
       this.footballflag = id;
