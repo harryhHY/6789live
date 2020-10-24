@@ -1,20 +1,26 @@
 <template>
   <div>
       <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
-      <div class="info_head">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/settings' }">设置</el-breadcrumb-item>
-            <el-breadcrumb-item>账号信息</el-breadcrumb-item>
-            <el-breadcrumb-item>{{routeAddress}}</el-breadcrumb-item>
-          </el-breadcrumb>
-          <div class="backset">
-              <el-button type="primary" size="small" plain @click="backSet">返回</el-button>
-          </div>         
-          <hr style="margin-top:10px">
+      <div class="info_set">
+          <div class="inset">
+                <div class="line"></div>
+                <div class="info_head">
+                    <el-breadcrumb separator-class="el-icon-arrow-right">
+                        <el-breadcrumb-item class="set_head" :to="{ path: '/settings' }">设置</el-breadcrumb-item>
+                        <el-breadcrumb-item>账号信息</el-breadcrumb-item>
+                        <el-breadcrumb-item>{{routeAddress}}</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <div class="backset">
+                        <el-button type="primary" class="back" size="small" plain @click="backSet">返回</el-button>
+                    </div>         
+                    <hr style="margin-top:10px">
+                </div>
+                <div class="info_con">
+                    <component :is="iscomponent" :infoParams="infoList"></component>
+                </div>
+            </div>
       </div>
-      <div class="info_con">
-          <component :is="iscomponent" :infoParams="infoList"></component>
-      </div>      
+           
       
   </div>
 </template>
@@ -102,16 +108,60 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.info_head{
-    width: 70%;
+.info_set{
+    width: 1273px;
     margin: auto;
-    margin-top: 20px;
-    position: relative;
+    margin-top: 10px;
+    height: 800px;
+    background-color: #FFF;
+    // padding: 13px 13px 0;
+    padding-top: 13px;
+    box-shadow: 0 3px 3px 3px #DBDBDB; 
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-sizing: border-box;
+    .inset{
+        width: 1235px;
+        margin: auto;
+        // height: 700px;
+        background-color: #F8FCFF;
+        border: 1px solid #d2d2d2;
+        padding-bottom: 50px;
+        .line{
+            width: 200px;
+            height: 2px;
+            margin: auto;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            background-color: #309CFB;
+            box-sizing: border-box;
+        }
+        .info_head{
+            width: 90%;
+            margin: auto;
+            margin-top: 20px;
+            position: relative;
+            hr{
+                width: 100%;
+                height: 1px;
+                border: none;
+                border-bottom: 1px solid #d2d2d2;
+            }
+            .set_head{
+                border-left: 5px solid #084A84;
+                padding-left: 20px;
+                color: #084A84;
+            }
+        }
+    }
 }
 .backset{
     position: absolute;
     right: 0;
     top: -10px;
+    .back{
+        border-radius: 20px;
+    }
 }
 .info_con{
     width: 60%;

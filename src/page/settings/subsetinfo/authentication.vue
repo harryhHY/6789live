@@ -1,23 +1,23 @@
 <template>
   <div>
-    <p>实名认证资料将作为领奖的唯一凭证；
-
-请如实填写，提交后不可更改。</p>
-      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="登录密码" prop="pass">
-          <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="真实姓名" prop="checkPass">
-          <el-input type="text" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证号" prop="age">
-          <el-input type="" v-model="ruleForm.age" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-          <el-button @click="resetForm('ruleForm')">取消</el-button>
-        </el-form-item>
-      </el-form>
+    <p class=title>实名认证资料将作为领奖的唯一凭证；请如实填写，提交后不可更改。</p>
+    <div class="authen">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+          <el-form-item label="登录密码" prop="pass">
+            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="真实姓名" prop="checkPass">
+            <el-input type="text" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="身份证号" prop="age">
+            <el-input type="" v-model="ruleForm.age" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
+            <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          </el-form-item>
+        </el-form>
+    </div>  
   </div>
 </template>
 
@@ -68,13 +68,13 @@ export default {
         },
         rules: {
           pass: [
-            { validator: validatePass, trigger: 'blur' }
+            { validator: validatePass,required:"true", trigger: 'blur' }
           ],
           checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
+            { validator: validatePass2,required:"true", trigger: 'blur' }
           ],
           age: [
-            { validator: checkAge, trigger: 'blur' }
+            { validator: checkAge, required:"true", trigger: 'blur' }
           ]
         }
       }
@@ -97,6 +97,23 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.title{
+  font-size: 12px;
+  color: #ff5858;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.authen{
+  width: 400px;
+  margin: auto
+}
+.canclebtn{
+    width: 120px;
+    // margin-left: -50px;
+}
+.submitbtn{
+    width: 120px;
+    margin-left: 20px;
+}
 </style>

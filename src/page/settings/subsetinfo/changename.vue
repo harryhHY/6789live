@@ -1,18 +1,20 @@
 <template>
-  <div>
-      <p>当前昵称：<span>{{name}}</span></p>
-      <div>
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-          <el-form-item label="设置昵称" prop="name">
-            <el-input placeholder="请输入2-14个字;只支持数字、字母、汉字" v-model="ruleForm.name"></el-input>
-          </el-form-item>
-          <p>* 昵称仅可设置一次，提交后不能再修改，请慎重考虑</p>                 
-          <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-            <el-button @click="resetForm('ruleForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
+  <div class="changename">
+    <div class="name_con">
+        <p class="name_box">当前昵称：<span class="name">{{name}}</span></p>
+        <div>
+          <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item class="set_name" label="设置昵称" prop="name">
+              <el-input placeholder="请输入2-14个字;只支持数字、字母、汉字" v-model="ruleForm.name"></el-input>
+            </el-form-item>
+            <p class="nicheng">* 昵称仅可设置一次，提交后不能再修改，请慎重考虑</p>                 
+            <el-form-item>
+              <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
+              <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -23,7 +25,7 @@ export default {
       return{
         name:"",
         ruleForm: {
-          name: ''
+          name: 'DKFHDKFHKDK'
         },
         rules: {
           name: [
@@ -62,6 +64,36 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style lang="less" scoped>
+.changename{
+  // width: 100%;
+  .name_con{
+    width: 400px;
+    margin: auto;
+    font-size: 14px;
+    .name_box{
+      margin-bottom: 34px;
+      .name{
+        font-size: 20px;
+        color: #1a90fc;
+      }
+    }
+    .nicheng{
+        color: #d2d2d2 !important;
+        margin-bottom: 150px;
+      }
+    .set_name{
+      position: relative;
+      left: -50px;
+    }
+  }
+}
+.canclebtn{
+    width: 120px;
+    margin-left: -50px;
+}
+.submitbtn{
+    width: 120px;
+    margin-left: 20px;
+}
+</style>>

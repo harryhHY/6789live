@@ -36,8 +36,8 @@
                     </el-checkbox-group>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-                    <el-button @click="resetForm('ruleForm')">取消</el-button>
+                    <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
+                    <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>                                    
                 </el-form-item>
             </el-form>
         </div>
@@ -132,6 +132,14 @@ export default {
    border: 1px solid #014681;
    color: #FFF;
  }
+ .canclebtn{
+    width: 120px;
+    margin-left: 250px;
+}
+.submitbtn{
+    width: 120px;
+    margin-left: 10px;
+}
  /deep/.el-checkbox__label{
     line-height: 35px !important;
 }

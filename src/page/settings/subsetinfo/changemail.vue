@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="changemail">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
         <el-form-item label="登录密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="新邮箱" prop="checkPass">
-          <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+          <el-input type="" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
         </el-form-item>
         <div class="code_con">
-          <el-form-item class="filed code" prop="code" label="">
+          <el-form-item class="filed code" prop="code" label="验证码">
             <!-- <img class="password" :src="imgs.code" alt=""> -->
             <el-input class="code" v-model="ruleForm.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
           </el-form-item>
@@ -23,8 +23,8 @@
           </el-button>
         </div>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-          <el-button @click="resetForm('ruleForm')">取消</el-button>
+          <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>  
         </el-form-item>
       </el-form>
   </div>
@@ -132,6 +132,35 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.changemail{
+  width: 500px;
+}
+.code_con{
+  width: 100%;
+  height: 40px;
+  .code{
+    width: 70%;
+    float: left;
+  }
+  .code_btn{
+    width: 30%;
+    float: right;
+    border-radius: 20px;
+    color: #079def;
+    background-color: #FFF;
+    border: 1px solid #079def;
+  }
+}
+.canclebtn{
+    height: 40px;
+    width: 150px;
+    position: relative;
+}
+.submitbtn{
+    height: 40px;
+    width: 150px;
+    position: relative;
+    top: 40px;
+}
 </style>
