@@ -8,7 +8,7 @@
             :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
             v-for="(item, key, index) in liveList"
             :key="item.id"
-            @click="changetype(item.id, key)"
+            @click="changetype(key)"
             alt=""
             class="cu siconimg"
           />
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -38,13 +39,14 @@ export default {
           clicktype: false,
         },
       ],
-      liveListflag: 1,
+      liveListflag: 0,
     };
   },
   methods: {
     //中间切换足球、篮球种类的
-    changetype(id, index) {
+    changetype(index) {
       let data = this.liveList;
+      this.$store.commit("liveheader", index);
       for (let i = 0; i < data.length; i++) {
         if (i == index) {
           data[i].clicktype = true;
@@ -52,7 +54,14 @@ export default {
           data[i].clicktype = false;
         }
       }
+      this.$router.push("/live");
     },
+  },
+  computed: {
+    ...mapState(["liveheader"]),
+  },
+  created () {
+     this.changetype(this.liveheader);
   },
 };
 </script>

@@ -7,7 +7,8 @@ const state = {
   liveList: '',
   newsList: '',
   token: '111',
-  replyInfo:{}
+  replyInfo:{},
+  liveheader:0
 };
 const mutations = {
   /**
@@ -26,6 +27,9 @@ const mutations = {
    */
   token(state, data) {
     state.token = data;
+  },
+  liveheader(state, data){
+    state.liveheader = data;
   },
   /**
    * 跳转新闻详情页面

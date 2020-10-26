@@ -215,7 +215,7 @@ export default {
   color: #000000;
 }
 .community_content {
-  width: 90%;
+  width: 85%;
   .community_content_header {
     margin: 20px 30px;
     font-size: 16px;

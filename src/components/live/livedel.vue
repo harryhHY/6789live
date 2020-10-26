@@ -58,11 +58,11 @@
               <img src="../../image/news/shareicon4.png" alt="" class="cu" />
             </div>
             <div class="right ana_div">
-              <div class="cl left anadiv cu">
+              <div class="cl left anadiv cu" @click="gotoanalysis(liveList)">
                 <div class="anaimg left"></div>
                 <div class="ana left">数据分析</div>
               </div>
-              <div class="indnxdiv left cu cl">
+              <div class="indnxdiv left cu cl" @click="gotoexponent(liveList)">
                 <div class="left indeximg"></div>
                 <div>指数</div>
               </div>
@@ -71,12 +71,8 @@
         </div>
 
         <div class="news_div">
-          <div class="cu">
-            上一篇：{{pre}}
-          </div>
-          <div class="cu">
-            下一篇：{{nex}}
-          </div>
+          <div class="cu">上一篇：{{ pre }}</div>
+          <div class="cu">下一篇：{{ nex }}</div>
         </div>
       </div>
     </div>
@@ -117,11 +113,19 @@ export default {
       videosrc:
         "https://sm.lssjy.cn/liveb/321951454287900672/playlist.m3u8?wsSecret=fe83b327ebebd00500126b6af37a8d41&wsABSTime=5f899248",
       liveroom: [{}, {}],
-      pre:"asdasdasdasdadasd",
-      nex:'asdasdasdasdasdasdsad'
+      pre: "asdasdasdasdadasd",
+      nex: "asdasdasdasdasdasdsad",
     };
   },
   methods: {
+    gotoexponent(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("/exponent");
+    },
+    gotoanalysis(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("/analysis");
+    },
     goto(src) {
       this.$router.push(src);
     },
@@ -247,7 +251,7 @@ export default {
     }
   }
 }
-.share_div{
+.share_div {
   display: flex;
   align-items: center;
 }
@@ -260,7 +264,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.ana_div{
+.ana_div {
   display: flex;
   align-items: center;
   height: 46px;
@@ -277,11 +281,11 @@ export default {
     background-image: url("../../image/news/ana1.png");
   }
 }
-.news_div{
+.news_div {
   font-size: 14px;
   color: #2a88f3;
   margin-left: 115px;
-  div{
+  div {
     padding: 11px 0;
   }
 }

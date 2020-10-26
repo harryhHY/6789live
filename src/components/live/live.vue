@@ -62,7 +62,7 @@
               <div class="anaimg left"></div>
               <div class="ana left">数据分析</div>
             </div>
-            <div class="indnxdiv left cu cl">
+            <div class="indnxdiv left cu cl" @click="gotoexponent(item)">
               <div class="left indeximg"></div>
               <div>指数</div>
             </div>
@@ -282,6 +282,10 @@ export default {
     };
   },
   methods: {
+    gotoexponent(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("/exponent");
+    },
     gotoanalysis(e) {
       this.$store.commit("liveList", e);
       this.$router.push("/analysis");
@@ -359,7 +363,7 @@ export default {
 }
 #live {
   background-image: url("../../image/bj.jpg");
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 100%;
 }
 .playname {

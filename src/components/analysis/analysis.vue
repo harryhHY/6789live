@@ -2,37 +2,7 @@
   <div id="analysis">
     <home_herder :headerKey="headerKey"></home_herder>
     <div class="analys boxshadow">
-      <div class="analysteaminfo">
-        <div class="cl header_menu">
-          <div
-            v-for="(item, index) in dataList"
-            :key="index"
-            class="left header_title cu"
-          >
-            {{ item.title }}
-          </div>
-        </div>
-        <div class="analysisgametype1_div">
-          {{ liveList.gametype1 }}
-          {{ liveList.time }}
-        </div>
-        <div class="against">
-          <div class="against_aname ov">{{ liveList.aname }}</div>
-          <div class="against_type">{{ liveList.type }}</div>
-          <div class="against_bname ov">{{ liveList.bname }}</div>
-        </div>
-        <div class="cl team_score">
-          <img :src="liveList.aicon" alt="" class="left analysteaminfo_aicon" />
-          <div class="left analysteaminfo_ascore">
-            {{ liveList.ascore }}
-          </div>
-          <img src="../../image/news/vs.png" alt="" class="left vs" />
-          <div class="left analysteaminfo_bscore">
-            {{ liveList.bscore }}
-          </div>
-          <img :src="liveList.bicon" alt="" class="left analysteaminfo_aicon" />
-        </div>
-      </div>
+      <analysisheader :checkmenutype="checkmenutype"></analysisheader>
       <!-- 联赛积分 -->
       <div class="title_alliancepoints"></div>
       <div class="alliancepoints_div cl">
@@ -626,10 +596,11 @@
 <script>
 import { mapState } from "vuex";
 const home_herder = () => import("../home/home_herder");
-
+const analysisheader = () => import("./analysisheader");
 export default {
   data() {
     return {
+      checkmenutype: 1,
       trendList: [
         {
           title: "总",
@@ -695,23 +666,6 @@ export default {
         },
       ],
       activeIndex: "2",
-      dataList: [
-        {
-          id: "1",
-          title: "直播间",
-          src: "/livedel",
-        },
-        {
-          id: "2",
-          title: "数据分析",
-          src: "/analysis",
-        },
-        {
-          id: "3",
-          title: "指数",
-          src: "/exponent",
-        },
-      ],
       headerKey: "2",
       game_num: [
         {
@@ -811,6 +765,7 @@ export default {
   },
   components: {
     home_herder,
+    analysisheader,
   },
   mounted() {
     this.myEcharts();
@@ -823,6 +778,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+#analysis {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+}
 .analys {
   padding: 17px 16px;
   width: 1300px;
@@ -830,84 +789,7 @@ export default {
   background-color: #fff;
   border-radius: 15px;
 }
-.header_menu {
-  display: flex;
-  justify-content: center;
-  font-family: "黑体";
-  font-size: 24px;
-  color: #014681;
-  .header_title {
-    width: 226px;
-    height: 48px;
-    text-align: center;
-    line-height: 48px;
-  }
-}
-.header_menu:nth-child(2) .header_title {
-}
-.analysisgametype1_div {
-  font-size: 18px;
-  padding: 22px 0;
-  text-align: center;
-}
-.against {
-  line-height: 31px;
-  height: 31px;
-  display: flex;
-  justify-content: center;
-  font-size: 18px;
-  text-align: center;
 
-  .against_aname {
-    width: 159px;
-    background-color: #51247f;
-    color: #fff;
-    border-radius: 15px 0 0 15px;
-  }
-  .against_type {
-    width: 579px;
-    background-color: #f6f6f6;
-    color: #fd5503;
-  }
-  .against_bname {
-    border-radius: 0 15px 15px 0;
-    width: 159px;
-    background-color: #700202;
-    color: #fff;
-  }
-}
-.analysteaminfo {
-  background-color: #f9fcff;
-}
-.analysteaminfo_aicon {
-  width: 58px;
-  height: 58px;
-}
-.analysteaminfo_ascore {
-  font-family: "黑体";
-  color: #014681;
-  font-size: 28px;
-  font-weight: 600;
-  margin-left: 35px;
-}
-.vs {
-  width: 44px;
-  height: 23px;
-  margin: 0 268px;
-}
-.team_score {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 0;
-}
-.analysteaminfo_bscore {
-  font-family: "黑体";
-  color: #014681;
-  font-size: 28px;
-  font-weight: 600;
-  margin-right: 35px;
-}
 #analysis {
   font-size: 14px;
 }
@@ -940,7 +822,7 @@ export default {
         height: 27px;
       }
       .alliancepoints_left_header_team {
-        color: #848484;
+        color: #555555;
       }
     }
     .alliancepoints_main {
@@ -950,7 +832,7 @@ export default {
         text-align: center;
         line-height: 40px;
         background-color: #e2f1fe;
-        color: #848484;
+        color: #555555;
         .gamenum {
           width: 91px;
         }
@@ -982,7 +864,7 @@ export default {
       .alliancepoints_main_intr1 {
         text-align: center;
         line-height: 40px;
-        color: #848484;
+        color: #555555;
         div {
           border-right: 1px solid #dedede;
         }
@@ -1041,7 +923,7 @@ export default {
         height: 27px;
       }
       .alliancepoints_left_header_team {
-        color: #848484;
+        color: #555555;
       }
     }
     .alliancepoints_main {
@@ -1051,7 +933,7 @@ export default {
         text-align: center;
         line-height: 40px;
         background-color: #e2f1fe;
-        color: #848484;
+        color: #555555;
         .gamenum {
           width: 91px;
         }
@@ -1083,7 +965,7 @@ export default {
       .alliancepoints_main_intr1 {
         text-align: center;
         line-height: 40px;
-        color: #848484;
+        color: #555555;
         div {
           border-right: 1px solid #dedede;
         }
@@ -1145,12 +1027,12 @@ export default {
     border-radius: 5px;
     .game_histor_header {
       margin: 7px 0;
-      color: #848484;
+      color: #555555;
 
       text-align: center;
       .b1b {
         width: 98px;
-        border: 1px solid #848484;
+        border: 1px solid #555555;
         border-radius: 12px;
         margin: 0 7px;
         height: 25px;
@@ -1162,11 +1044,11 @@ export default {
         border: 1px solid #1a90fc;
       }
       .el-dropdown {
-        color: #848484;
+        color: #555555;
       }
     }
     .game_column {
-      color: #848484;
+      color: #555555;
       line-height: 40px;
       text-align: center;
       display: flex;
@@ -1208,7 +1090,7 @@ export default {
       }
     }
     .game_column1 {
-      color: #848484;
+      color: #555555;
       line-height: 40px;
       text-align: center;
       display: flex;
@@ -1260,7 +1142,7 @@ export default {
     }
     .sum {
       text-align: center;
-      color: #848484;
+      color: #555555;
       margin: 18px 0;
     }
     .blue {
@@ -1298,11 +1180,11 @@ export default {
       height: 27px;
     }
     .alliancepoints_left_header_team {
-      color: #848484;
+      color: #555555;
     }
     .b1b {
       width: 98px;
-      border: 1px solid #848484;
+      border: 1px solid #555555;
       border-radius: 12px;
       margin: 0 7px;
       line-height: 25px;
@@ -1315,13 +1197,13 @@ export default {
       border: 1px solid #1a90fc;
     }
     .el-dropdown {
-      color: #848484;
+      color: #555555;
     }
   }
   .recrdleft_main {
     text-align: center;
     line-height: 39px;
-    color: #848484;
+    color: #555555;
     border: 1px solid #dedede;
     margin: 0 4px;
     .recrdleft_main_column {
@@ -1409,11 +1291,11 @@ export default {
       height: 27px;
     }
     .alliancepoints_left_header_team {
-      color: #848484;
+      color: #555555;
     }
     .b1b {
       width: 98px;
-      border: 1px solid #848484;
+      border: 1px solid #555555;
       border-radius: 12px;
       margin: 0 7px;
       line-height: 25px;
@@ -1426,13 +1308,13 @@ export default {
       border: 1px solid #1a90fc;
     }
     .el-dropdown {
-      color: #848484;
+      color: #555555;
     }
   }
   .recrdleft_main {
     text-align: center;
     line-height: 39px;
-    color: #848484;
+    color: #555555;
     border: 1px solid #dedede;
     margin: 0 4px;
     .recrdleft_main_column {
@@ -1533,7 +1415,7 @@ export default {
       height: 27px;
     }
     .distributed_left_header_span {
-      color: #848484;
+      color: #555555;
     }
   }
   .disstributed_left_main {
@@ -1590,7 +1472,7 @@ export default {
       height: 27px;
     }
     .distributed_left_header_span {
-      color: #848484;
+      color: #555555;
     }
   }
   .disstributed_left_main {
@@ -1657,7 +1539,7 @@ export default {
         height: 27px;
       }
       .distributed_left_header_span {
-        color: #848484;
+        color: #555555;
       }
     }
     .trend_total_header {
@@ -1674,7 +1556,7 @@ export default {
       }
     }
     .trend_left_main_title {
-      color: #848484;
+      color: #555555;
       border-left: 1px solid #dedede;
       border-top: 1px solid #dedede;
       border-right: 1px solid #dedede;
@@ -1696,7 +1578,7 @@ export default {
       }
     }
     .trend_left_main_titlefor {
-      color: #848484;
+      color: #555555;
       border-left: 1px solid #dedede;
       border-top: 1px solid #dedede;
       border-right: 1px solid #dedede;
@@ -1756,7 +1638,7 @@ export default {
         height: 27px;
       }
       .distributed_left_header_span {
-        color: #848484;
+        color: #555555;
       }
     }
     .trend_total_header {
@@ -1773,7 +1655,7 @@ export default {
       }
     }
     .trend_left_main_title {
-      color: #848484;
+      color: #555555;
       border-left: 1px solid #dedede;
       border-top: 1px solid #dedede;
       border-right: 1px solid #dedede;
@@ -1795,7 +1677,7 @@ export default {
       }
     }
     .trend_left_main_titlefor {
-      color: #848484;
+      color: #555555;
       border-left: 1px solid #dedede;
       border-top: 1px solid #dedede;
       border-right: 1px solid #dedede;
