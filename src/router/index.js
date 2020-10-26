@@ -22,6 +22,7 @@ const Exponent = import('../page/exponent/exponent.vue');
 const Helps = import('../page/helps/helps.vue');
 const Suggest = import('../page/suggest/suggest.vue');
 const Suggestdetail = import('../page/suggest/suggestdetail.vue');
+const Nonetwork = import('../page/nonetwork/nonetwork.vue');
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -134,6 +135,11 @@ export default new Router({
       path: '/suggestdetail',
       name: 'suggestdetail',
       component: () => Suggestdetail,
+    },
+    {
+      path: '/nonetwork',
+      name: 'nonetwork',
+      component: () => Nonetwork,
     }
 
     //联赛数据废弃
