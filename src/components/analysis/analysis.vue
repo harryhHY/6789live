@@ -265,11 +265,359 @@
               <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div>
             </div>
             <div class="Echarts">
-              <div id="main" style="width: 600px; height: 400px"></div>
+              <div id="main" style="width: 6rem; height: 4rem"></div>
+            </div>
+            <div>
+              青岛轻钢近5场，胜出0场，平局0场，输1场；胜率：20%；赢率：40%；大球率：80%
             </div>
           </div>
         </div>
-        <div></div>
+        <div class="left recrdright">
+          <div class="recrdleft_header">
+            <div class="left centerimg">
+              <img :src="liveList.aicon" alt="" />
+              <span class="recrd_left_header_team">{{ liveList.aname }}</span>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  5场<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  全部<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(item, index) in game_num"
+                    :key="index"
+                    >{{ item.inquirenum }}</el-dropdown-item
+                  >
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div class="left cu b1b">
+              <el-dropdown>
+                <span class="el-dropdown-link">
+                  赛事筛选<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu
+                  slot="dropdown"
+                  v-for="(item, index) in game_num"
+                  :key="index"
+                >
+                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+          </div>
+          <div class="recrdleft_main">
+            <div class="cl recrdleft_main_column">
+              <div class="left recrd_match">赛事</div>
+              <div class="left recrd_date">比赛日期</div>
+              <div class="left recrd_ateam">主队</div>
+              <div class="left recrd_score">比分</div>
+              <div class="left recrd_bteam">客队</div>
+              <div class="left recrd_half">半场</div>
+              <div class="left recrd_winlose">胜负</div>
+              <div class="left recrd_trend">走势</div>
+              <div class="left recrd_goalnum">进球数</div>
+            </div>
+            <div
+              v-for="(item, index) in aRecrdList"
+              :key="index"
+              class="cl recrdleft_main_data"
+            >
+              <div class="left recrd_match ov">{{ item.recrd_match }}</div>
+              <div class="left recrd_date">{{ item.recrd_date }}</div>
+              <div class="left recrd_ateam ov">{{ item.recrd_ateam }}</div>
+              <div class="left recrd_score">{{ item.recrd_score }}</div>
+              <div class="left recrd_bteam ov">{{ item.recrd_bteam }}</div>
+              <div class="left recrd_half">{{ item.recrd_half }}</div>
+              <div class="left recrd_winlose">{{ item.recrd_winlose }}</div>
+              <div class="left recrd_trend">{{ item.recrd_trend }}</div>
+              <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div>
+            </div>
+            <div class="Echarts">
+              <div id="main1" style="width: 6rem; height: 4rem"></div>
+            </div>
+            <div>
+              青岛轻钢近5场，胜出0场，平局0场，输1场；胜率：20%；赢率：40%；大球率：80%
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 进球分布 -->
+      <div class="title_distributed"></div>
+      <div class="distributed_main cl">
+        <div class="distributed_left left">
+          <div class="distributed_left_header">
+            <img :src="liveList.aicon" alt="" />
+            <span class="distributed_left_header_span">{{
+              liveList.aname
+            }}</span>
+          </div>
+          <div class="disstributed_left_main cl">
+            <div class="disstributed_left_main_titleleft left">
+              <div class="kong">　</div>
+              <div class="lei">总</div>
+              <div class="lei">主</div>
+              <div class="lei">客</div>
+            </div>
+            <div class="left disstributed_left_main_titleleft2">
+              <div class="kong cl disstributed_left_main_titleright">
+                <div class="left">0-15"</div>
+                <div class="left">15-30"</div>
+                <div class="left">30-45"</div>
+                <div class="left">45-60"</div>
+                <div class="left">60-75"</div>
+                <div class="left">75-90"</div>
+              </div>
+              <div
+                class="lei cl disstributed_left_main_right"
+                v-for="(item, index) in disstributed"
+                :key="index"
+              >
+                <div class="left">
+                  {{ item.num1 }}
+                </div>
+                <div class="left">
+                  {{ item.num2 }}
+                </div>
+                <div class="left">
+                  {{ item.num3 }}
+                </div>
+                <div class="left">
+                  {{ item.num4 }}
+                </div>
+                <div class="left">
+                  {{ item.num5 }}
+                </div>
+                <div class="left">
+                  {{ item.num6 }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="distributed_right left">
+          <div class="distributed_left_header">
+            <img :src="liveList.bicon" alt="" />
+            <span class="alliancepoints_left_header_team">{{
+              liveList.bname
+            }}</span>
+          </div>
+          <div class="disstributed_left_main cl">
+            <div class="disstributed_left_main_titleleft left">
+              <div class="kong">　</div>
+              <div class="lei">总</div>
+              <div class="lei">主</div>
+              <div class="lei">客</div>
+            </div>
+            <div class="left disstributed_left_main_titleleft2">
+              <div class="kong cl disstributed_left_main_titleright">
+                <div class="left">0-15"</div>
+                <div class="left">15-30"</div>
+                <div class="left">30-45"</div>
+                <div class="left">45-60"</div>
+                <div class="left">60-75"</div>
+                <div class="left">75-90"</div>
+              </div>
+              <div
+                class="lei cl disstributed_left_main_right"
+                v-for="(item, index) in disstributed"
+                :key="index"
+              >
+                <div class="left">
+                  {{ item.num1 }}
+                </div>
+                <div class="left">
+                  {{ item.num2 }}
+                </div>
+                <div class="left">
+                  {{ item.num3 }}
+                </div>
+                <div class="left">
+                  {{ item.num4 }}
+                </div>
+                <div class="left">
+                  {{ item.num5 }}
+                </div>
+                <div class="left">
+                  {{ item.num6 }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 走势 -->
+      <div class="title_trend"></div>
+      <div class="trend_main cl">
+        <div class="trend_left left">
+          <div class="distributed_left_header">
+            <img :src="liveList.aicon" alt="" />
+            <span class="distributed_left_header_span">{{
+              liveList.aname
+            }}</span>
+          </div>
+          <div class="trend_total_header cl">
+            <div class="trend_total_header1 left">让球数</div>
+            <div class="trend_total_header2 left">进球数</div>
+          </div>
+          <div class="trend_left_main">
+            <div class="trend_left_main_title cl">
+              <div class="w20 left">
+                <div class="left">&nbsp</div>
+                <div class="left">赛</div>
+              </div>
+              <div class="w40 left">
+                <div class="left">赢</div>
+                <div class="left">和</div>
+                <div class="left">输</div>
+                <div class="left">赢率</div>
+              </div>
+              <div class="w40 left">
+                <div class="left">大球</div>
+                <div class="left">大球率</div>
+                <div class="left">小球</div>
+                <div class="left">小球率</div>
+              </div>
+            </div>
+            <div
+              class="trend_left_main_titlefor cl"
+              v-for="(item, index) in trendList"
+              :key="index"
+            >
+              <div class="w20 left">
+                <div class="left">{{ item.title }}</div>
+                <div class="left">
+                  {{ item.gametotal }}
+                </div>
+              </div>
+              <div class="w40 left">
+                <div class="left">
+                  {{ item.win }}
+                </div>
+                <div class="left">
+                  {{ item.level }}
+                </div>
+                <div class="left">
+                  {{ item.lose }}
+                </div>
+                <div class="left">
+                  {{ item.winrate }}
+                </div>
+              </div>
+              <div class="w40 left bigball">
+                <div class="left">
+                  {{ item.bigball }}
+                </div>
+                <div class="left">
+                  {{ item.bigtate }}
+                </div>
+                <div class="left">
+                  {{ item.smallball }}
+                </div>
+                <div class="left">
+                  {{ item.smallrate }}
+                </div>
+              </div>
+            </div>
+            <div class="cl trend_total_end">
+              <div class="left trend_total_end1">近6场</div>
+              <div class="left trend_total_end2">输赢输赢输赢输赢</div>
+              <div class="left trend_total_end2">大大小大大小</div>
+            </div>
+          </div>
+        </div>
+        <div class="trend_right left">
+          <div class="distributed_left_header">
+            <img :src="liveList.bicon" alt="" />
+            <span class="alliancepoints_left_header_team">{{
+              liveList.bname
+            }}</span>
+          </div>
+          <div class="trend_total_header cl">
+            <div class="trend_total_header1 left">让球数</div>
+            <div class="trend_total_header2 left">进球数</div>
+          </div>
+          <div class="trend_left_main">
+            <div class="trend_left_main_title cl">
+              <div class="w20 left">
+                <div class="left">&nbsp</div>
+                <div class="left">赛</div>
+              </div>
+              <div class="w40 left">
+                <div class="left">赢</div>
+                <div class="left">和</div>
+                <div class="left">输</div>
+                <div class="left">赢率</div>
+              </div>
+              <div class="w40 left">
+                <div class="left">大球</div>
+                <div class="left">大球率</div>
+                <div class="left">小球</div>
+                <div class="left">小球率</div>
+              </div>
+            </div>
+            <div
+              class="trend_left_main_titlefor cl"
+              v-for="(item, index) in trendList"
+              :key="index"
+            >
+              <div class="w20 left">
+                <div class="left">{{ item.title }}</div>
+                <div class="left">
+                  {{ item.gametotal }}
+                </div>
+              </div>
+              <div class="w40 left">
+                <div class="left">
+                  {{ item.win }}
+                </div>
+                <div class="left">
+                  {{ item.level }}
+                </div>
+                <div class="left">
+                  {{ item.lose }}
+                </div>
+                <div class="left">
+                  {{ item.winrate }}
+                </div>
+              </div>
+              <div class="w40 left bigball">
+                <div class="left">
+                  {{ item.bigball }}
+                </div>
+                <div class="left">
+                  {{ item.bigtate }}
+                </div>
+                <div class="left">
+                  {{ item.smallball }}
+                </div>
+                <div class="left">
+                  {{ item.smallrate }}
+                </div>
+              </div>
+            </div>
+            <div class="cl trend_total_end">
+              <div class="left trend_total_end1">近6场</div>
+              <div class="left trend_total_end2">输赢输赢输赢输赢</div>
+              <div class="left trend_total_end2">大大小大大小</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -282,6 +630,70 @@ const home_herder = () => import("../home/home_herder");
 export default {
   data() {
     return {
+      trendList: [
+        {
+          title: "总",
+          gametotal: 30,
+          win: 12,
+          level: 1,
+          lose: 2,
+          winrate: "80%",
+          bigball: 12,
+          bigtate: "40%",
+          smallball: 12,
+          smallrate: "40%",
+        },
+        {
+          title: "主场",
+          gametotal: 30,
+          win: 12,
+          level: 1,
+          lose: 2,
+          winrate: "80%",
+          bigball: 12,
+          bigtate: "40%",
+          smallball: 12,
+          smallrate: "40%",
+        },
+        {
+          title: "客场",
+          gametotal: 30,
+          win: 12,
+          level: 1,
+          lose: 2,
+          winrate: "80%",
+          bigball: 12,
+          bigtate: "40%",
+          smallball: 12,
+          smallrate: "40%",
+        },
+      ],
+      disstributed: [
+        {
+          num1: 1,
+          num2: 2,
+          num3: 3,
+          num4: 4,
+          num5: 5,
+          num6: 6,
+        },
+        {
+          num1: 1,
+          num2: 2,
+          num3: 3,
+          num4: 4,
+          num5: 5,
+          num6: 6,
+        },
+        {
+          num1: 1,
+          num2: 2,
+          num3: 3,
+          num4: 4,
+          num5: 5,
+          num6: 6,
+        },
+      ],
       activeIndex: "2",
       dataList: [
         {
@@ -365,6 +777,31 @@ export default {
       };
       myChart.setOption(option);
     },
+    myEcharts2() {
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = this.$echarts.init(document.getElementById("main1"));
+      var option = {
+        color: ["#c0e2ff"],
+        xAxis: {
+          type: "category",
+
+          boundaryGap: false,
+          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        },
+        yAxis: {
+          // type: "value",
+          data: ["负", "平", "胜"],
+        },
+        series: [
+          {
+            data: [1, 0, 1, 2, 0],
+            type: "line",
+            areaStyle: {},
+          },
+        ],
+      };
+      myChart.setOption(option);
+    },
     handleSelect(key, keyPath) {
       for (let i = 0; i < this.dataList.length; i++) {}
     },
@@ -377,6 +814,7 @@ export default {
   },
   mounted() {
     this.myEcharts();
+    this.myEcharts2();
   },
   created() {
     console.log(this.liveList);
@@ -387,7 +825,7 @@ export default {
 <style lang="less" scoped>
 .analys {
   padding: 17px 16px;
-  width: 1288px;
+  width: 1300px;
   margin: auto;
   background-color: #fff;
   border-radius: 15px;
@@ -845,7 +1283,119 @@ export default {
   margin: 13px auto;
 }
 .recrdleft {
-  width: 650px;
+  width: 640px;
+  border: 1px solid #dedede;
+  margin: 0px 7px;
+  .recrdleft_header {
+    font-size: 16px;
+    margin: 25px 0 25px 11px;
+    padding-left: 13px;
+    border-left: 3px solid #51247f;
+    display: flex;
+    align-items: center;
+    img {
+      width: 27px;
+      height: 27px;
+    }
+    .alliancepoints_left_header_team {
+      color: #848484;
+    }
+    .b1b {
+      width: 98px;
+      border: 1px solid #848484;
+      border-radius: 12px;
+      margin: 0 7px;
+      line-height: 25px;
+      height: 25px;
+      text-align: center;
+    }
+    .b1b:hover {
+      background-color: #1a90fc;
+      color: #ffffff;
+      border: 1px solid #1a90fc;
+    }
+    .el-dropdown {
+      color: #848484;
+    }
+  }
+  .recrdleft_main {
+    text-align: center;
+    line-height: 39px;
+    color: #848484;
+    border: 1px solid #dedede;
+    margin: 0 4px;
+    .recrdleft_main_column {
+      .recrd_match {
+        width: 78px + 1px;
+      }
+      .recrd_date {
+        width: 86px + 1px;
+      }
+      .recrd_ateam {
+        width: 94.5px + 1px;
+      }
+      .recrd_score {
+        width: 50px + 1px;
+      }
+      .recrd_bteam {
+        width: 94.5px + 1px;
+      }
+      .recrd_half {
+        width: 49px + 1px;
+      }
+      .recrd_winlose {
+        width: 50px + 1px;
+      }
+      .recrd_trend {
+        width: 44px + 1px;
+      }
+      .recrd_goalnum {
+        width: 69px + 1px;
+      }
+    }
+    .recrdleft_main_data {
+      div {
+        border-top: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+      }
+      div:last-child {
+        border-right: none;
+      }
+      .recrd_match {
+        width: 78px;
+      }
+      .recrd_date {
+        width: 86px;
+      }
+      .recrd_ateam {
+        width: 94.5px;
+      }
+      .recrd_score {
+        width: 50px;
+      }
+      .recrd_bteam {
+        width: 94.5px;
+      }
+      .recrd_half {
+        width: 49px;
+      }
+      .recrd_winlose {
+        width: 50px;
+      }
+      .recrd_trend {
+        width: 44px;
+      }
+      .recrd_goalnum {
+        width: 69px;
+      }
+    }
+  }
+  .recrdleft_main_data:nth-child(2n) {
+    background-color: #f7f8fd;
+  }
+}
+.recrdright {
+  width: 640px;
   border: 1px solid #dedede;
   .recrdleft_header {
     font-size: 16px;
@@ -887,7 +1437,7 @@ export default {
     margin: 0 4px;
     .recrdleft_main_column {
       .recrd_match {
-        width: 88px + 1px;
+        width: 78px + 1px;
       }
       .recrd_date {
         width: 86px + 1px;
@@ -923,7 +1473,7 @@ export default {
         border-right: none;
       }
       .recrd_match {
-        width: 88px;
+        width: 78px;
       }
       .recrd_date {
         width: 86px;
@@ -953,6 +1503,339 @@ export default {
   }
   .recrdleft_main_data:nth-child(2n) {
     background-color: #f7f8fd;
+  }
+  #main {
+    width: 550px;
+    height: 300px;
+  }
+}
+.title_distributed {
+  background-image: url("../../image/al/distributed.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 1251px;
+  height: 19px;
+  margin: 13px auto;
+}
+.distributed_left {
+  width: 640px;
+  border: 1px solid #dedede;
+  margin: 0px 7px;
+  .distributed_left_header {
+    font-size: 16px;
+    margin: 25px 0 25px 11px;
+    padding-left: 13px;
+    border-left: 3px solid #51247f;
+    display: flex;
+    align-items: center;
+    img {
+      width: 27px;
+      height: 27px;
+    }
+    .distributed_left_header_span {
+      color: #848484;
+    }
+  }
+  .disstributed_left_main {
+    margin: 0 3px;
+    border: 1px solid #dedede;
+    .disstributed_left_main_titleleft {
+      width: 14%;
+      text-align: center;
+      div {
+        border-top: 1px solid #dedede;
+      }
+    }
+    .kong {
+      height: 40px;
+    }
+    .lei {
+      height: 35px;
+      line-height: 35px;
+    }
+    .disstributed_left_main_titleleft2 {
+      width: 85%;
+      .disstributed_left_main_titleright {
+        div {
+          line-height: 40px;
+          text-align: center;
+          width: 16.5%;
+          border-top: 1px solid #dedede;
+        }
+      }
+    }
+    .disstributed_left_main_right {
+      div {
+        height: 35px;
+        line-height: 35px;
+        width: 16.5%;
+        text-align: center;
+        border-top: 1px solid #dedede;
+      }
+    }
+  }
+}
+.distributed_right {
+  width: 640px;
+  border: 1px solid #dedede;
+  .distributed_left_header {
+    font-size: 16px;
+    margin: 25px 0 25px 11px;
+    padding-left: 13px;
+    border-left: 3px solid #51247f;
+    display: flex;
+    align-items: center;
+    img {
+      width: 27px;
+      height: 27px;
+    }
+    .distributed_left_header_span {
+      color: #848484;
+    }
+  }
+  .disstributed_left_main {
+    margin: 0 3px;
+    border: 1px solid #dedede;
+    .disstributed_left_main_titleleft {
+      width: 14%;
+      text-align: center;
+      div {
+        border-top: 1px solid #dedede;
+      }
+    }
+    .kong {
+      height: 40px;
+    }
+    .lei {
+      height: 35px;
+      line-height: 35px;
+    }
+    .disstributed_left_main_titleleft2 {
+      width: 85%;
+      .disstributed_left_main_titleright {
+        div {
+          line-height: 40px;
+          text-align: center;
+          width: 16.5%;
+          border-top: 1px solid #dedede;
+        }
+      }
+    }
+    .disstributed_left_main_right {
+      div {
+        height: 35px;
+        line-height: 35px;
+        width: 16.5%;
+        text-align: center;
+        border-top: 1px solid #dedede;
+      }
+    }
+  }
+}
+.title_trend {
+  background-image: url("../../image/al/trend.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 1251px;
+  height: 19px;
+  margin: 13px auto;
+}
+.trend_main {
+  .trend_left {
+    width: 640px;
+    border: 1px solid #dedede;
+    margin: 0 7px;
+    .distributed_left_header {
+      font-size: 16px;
+      margin: 25px 0 25px 11px;
+      padding-left: 13px;
+      border-left: 3px solid #51247f;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+      .distributed_left_header_span {
+        color: #848484;
+      }
+    }
+    .trend_total_header {
+      color: #014581;
+      text-align: center;
+      margin: 0 3px;
+      font-size: 16px;
+      .trend_total_header1 {
+        margin-left: 20%;
+        width: 40%;
+      }
+      .trend_total_header2 {
+        width: 40%;
+      }
+    }
+    .trend_left_main_title {
+      color: #848484;
+      border-left: 1px solid #dedede;
+      border-top: 1px solid #dedede;
+      border-right: 1px solid #dedede;
+      margin: 0 3px;
+      line-height: 35px;
+      .w20 {
+        width: 20%;
+        text-align: center;
+        div {
+          width: 50%;
+        }
+      }
+      .w40 {
+        width: 40%;
+        text-align: center;
+        div {
+          width: 25%;
+        }
+      }
+    }
+    .trend_left_main_titlefor {
+      color: #848484;
+      border-left: 1px solid #dedede;
+      border-top: 1px solid #dedede;
+      border-right: 1px solid #dedede;
+      margin: 0 3px;
+      line-height: 35px;
+      .w20 {
+        width: 20%;
+        text-align: center;
+        div {
+          width: 50%;
+        }
+      }
+      .w40 {
+        width: calc(40% - 4px);
+        text-align: center;
+        background-color: #f7f8fd;
+        border-left: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+        div {
+          width: 25%;
+        }
+      }
+      .bigball {
+        background-color: #eceffe;
+      }
+      .w40:last-child {
+        margin-left: 1px;
+      }
+    }
+    .trend_total_end {
+      text-align: center;
+      margin: 15px 0;
+      .trend_total_end1 {
+        width: 15%;
+        margin-right: 5%;
+      }
+      .trend_total_end2 {
+        width: 40%;
+      }
+    }
+  }
+  .trend_left_main:last-child .trend_left_main_titlefor {
+    border-bottom: 1px solid #dedede;
+  }
+  .trend_right {
+    width: 640px;
+    border: 1px solid #dedede;
+    .distributed_left_header {
+      font-size: 16px;
+      margin: 25px 0 25px 11px;
+      padding-left: 13px;
+      border-left: 3px solid #51247f;
+      display: flex;
+      align-items: center;
+      img {
+        width: 27px;
+        height: 27px;
+      }
+      .distributed_left_header_span {
+        color: #848484;
+      }
+    }
+    .trend_total_header {
+      color: #014581;
+      text-align: center;
+      margin: 0 3px;
+      font-size: 16px;
+      .trend_total_header1 {
+        margin-left: 20%;
+        width: 40%;
+      }
+      .trend_total_header2 {
+        width: 40%;
+      }
+    }
+    .trend_left_main_title {
+      color: #848484;
+      border-left: 1px solid #dedede;
+      border-top: 1px solid #dedede;
+      border-right: 1px solid #dedede;
+      margin: 0 3px;
+      line-height: 35px;
+      .w20 {
+        width: 20%;
+        text-align: center;
+        div {
+          width: 50%;
+        }
+      }
+      .w40 {
+        width: 40%;
+        text-align: center;
+        div {
+          width: 25%;
+        }
+      }
+    }
+    .trend_left_main_titlefor {
+      color: #848484;
+      border-left: 1px solid #dedede;
+      border-top: 1px solid #dedede;
+      border-right: 1px solid #dedede;
+      margin: 0 3px;
+      line-height: 35px;
+      .w20 {
+        width: 20%;
+        text-align: center;
+        div {
+          width: 50%;
+        }
+      }
+      .w40 {
+        width: calc(40% - 4px);
+        text-align: center;
+        background-color: #f7f8fd;
+        border-left: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+        div {
+          width: 25%;
+        }
+      }
+      .bigball {
+        background-color: #eceffe;
+      }
+      .w40:last-child {
+        margin-left: 1px;
+      }
+    }
+    .trend_total_end {
+      text-align: center;
+      margin: 15px 0;
+      .trend_total_end1 {
+        width: 15%;
+        margin-right: 5%;
+      }
+      .trend_total_end2 {
+        width: 40%;
+      }
+    }
   }
 }
 </style>

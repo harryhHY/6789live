@@ -23,7 +23,7 @@
           <span class="cu right morespan">更多》</span>
         </div>
         <div class="time_class">
-          {{todaydate}}
+          {{ todaydate }}
         </div>
         <div class="live_all">
           <div></div>
@@ -58,7 +58,7 @@
             <div class="bname ov left">
               {{ item.bname }}
             </div>
-            <div class="cl left anadiv cu" @click="gotoanalysis()">
+            <div class="cl left anadiv cu" @click="gotoanalysis(item)">
               <div class="anaimg left"></div>
               <div class="ana left">数据分析</div>
             </div>
@@ -278,12 +278,13 @@ export default {
       check: 0,
       headerKey: "2",
       footballflag: 1,
-      todaydate:''
+      todaydate: "",
     };
   },
   methods: {
-    gotoanalysis(){
-      this.$router.push('/analysis');
+    gotoanalysis(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("/analysis");
     },
     // 切换最新栏目
     changtype(id, name) {
@@ -314,8 +315,8 @@ export default {
     },
     //循环出多日期
     changeButtonList() {
-      console.log(this.getDate1(0))
-      this.todaydate = this.getDate1(0)
+      console.log(this.getDate1(0));
+      this.todaydate = this.getDate1(0);
       // let buttonList = this.buttonList;
       // let list = [];
       // let list1 = [];
@@ -561,8 +562,6 @@ export default {
 
   background: #01a0fc;
 }
-
-
 
 .time_class {
   position: relative;

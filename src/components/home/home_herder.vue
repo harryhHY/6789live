@@ -1,10 +1,9 @@
 <template>
-<div class="header_box">
-  <div id="home_header" class="cl">
-    
-    <h1 @click="gotosm('/')" class="logo left"></h1>
-    <div class="menu left">
-      <!-- <div class="cl menu_title_div">
+  <div class="header_box">
+    <div id="home_header" class="cl">
+      <h1 @click="gotosm('/')" class="logo left"></h1>
+      <div class="menu left">
+        <!-- <div class="cl menu_title_div">
         <div
           v-for="(item, key, index) in title_data"
           :key="index + item.index"
@@ -17,81 +16,93 @@
           <span class="">{{ item.title }}</span>
         </div>
       </div> -->
-      <el-menu
-        :default-active="activeIndex2"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-        text-color="#ffffff"
-        active-text-color="#1a90fc"
-      >
-        <el-menu-item
-          v-for="(item, key, index) in title_data"
-          :key="index + item.index"
-          :index="item.index"
-          @click="gotosm(item.src)"
+        <el-menu
+          :default-active="activeIndex2"
+          class="el-menu-demo"
+          mode="horizontal"
+          @select="handleSelect"
+          text-color="#ffffff"
+          active-text-color="#1a90fc"
         >
-          <i>
-            <img
-              :src="item.index == activeIndex2 ? item.icon1 : item.icon"
-              alt=""
-            />
-          </i>
-          {{ item.title }}
-          <i class="fenlei">|</i>
-        </el-menu-item>
-      </el-menu>
-    </div>
-    <div v-if="!token" class="login_div left cl">
-      <div class="loginbtn left cu" @click="gologin">
-        <img src="../../image/loginbtn.png" alt="" />
+          <el-menu-item
+            v-for="(item, key, index) in title_data"
+            :key="index + item.index"
+            :index="item.index"
+            @click="gotosm(item.src)"
+          >
+            <i>
+              <img
+                :src="item.index == activeIndex2 ? item.icon1 : item.icon"
+                alt=""
+              />
+            </i>
+            {{ item.title }}
+            <i class="fenlei">|</i>
+          </el-menu-item>
+        </el-menu>
       </div>
-      <div class="span_div left">
-        <span class="logon_span" v-if="!token" @click="goregistered">
-          <i>
-            <img src="../../image/registeredicon.png" alt="" class="registeredicon" />
-          </i>
-          注册
-        </span>
-        <i class="fenlei1">|</i>
-        <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
-          >忘记密码</span
-        >
-      </div>
-    </div>
-    <div v-if="token" class="left istokendiv">
-      <div class="cl centerimg token_div">
-        <div class="left">
-          <el-dropdown @command="gotosm">
-            <span class="el-dropdown-link cu">
-              {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item
-                v-for="(item, index) in menuitem"
-                :key="index"
-                :command="item.src"
-                >{{ item.title }}</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </el-dropdown>
+      <div v-if="!token" class="login_div left cl">
+        <div class="loginbtn left cu" @click="gologin">
+          <img src="../../image/loginbtn.png" alt="" />
         </div>
-        <div class="exit left cu" @click="exit()">
-          <i>
-            <img src="../../image/exiticon.png" alt="" />
-          </i>
-          退出
+        <div class="span_div left">
+          <span class="logon_span" v-if="!token" @click="goregistered">
+            <i>
+              <img
+                src="../../image/registeredicon.png"
+                alt=""
+                class="registeredicon"
+              />
+            </i>
+            注册
+          </span>
+          <i class="fenlei1">|</i>
+          <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
+            >忘记密码</span
+          >
         </div>
       </div>
+      <div v-if="token" class="left istokendiv">
+        <div class="cl centerimg token_div">
+          <div class="left">
+            <el-dropdown @command="gotosm">
+              <span class="el-dropdown-link cu">
+                {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item
+                  v-for="(item, index) in menuitem"
+                  :key="index"
+                  :command="item.src"
+                  >{{ item.title }}</el-dropdown-item
+                >
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
+          <div class="exit left cu centerimg" @click="exit()">
+            <i>
+              <img src="../../image/exiticon.png" alt="" />
+            </i>
+            退出
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footlogin">
+      <login
+        v-if="showLogin"
+        :loginVisible="loginVisible"
+        @chidVisible="getVisible"
+      />
+    </div>
+    <div class="footregistered">
+      <registered
+        v-if="showRegistered"
+        :RegisteredVisible="RegisteredVisible"
+        @chidRegisterVisible="getRegisterVisible"
+      />
     </div>
   </div>
-  <div class="footlogin">
-      <login v-if="showLogin" :loginVisible = "loginVisible" @chidVisible="getVisible"/>
-  </div>
-  <div class="footregistered">
-    <registered v-if="showRegistered" :RegisteredVisible = "RegisteredVisible" @chidRegisterVisible="getRegisterVisible"/>
-  </div>
-</div>
 </template>
 
 <script>
@@ -99,9 +110,9 @@ const login = () => import("@/page/login/login");
 const registered = () => import("@/page/registered/registered");
 import { mapState } from "vuex";
 export default {
-  components:{
+  components: {
     login,
-    registered
+    registered,
   },
   data() {
     return {
@@ -152,11 +163,11 @@ export default {
         },
       ],
       //登录
-      showLogin:false,
-      loginVisible:false,
+      showLogin: false,
+      loginVisible: false,
       //注册
-      showRegistered:false,
-      RegisteredVisible:false
+      showRegistered: false,
+      RegisteredVisible: false,
     };
   },
   props: ["headerKey"],
@@ -174,28 +185,28 @@ export default {
     gologin() {
       // this.$router.push(src);
       this.showLogin = !this.showLogin;
-      this.loginVisible = true
+      this.loginVisible = true;
     },
-    getVisible(value){
+    getVisible(value) {
       console.log(value);
       this.showLogin = value;
       //登录页内去注册
-      if(value == 'go'){
+      if (value == "go") {
         this.showLogin = false;
-        this.goregistered()
+        this.goregistered();
       }
     },
     //注册
-    goregistered(){
+    goregistered() {
       this.showRegistered = !this.showLogin;
-      this.RegisteredVisible = true
+      this.RegisteredVisible = true;
     },
-    getRegisterVisible(value){
+    getRegisterVisible(value) {
       this.showRegistered = value;
       //注册页内去登录
-      if(value == 'go'){
+      if (value == "go") {
         this.showRegistered = false;
-        this.gologin()
+        this.gologin();
       }
     },
     handleSelect(key, keyPath) {
@@ -213,24 +224,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.header_box{
+.header_box {
   width: 100%;
   position: relative;
-  .footlogin{
+  .footlogin {
     width: 100%;
     position: absolute;
   }
-  .footregistered{
+  .footregistered {
     width: 100%;
     position: absolute;
     top: 10px;
   }
 }
-.fenlei1{
+.fenlei1 {
   color: #ffffff;
   margin: 0 10px;
 }
-.registeredicon{
+.registeredicon {
   margin-top: 3px;
 }
 .menu_title_div {
@@ -253,7 +264,9 @@ export default {
   background-size: 100%;
 }
 .istokendiv {
-  margin-left: 330px;
+  position: absolute;
+  left: 1334px;
+  top: 0px;
   height: 85px;
   display: flex;
   align-items: center;
@@ -327,5 +340,10 @@ export default {
   color: #ffffff;
   padding: 5px 10px;
   border-radius: 5px;
+  font-size: 14px;
+  margin-top: 10px;
+  i {
+    margin-right: 3px;
+  }
 }
 </style>
