@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState ,mapMutations } from "vuex";
 
 export default {
   name: "login",
@@ -93,11 +93,11 @@ export default {
         }
       };
     var validatePass = (rule, value, callback) => {
-        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
         if (value === '') {
           return callback(new Error('请输入密码'));
         } else if(new RegExp(reg).test(value) == false){
-           return callback(new Error('密码为6-20位数字字母组成'));
+           return callback(new Error('密码为6-16位数字字母组成'));
           // if (this.user.password !== '') {
           //   this.$refs.user.validateField('checkPass');
           // }
@@ -168,6 +168,7 @@ export default {
   created() {},
   props:["RegisteredVisible"],
   methods: {
+    ...mapMutations(["token"]),
     checkBlur(e){
       console.log(e.target.value);
       this.$message({
@@ -189,6 +190,10 @@ export default {
     handleClose(done) {
       this.dialogVisible=false
       this.$emit("chidRegisterVisible",this.onmodalclick)
+    },
+    //base64转码
+    encode(str){
+      return  str == null ? null : btoa(encodeURIComponent(str));
     },
     //获取验证码倒计时
     getVerify() {
@@ -214,6 +219,34 @@ export default {
       // }
     },
      doRegiste(register) {
+       console.log(this.encode("a1234567"));
+       this.$api.registered.useRegister({
+            mobile:'15711112222',
+            name:"a123456",
+            vcode:23582,
+            pwd:'a123456'
+          }).then(res => {
+              console.log(res);
+              if (res.data.code == 1) {
+                  this.$message({
+                    type: 'error', // warning、success
+                    message: res.data.msg 
+                  }) 
+              } else if (res.data.code == 0) {
+                  this.$message({
+                    type: 'success', // warning、success
+                    message: res.data.msg 
+                  })
+                  //token存入VUEX
+                  this.token(res.data.params.token)
+                  this.$router.push("/login")                              
+              } else if (res.data.code == -1) {
+
+              }
+          })
+          .catch(error => {
+            this.$message("注册失败")
+          }),
         this.$refs['register'].validate((valid) => {
           if (valid) {
             alert('submit!');

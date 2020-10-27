@@ -3,9 +3,12 @@
  */
 
 const base = {
-    host: "/juhe_api",
+    host: "/live",
     //登录
-    getToken: "/joke/content/list.php"
+    getToken: "​/apiv2/user_login",
+    // getToken: "​/joke/content/list.php",
+    //注册
+    registered:"/apiv2/user_reg"
 }
 
 

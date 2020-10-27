@@ -11,10 +11,10 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      "/juhe_api": {
-        target: "http://v.juhe.cn",
+      "/live": {
+        target: "http://dev.6789zbz.com",
         pathRewrite: {
-          '^/juhe_api': ''
+          '^/live': ''
         },
         // 允许跨域
         changeOrigin: true

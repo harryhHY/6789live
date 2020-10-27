@@ -22,7 +22,7 @@ const xssFilters = require('xss-filters');
 Vue.prototype.$inHTMLData = inHTMLData;
 
 // Vue.use(less);
-Vue.prototype.JuheHOST = "/juhe_api"
+Vue.prototype.JuheHOST = "/live"
 Vue.prototype.$api = api;
 Vue.prototype.$axios = Axios;
 Vue.config.productionTip = false

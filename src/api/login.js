@@ -5,17 +5,12 @@
 import base from "./base"
 import axios from "./http.js"
 
-const login = {
-    // useLogin(params) {
-    //     return axios.get(base.host + base.getToken, {
-    //         params: params
-    //     });
-    // }
-    useLogin(content) {
-        return axios.post(base.host + base.getToken,
-            content
-        );
-    }
-}
-
+// const login = {
+//     useLogin(params) {
+//         return axios.get(base.host + base.getToken, {
+//             params: params
+//         });
+//     }
+// }
+const login = base.host + base.getToken
 export default login

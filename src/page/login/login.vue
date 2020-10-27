@@ -13,7 +13,7 @@
     <p class="line_bottom"></p>
   <p class="title">6789专注于为您提供体育赛事直播与互动交流平台</p>
   <el-tabs class="harftab" v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane  label="账号密码登录" name="first">
+    <el-tab-pane  label="账号密码登录" name="1">
         <el-row type="flex" justify="center">
           <el-form ref="user" :model="user" :rules="rules" status-icon label-width="80px">
             <el-form-item  class="filed" prop="username" label="">
@@ -36,7 +36,7 @@
         </el-row>
         
     </el-tab-pane>
-    <el-tab-pane label="手机号登录" name="second">
+    <el-tab-pane label="手机号登录" name="2">
       <el-row type="flex" justify="center">
           <el-form ref="iphone" :model="iphone" :rules="phoneRules" status-icon label-width="80px" class="second_con">
             <div class="region_con">
@@ -185,7 +185,7 @@ export default {
         ]
       },
       // centerDialogVisible:false,
-      activeName: 'first',
+      activeName: '1',
       checked: true,
       count:"",
       show: true,
@@ -253,14 +253,25 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
+      //base64转码
+      encode(str){
+        return  str == null ? null : btoa(encodeURIComponent(str));
+      },
       doLogin() {
-        this.$api.login.useLogin({
-            key:'8f3e51cd2e461ab4f858ab48d8b5c027',
-            page:2,
-            pagesize:10,
-            sort:'asc',
-            time:1418745237
-          }).then(res => {
+        console.log(this.user.username);
+        console.log(this.user.password);
+        console.log(this.$api);
+        let params = {
+            name:'a1234567',
+            mobile:"",
+            vcode:"",
+            // pwd:this.encode('a1234567'),
+            pwd:'a1234567',
+            type:1,
+          }
+        this.$api.login.useLogin(
+          params
+          ).then(res => {
               console.log(res);
               // if (res.data.code == 1) {                             
               //     this.$Message.info(res.data.msg);
@@ -286,24 +297,25 @@ export default {
               // }
           })
           .catch(error => {
-            this.$Message.info("账号或密码错误");
+            this.$message("账号或密码错误");
           })
       }
   },
   mounted(){
-    // this.$axios({
-    //   url:
-    //     this.JuheHOST +
-    //     "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
-    //   method: "get",
-    //   timeout: 3000
-    // })
-    //   .then(res => {
-    //     console.log(res.data);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    console.log(this.$api.login);
+    this.$axios({
+      url:
+        // this.$api.login + "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
+        `${this.$api.login}?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237`,
+      method: "get",
+      timeout: 3000
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   // computed: {
   //   ...mapState(["activityDetail"]),
