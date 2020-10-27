@@ -57,7 +57,7 @@
             注册
           </span>
           <i class="fenlei1">|</i>
-          <span class="logon_span" v-if="!token" @click="gotosm('/registered')"
+          <span class="logon_span" v-if="!token" @click="gotosm('/resetpass')"
             >忘记密码</span
           >
         </div>
@@ -159,7 +159,7 @@ export default {
         },
         {
           title: "帮助",
-          src: "",
+          src: "/helps",
         },
       ],
       //登录

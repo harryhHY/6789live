@@ -75,6 +75,7 @@ export default {
 .article_info{
     width: 100%;
     margin-top: 5px;
+    padding-bottom: 50px;
     .p_title{
         border-left: 5px solid #014681;
         color: #014681;

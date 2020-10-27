@@ -532,13 +532,17 @@ export default {
 /deep/ .el-form-item{
     margin-bottom: 20px;
   }
+  /deep/.code .el-input__inner{
+  margin-left: 25%;
+  width: 75%;
+}
 </style>
 <style>
 .second_con .el-form-item__content{
     margin-left:0 !important;
 }
-.code .el-input__inner{
+/* .code .el-input__inner{
   margin-left: 25%;
   width: 75%;
-}
+} */
 </style>

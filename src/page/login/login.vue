@@ -239,56 +239,56 @@ export default {
           }
       // }
     },
-      doLogin(user) {
-        console.log("登录");
-        this.$refs['user'].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
+      // doLogin(user) {
+      //   console.log("登录");
+      //   this.$refs['user'].validate((valid) => {
+      //     if (valid) {
+      //       alert('submit!');
+      //     } else {
+      //       console.log('error submit!!');
+      //       return false;
+      //     }
+      //   });
+      // },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
-      // doLogin() {
-      //   this.$api.login.useLogin({
-      //       key:'8f3e51cd2e461ab4f858ab48d8b5c027',
-      //       page:2,
-      //       pagesize:10,
-      //       sort:'asc',
-      //       time:1418745237
-      //     }).then(res => {
-      //         console.log(res);
-      //         // if (res.data.code == 1) {                             
-      //         //     this.$Message.info(res.data.msg);
-      //         // } else if (res.data.code == 0) {
-      //         //     //is_first:0非首次，1是首次 跳转修改密码
-      //         //         // console.log(res.data.params.is_first);
-      //         //         if(res.data.params.is_first){
-      //         //             localStorage.setItem("token", res.data.params.token);
-      //         //             localStorage.setItem("userName", this.user.username);
-      //         //             this.$router.push("/changepwd");
-      //         //         }else{
-      //         //             // 登陆存储
-      //         //             localStorage.setItem("token", res.data.params.token);
-      //         //             localStorage.setItem("userName", this.user.username);
-      //         //             //登录成功提示信息
-      //         //             this.$Message.info(res.data.msg);   
-      //         //             this.$router.push("/");                                 
-      //         //         }                               
-      //         // } else if (res.data.code == -1) {
-      //         //     this.$Message.info(res.data.msg); 
-      //         //     localStorage.removeItem("token");
-      //         //     this.$router.push("/login")        
-      //         // }
-      //     })
-      //     .catch(error => {
-      //       this.$Message.info("账号或密码错误");
-      //     })
-      // }
+      doLogin() {
+        this.$api.login.useLogin({
+            key:'8f3e51cd2e461ab4f858ab48d8b5c027',
+            page:2,
+            pagesize:10,
+            sort:'asc',
+            time:1418745237
+          }).then(res => {
+              console.log(res);
+              // if (res.data.code == 1) {                             
+              //     this.$Message.info(res.data.msg);
+              // } else if (res.data.code == 0) {
+              //     //is_first:0非首次，1是首次 跳转修改密码
+              //         // console.log(res.data.params.is_first);
+              //         if(res.data.params.is_first){
+              //             localStorage.setItem("token", res.data.params.token);
+              //             localStorage.setItem("userName", this.user.username);
+              //             this.$router.push("/changepwd");
+              //         }else{
+              //             // 登陆存储
+              //             localStorage.setItem("token", res.data.params.token);
+              //             localStorage.setItem("userName", this.user.username);
+              //             //登录成功提示信息
+              //             this.$Message.info(res.data.msg);   
+              //             this.$router.push("/");                                 
+              //         }                               
+              // } else if (res.data.code == -1) {
+              //     this.$Message.info(res.data.msg); 
+              //     localStorage.removeItem("token");
+              //     this.$router.push("/login")        
+              // }
+          })
+          .catch(error => {
+            this.$Message.info("账号或密码错误");
+          })
+      }
   },
   mounted(){
     // this.$axios({
@@ -550,13 +550,13 @@ export default {
 /deep/.el-dialog__header{
   padding-bottom: 20px;
 }
+/deep/.code .el-input__inner{
+  margin-left: 25%;
+  width: 75%;
+}
 </style>
 <style>
 .second_con .el-form-item__content{
     margin-left:0 !important;
-}
-.code .el-input__inner{
-  margin-left: 25%;
-  width: 75%;
 }
 </style>

@@ -11,7 +11,7 @@
           <el-input type="" v-model="ruleForm.checkPass" autocomplete="off"><template slot="prepend">+86</template></el-input>
         </el-form-item>
         <div class="code_con">
-          <el-form-item class="filed code" prop="code" label="验证码">
+          <el-form-item class="filed coder" prop="code" label="验证码">
             <!-- <img class="password" :src="imgs.code" alt=""> -->
             <el-input class="code" v-model="ruleForm.code" placeholder="请输入验证码" autocomplete="off"></el-input>
           </el-form-item>
@@ -143,7 +143,7 @@ export default {
 .code_con{
   width: 100%;
   height: 40px;
-  .code{
+  .coder{
     width: 70%;
     float: left;
   }
