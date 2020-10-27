@@ -283,41 +283,121 @@ export default {
           id: 1,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 2,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 3,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 4,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 5,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 6,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 7,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
         {
           id: 8,
           imgsrc: require("../../image/logo.png"),
           title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
+          type: "一结束",
+          gametype: "足球",
+          gametype1: "意甲",
+          time: "10:20",
+          aicon: require("../../image/team.jpg"),
+          aname: "哥伦甲-圣塔菲",
+          bicon: require("../../image/team.jpg"),
+          bname: "拉伊奎达德",
+          ascore: 0,
+          bscore: 1,
         },
       ],
       foot_communitymsg: [
@@ -428,6 +508,16 @@ export default {
     };
   },
   methods: {
+        // 获取首页页面数据
+    gethomedata(){
+      // this.$http({
+      //   method:'get',
+      //   url:'http://dev.6789zbz.com/apiv2/index'
+      // }).then((res)=>{
+      //   console.log(res)
+      // })
+    },
+
     gotolive(e) {
       console.log(e);
       this.$store.commit("liveList", e);
@@ -469,6 +559,7 @@ export default {
   },
   created() {
     this.initialization();
+    this.gethomedata()
   },
 };
 </script>
@@ -503,7 +594,7 @@ export default {
   font-size: 22px;
   position: relative;
   color: #014681;
-  background-image: url('../../image/home_new.png');
+  background-image: url("../../image/home_new.png");
   background-size: 100%;
   background-repeat: no-repeat;
   width: 950px;

@@ -2,86 +2,265 @@
   <div class="community cl">
     <home_herder :headerKey="headerKey"></home_herder>
     <livemenu></livemenu>
-    <div class="community_content left">
-      <div class="community_content_header cl">
-        <div class="cl left header_left">
-          <div class="left postspan">今日：{{ todaynum }}</div>
-          <div class="left postspan postspan2">昨日：{{ yesterdaynum }}</div>
-          <div class="left postspan">贴子：{{ postnum }}</div>
-        </div>
-        <div class="search right">
-          <input
-            type="text"
-            placeholder="搜话题、用户、新闻"
-            class="search_input"
-            v-model="serachMsg"
-            v-on:keyup.enter="serach(serachMsg)"
-          />
-          <img
-            src="../../image/sousuo.png"
-            alt=""
-            class="serach_click cu"
-            @click="serach(serachMsg)"
-          />
+    <div class="community_content boxshadow left">
+      <div class="menu_header">
+        <div class="cl">
+          <div class="left menu_header_foot"></div>
+          <div class="menu_header_foot_class left">
+            <div
+              class="left menu_header_foot_class_title cu"
+              v-for="(item, index) in footer_menu"
+              :key="index"
+            >
+              {{ item.title }}
+            </div>
+          </div>
+          <!-- 篮球栏目 -->
+          <div class="left menu_header_bsb"></div>
+          <div class="menu_header_foot_class left">
+            <div
+              class="left menu_header_foot_class_title cu"
+              v-for="(item, index) in footer_menu"
+              :key="index"
+            >
+              {{ item.title }}
+            </div>
+          </div>
+          <!-- 综合栏目 -->
+          <div class="left menu_header_translation"></div>
+          <div class="menu_header_foot_class left">
+            <div
+              class="left menu_header_foot_class_title cu"
+              v-for="(item, index) in footer_menu"
+              :key="index"
+            >
+              {{ item.title }}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="community_content_main">
-        <div v-for="(item, index) in title" :key="index">
-          <div class="cl menu_title" @click="changetype(index)">
-            <div class="left">{{ item.title }}</div>
-            <div class="right">
-              <i
-                :class="[
-                  item.isRotate
-                    ? 'el-icon-arrow-down right rotate  live_title_i'
-                    : 'el-icon-arrow-down right rotate1 live_title_i',
-                ]"
-              ></i>
+      <!-- 搜索框 -->
+      <div class="search_div cl">
+        <div class="left search_div_left">
+          <input
+            type="text"
+            class="serarch_input"
+            placeholder="请输入搜索内容"
+          />
+          <img
+            src="../../image/news/sousuo.png"
+            alt=""
+            class="cu search_div_left_img"
+          />
+        </div>
+        <div class="right search_div_right cl">
+          <div class="todaypost left">今日发帖：{{ todaypost }}</div>
+          <i class="left">|</i>
+          <div class="yesterdaypost left">昨日发帖：{{ yesterdaypost }}</div>
+          <i class="left">|</i>
+          <div class="totalpost left">总共累计发帖：{{ totalpost }}</div>
+        </div>
+      </div>
+      <!-- 足球社区 -->
+      <div class="footertitle"></div>
+      <div
+        class="cl footer_content"
+        v-for="(item, index) in listdata"
+        :key="index"
+      >
+        <div class="footer_content_left left">
+          <div class="cl footer_content_left_titleheader">
+            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_title left">
+              {{ item.title }}
             </div>
           </div>
-          <div v-if="title[index].isRotate">
-            <div
-              v-for="(item, index) in community_List"
-              :key="index"
-              class="plate_div cl centerimg cu"
-            >
-              <img :src="item.img" alt="" class="plate_img left" />
-              <div class="left plate_left">
-                <div class="platename">{{ item.platename }}</div>
-                <div class="plateIntroduction">
-                  {{ item.plateIntroduction }}
-                </div>
+          <div class="footer_content_del ov">详情：{{ item.del }}</div>
+          <div class="cl footer_content_belong">
+            <div class="left cl">
+              <div class="left footer_name">
+                {{ item.name }}
+              </div>
+              <div class="left footer_time">
+                {{ item.time }}
+              </div>
+            </div>
+            <div class="right cl">
+              <div class="left centerimg">
+                <div class="footer_commnum_img"></div>
+                <div>评论：</div>
                 <div>
-                  <div class="left platehost_title">版主：</div>
-                  <div
-                    v-for="(item, index) in item.platehost"
-                    :key="index"
-                    class="left platehost"
-                  >
-                    {{ item }} 、
-                  </div>
+                  {{ item.commnum }}
                 </div>
               </div>
-              <div class="left plate_mid">
-                <span>{{ item.reply }} / </span>
-                <span>{{ item.examine }}</span>
-              </div>
-              <div class="left plate_right">
-                <div class="platetitle">
-                  {{ item.platetitle }}
-                </div>
-                <div class="cl">
-                  <span class="commentator left">
-                    by {{ item.commentator }}
-                  </span>
-                  <span class="operatingtime right">
-                    {{ item.operatingtime }}
-                  </span>
+              <div class="left centerimg footer_goods_div">
+                <div class="footer_goods_img"></div>
+                <div>点赞：</div>
+                <div>
+                  {{ item.commnum }}
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="footer_content_right left cl">
+          <div class="footer_content_right_div right">
+            <img
+              :src="item.avatar"
+              alt=""
+              class="footer_content_right_avatar"
+            />
+            <div>
+              {{ item.teamname }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="centerimg more_div">
+        <div class="more cu"></div>
+      </div>
+      <!-- 篮球社区 -->
+      <div class="bsktitle"></div>
+      <div
+        class="cl footer_content"
+        v-for="(item, index) in listdata"
+        :key="item.time + index"
+      >
+        <div class="footer_content_left left">
+          <div class="cl footer_content_left_titleheader">
+            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_title left">
+              {{ item.title }}
+            </div>
+          </div>
+          <div class="footer_content_del ov">详情：{{ item.del }}</div>
+          <div class="cl footer_content_belong">
+            <div class="left cl">
+              <div class="left footer_name">
+                {{ item.name }}
+              </div>
+              <div class="left footer_time">
+                {{ item.time }}
+              </div>
+            </div>
+            <div class="right cl">
+              <div class="left centerimg">
+                <div class="footer_commnum_img"></div>
+                <div>评论：</div>
+                <div>
+                  {{ item.commnum }}
+                </div>
+              </div>
+              <div class="left centerimg footer_goods_div">
+                <div class="footer_goods_img"></div>
+                <div>点赞：</div>
+                <div>
+                  {{ item.commnum }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer_content_right left cl">
+          <div class="footer_content_right_div right">
+            <img
+              :src="item.avatar"
+              alt=""
+              class="footer_content_right_avatar"
+            />
+            <div>
+              {{ item.teamname }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="centerimg more_div">
+        <div class="more cu"></div>
+      </div>
+      <!-- 综合社区 -->
+      <div class="translationtitle"></div>
+      <div
+        class="cl footer_content"
+        v-for="(item, index) in listdata"
+        :key="item.title + index"
+      >
+        <div class="footer_content_left left">
+          <div class="cl footer_content_left_titleheader">
+            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_title left">
+              {{ item.title }}
+            </div>
+          </div>
+          <div class="footer_content_del ov">详情：{{ item.del }}</div>
+          <div class="cl footer_content_belong">
+            <div class="left cl">
+              <div class="left footer_name">
+                {{ item.name }}
+              </div>
+              <div class="left footer_time">
+                {{ item.time }}
+              </div>
+            </div>
+            <div class="right cl">
+              <div class="left centerimg">
+                <div class="footer_commnum_img"></div>
+                <div>评论：</div>
+                <div>
+                  {{ item.commnum }}
+                </div>
+              </div>
+              <div class="left centerimg footer_goods_div">
+                <div class="footer_goods_img"></div>
+                <div>点赞：</div>
+                <div>
+                  {{ item.commnum }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer_content_right left cl">
+          <div class="footer_content_right_div right">
+            <img
+              :src="item.avatar"
+              alt=""
+              class="footer_content_right_avatar"
+            />
+            <div>
+              {{ item.teamname }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="centerimg more_div">
+        <div class="more cu"></div>
+      </div>
+    </div>
+    <div class="community_hotmenu left boxshadow">
+      <div class="community_hotmenu_header">今日热门社区</div>
+      <div class="boreder_bt cl">
+        <div class="boreder_bt_left left"></div>
+        <div class="boreder_bt_right left"></div>
+      </div>
+      <div
+        v-for="(item, index) in hotmenu"
+        :key="index"
+        class="community_hotmenu_content cl"
+      >
+        <div class="community_hotmenu_content_commavatar left">
+          <div class="cl centerimg">
+            <img :src="item.commavatar" alt="" class="left" />
+            <div class="left community_hotmenu_commname ov">
+              {{ item.commname }}
+            </div>
+          </div>
+        </div>
+        <div class="hotmenu_content_todaynum left">
+          今日发帖：{{item.commnum}}
+        </div>
+      </div>
+      <div class="lookmore">
+        查看更多
       </div>
     </div>
   </div>
@@ -94,7 +273,7 @@ export default {
   data() {
     return {
       headerKey: "4",
-      title: [
+      footer_menu: [
         {
           title: "足球",
           isRotate: true,
@@ -104,87 +283,91 @@ export default {
           isRotate: false,
         },
         {
-          title: "综合",
+          title: "国足",
+          isRotate: false,
+        },
+        {
+          title: "球幕茶疗",
+          isRotate: true,
+        },
+        {
+          title: "国足",
+          isRotate: false,
+        },
+        {
+          title: "更多》",
           isRotate: false,
         },
       ],
-      communityMenuClass_foot: [
-        {
-          type: "中超",
-        },
-        {
-          type: "西甲",
-        },
-        {
-          type: "意甲",
-        },
-        {
-          type: "德甲",
-        },
-        {
-          type: "欧冠",
-        },
-      ],
-      community_logo: require("../../image/logo.png"),
-      todaynum: 0,
-      community_List: [
-        {
-          img: require("../../image/team.jpg"),
-          platename: "国足",
-          plateIntroduction:
-            "中国足球的春天，燃烧岁月，不负青春，我们未来可期！",
-          platehost: ["jj", "pipi"],
-          reply: "122345",
-          examine: "23456",
-          platetitle: "盘点十大球员神奇事件，不擅长的对手，伊布职业生涯",
-          commentator: "烈火如歌",
-          operatingtime: "2020.10.20",
-        },
-        {
-          img: require("../../image/team.jpg"),
-          platename: "国足",
-          plateIntroduction:
-            "中国足球的春天，燃烧岁月，不负青春，我们未来可期！",
-          platehost: ["jj", "pipi"],
-          reply: "122345",
-          examine: "23456",
-          platetitle: "盘点十大球员神奇事件，不擅长的对手，伊布职业生涯",
-          commentator: "烈火如歌",
-          operatingtime: "2020.10.20",
-        },
-        {
-          img: require("../../image/team.jpg"),
-          platename: "国足",
-          plateIntroduction:
-            "中国足球的春天，燃烧岁月，不负青春，我们未来可期！",
-          platehost: ["jj", "pipi"],
-          reply: "122345",
-          examine: "23456",
-          platetitle: "盘点十大球员神奇事件，不擅长的对手，伊布职业生涯",
-          commentator: "烈火如歌",
-          operatingtime: "2020.10.20",
-        },
-      ],
-      yesterdaynum: 0,
-      postnum: 1111,
       serachMsg: "",
+      todaypost: 0,
+      yesterdaypost: 0,
+      listdata: [
+        {
+          type: "足球",
+          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          del:
+            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          time: "102/22/20",
+          name: "大家叫他少爷",
+          commnum: "222",
+          teamname: "青岛大连",
+          goodsnum: "222",
+          avatar: require("../../image/team.jpg"),
+        },
+        {
+          type: "足球",
+          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          del:
+            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          time: "102/22/20",
+          name: "大家叫他少爷",
+          commnum: "222",
+          teamname: "青岛大连",
+          goodsnum: "222",
+          avatar: require("../../image/team.jpg"),
+        },
+        {
+          type: "足球",
+          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          del:
+            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
+          time: "102/22/20",
+          name: "大家叫他少爷",
+          commnum: "222",
+          teamname: "青岛大连",
+          goodsnum: "222",
+          avatar: require("../../image/team.jpg"),
+        },
+      ],
+      totalpost: 111,
+      hotmenu: [
+        {
+          commavatar: require("../../image/team.jpg"),
+          commname: "热议NBA",
+          commnum: 222,
+        },
+        {
+          commavatar: require("../../image/team.jpg"),
+          commname: "湖人",
+          commnum: 222,
+        },
+        {
+          commavatar: require("../../image/team.jpg"),
+          commname: "中国篮球",
+          commnum: 222,
+        },
+        {
+          commavatar: require("../../image/team.jpg"),
+          commname: "英雄联盟",
+          commnum: 222,
+        },
+      ],
     };
   },
   methods: {
-    changetype(idx) {
-      let data = this.title;
-      for (let i = 0; i < data.length; i++) {
-        if (idx == i) {
-          data[i].isRotate = !data[i].isRotate;
-        } else {
-          data[i].isRotate = false;
-        }
-      }
-
-      this.title = data;
-    },
     serach(msg) {
-      this.serachMsg = this.$inHTMLData(msg)
+      this.serachMsg = this.$inHTMLData(msg);
       console.log(this.serachMsg);
     },
   },
@@ -197,121 +380,246 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.menuheader {
-  font-size: 20px;
-  background-color: #2a44da;
-  color: #fff;
-  line-height: 81px;
-  padding: 0 20px;
-}
-.menuClass {
-  font-size: 18px;
-  padding: 0 15px;
-  line-height: 81px;
-  background-color: #999;
-}
-.menuClass:hover {
-  background-color: #fff;
-  color: #000000;
+.community {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+  font-size: 14px;
 }
 .community_content {
-  width: 85%;
-  .community_content_header {
-    margin: 20px 30px;
-    font-size: 16px;
-    .header_left {
-      height: 44px;
-      display: flex;
-      align-items: center;
+  width: 1165px;
+  margin: 20px 0 0 48px;
+  border-radius: 5px;
+  background: #fff;
+  .menu_header {
+    background-color: #fff;
+    border-bottom: 1px solid #e2f1fe;
+    .menu_header_foot {
+      background-image: url("../../image/cmm/foot.png");
+      background-size: 100%;
+      width: 116px;
+      height: 68px;
+      background-color: #e2f1fe;
     }
-    .postspan {
-      padding: 0 10px;
+    .menu_header_bsb {
+      background-image: url("../../image/cmm/bsb.png");
+      background-size: 100%;
+      width: 116px;
+      height: 68px;
+      background-color: #e2f1fe;
     }
-    .postspan2 {
-      border-left: 1px solid #999999;
-      border-right: 1px solid #999999;
+    .menu_header_translation {
+      background-image: url("../../image/cmm/translation.png");
+      background-size: 100%;
+      width: 116px;
+      height: 68px;
+      background-color: #e2f1fe;
     }
-    .search {
-      position: relative;
-      .search_input {
-        width: 300px;
-        height: 40px;
-        border-radius: 5px;
-        padding-left: 10px;
+    .menu_header_foot_class {
+      width: 270px;
+      height: 68px;
+      .menu_header_foot_class_title {
+        width: 33%;
+        line-height: 34px;
+        text-align: center;
+        color: #555;
       }
-      .serach_click {
+      .menu_header_foot_class_title:hover {
+        color: #01a0fc;
+      }
+    }
+  }
+  .search_div {
+    margin: 13px 46px;
+    .search_div_left {
+      position: relative;
+      .serarch_input {
+        width: 468px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 17px;
+        background-color: #e1e2e4;
+        border: 1px solid #dedede;
+        padding-left: 20px;
+      }
+      .search_div_left_img {
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 0;
+        right: 15px;
         margin: auto;
       }
     }
-  }
-  .community_content_main {
-    .menu_title {
-      margin: 10px 20px;
-      background-color: rgb(136, 149, 223);
-      font-size: 20px;
-      padding: 10px 20px;
-      color: #fff;
-      border-radius: 5px;
-    }
-
-    .plate_img {
-      width: 10%;
-      height: 160px;
-    }
-    .platename {
-      margin-top: 10px;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .plateIntroduction {
-      font-size: 16px;
-      color: #666666;
-      line-height: 30px;
-    }
-
-    .platehost {
-      color: #2a44da;
+    .search_div_right {
+      color: #555;
+      line-height: 35px;
+      .todaypost {
+        margin-right: 5px;
+      }
+      .yesterdaypost {
+        margin: 0 5px;
+      }
+      .totalpost {
+        margin-left: 5px;
+      }
     }
   }
-}
+  .footertitle {
+    background-image: url("../../image/cmm/foottitle.png");
+    background-size: 100%;
+    width: 1094px;
+    height: 50px;
+    margin-left: 34px;
+  }
+  .footer_content {
+    border-bottom: 1px solid #dedede;
+    margin: 0 58px;
+    text-align: center;
+    padding: 18px 0;
+    .footer_content_left_titleheader {
+      .footer_type {
+        background-image: url("../../image/liveclass.png");
+        background-size: 100%;
+        color: #fff;
+        width: 38px;
+        height: 22px;
+        line-height: 22px;
+      }
+      .footer_title {
+        font-size: 18px;
+        margin-left: 18px;
+      }
+    }
+    .footer_content_del {
+      margin: 14px 0 0 55px;
+      color: #555;
+      width: 608px;
+    }
+    .footer_content_belong {
+      width: 705px;
+      margin: 18px 0 0 55px;
+      .footer_goods_div {
+        margin-left: 20px;
+        .footer_goods_img {
+          background-image: url("../../image/cmm/goods.png");
+          background-size: 100%;
+          width: 16px;
+          height: 16px;
+        }
+      }
+      .footer_time {
+        color: #555;
+        margin-left: 23px;
+      }
 
-.plate_left {
-  width: 40%;
-}
-.plate_mid {
-  text-align: center;
-  width: 20%;
-}
-.plate_right {
-  width: 30%;
-  .platetitle {
-    line-height: 30px;
-    font-size: 18px;
-    margin: 10px 0;
+      .footer_commnum_img {
+        background-image: url("../../image/cmm/comment.png");
+        background-size: 100%;
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .footer_content_right {
+      width: 277px;
+      .footer_content_right_div {
+        margin-right: 20px;
+        .footer_content_right_avatar {
+          width: 54px;
+          height: 54px;
+          border: 1px solid #dedede;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .bsktitle {
+    background-image: url("../../image/cmm/bsbtitle.png");
+    background-size: 100%;
+    width: 1094px;
+    height: 50px;
+    margin-left: 34px;
+    margin-top: 10px;
+  }
+  .translationtitle {
+    background-image: url("../../image/cmm/translationtitle.png");
+    background-size: 100%;
+    width: 1094px;
+    height: 50px;
+    margin-left: 34px;
+    margin-top: 10px;
+  }
+  .more_div {
+    margin: 16px 0 10px 0;
+    .more {
+      background-image: url("../../image/cmm/unfoldicon.png");
+      width: 17px;
+      height: 14px;
+      background-size: 100%;
+    }
+    .more:hover {
+      background-image: url("../../image/cmm/unfoldicon1.png");
+    }
   }
 }
-.commentator {
-  font-size: 16px;
-}
-.operatingtime {
-  font-size: 16px;
-}
-.plate_div {
-  margin: 0 20px;
-}
-.rotate {
-  transition: all 0.5s;
-}
-.rotate1 {
-  transform: rotate(180deg);
-  -ms-transform: rotate(180deg); /* IE 9 */
-  -moz-transform: rotate(180deg); /* Firefox */
-  -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
-  -o-transform: rotate(180deg); /* Opera */
-  transition: all 1s;
+.community_hotmenu {
+  width: 352px;
+  padding: 18px 13px;
+  border-top: 4px solid #0190fc;
+  background-color: #fff;
+  border-radius: 10px;
+  margin: 20px 0 0 10px;
+  .community_hotmenu_header {
+    color: #01a0fc;
+    border-left: 5px solid #014581;
+    padding-left: 11px;
+    margin-left: 10px;
+  }
+  .boreder_bt {
+    margin: 16px 0;
+    .boreder_bt_left {
+      height: 2px;
+      width: 49%;
+      margin-right: 2%;
+      background-color: #0190fc;
+    }
+    .boreder_bt_right {
+      height: 2px;
+      width: 49%;
+      background-color: #dedede;
+    }
+  }
+  .community_hotmenu_content {
+    width: 352px;
+    height: 78px;
+    border-bottom: 1px solid #dedede;
+    .community_hotmenu_content_commavatar {
+      width: 50%;
+      font-size: 18px;
+      img {
+        width: 52px;
+        height: 52px;
+      }
+    }
+    .community_hotmenu_commname {
+      width: 100px;
+      margin-left: 15px;
+      line-height: 78px;
+    }
+    .hotmenu_content_todaynum{
+      width: 50%;
+      line-height: 78px;
+      color: #555;
+      text-align: center;
+    }
+  }
+  .lookmore{
+    color: #0190fc;
+    border: 1px solid  #0190fc;
+    width: 125px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 14px;
+    margin:24px auto;
+  }
 }
 </style>
