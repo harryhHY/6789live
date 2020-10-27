@@ -172,7 +172,7 @@ export default {
     const dp = new DPlayer({
       container: document.getElementById("dplayer"),
       live: true,
-      danmaku: true,
+      autoplay:true,
       apiBackend: {
         read: function (endpoint, callback) {
           console.log("Pretend to connect WebSocket");
@@ -217,7 +217,7 @@ export default {
   margin-left: 29px;
   .live_div {
     width: 968px;
-    height: 485px;
+    height: 540px;
   }
   .live_title {
     font-size: 20px;
