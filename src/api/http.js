@@ -5,11 +5,8 @@
 
 import axios from "axios"
 import router from "../router"
-// import initStore from "../store"
+import initStore from "../../static/store"
 import qs from "querystring"
-// const store = initStore();
-
-
 /**
  * 跳转登录页
  * 携带当前页面路由，以期在登录页面完成登录后返回当前页面
@@ -76,7 +73,8 @@ const errorHandler = (status, other) => {
 var instance = axios.create({ timeout: 5000 });
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 instance.defaults.headers.post['enctype'] = 'multipart/form-data';
-// instance.defaults.headers.common['Authorization'] = store.getters.getToken; // token在vuex
+instance.defaults.headers.common['Authorization'] = initStore.state.token;// token在vuex
+instance.defaults.headers.token = initStore.state.token;// token在vuex
 
 instance.interceptors.request.use(function(config) {
     if (config.method == 'post') {

@@ -92,8 +92,6 @@
         <span class="secret">隐私<span class="italic_line">/</span></span>  
         <span class="rule">条款</span>
     </div>
-    <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
   </span>
 </el-dialog>
   </div>
@@ -101,14 +99,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState ,mapMutations } from "vuex";
 
 export default {
   name: "login",
   data() {
     //用户名登录
     var validateName = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/
         if (value == "") {
           return callback(new Error('用户名不能为空'));
         } else if(new RegExp(reg).test(value) == false){
@@ -159,10 +157,8 @@ export default {
       user: {
         username: "",
         password: "",
-        checkPass:"",
       },
       iphone:{
-        region:"+86",
         phoneNum:"",
         code:""
       },
@@ -184,7 +180,6 @@ export default {
           { validator: phoneNumber, trigger: 'blur' }
         ]
       },
-      // centerDialogVisible:false,
       activeName: '1',
       checked: true,
       count:"",
@@ -197,6 +192,7 @@ export default {
   props:["loginVisible"],
   created() {},
   methods: {
+    ...mapMutations(["token"]),
     //选择手机区号
     changeRegion(value){
       console.log(value)
@@ -206,6 +202,7 @@ export default {
       console.log(this.checked)
     },
     handleClick(tab, event) {
+      this.activeName = tab.name;
         console.log(tab.name);
     },
     handleClose(done) {
@@ -258,43 +255,51 @@ export default {
         return  str == null ? null : btoa(encodeURIComponent(str));
       },
       doLogin() {
+        let params;
         console.log(this.user.username);
         console.log(this.user.password);
-        console.log(this.$api);
-        let params = {
-            name:'a1234567',
+        if(this.activeName == 1){
+          params = {
+            name:this.user.username,
             mobile:"",
             vcode:"",
-            // pwd:this.encode('a1234567'),
-            pwd:'a1234567',
+            pwd:this.encode(this.user.password),
             type:1,
           }
+        }else{
+          params = {
+            name:"",
+            mobile:this.iphone.phoneNum,
+            vcode:this.iphone.code,
+            pwd:"",
+            type:2,
+          }
+        }
         this.$api.login.useLogin(
           params
           ).then(res => {
               console.log(res);
-              // if (res.data.code == 1) {                             
-              //     this.$Message.info(res.data.msg);
-              // } else if (res.data.code == 0) {
-              //     //is_first:0非首次，1是首次 跳转修改密码
-              //         // console.log(res.data.params.is_first);
-              //         if(res.data.params.is_first){
-              //             localStorage.setItem("token", res.data.params.token);
-              //             localStorage.setItem("userName", this.user.username);
-              //             this.$router.push("/changepwd");
-              //         }else{
-              //             // 登陆存储
-              //             localStorage.setItem("token", res.data.params.token);
-              //             localStorage.setItem("userName", this.user.username);
-              //             //登录成功提示信息
-              //             this.$Message.info(res.data.msg);   
-              //             this.$router.push("/");                                 
-              //         }                               
-              // } else if (res.data.code == -1) {
-              //     this.$Message.info(res.data.msg); 
-              //     localStorage.removeItem("token");
-              //     this.$router.push("/login")        
-              // }
+              if (res.data.code == 1) {
+                  this.$message({
+                    type: 'error', // warning、success
+                    message: res.data.msg 
+                  }) 
+              } else if (res.data.code == 0) {
+                  this.$message({
+                    type: 'success', // warning、success
+                    message: res.data.msg 
+                  })
+                  //token存入VUEX
+                  this.token(res.data.params.token)
+                  localStorage.setItem("token", res.data.params.token);
+                  this.dialogVisible = false;
+                  this.$router.push("/")                              
+              } else if (res.data.code == -1) {
+                  this.$message({
+                    type: 'success', // warning、success
+                    message: res.data.msg 
+                  })
+              }
           })
           .catch(error => {
             this.$message("账号或密码错误");
@@ -302,20 +307,21 @@ export default {
       }
   },
   mounted(){
-    console.log(this.$api.login);
-    this.$axios({
-      url:
-        // this.$api.login + "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
-        `${this.$api.login}?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237`,
-      method: "get",
-      timeout: 3000
-    })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    // console.log(this.$api.login);
+    // console.log(this.JuheHOST);
+    // this.$axios({
+    //   url:
+    //     // this.$api.login + "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
+    //     `${this.$api.login}?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237`,
+    //   method: "get",
+    //   timeout: 3000
+    // })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
   }
   // computed: {
   //   ...mapState(["activityDetail"]),
