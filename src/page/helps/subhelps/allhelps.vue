@@ -1,22 +1,30 @@
 <template>
   <div>
     <el-collapse v-model="activeNames" @change="handleChange">
-        <el-collapse-item title="忘记密码怎么办？" name="1">
-            <div>忘记密码怎么办？</div>
-            <div>忘记密码怎么办？</div>
-        </el-collapse-item>
-        <el-collapse-item title="忘记密码怎么办？" name="2">
-            <div>忘记密码怎么办？</div>
-            <div>忘记密码怎么办？</div>
-        </el-collapse-item>
-        <el-collapse-item title="忘记密码怎么办？" name="3">
-            <div>忘记密码怎么办？</div>
-            <div>忘记密码怎么办？</div>
+        <el-collapse-item name="1">
+            <template slot="title">
+                <i class="el-icon-s-help"></i>一致性 Consistency?
+            </template>
+            <div class="content">忘记密码怎么办？</div>
             <div>忘记密码怎么办？</div>
         </el-collapse-item>
-        <el-collapse-item title="忘记密码怎么办？" name="4">
-            <div>忘记密码怎么办？</div>
-            <div>忘记密码怎么办？</div>
+        <el-collapse-item name="2">
+            <template slot="title">
+                <i class="el-icon-s-help"></i>一致性 Consistency?
+            </template>
+            <div class="content">忘记密码怎么办？</div>
+        </el-collapse-item>
+        <el-collapse-item name="3">
+            <template slot="title">
+                <i class="el-icon-s-help"></i>一致性 Consistency?
+            </template>
+            <div class="content">忘记密码怎么办？</div>
+        </el-collapse-item>
+        <el-collapse-item name="4">
+            <template slot="title">
+                <i class="el-icon-s-help"></i>一致性 Consistency?
+            </template>
+            <div class="content">忘记密码怎么办？</div>
         </el-collapse-item>
     </el-collapse>
   </div>
@@ -39,5 +47,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.content{
+    margin-left: 55px;
+}
 </style>

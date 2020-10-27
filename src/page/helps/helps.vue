@@ -19,14 +19,16 @@
                    <p>热门问题</p>
                </div>
                <ul class="qus_list">
-                   <li>用户名怎样修改</li>
-                   <li>用户名怎样修改2</li>
-                   <li>用户名怎样修改3</li>
-                   <li>用户名怎样修改4</li>
-                   <li>用户名怎样修改5</li>
-                   <li>用户名怎样修改6</li>
-                   <li>用户名怎样修改7</li>
-                   <li>用户名怎样修改8</li>
+                   <li>
+                       <i class="el-icon-s-help"></i>
+                       用户名怎样修改?</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改2</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改3</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改4</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改5</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改6</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改7</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改8</li>
                </ul>
                <div class="bottom1">
                    <p @click = "goSuggest()">意见反馈<span>></span></p>
@@ -149,6 +151,7 @@ export default {
                 font-size: 16px;
                 height: 30px;
                 line-height: 30px;
+                position: relative;
             }
         }
         .bottom1{

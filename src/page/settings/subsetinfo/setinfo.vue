@@ -46,6 +46,7 @@ export default {
                 // iscomponent:"",
                 routeAddress:"",
                 component_name: "home_content",
+                menu_num: "1",
                 headerKey:'1',
                 changename: changename,
                 changephone: changephone,

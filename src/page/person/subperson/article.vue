@@ -64,6 +64,17 @@ export default {
             "undo",//后退
             "redo",//前进
         ]
+        //配置字体
+        editor.config.fontNames = [
+            '黑体',
+            '仿宋',
+            '楷体',
+            '标楷体',
+            '华文仿宋',
+            '华文楷体',
+            '宋体',
+            '微软雅黑',
+        ];
         //评论框过滤粘贴的图片
         editor.config.pasteIgnoreImg = false;
         // 配置行高
@@ -169,11 +180,12 @@ export default {
     .editor_con{
         width: 1012px;
         margin: auto;
-        margin-bottom: 50px;
+        padding-bottom: 100px;
         position: relative;
         #editor{
             width:1012px;         
-            resize: vertical
+            resize: vertical;
+            font-size: 14px;
         }
         .articletitle{
             padding: 1px 2px;
