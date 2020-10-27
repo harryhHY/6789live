@@ -54,7 +54,7 @@ export default {
           data[i].clicktype = false;
         }
       }
-      this.$router.push("/live");
+      // this.$router.push("/live");
     },
   },
   computed: {

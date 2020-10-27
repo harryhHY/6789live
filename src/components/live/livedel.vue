@@ -110,8 +110,7 @@ export default {
           name: "人人网",
         },
       ],
-      videosrc:
-        "https://sm.lssjy.cn/liveb/321951454287900672/playlist.m3u8?wsSecret=fe83b327ebebd00500126b6af37a8d41&wsABSTime=5f899248",
+      videosrc: "https://sm.lssjy.cn/liveb/325897503503298560/playlist.m3u8?wsSecret=749fc7b7de3f651c91e7dc570a0c33ea&wsABSTime=5f97d380",
       liveroom: [{}, {}],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
