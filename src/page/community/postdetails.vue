@@ -1,0 +1,512 @@
+<template>
+  <div class="cl postdetails">
+    <home_herder :headerKey="headerKey"></home_herder>
+    <livemenu></livemenu>
+    <div class="newsdel_content boxshadow left">
+      <div class="banner">
+        <img src="" alt="" />
+      </div>
+      <div class="title_div cl">
+        <div class="newstype1 left">
+          {{ newsList.newstype1 }}
+        </div>
+        <div class="title left">
+          {{ newsList.title }}
+        </div>
+      </div>
+      <div class="cl title_bottom">
+        <div class="left">6789直播</div>
+        <div class="left title_bottom_time">{{ newsList.time }}</div>
+        <div class="left share_div">
+          <img src="../../image/news/share.png" alt="" />
+          分享到
+          <img src="../../image/news/shareicon1.png" alt="" />
+          <img src="../../image/news/shareicon2.png" alt="" />
+          <img src="../../image/news/shareicon3.png" alt="" />
+          <img src="../../image/news/shareicon4.png" alt="" />
+        </div>
+        <div class="cl right title_bottom_right">
+          <div class="cl favorites_div left cu">
+            <div class="favorites_img left"></div>
+            <div class="left favorites">收藏</div>
+          </div>
+          <div class="cl comment_div left cu">
+            <div class="comment_img left"></div>
+            <div class="comment left">评论</div>
+          </div>
+          <div class="cl report_div left cu">
+            <div class="report_img left"></div>
+            <div class="report left">举报</div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+      <div class="interaction">
+        <div class="access_header">
+          <img
+            src="../../image/news/sicon.png"
+            alt=""
+            class="access_header_img"
+          />
+          <span class="access"> 最近访问 </span>
+        </div>
+        <div class="showavatar_div cl">
+          <div
+            v-for="(item, index) in accessList"
+            :key="index"
+            class="showavatar left cu"
+          >
+            <img :src="item.avatar" alt="" class="showavatar_img" />
+            <div>
+              {{ item.name }}
+            </div>
+            <div>
+              {{ item.time }}
+            </div>
+          </div>
+        </div>
+        <div class="access_header comment_content">
+          <img
+            src="../../image/news/sicon.png"
+            alt=""
+            class="access_header_img"
+          />
+          <span class="access"> 评论 </span>
+          <span class="remind">文明上网理性发言，请遵守新闻评论服务协议</span>
+        </div>
+        <div class="cl">
+          <div class="cl user_comment_div">
+            <div class="left user_comment_img centerimg">
+              <img :src="avatar" alt="" />
+            </div>
+            <div class="left user_comment">
+              <textarea
+                type="text"
+                v-model="commentmsg"
+                placeholder="来说两句吧！"
+              ></textarea>
+            </div>
+          </div>
+          <div class="otheruser_comment_div">
+            <div
+              class="otheruser_comment cl"
+              v-for="(item, index) in commentList"
+              :key="index"
+            >
+              <div class="cl">
+                <div class="otheruser_img left">
+                  <img :src="avatar" alt="" />
+                </div>
+                <div class="left">
+                  <div class="otheruser_name_div">
+                    <span class="otheruser_name">
+                      {{ item.name }}
+                    </span>
+                    <span class="otheruser_time">
+                      {{ item.time }}
+                    </span>
+                    <div class="otheruser_msg">
+                      {{ item.msg }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="replynum">查看全部{{ item.replynum }}回复></div>
+              <div class="otherusergoodreply cl">
+                <div class="otherusergood left cu">
+                  <div class="otheruser_goods_img left"></div>
+                  <div class="left">赞{{ item.goodsnum }}</div>
+                </div>
+                <div class="otheruserreply left cu">
+                  <div class="otheruser_reply_img left"></div>
+                  回复
+                </div>
+              </div>
+            </div>
+            <div class="lookmore_div centerimg">
+              <div class="lookmore cu">查看更多评论</div>
+            </div>
+          </div>
+        </div>
+        <div class="access_header comment_content">
+          <img
+            src="../../image/news/sicon.png"
+            alt=""
+            class="access_header_img"
+          />
+          <span class="access"> 为你推荐 </span>
+        </div>
+        <div
+          class="cl tuijian_div"
+          v-for="(item, index) in recommend"
+          :key="index"
+        >
+          <div class="tuijian_img left">
+            <img :src="item.avatar" alt="" />
+          </div>
+          <div class="left">
+            <div class="certerimg tuijian_title_div">
+              <div class="tuijian_title">{{ item.title }}</div>
+              <div class="tuijian_time">{{ item.time }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <newslive></newslive>
+  </div>
+</template>
+
+<script>
+import { mapState } from "vuex";
+const home_herder = () => import("../../components/home/home_herder");
+const livemenu = () => import("../../components/live/livemenu");
+const newslive = () => import("../../components/new/newslive");
+import DPlayer from "dplayer";
+export default {
+  data() {
+    return {
+      newstitle: "",
+      headerKey: "4",
+      querydata: "",
+      videosrc: "http://static.smartisanos.cn/common/video/t1-ui.mp4",
+      accessList: [
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+        },
+      ],
+      commentmsg: "",
+      avatar: require("../../image/team.jpg"),
+      commentList: [
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+          msg: "阿萨德大大多数",
+          replynum: 7,
+          goodsnum: 55,
+          replyflag: false,
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          name: "张三",
+          time: "10.20",
+          msg: "阿萨德大大多数",
+          replynum: 7,
+          goodsnum: 55,
+          replyflag: false,
+        },
+      ],
+      recommend: [
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+        {
+          avatar: require("../../image/team.jpg"),
+          time: "10.00",
+          title: "asdadadasddasasdasdasd",
+        },
+      ],
+    };
+  },
+  methods: {
+    getrouterdata() {},
+  },
+  components: {
+    home_herder,
+    livemenu,
+    newslive,
+  },
+  created() {
+    this.getrouterdata();
+  },
+  computed: {
+    ...mapState(["newsList"]),
+  },
+  mounted() {
+    console.log(this.newsList);
+    // const dp = new DPlayer({
+    //   container: document.getElementById("dplayer"),
+    //   video: {
+    //     url: this.videosrc,
+    //   },
+    // });
+  },
+};
+</script>
+
+<style lang="less" scoped>
+.newsdel_content {
+  font-size: 14px;
+  margin-left: 29px;
+  margin-top: 7px;
+  width: 1090px;
+  background-color: #ffffff;
+  .banner {
+    width: 1112px;
+    height: 97px;
+    margin: 18px 17px;
+  }
+  .newsdel_body {
+  }
+  .title_div {
+    font-size: 24px;
+    margin-top: 27px;
+    display: flex;
+    align-items: center;
+    .newstype1 {
+      background-image: url("../../image/liveclass.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      font-size: 14px;
+      margin: 0 5px 0 58px;
+      width: 38px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+  .title_bottom {
+    font-size: 16px;
+    margin: 14px 0 0 107px;
+    .title_bottom_time {
+      color: #848484;
+      margin-left: 26px;
+    }
+  }
+  .share_div {
+    display: flex;
+    align-items: center;
+    img {
+      margin: 0 3px;
+    }
+  }
+  .title_bottom_right {
+    font-size: 14px;
+    color: #848484;
+    margin-right: 40px;
+  }
+  .favorites_div {
+    .favorites_img {
+      background-image: url("../../image/news/favorites.png");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 18px;
+      height: 17px;
+    }
+  }
+  .favorites_div:hover .favorites_img {
+    background-image: url("../../image/news/favorites1.png");
+  }
+  .favorites_div:hover .favorites {
+    color: #1a90fc;
+  }
+  .comment_img {
+    background-image: url("../../image/news/comment.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 17px;
+  }
+  .comment_div:hover .comment_img {
+    background-image: url("../../image/news/comment1.png");
+  }
+  .comment_div:hover .comment {
+    color: #1a90fc;
+  }
+  .report_img {
+    background-image: url("../../image/news/report.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 17px;
+  }
+  .report_div:hover .report_img {
+    background-image: url("../../image/news/report1.png");
+  }
+  .report_div:hover .report {
+    color: #1a90fc;
+  }
+  .favorites_div,
+  .comment_div,
+  .report_div {
+    margin-left: 37px;
+  }
+}
+.interaction {
+  .access_header {
+    display: flex;
+    margin-left: 49px;
+    align-items: center;
+    border-bottom: 1px solid #ececec;
+    .access_header_img {
+      width: 33px;
+      height: 50px;
+    }
+    .access {
+      font-size: 22px;
+      color: #848484;
+    }
+  }
+}
+.showavatar_div {
+  margin-left: 47px;
+  padding-left: 70px;
+  border-bottom: 1px solid #848484;
+  text-align: center;
+  color: #848484;
+  font-size: 14px;
+  .showavatar_img {
+    width: 70px;
+    height: 70px;
+  }
+}
+.comment_content {
+  margin-top: 30px;
+  .remind {
+    color: #848484;
+    font-size: 14px;
+    margin: 9px 0 0 5px;
+  }
+}
+.user_comment_div {
+  margin: 0 50px 0 50px;
+  padding: 19px 38px;
+  border-bottom: 1px solid #848484;
+  .user_comment_img {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .user_comment {
+    textarea {
+      width: 816px;
+      height: 91px;
+      border: 1px solid #848484;
+      padding: 10px;
+      border-radius: 9px;
+    }
+  }
+}
+.otheruser_comment_div {
+  margin: 0 92px;
+  .otheruser_comment {
+    border-bottom: solid 1px #848484;
+    margin-top: 30px;
+  }
+  .otheruser_img {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .otheruser_name {
+    color: #1a90fc;
+    margin-right: 10px;
+  }
+  .otheruser_msg {
+    margin: 20px 0;
+  }
+  .otherusergoodreply {
+    color: #848484;
+    margin: 19px 0;
+    .otherusergood {
+      display: flex;
+      align-items: center;
+      .otheruser_goods_img {
+        background-image: url("../../image/news/goods.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        width: 13px;
+        height: 13px;
+      }
+    }
+    .otherusergood:hover .otheruser_goods_img {
+      background-image: url("../../image/news/goods1.png");
+    }
+    .otheruserreply {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      .otheruser_reply_img {
+        width: 13px;
+        height: 13px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-image: url("../../image/news/reply.png");
+      }
+    }
+    .otheruserreply:hover .otheruser_reply_img {
+      background-image: url("../../image/news/reply1.png");
+    }
+  }
+  .replynum,
+  .otherusergoodreply {
+    margin-left: 50px;
+    color: #848484;
+  }
+  .otheruser_time {
+    color: #848484;
+  }
+  .lookmore {
+    display: inline-block;
+    line-height: 28px;
+    color: #1a90fc;
+    border: 1px solid #1a90fc;
+    text-align: center;
+    padding: 0 20px;
+    border-radius: 15px;
+    margin: 20px auto;
+  }
+}
+.tuijian_div {
+  .tuijian_img {
+    margin: 15px 28px 0 104px;
+    img {
+      height: 95px;
+      width: 142px;
+    }
+  }
+  .tuijian_title_div {
+    .tuijian_title {
+      font-size: 18px;
+      margin-top: 37px;
+    }
+    .tuijian_time {
+      margin-top: 21px;
+      color: #848484;
+    }
+  }
+}
+</style>

@@ -18,6 +18,7 @@ const Settings = import('../page/Settings/Setting.vue');
 const Setinfo = import('../page/Settings/subsetinfo/setinfo.vue');
 const Community = import('../page/community/community.vue');
 const Communitydel = import('../page/community/communitydel.vue');
+const Postdetails = import('../page/community/postdetails.vue');
 const Analysis = import('../page/analysis/analysis.vue');
 const Exponent = import('../page/exponent/exponent.vue');
 const Helps = import('../page/helps/helps.vue');
@@ -57,6 +58,11 @@ export default new Router({
       path: '/communitydel',
       name: 'Communitydel',
       component: () => Communitydel
+    },
+    {
+      path: '/postdetails',
+      name: 'Postdetails',
+      component: () => Postdetails
     },
     {
       path: '/newdel',
