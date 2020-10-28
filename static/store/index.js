@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const state = {
   liveList: '',
   newsList: '',
-  token: '111',
+  token: '',
   replyInfo:{},
   liveheader:0
 };

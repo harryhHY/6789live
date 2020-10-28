@@ -13,12 +13,14 @@ const base = {
     basicInfo:"/apiv2/user/base",
     //隐私设置
     privacy:"/apiv2/user/account/personal",
-    //频道列表
+    //用户设置-频道列表
     channelist:"/apiv2/channel",
-    //头像上传
+    //用户设置-头像上传
     uploadActionUrl:"/apiv2/user/account/pic",
-    //昵称修改
-    nickname:"/apiv2/user/account/nickname"
+    //用户设置-昵称修改
+    nickname:"/apiv2/user/account/nickname",
+    //用户设置-密码修改
+    setpassword:"/apiv2/user/account/pwd"
 }
 
 

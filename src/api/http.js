@@ -85,7 +85,8 @@ instance.interceptors.request.use(function(config) {
     if (config.method == 'post' || config.method == 'put') {
         config.data = qs.stringify(config.data);
     }
-    // config.headers.Authorization = "ddc6da6d-d9ba-9426-b432-03ff7291707b";
+    // console.log(initStore.state.token);
+    config.headers.token = initStore.state.token;
     // const token = store.state.token;
     // if(token){
     //     config.headers.Authorization = token;

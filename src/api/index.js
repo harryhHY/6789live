@@ -9,6 +9,7 @@ import privacy from "./privacy"
 import chanel from "./channelist"
 import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
+import setpassword from "./setpassword"
 
 //导出接口
 export default {
@@ -25,5 +26,7 @@ export default {
     //头像上传地址
     uploadActionUrl,
     //设置-修改昵称
-    nickname
+    nickname,
+    //设置-修改密码
+    setpassword
 }

@@ -46,7 +46,7 @@ export default {
         },
         handleClick(tab, event) {
             console.log(tab.name, event);
-            if(tab.name == "second"){
+            if(tab.name == "third"){
                 //加载关注设置的频道列表
                 this.$refs.accountinfo.getChanelList();
             }

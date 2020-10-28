@@ -1,14 +1,14 @@
 <template>
   <div class="changepass">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px">
-        <el-form-item label="原密码" prop="pass">
+        <el-form-item label="原密码" prop="oldpass">
+          <el-input type="password" v-model="ruleForm.oldpass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="输入密码" prop="checkPass">
           <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="age">
-          <el-input type="password" v-model="ruleForm.age" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
@@ -22,21 +22,18 @@
 export default {
     name:"changepass",
     data(){
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('密码不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须'));
-            } else {
-              callback();
-            }
+      // let reg = /(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*?]+)$)^[\w~!@#$%^&*?]{6,12}$/;
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+      var validateoldPass = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-12位数字、字母或字符！'))
+          } else{
+            callback()
           }
-        }, 1000);
+        }
       };
       var validatePass = (rule, value, callback) => {
         if (value === '') {
@@ -59,19 +56,19 @@ export default {
       };
       return {
         ruleForm: {
+          oldpass:'',
           pass: '',
-          checkPass: '',
-          age: ''
+          checkPass: ''
         },
         rules: {
+          oldpass:[
+            { validator: validateoldPass, trigger: 'blur' }
+          ],
           pass: [
             { validator: validatePass, trigger: 'blur' }
           ],
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
-          ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
           ]
         }
       }
@@ -80,7 +77,32 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$api.setpassword.setPwd({
+                new_pwd:this.ruleForm.pass,
+                old_pwd:this.ruleForm.oldpass
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                }
+            })
+            .catch(error => {
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;
