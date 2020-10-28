@@ -14,19 +14,15 @@
                     <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="星座">
-                    <el-input v-model="ruleForm.constellation"></el-input>
+                    <el-input :disabled="disabled" v-model="ruleForm.constellation">{{constellation}}</el-input>
                 </el-form-item>
             </el-form-item>
             <br>
             <el-form-item label="地区" prop="area">
-                <el-select v-model="ruleForm.area" placeholder="请选择地区">
-                    <el-option label="中国" value="china"></el-option>
-                    <el-option label="海外" value="other"></el-option>
-                    <el-option label="保密" value="secrite"></el-option>
-                </el-select>
+                <el-input v-model="ruleForm.area"></el-input>
             </el-form-item>
             <br>
-            <el-form-item label="爱好">
+            <el-form-item label="爱好" prop="hobby">
                 <el-input v-model="ruleForm.hobby"></el-input>
             </el-form-item>
             <br>
@@ -56,28 +52,78 @@ export default {
                 desc: ''
                 },
                 rules: {
-                constellation: [
-                    { required: true, message: '请输入活动名称', trigger: 'blur' },
-                    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                ],
                 gender: [
-                    { required: false, message: '请选择活动区域', trigger: 'change' }
+                    { required: false, message: '请选择性别', trigger: 'change' }
                 ],
                 date1: [
                     { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
                 ],
                 desc: [
-                    { required: true, message: '请填写活动形式', trigger: 'blur' }
+                    { required: true, message: '请填写个人描述', trigger: 'blur' }
                 ]
             },
-            labelPosition:'right'
+            labelPosition:'right',
+            disabled:true
         }
     },
     methods: {
+        //时间转换
+        dateFormat(dateData) {
+            var date = new Date(dateData)
+            var y = date.getFullYear()
+            var m = date.getMonth() + 1
+            m = m < 10 ? ('0' + m) : m
+            var d = date.getDate()
+            d = d < 10 ? ('0' + d) : d
+            const time = y + '-' + m + '-' + d
+            return time
+        },
+        //星座函数
+        getAstro(strBirthday){
+            let birthYear,birthMonth,birthDay; 
+            let strBirthdayArr=strBirthday.split("-");
+            console.log(strBirthdayArr);
+            if (strBirthdayArr.length>0 && this.ruleForm.date1) {
+                birthYear = strBirthdayArr[0];  
+                birthMonth = strBirthdayArr[1];  
+                birthDay = strBirthdayArr[2];  
+            }else{
+                return;
+            }
+            let s="魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+            let arr=[20,19,21,21,21,22,23,23,23,23,22,22];
+            return s.substr(birthMonth*2-(birthDay< arr[birthMonth-1]?2:0),2);//12  21
+        },
       submitForm(formName) {
+          console.log(this.dateFormat(this.ruleForm.date1));
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$api.basic.basicInfo({
+                sex:this.ruleForm.gender,
+                birthday:this.dateFormat(this.ruleForm.date1),
+                location:this.ruleForm.area,
+                hobby:this.ruleForm.hobby,
+                desc:this.ruleForm.desc
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+
+                }
+            })
+            .catch(error => {
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;
@@ -87,6 +133,15 @@ export default {
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
+    },
+    computed:{
+        constellation(){
+            this.ruleForm.constellation = this.getAstro(this.dateFormat(this.ruleForm.date1));
+            console.log(this.ruleForm.constellation);
+        }
+    },
+    mounted(){
+
     }
 }
 </script>

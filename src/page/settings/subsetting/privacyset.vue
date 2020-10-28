@@ -3,21 +3,21 @@
        <div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <el-form-item label="个人基本资料" prop="basic">
-                    <el-radio-group v-model="ruleForm.basic" :id="ider" @change="changeRadio($event)">
-                    <el-radio label="公开"></el-radio>
-                    <el-radio label="尽自己可见"></el-radio>
+                    <el-radio-group v-model="ruleForm.basic" @change="changebasic($event)">
+                    <el-radio label="0">公开</el-radio>
+                    <el-radio label="1">仅自己可见</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="我的关注" prop="attention">
+                <el-form-item label="我的关注" prop="attention" @change="changeattention($event)">
                     <el-radio-group v-model="ruleForm.attention">
-                    <el-radio label="公开"></el-radio>
-                    <el-radio label="尽自己可见"></el-radio>
+                    <el-radio label="0">公开</el-radio>
+                    <el-radio label="1">仅自己可见</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="我的粉丝" prop="fans">
+                <el-form-item label="我的粉丝" prop="fans" @change="changefans($event)">
                     <el-radio-group v-model="ruleForm.fans">
-                    <el-radio label="公开"></el-radio>
-                    <el-radio label="尽自己可见"></el-radio>
+                    <el-radio label="0">公开</el-radio>
+                    <el-radio label="1">仅自己可见</el-radio>
                     </el-radio-group>
                 </el-form-item>
                 <el-form-item>
@@ -40,20 +40,55 @@ export default {
                 fans:""
             },
             rules:{
-
-            },
-            ider:"资料"
+                basic: [
+                    { required: true, message: '请选择设置', trigger: 'change' }
+                ],
+                attention: [
+                    { required: true, message: '请选择设置', trigger: 'change' }
+                ],
+                fans: [
+                    { required: true, message: '请选择设置', trigger: 'change' }
+                ]
+            }
         }
     },
     methods: {
-        changeRadio(e){
-            console.log(e);
+        changebasic(e){
+            this.ruleForm.basic = e
+        },
+        changeattention(e){
+            this.ruleForm.attention = e
+        },
+        changefans(e){
+            this.ruleForm.fans = e
         },
         submitForm(ruleForm) {
             this.$refs[ruleForm].validate((valid) => {
                 if (valid) {
-                    console.log(this.ruleForm.basic,this.ruleForm.attention,this.ruleForm.fans);
-                    alert('submit!');
+                    this.$api.privacy.usePrivacy({
+                        account:this.ruleForm.basic,
+                        fllow:this.ruleForm.attention,
+                        fans:this.ruleForm.fans,
+                    }).then(res => {
+                        console.log(res);
+                        if (res.data.code == 1) {
+                            this.$message({
+                                type: 'error', // warning、success
+                                message: res.data.msg 
+                            }) 
+                        } else if (res.data.code == 0) {
+                            this.$message({
+                                type: 'success', // warning、success
+                                message: res.data.msg 
+                            })
+                            this.$refs[formName].resetFields();                            
+                        } else if (res.data.code == -1) {
+
+                        }
+                    })
+                    .catch(error => {
+                        this.$message("设置失败")
+                    })
                 } else {
                     console.log('error submit!!');
                     return false;

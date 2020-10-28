@@ -3,7 +3,7 @@
         <el-row class="setlist">
             <el-button v-for="item in wpList" size="mini" :key="item.name" 
             :class="[{active : active == item.name},'changebtn']" 
-            @click="selected(item.name)">{{item.name}}</el-button>
+            @click="selected(item.id)">{{item.name}}</el-button>
         </el-row>
        <div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
@@ -51,16 +51,19 @@ export default {
         return{
             wpList: [
                 {
-                name: '直播'
+                    id:1,
+                    name: '直播'
                 },
                 {
-                name: '新闻'
+                    id:2,
+                    name: '新闻'
                 },
                 {
-                name: '社区'
+                    id:3,
+                    name: '社区'
                 }
             ],
-            active:'直播',
+            active:'1',
             ruleForm:{
                 footradio: [],
                 basradio:[],
@@ -78,6 +81,7 @@ export default {
     methods: {
         selected(name){
             this.active = name;
+            console.log(this.active);
         },
         submitForm(ruleForm) {
             this.$refs[ruleForm].validate((valid) => {
@@ -93,6 +97,33 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
         }
+    },
+    mounted(){
+        // 获取频道列表
+        // this.$api.chanel.channelist(
+        //   {type:this.active}
+        // ).then(res => {
+        //     console.log(res);
+        //     if (res.data.code == 1) {
+        //         this.$message({
+        //         type: 'error', // warning、success
+        //         message: res.data.msg 
+        //         }) 
+        //     } else if (res.data.code == 0) {
+        //         this.$message({
+        //         type: 'success', // warning、success
+        //         message: res.data.msg 
+        //         })                            
+        //     } else if (res.data.code == -1) {
+        //         this.$message({
+        //         type: 'success', // warning、success
+        //         message: res.data.msg 
+        //         })
+        //     }
+        // })
+        // .catch(error => {
+        // this.$message("获取失败");
+        // })
     }
 }
 </script>
