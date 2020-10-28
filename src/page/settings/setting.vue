@@ -9,7 +9,7 @@
                     <el-tabs class="harftab" v-model="activeName" @tab-click="handleClick">
                         <el-tab-pane label="基本资料" name="first"><basicdata /></el-tab-pane>
                         <el-tab-pane label="账号信息" name="second"><accountinfo /></el-tab-pane>
-                        <el-tab-pane label="关注设置" name="third"><attentionset /></el-tab-pane>
+                        <el-tab-pane label="关注设置" name="third"><attentionset ref="accountinfo" /></el-tab-pane>
                         <el-tab-pane label="隐私设置" name="fourth"><privacyset /></el-tab-pane>
                     </el-tabs>
                 </div>
@@ -45,7 +45,11 @@ export default {
             this.menu_num = data;
         },
         handleClick(tab, event) {
-            console.log(tab, event);
+            console.log(tab.name, event);
+            if(tab.name == "second"){
+                //加载关注设置的频道列表
+                this.$refs.accountinfo.getChanelList();
+            }
         }
     }
 }

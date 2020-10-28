@@ -96,34 +96,26 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+        },
+        // 获取频道列表
+        getChanelList(){
+            console.log(this.$api.chanel);
+            this.$axios({
+            url:`${this.$api.chanel}/${this.active}`,
+            method: "get",
+            timeout: 3000
+            })
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     mounted(){
-        // 获取频道列表
-        // this.$api.chanel.channelist(
-        //   {type:this.active}
-        // ).then(res => {
-        //     console.log(res);
-        //     if (res.data.code == 1) {
-        //         this.$message({
-        //         type: 'error', // warning、success
-        //         message: res.data.msg 
-        //         }) 
-        //     } else if (res.data.code == 0) {
-        //         this.$message({
-        //         type: 'success', // warning、success
-        //         message: res.data.msg 
-        //         })                            
-        //     } else if (res.data.code == -1) {
-        //         this.$message({
-        //         type: 'success', // warning、success
-        //         message: res.data.msg 
-        //         })
-        //     }
-        // })
-        // .catch(error => {
-        // this.$message("获取失败");
-        // })
+        
+        
     }
 }
 </script>

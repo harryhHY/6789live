@@ -7,6 +7,8 @@ import registered from "./registered"
 import basic from "./basicInfo"
 import privacy from "./privacy"
 import chanel from "./channelist"
+import uploadActionUrl from "./uploadActionUrl"
+import nickname from "./nickname"
 
 //导出接口
 export default {
@@ -19,5 +21,9 @@ export default {
     //隐私设置
     privacy,
     //设置页频道列表
-    chanel
+    chanel,
+    //头像上传地址
+    uploadActionUrl,
+    //设置-修改昵称
+    nickname
 }

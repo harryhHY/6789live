@@ -25,12 +25,11 @@ export default {
       return{
         name:"",
         ruleForm: {
-          name: 'DKFHDKFHKDK'
+          name: ''
         },
         rules: {
           name: [
-            { required: true, message: '请输入2-14个字;只支持数字、字母、汉字', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            { required: true, message: '请输入2-14个字;只支持数字、字母、汉字', trigger: 'blur' }
           ]
         }
       }
@@ -47,7 +46,32 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$api.nickname.changeNickname({
+                nickname:this.ruleForm.name
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.name = this.ruleForm.name;
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                }
+            })
+            .catch(error => {
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;

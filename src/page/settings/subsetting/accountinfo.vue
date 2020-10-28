@@ -4,7 +4,15 @@
           <div class="first_box">我的头像：</div>
           <div>
               <img :src="avator" alt="">
+              <el-upload
+                :headers = "Myheaders"
+                :action="uploadActionUrl"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+                :show-file-list = "showList"
+              >
               <el-link class="link linkone" type="primary">更新</el-link>
+              </el-upload>
           </div>
       </div>
       <div class="info_box">
@@ -46,18 +54,59 @@
 </template>
 
 <script>
+let uptoken = localStorage.getItem("token");
 export default {
     name:"Accountinfo",
     data(){
         return{
+            uploadActionUrl:this.$api.uploadActionUrl,
             avator:require("@/image/news.jpeg"),
+            Myheaders:{token : uptoken},
+            showList:false
         }
     },
     methods:{
+        handleAvatarSuccess(res, file) {
+            this.avator = res.params.user_pic;
+            console.log(res.params.user_pic);
+            console.log(file);
+            if (res.data.code == 1) {
+                  this.$message({
+                    type: 'error', // warning、success
+                    message: res.data.msg 
+                  }) 
+              } else if (res.data.code == 0) {
+                  this.$message({
+                    type: 'success', // warning、success
+                    message: res.data.msg 
+                  })                            
+              } else if (res.data.code == -1) {
+                  this.$message({
+                    type: 'warning', // warning、success
+                    message: res.data.msg 
+                  })
+              }
+        },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg';
+            const isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+            this.$message.error('上传头像图片只能是 JPG 格式!');
+            }
+            if (!isLt2M) {
+            this.$message.error('上传头像图片大小不能超过 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
         goSetinfo(value){
             // this.$router.push("/setinfo/a")
             this.$router.push({ name: 'setinfo', params: { compontentName:value }})
         }
+    },
+    mounted(){
+        console.log(this.$api.uploadActionUrl);
+        // console.log(localStorage.getItem("token"));
     }
 }   
 </script>

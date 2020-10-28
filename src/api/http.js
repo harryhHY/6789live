@@ -66,14 +66,16 @@ const errorHandler = (status, other) => {
             break;
     }
 }
-
-
+//其他请求携带token
+axios.defaults.headers.common['token'] = initStore.state.token;
 //创建axios实例
 
 var instance = axios.create({ timeout: 5000 });
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 instance.defaults.headers.post['enctype'] = 'multipart/form-data';
 instance.defaults.headers.common['Authorization'] = initStore.state.token;// token在vuex
+
+
 instance.defaults.headers.token = initStore.state.token;// token在vuex
 
 instance.interceptors.request.use(function(config) {
