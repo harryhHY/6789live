@@ -67,6 +67,7 @@
         class="cl footer_content"
         v-for="(item, index) in listdata"
         :key="index"
+        @click="gotocommdel()"
       >
         <div class="footer_content_left left">
           <div class="cl footer_content_left_titleheader">
@@ -256,12 +257,10 @@
           </div>
         </div>
         <div class="hotmenu_content_todaynum left">
-          今日发帖：{{item.commnum}}
+          今日发帖：{{ item.commnum }}
         </div>
       </div>
-      <div class="lookmore">
-        查看更多
-      </div>
+      <div class="lookmore">查看更多</div>
     </div>
   </div>
 </template>
@@ -369,6 +368,9 @@ export default {
     serach(msg) {
       this.serachMsg = this.$inHTMLData(msg);
       console.log(this.serachMsg);
+    },
+    gotocommdel() {
+      this.$router.push("/communitydel");
     },
   },
   components: {
@@ -604,22 +606,22 @@ export default {
       margin-left: 15px;
       line-height: 78px;
     }
-    .hotmenu_content_todaynum{
+    .hotmenu_content_todaynum {
       width: 50%;
       line-height: 78px;
       color: #555;
       text-align: center;
     }
   }
-  .lookmore{
+  .lookmore {
     color: #0190fc;
-    border: 1px solid  #0190fc;
+    border: 1px solid #0190fc;
     width: 125px;
     height: 28px;
     line-height: 28px;
     text-align: center;
     border-radius: 14px;
-    margin:24px auto;
+    margin: 24px auto;
   }
 }
 </style>
