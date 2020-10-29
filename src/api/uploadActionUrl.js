@@ -5,6 +5,6 @@
 import base from "./base"
 import axios from "./http.js"
 
-const uploadActionUrl = base.host + base.uploadActionUrl;
+const uploadActionUrl = base.uploadActionUrl;
 
 export default uploadActionUrl

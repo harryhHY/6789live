@@ -5,6 +5,6 @@
 import base from "./base"
 import axios from "./http.js"
 
-const chanel = base.host + base.channelist;
+const chanel = base.channelist;
 
 export default chanel

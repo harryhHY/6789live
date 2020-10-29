@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const privacy = {
     usePrivacy(content) {
-        return axios.post(base.host + base.privacy,
+        return axios.post(base.privacy,
             content
         );
     }

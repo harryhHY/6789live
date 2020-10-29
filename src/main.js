@@ -32,7 +32,6 @@ Vue.config.productionTip = false
 
 import * as filter from './filter/index'
 Object.keys(filter).forEach(keys => {
-  console.log(keys)
   Vue.filter(keys, filter[keys])
 })
 

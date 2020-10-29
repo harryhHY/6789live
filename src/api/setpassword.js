@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const setpassword = {
     setPwd(content) {
-        return axios.put(base.host + base.setpassword,
+        return axios.put(base.setpassword,
             content
         );
     }

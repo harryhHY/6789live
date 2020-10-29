@@ -18,9 +18,9 @@ const toLogin = () => {
     })
 }
 const to500 = () => {
-    router.replace({
-        path: '/500'
-    })
+    // router.replace({
+    //     path: '/500'
+    // })
 }
 const to401 = () => {
     router.replace({
@@ -58,7 +58,7 @@ const errorHandler = (status, other) => {
             break;
         case 500:
             setTimeout(() => {
-                to500();
+                // to500();
             }, 2000);
             break;
         default:

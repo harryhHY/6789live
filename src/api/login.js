@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const login = {
     useLogin(params) {
-        return axios.get(base.host + base.getToken, {
+        return axios.get(base.getToken, {
             params: params
         });
     }

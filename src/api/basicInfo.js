@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const basic = {
     basicInfo(content) {
-        return axios.put(base.host + base.basicInfo,
+        return axios.put(base.basicInfo,
             content
         );
     }

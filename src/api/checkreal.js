@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const checkreal = {
     checkrealPerson(content) {
-        return axios.put(base.host + base.checkReal,
+        return axios.put(base.checkReal,
             content
         );
     }

@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const nickname = {
     changeNickname(content) {
-        return axios.put(base.host + base.nickname,
+        return axios.put(base.nickname,
             content
         );
     }

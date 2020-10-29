@@ -7,7 +7,7 @@ import axios from "./http.js"
 
 const registered = {
     useRegister(content) {
-        return axios.post(base.host + base.registered,
+        return axios.post(base.registered,
             content
         );
     }
