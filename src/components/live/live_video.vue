@@ -2,21 +2,21 @@
   <div class="live_video boxshadow left cl" id="live_video">
     <div class="header_div">
       <div class="header">
-        {{ title }}
+        {{ type }}视频精选
       </div>
     </div>
     <div>
       <div
-        v-for="(item, key, index) in videoData"
-        :key="item.id"
-        @click="gotovideo(item.id)"
+        v-for="(item, key) in videoData"
+        :key="key"
+        @click="gotovideo(key)"
         class="videotitle_div cu"
       >
-        <div class="videotype left">
-          {{ item.videotype }}
+        <div class="videotype left ov">
+          {{ item.lname }}
         </div>
         <div class="videotitle left ov">
-          {{ item.videotitle }}
+          {{ item.aname }} VS {{item.hname}}
         </div>
       </div>
       <div class="lookmore cu">查看更多视频</div>
@@ -28,47 +28,22 @@
 export default {
   data() {
     return {
-      title: "足球视频精选",
       videoData: [
-        {
-          id: 1,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 2,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 3,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 4,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 5,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 6,
-          videotype: "西甲板块",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
       ],
     };
   },
+  props: ["data",'type'],
   methods: {
     gotovideo(id) {
       this.$router.push("/newdel");
       this.$store.commit("newsList", id);
       console.log(id);
     },
+  },
+  watch: {
+    data(newValue) {
+      this.videoData = newValue;
+    }
   },
 };
 </script>
@@ -133,5 +108,4 @@ export default {
     border-radius: 15px;
   }
 }
-
 </style>

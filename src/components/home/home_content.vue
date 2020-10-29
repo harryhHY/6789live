@@ -9,10 +9,10 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item
-            v-for="(item, key, index) in swiperdata"
-            :key="key + item.id"
+            v-for="(item,index) in swiperdata"
+            :key="item.id"
           >
-            <img :src="item.src" alt="" class="swiper_img" />
+            <img :src="host + item.news_cover_url" alt="" class="swiper_img" />
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -28,14 +28,14 @@
             <div class="cl footerheader">
               <div class="football_class left">
                 <div
-                  v-for="(item, key, index) in football"
-                  :key="item.id"
+                  v-for="(item, index) in footerball"
+                  :key="index"
                   class="foot_span"
                 >
                   <span
-                    @click="changtype(item.id, item.name)"
-                    :class="item.id == footballflag ? 'footerclick' : ''"
-                    >{{ item.name }}</span
+                    @click="changtype(index, item)"
+                    :class="index == footballflag ? 'footerclick' : ''"
+                    >{{ item }}</span
                   >
                   <i>|</i>
                 </div>
@@ -44,13 +44,17 @@
             </div>
             <div class="livemsg cl">
               <div
-                v-for="(item, key, index) in footballdata"
+                v-for="(item, key, index) in footerballdata"
                 :key="item.id"
                 class="live_div left cu"
                 @click="gotolive(item)"
               >
-                <img :src="item.imgsrc" alt="" class="live_img" />
-                <span class="live_title ov">{{ item.title }}</span>
+                <img
+                  :src="host + item.news_cover_url"
+                  alt=""
+                  class="live_img"
+                />
+                <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
             <div class="communitymsg_header cl">
@@ -59,16 +63,16 @@
             </div>
             <div class="communitymsg">
               <div
-                v-for="(item, key, index) in foot_communitymsg"
+                v-for="(item, key, index) in forum_foottball"
                 :key="item.id"
                 class="communitymsg_div cl cu"
               >
-                <div class="communitymsg_class left">{{ item.class }}</div>
+                <div class="communitymsg_class left">{{ item.forum_type }}</div>
                 <div class="communitymsg_title left">
-                  标题 ： {{ item.title }}
+                  标题 ： {{ item.forum_title }}
                 </div>
                 <div class="communitymsg_time right">
-                  {{ item.time }}
+                  {{ item.forum_addtime | formDate }}
                 </div>
               </div>
             </div>
@@ -87,13 +91,13 @@
             <div class="football_class left">
               <div
                 v-for="(item, key, index) in baskeball"
-                :key="item.id"
+                :key="key"
                 class="foot_span"
               >
                 <span
-                  @click="changtype1(item.id, item.name)"
-                  :class="item.id == baskeballflag ? 'footerclick' : ''"
-                  >{{ item.name }}</span
+                  @click="changtype1(key, item)"
+                  :class="key == baskeballflag ? 'footerclick' : ''"
+                  >{{ item }}</span
                 >
                 <i>|</i>
               </div>
@@ -102,13 +106,13 @@
           </div>
           <div class="livemsg cl">
             <div
-              v-for="(item, key, index) in footballdata"
+              v-for="(item, key, index) in basketballdata"
               :key="item.id"
               class="live_div left cu"
-              @click="gotolive(item)"
+              @click="gotolive(item.news_channel_id)"
             >
-              <img :src="item.imgsrc" alt="" class="live_img" />
-              <span class="live_title ov">{{ item.title }}</span>
+              <img :src="host + item.news_cover_url" alt="" class="live_img" />
+              <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>
           <div class="communitymsg_header cl">
@@ -117,16 +121,16 @@
           </div>
           <div class="communitymsg">
             <div
-              v-for="(item, key, index) in foot_communitymsg"
+              v-for="(item, key, index) in forum_basketball"
               :key="item.id"
               class="communitymsg_div cl cu"
             >
-              <div class="communitymsg_class left">{{ item.class }}</div>
+              <div class="communitymsg_class left">{{ item.forum_type }}</div>
               <div class="communitymsg_title left">
-                标题 ： {{ item.title }}
+                标题 ： {{ item.forum_title }}
               </div>
               <div class="communitymsg_time right">
-                {{ item.time }}
+                {{ item.forum_addtime | formDate }}
               </div>
             </div>
           </div>
@@ -155,8 +159,8 @@
           @click="gotolive(item)"
         >
           <div class="left livegametype_div">
-            <div class="livegametype">{{ item.gametype }}</div>
-            <div>{{ item.game }}</div>
+            <div class="livegametype">{{ gametype }}</div>
+            <div>{{ item.lname }}</div>
           </div>
           <div class="cl leftcontent left">
             <div class="left aname ov">
@@ -166,23 +170,23 @@
               <img :src="item.aicon" alt="" />
             </div>
             <div class="ascore left">
-              {{ item.ascore }}
+              {{ item.aTotalScore }}
             </div>
           </div>
 
           <div class="left time_div">
-            <div class="time">{{ item.time }}</div>
-            <div>{{ item.gamestate }}</div>
+            <div class="time">{{ item.gameTimeFormat }}</div>
+            <div class="ov">{{ item.gameStage }}</div>
           </div>
           <div class="rightcontent left cl">
             <div class="right ascore">
-              {{ item.bscore }}
+              {{ item.hTotalScore }}
             </div>
             <div class="aicon right">
-              <img :src="item.bicon" alt="" />
+              <img :src="item.hicon" alt="" />
             </div>
             <div class="right aname ov">
-              {{ item.bname }}
+              {{ item.hname }}
             </div>
           </div>
         </div>
@@ -195,27 +199,11 @@
 </template>
 
 <script>
+import host from "../../api/httpurl";
 export default {
   data() {
     return {
-      swiperdata: [
-        {
-          id: 1,
-          src: require("../../image/logo.png"),
-        },
-        {
-          id: 2,
-          src: require("../../image/logo.png"),
-        },
-        {
-          id: 3,
-          src: require("../../image/logo.png"),
-        },
-        {
-          id: 4,
-          src: require("../../image/logo.png"),
-        },
-      ],
+      swiperdata: [],//轮播图
       football: [
         {
           id: 1,
@@ -262,22 +250,13 @@ export default {
           name: "国足",
         },
       ],
-      footballflag: 1,
-      baskeball: [
-        {
-          id: 1,
-          name: "最新",
-        },
-        {
-          id: 2,
-          name: "CBA",
-        },
-        {
-          id: 3,
-          name: "NBA",
-        },
-      ],
-      baskeballflag: 1,
+      footballflag: 0,
+      baskeballflag: 0,
+      baskeball: [], //篮球新闻
+      basketballdata: [], //篮球新闻数据
+      footerball: [], //足球新闻
+      footerballdata: [], //足球新闻数据
+      host: "",
       footballdata: [
         {
           id: 1,
@@ -400,30 +379,10 @@ export default {
           bscore: 1,
         },
       ],
-      foot_communitymsg: [
-        {
-          id: 1,
-          class: "中超版块",
-          title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          time: "10/10",
-        },
-        {
-          id: 2,
-          class: "中超版块",
-          title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          time: "10/10",
-        },
-        {
-          id: 3,
-          class: "中超版块",
-          title: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          time: "10/10",
-        },
-      ],
       todaymenu: [
         {
           id: 1,
-          title: "今日直播",
+          title: "篮球直播",
           clicktype: true,
         },
         {
@@ -437,87 +396,54 @@ export default {
           clicktype: false,
         },
       ],
-      livecontentdata: [
-        {
-          id: 1,
-          game: "日足联",
-          gametype: "足球",
-          aname: "Ateam",
-          bname: "Bteam",
-          aicon: require("../../image/team.jpg"),
-          bicon: require("../../image/team.jpg"),
-          time: "10.20",
-          ascore: 1,
-          bscore: 2,
-          gamestate: "结束",
-        },
-        {
-          id: 2,
-          game: "日足联",
-          gametype: "足球",
-          aname: "Ateam",
-          bname: "Bteam",
-          aicon: require("../../image/team.jpg"),
-          bicon: require("../../image/team.jpg"),
-          time: "10.20",
-          ascore: 1,
-          bscore: 2,
-          gamestate: "结束",
-        },
-        {
-          id: 3,
-          game: "日足联",
-          gametype: "足球",
-          aname: "asdasdasdasdasdasdasdasdasdasdasdasdasdasd",
-          bname: "Bteam",
-          aicon: require("../../image/team.jpg"),
-          bicon: require("../../image/team.jpg"),
-          time: "10.20",
-          ascore: 1,
-          bscore: 2,
-          gamestate: "结束",
-        },
-        {
-          id: 4,
-          game: "日足联",
-          gametype: "足球",
-          aname: "Ateam",
-          bname: "Bteam",
-          aicon: require("../../image/team.jpg"),
-          bicon: require("../../image/team.jpg"),
-          time: "10.20",
-          ascore: 1,
-          bscore: 2,
-          gamestate: "结束",
-        },
-        {
-          id: 5,
-          game: "日足联",
-          gametype: "足球",
-          aname: "Ateam",
-          bname: "Bteam",
-          aicon: require("../../image/team.jpg"),
-          bicon: require("../../image/team.jpg"),
-          time: "10.20",
-          ascore: 1,
-          bscore: 2,
-          gamestate: "结束",
-        },
-      ],
+      livecontentdata: [],
       elmenu: "",
+      gametype: "篮球", //直播栏目
+      live_data: [],
+      forum_basketball: [],
+      forum_foottball: [],
+      newsindex: [], //新闻栏目
     };
   },
   methods: {
-        // 获取首页页面数据
-    gethomedata(){
-      // this.$http({
-      //   method:'get',
-      //   url:'http://dev.6789zbz.com/apiv2/index'
-      // }).then((res)=>{
-      //   console.log(res)
-      // })
-    },
+    // 获取首页页面数据
+    async gethomedata() {
+      await this.$api.homeindex.gethomeindex({}).then((res) => {
+        let {
+          live_data,
+          forum,
+          newsindex,
+          promote_news_data,
+        } = res.data.params;
+        this.live_data = live_data;
+        this.newsindex = newsindex;
+        this.changetodaymenu(1);
+        //贴子
+        this.forum_basketball = forum.basketball;
+        this.forum_foottball = forum.foottball;
 
+        this.getNewsbasket();
+        //获取swp图片
+        this.swiperdata = promote_news_data;
+      });
+    },
+    //篮球新闻栏目
+    getNewsbasket() {
+      let { basketball, football } = this.newsindex;
+      let bbkdata = [];
+      let footdata = [];
+      for (let i = 0; i < basketball.length; i++) {
+        bbkdata[i] = basketball[i].name;
+      }
+      for (let i = 0; i < football.length; i++) {
+        footdata[i] = football[i].name;
+      }
+      this.baskeball = bbkdata;
+      this.footerball = footdata;
+      this.basketballdata = basketball[0].data;
+      this.footerballdata = football[0].data;
+      // 'http://dev.6789zbz.com' +
+    },
     gotolive(e) {
       console.log(e);
       this.$store.commit("liveList", e);
@@ -532,7 +458,7 @@ export default {
         }
       }
     },
-    changetodaymenu(id) {
+    async changetodaymenu(id) {
       for (let i = 0; i < this.todaymenu.length; i++) {
         if (id == this.todaymenu[i].id) {
           this.todaymenu[i].clicktype = true;
@@ -540,27 +466,57 @@ export default {
           this.todaymenu[i].clicktype = false;
         }
       }
+
+      switch (id) {
+        case 1:
+          this.gametype = "篮球";
+          this.livecontentdata = this.live_data.basketball;
+          break;
+        case 2:
+          this.gametype = "足球";
+          this.livecontentdata = this.live_data.football;
+          break;
+        case 3:
+          this.gametype = "完结";
+          this.livecontentdata = this.live_data.gameover;
+          break;
+      }
     },
-    // qiqi:this._.debounce(()=>{
-    //   this.changetodaymenu()
-    // },2000),
+    inst() {
+      this.host = host;
+      console.log(this.host);
+    },
     initialization() {
       // let data = this.livemenu;
       // this.elmenu = data[0].title;
     },
     changtype(id, name) {
       this.footballflag = id;
-      console.log(id, name);
+      let { football } = this.newsindex;
+      for (let i = 0; i < football.length; i++) {
+        if (football[i].name == name) {
+          this.footerballdata = football[i].data;
+        }
+      }
     },
     changtype1(id, name) {
       this.baskeballflag = id;
       console.log(id, name);
+      let { basketball } = this.newsindex;
+      for (let i = 0; i < basketball.length; i++) {
+        if (basketball[i].name == name) {
+          this.basketballdata = basketball[i].data;
+        }
+      }
     },
   },
   created() {
+    this.inst();
+    // console.log(this.$api.base.host)
     this.initialization();
-    this.gethomedata()
+    this.gethomedata();
   },
+  mounted() {},
 };
 </script>
 
@@ -767,7 +723,8 @@ export default {
       font-family: PingFangSC-Regular;
     }
     .live_img {
-      width: 100%;
+      width: 208px;
+      height: 120px;
     }
   }
 }

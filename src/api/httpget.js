@@ -1,13 +1,18 @@
 import base from "./base"
 import axios from "./http.js"
 const homeindex = {
-  gethomeindex(content) {
-    return axios.get(base.homeindex,
-      content
+  gethomeindex() {
+    return axios.get(base.homeindex
+
     );
   },
   getliveindex() {
     return base.liveindex
+  },
+  getnewsindex() {
+    return axios.get(base.newsindex
+
+    );
   }
 }
 

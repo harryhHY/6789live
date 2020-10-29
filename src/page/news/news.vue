@@ -167,6 +167,11 @@ export default {
       this.searchmsg = this.$inHTMLData(msg);
       console.log(this.searchmsg);
     },
+    getdata(){
+      this.$api.homeindex.getnewsindex({}).then((res)=>{
+        console.log(res.data.params)
+      })
+    }
   },
   computed: {
     name() {
@@ -177,6 +182,9 @@ export default {
     livemenu,
     home_herder,
     newslive,
+  },
+  created () {
+    this.getdata();
   },
 };
 </script>

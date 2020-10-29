@@ -33,8 +33,8 @@
             :key="index"
           >
             <div class="gametype_div left">
-              <div class="gametype">{{ item.gametype }}</div>
-              <div class="gametype1">{{ item.gametype1 }}</div>
+              <div class="gametype">{{ type }}</div>
+              <div class="gametype1 ov">{{ item.lname }}</div>
             </div>
             <div class="aname ov left">
               {{ item.aname }}
@@ -43,20 +43,20 @@
               <img :src="item.aicon" alt="" class="aiconimg" />
             </div>
             <div class="ascore left">
-              {{ item.ascore }}
+              {{ item.aTotalScore }}
             </div>
             <div class="time_type left">
-              <div>{{ item.time }}</div>
-              <div>{{ item.type }}</div>
+              <div>{{ item.gameTimeFormat }}</div>
+              <div>{{ item.gameStage }}</div>
             </div>
             <div class="ascore left">
-              {{ item.bscore }}
+              {{ item.hTotalScore }}
             </div>
             <div class="left aicon">
-              <img :src="item.bicon" alt="" class="aiconimg" />
+              <img :src="item.hicon" alt="" class="aiconimg" />
             </div>
             <div class="bname ov left">
-              {{ item.bname }}
+              {{ item.hname }}
             </div>
             <div class="cl left anadiv cu" @click="gotoanalysis(item)">
               <div class="anaimg left"></div>
@@ -67,7 +67,7 @@
               <div>指数</div>
             </div>
             <div class="left type_div">
-              {{ item.type }}
+              {{ item.gameStage }}
             </div>
             <div class="liveicon left cu" @click="gotolive(item)"></div>
             <div class="left hqlive">高清直播</div>
@@ -75,11 +75,12 @@
         </div>
       </div>
     </div>
-    <liveVideo />
+    <liveVideo v-if="livemenudata" :data="livemenudata" :type="type" />
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 const livemenu = () => import("../live/livemenu");
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
@@ -133,152 +134,14 @@ export default {
           name: "国足",
         },
       ],
-      buttonList: [
-        {
-          value: 0,
-          text: "",
-          text1: "",
-          isRotate: true,
-        },
-        {
-          value: 1,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-        {
-          value: 2,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-        {
-          value: 3,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-        {
-          value: 4,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-        {
-          value: 5,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-        {
-          value: 6,
-          text: "",
-          text1: "",
-          isRotate: false,
-        },
-      ],
-      livedata: [
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-      ],
+      buttonList: [],
+      livedata: [],
       check: 0,
       headerKey: "2",
-      footballflag: 1,
+      footballflag: 0,
       todaydate: "",
+      type:'',
+      livemenudata:[]
     };
   },
   methods: {
@@ -308,9 +171,10 @@ export default {
     //日期函数
     getDate1(num) {
       let myDate = new Date();
+      let y = myDate.getFullYear();
       let m = myDate.getMonth() + 1;
       let r = myDate.getDate() + num;
-      return `${m}月${r}日`;
+      return `${y}-${m}-${r}`;
     },
     getDate(num) {
       let a = new Array("日", "一", "二", "三", "四", "五", "六");
@@ -319,23 +183,31 @@ export default {
     },
     //循环出多日期
     changeButtonList() {
-      console.log(this.getDate1(0));
       this.todaydate = this.getDate1(0);
-      // let buttonList = this.buttonList;
-      // let list = [];
-      // let list1 = [];
-      // for (let v = 0; v < 7; v++) {
-      //   let nowdate = this.getDate1(v);
-      //   let nowdate2 = this.getDate(v);
-      //   list.push(nowdate);
-      //   list1.push(nowdate2);
-      // }
-      // for (let i = 0; i < list.length; i++) {
-      //   buttonList[i].text = list[i];
-      //   buttonList[i].text1 = list1[i];
-      // }
-      // this.buttonList = buttonList;
-      // console.log(buttonList);
+    },
+    getdata() {
+      this.$axios({
+        url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
+      }).then((res) => {
+        let {
+          dataFootball,
+          dataBasketball,
+          dataRightBasketball,
+          dataRightFootball,
+        } = res.data.params;
+        switch (this.footballflag) {
+          case 0:
+            this.livedata = dataFootball;
+            this.livemenudata = dataRightFootball
+            this.type = '足球'
+            break;
+          case 1:
+            this.livedata = dataBasketball;
+            this.livemenudata = dataRightBasketball
+            this.type = '篮球'
+            break;
+        }
+      });
     },
   },
   components: {
@@ -344,8 +216,21 @@ export default {
     home_herder,
     liveheader,
   },
+  computed: {
+    ...mapState(["liveheader"]),
+    liveheaderfn() {
+      return this.$store.state.liveheader;
+    },
+  },
+  watch: {
+    liveheaderfn(newValue) {
+      this.footballflag = newValue;
+      this.getdata();
+    },
+  },
   created() {
     this.changeButtonList();
+    this.getdata();
   },
   // watch: {
   //     data(newValue, oldValue) {
