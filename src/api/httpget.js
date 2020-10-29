@@ -5,6 +5,9 @@ const homeindex = {
     return axios.get(base.homeindex,
       content
     );
+  },
+  getliveindex() {
+    return base.liveindex
   }
 }
 
