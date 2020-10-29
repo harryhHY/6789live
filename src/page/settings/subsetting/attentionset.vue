@@ -2,37 +2,18 @@
   <div class="attset">
         <el-row class="setlist">
             <el-button v-for="item in wpList" size="mini" :key="item.name" 
-            :class="[{active : active == item.name},'changebtn']" 
+            :class="[{active : active == item.id},'changebtn']" 
             @click="selected(item.id)">{{item.name}}</el-button>
         </el-row>
        <div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                <div class="column"><div><img :src="foot" alt=""></div></div>
-                <el-form-item label="" prop="footradio">
-                    <el-checkbox-group v-model="ruleForm.footradio">
-                    <el-checkbox label="选项一" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项二" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="footradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    </el-checkbox-group>
-                </el-form-item>
-                <div class="column"><div><img :src="basket" alt=""></div></div>
-                <el-form-item label="篮球" prop="basradio">
-                    <el-checkbox-group v-model="ruleForm.basradio">
-                    <el-checkbox label="选项一" name="basradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项二" name="basradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="basradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    </el-checkbox-group>
-                </el-form-item>
-                <div class="column"><div><img :src="other" alt=""></div></div>
-                <el-form-item label="其他" prop="otherradio">
-                    <el-checkbox-group v-model="ruleForm.otherradio">
-                    <el-checkbox label="选项一" name="otherradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项二" name="otherradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
-                    <el-checkbox label="选项三" name="otherradio"><img class="team" :src="avator" alt="">巴塞罗那</el-checkbox>
+                <el-form-item label="" prop="footradio" v-for="(data,index) in checkboxList" :key="index">
+                    <div class="column"><div><img :src="foot" alt=""></div></div>
+                    <el-checkbox-group v-model="ruleForm.footradio" @change="handleCheckedCitiesChange">
+                    <el-checkbox :label="item.id" name="footradio" :checked="item.is_followed == 0 ? false : true" v-for="(item,index) in data" :key="index">
+                        <img class="team" :src="imgurl + item.ch_logo" alt="">
+                        {{item.ch_name}}
+                    </el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
                 <el-form-item>
@@ -76,41 +57,100 @@ export default {
             foot:require("@/image/imgs/foot.png"),
             basket:require("@/image/imgs/basket.png"),
             other:require("@/image/imgs/other.png"),
+            checkboxList:{},
+            imgurl:this.JuheHOST,
+            checkedbox:[]
         }
     },
     methods: {
+        handleCheckedCitiesChange(value){
+            this.checkedbox = value;
+            console.log(this.checkedbox);
+        },
         selected(name){
             this.active = name;
             console.log(this.active);
+            //清空其他页面已选项
+            // this.checkedbox = [''];
+            console.log(this.checkedbox);
+            //根据name获取其他类别
+            this.getChanelList()
         },
         submitForm(ruleForm) {
-            this.$refs[ruleForm].validate((valid) => {
-            if (valid) {
-                console.log(this.ruleForm.footradio);
-                alert('submit!');
-            } else {
-                console.log('error submit!!');
-                return false;
-            }
-            });
+            this.$api.editchanel.editerchanel({
+                channel:this.checkedbox
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })                            
+                } else if (res.data.code == -1) {
+
+                }
+            })
+            .catch(error => {
+                this.$message("请检查关注项")
+            })
+            // this.$refs[ruleForm].validate((valid) => {
+            // if (valid) {
+            //     console.log(this.ruleForm.footradio);
+            //     alert('submit!');
+            // } else {
+            //     console.log('error submit!!');
+            //     return false;
+            // }
+            // });
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
         // 获取频道列表
         getChanelList(){
-            console.log(this.$api.chanel);
-            this.$axios({
-            url:`${this.$api.chanel}/${this.active}`,
-            method: "get",
-            timeout: 3000
-            })
-            .then(res => {
-                console.log(res.data);
+            let params = { type : this.active}
+            this.$api.attchanelist.attchanel(
+                params
+            ).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    // this.$message({
+                    //     type: 'success', // warning、success
+                    //     message: res.data.msg 
+                    // })
+                    this.checkboxList = res.data.params;                
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                }
             })
             .catch(error => {
-                console.log(error);
-            });
+                this.$message("获取失败");
+            })
+            // this.$axios({
+            // url:`${this.$api.chanel}/${this.active}`,
+            // method: "get",
+            // timeout: 3000
+            // })
+            // .then(res => {
+            //     this.checkboxList = res.data.params;
+            //     console.log(res.data.params);
+            // })
+            // .catch(error => {
+            //     console.log(error);
+            // });
         }
     },
     mounted(){

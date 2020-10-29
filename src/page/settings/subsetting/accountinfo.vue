@@ -67,23 +67,23 @@ export default {
     },
     methods:{
         handleAvatarSuccess(res, file) {
-            this.avator = res.params.user_pic;
-            console.log(res.params.user_pic);
+            this.avator = this.JuheHOST + res.params.user_pic;
+            console.log(res);
             console.log(file);
-            if (res.data.code == 1) {
+            if (res.code == 1) {
                   this.$message({
                     type: 'error', // warning、success
-                    message: res.data.msg 
+                    message: res.msg 
                   }) 
-              } else if (res.data.code == 0) {
+              } else if (res.code == 0) {
                   this.$message({
                     type: 'success', // warning、success
-                    message: res.data.msg 
+                    message: res.msg 
                   })                            
-              } else if (res.data.code == -1) {
+              } else if (res.code == -1) {
                   this.$message({
                     type: 'warning', // warning、success
-                    message: res.data.msg 
+                    message: res.msg 
                   })
               }
         },

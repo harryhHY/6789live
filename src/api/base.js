@@ -22,6 +22,10 @@ const base = {
     setpassword:`${host}/apiv2/user/account/pwd`,
     //用户设置-身份认证
     checkReal:`${host}/apiv2/user/account/real`,
+    //用户关注设置获取，频道列表获取
+    attchanelist:`${host}/apiv2/user/account/follow`,
+    //用户关注频道设置编辑
+    editchanel:`${host}/apiv2/user/account/follow`,
     //获取首页信息
     homeindex:`${host}/apiv2/index`,
 }

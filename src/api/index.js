@@ -12,6 +12,8 @@ import nickname from "./nickname"
 import setpassword from "./setpassword"
 import checkreal from "./checkreal"
 import homeindex from "./httpget"
+import attchanelist from "./attchanelist"
+import editchanel from "./editchanel"
 
 //导出接口
 export default {
@@ -34,5 +36,9 @@ export default {
     //设置-身份认证
     checkreal,
     //首页-获取数据
-    homeindex
+    homeindex,
+    //获取关注，频道列表
+    attchanelist,
+    //用户关注频道编辑
+    editchanel
 }

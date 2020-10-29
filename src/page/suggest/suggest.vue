@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="home">
     <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
     <div class="info_set">
       <div class="line"></div>
@@ -222,6 +222,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+#home{
+    width: 100%;
+    background-image: url("../../image/bj.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 .info_set{
     width: 1273px;
     margin: auto;
@@ -359,6 +365,9 @@ export default {
       padding: 5px 10px;
       cursor: pointer;
     }
+/deep/.w-e-menu .w-e-panel-container .w-e-panel-tab-content{
+    height: 200px !important;
+}
 </style>
 <style>
 .w-e-text-container{
