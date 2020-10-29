@@ -17,7 +17,10 @@ Vue.prototype._ = _
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 
-import { inHTMLData,uriInUnQuotedAttr } from "xss-filters-es6";
+import {
+  inHTMLData,
+  uriInUnQuotedAttr
+} from "xss-filters-es6";
 const xssFilters = require('xss-filters');
 Vue.prototype.$inHTMLData = inHTMLData;
 
@@ -27,8 +30,16 @@ Vue.prototype.$api = api;
 Vue.prototype.$axios = Axios;
 Vue.config.productionTip = false
 
+import * as filter from './filter/index'
+Object.keys(filter).forEach(keys => {
+  console.log(keys)
+  Vue.filter(keys, filter[keys])
+})
+
+
+
 Vue.directive('preventReClick', {
-  inserted (el, binding) {
+  inserted(el, binding) {
     el.addEventListener('click', () => {
       if (!el.disabled) {
         el.disabled = true

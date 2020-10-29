@@ -22,7 +22,9 @@ const base = {
     //用户设置-密码修改
     setpassword:"/apiv2/user/account/pwd",
     //用户设置-身份认证
-    checkReal:"/apiv2/user/account/real"
+    checkReal:"/apiv2/user/account/real",
+    //获取首页信息
+    homeindex:'/apiv2/index'
 }
 
 

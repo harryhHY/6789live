@@ -11,6 +11,7 @@ import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
 import setpassword from "./setpassword"
 import checkreal from "./checkreal"
+import homeindex from "./httpget"
 
 //导出接口
 export default {
@@ -31,5 +32,7 @@ export default {
     //设置-修改密码
     setpassword,
     //设置-身份认证
-    checkreal
+    checkreal,
+    //首页-获取数据
+    homeindex
 }
