@@ -6,11 +6,11 @@
           <el-form-item label="登录密码" prop="pass">
             <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="真实姓名" prop="checkPass">
-            <el-input type="text" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+          <el-form-item label="真实姓名" prop="checkname">
+            <el-input type="text" v-model="ruleForm.checkname" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="身份证号" prop="age">
-            <el-input type="" v-model="ruleForm.age" autocomplete="off"></el-input>
+          <el-form-item label="身份证号" prop="realnumber">
+            <el-input type="" v-model="ruleForm.realnumber" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
@@ -25,56 +25,34 @@
 export default {
     name:"authentication",
     data(){
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('密码不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
       var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
+        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-12位数字、字母或字符！'))
+          } else{
+            callback()
           }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
         }
       };
       return {
         ruleForm: {
           pass: '',
-          checkPass: '',
-          age: ''
+          checkname: '',
+          realnumber: ''
         },
         rules: {
           pass: [
             { validator: validatePass,required:"true", trigger: 'blur' }
           ],
-          checkPass: [
-            { validator: validatePass2,required:"true", trigger: 'blur' }
+          checkname:[
+            {required:true,message: '请输入姓名', trigger: 'blur'},
+            { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
           ],
-          age: [
-            { validator: checkAge, required:"true", trigger: 'blur' }
+          realnumber:[
+            {required:true,message: '请输入身份证号', trigger: 'blur'}
           ]
         }
       }
@@ -83,7 +61,33 @@ export default {
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$api.checkreal.checkrealPerson({
+                pwd:this.ruleForm.pass,
+                real_name:this.ruleForm.checkname,
+                id_no:this.ruleForm.realnumber
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                }
+            })
+            .catch(error => {
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;

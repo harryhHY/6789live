@@ -10,6 +10,7 @@ import chanel from "./channelist"
 import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
 import setpassword from "./setpassword"
+import checkreal from "./checkreal"
 
 //导出接口
 export default {
@@ -28,5 +29,7 @@ export default {
     //设置-修改昵称
     nickname,
     //设置-修改密码
-    setpassword
+    setpassword,
+    //设置-身份认证
+    checkreal
 }
