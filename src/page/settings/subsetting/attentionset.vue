@@ -7,20 +7,25 @@
         </el-row>
        <div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
-                <el-form-item label="" prop="footradio" v-for="(data,index) in checkboxList" :key="index">
-                    <div class="column"><div><img :src="foot" alt=""></div></div>
+                <el-form-item label="" prop="footradio" v-for="(data,key,index) in checkboxList" :key="index">
+                    <div class="column"><div v-if="key == 1">足球</div><div v-if="key == 2">蓝球</div></div>
                     <el-checkbox-group v-model="ruleForm.footradio" @change="handleCheckedCitiesChange">
-                    <el-checkbox :label="item.id" name="footradio" :checked="item.is_followed == 0 ? false : true" v-for="(item,index) in data" :key="index">
+                    <el-checkbox :label="item.id" name="footradio" :checked="item.is_followed == '1' ? checker : nochecker" v-for="(item,index) in data" :key="index">
                         <img class="team" :src="imgurl + item.ch_logo" alt="">
                         {{item.ch_name}}
                     </el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
                 <el-form-item>
-                    <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
+                    <!-- <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>    -->
                     <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>                                    
                 </el-form-item>
             </el-form>
+            <!-- <el-checkbox-group v-for="(data,index) in checkboxList" :key="index" v-model="checkedCities" @change="handleCheckedCitiesChange">
+                <el-checkbox :label="item.id"  v-for="item in data" :key="item.id">{{item.ch_name}}</el-checkbox>
+            </el-checkbox-group>
+            <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
+            <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>   -->
         </div>
   </div>
 </template>
@@ -59,13 +64,18 @@ export default {
             other:require("@/image/imgs/other.png"),
             checkboxList:{},
             imgurl:this.JuheHOST,
-            checkedbox:[]
+            checkedbox:[],
+            checker:true,
+            nochecker:false,
+            //测试
+            checkedCities:[]
         }
     },
     methods: {
         handleCheckedCitiesChange(value){
-            this.checkedbox = value;
-            console.log(this.checkedbox);
+            // this.checkedCities = value;
+            this.checkedbox = String(value);
+            console.log(value);
         },
         selected(name){
             this.active = name;
@@ -98,22 +108,13 @@ export default {
             .catch(error => {
                 this.$message("请检查关注项")
             })
-            // this.$refs[ruleForm].validate((valid) => {
-            // if (valid) {
-            //     console.log(this.ruleForm.footradio);
-            //     alert('submit!');
-            // } else {
-            //     console.log('error submit!!');
-            //     return false;
-            // }
-            // });
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
         // 获取频道列表
         getChanelList(){
-            let params = { type : this.active}
+            let params = { type : this.active};
             this.$api.attchanelist.attchanel(
                 params
             ).then(res => {
@@ -128,21 +129,23 @@ export default {
                     //     type: 'success', // warning、success
                     //     message: res.data.msg 
                     // })
-                    this.checkboxList = res.data.params;                
+                    this.ruleForm.footradio = res.data.params.user_followed_id;
+                    this.checkboxList = res.data.params.channel;               
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
                         message: res.data.msg 
                     })
+                    this.$router.push('/');
                 }
             })
             .catch(error => {
                 this.$message("获取失败");
             })
             // this.$axios({
-            // url:`${this.$api.chanel}/${this.active}`,
-            // method: "get",
-            // timeout: 3000
+            //     url:`${this.$api.chanel}/${this.active}`,
+            //     method: "get",
+            //     timeout: 3000
             // })
             // .then(res => {
             //     this.checkboxList = res.data.params;
@@ -186,8 +189,13 @@ export default {
     height: 28px;
     background:linear-gradient(to right,#F0F0EF,#F8F9FB);
     margin-bottom:10px;
-    img{
+    div{
+        width: 100px;
+        text-align: center;
+        background-color: #014681;
         height: 28px;
+        line-height: 28px;
+        color: #FFF;
     }
 }
 .active {
