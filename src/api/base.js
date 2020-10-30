@@ -28,6 +28,10 @@ const base = {
   attchanelist: `${host}/apiv2/user/account/follow`,
   //用户关注频道设置编辑
   editchanel: `${host}/apiv2/user/account/follow`,
+  //反馈列表
+  suggestList:`${host}/apiv2/feedback`,
+  //反馈提交
+  sendsuggest:`${host}/apiv2/feedback`,
   //获取首页信息
   homeindex: `${host}/apiv2/index`,
   //获取直播首页信息

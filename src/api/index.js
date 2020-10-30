@@ -15,6 +15,8 @@ import checkreal from "./checkreal"
 import homeindex from "./httpget"
 import attchanelist from "./attchanelist"
 import editchanel from "./editchanel"
+import suggestList from "./suggestList"
+import sendsuggest from "./sendsuggest"
 
 //导出接口
 export default {
@@ -43,5 +45,9 @@ export default {
     //获取关注，频道列表
     attchanelist,
     //用户关注频道编辑
-    editchanel
+    editchanel,
+    //反馈列表获取
+    suggestList,
+    //反馈提交
+    sendsuggest
 }

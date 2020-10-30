@@ -8,7 +8,7 @@
        <div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                 <el-form-item label="" prop="footradio" v-for="(data,key,index) in checkboxList" :key="index">
-                    <div class="column"><div v-if="key == 1">足球</div><div v-if="key == 2">蓝球</div></div>
+                    <div class="column"><div v-if="data[0].ch_columnm_name">{{data[0].ch_columnm_name}}</div></div>
                     <el-checkbox-group v-model="ruleForm.footradio" @change="handleCheckedCitiesChange">
                     <el-checkbox :label="item.id" name="footradio" :checked="item.is_followed == '1' ? checker : nochecker" v-for="(item,index) in data" :key="index">
                         <img class="team" :src="imgurl + item.ch_logo" alt="">

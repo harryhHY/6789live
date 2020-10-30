@@ -35,9 +35,9 @@ export default {
     data(){
         return{
             ruleForm:{
-                basic: "0",
-                attention:"0",
-                fans:"0"
+                basic: "",
+                attention:"",
+                fans:""
             },
             rules:{
                 basic: [
@@ -80,13 +80,13 @@ export default {
                             this.$message({
                                 type: 'success', // warning、success
                                 message: res.data.msg 
-                            })
-                            this.$refs[formName].resetFields();                            
+                            })                        
                         } else if (res.data.code == -1) {
 
                         }
                     })
                     .catch(error => {
+                        console.log(error);
                         this.$message("设置失败")
                     })
                 } else {
@@ -113,10 +113,10 @@ export default {
                         type: 'success', // warning、success
                         message: res.data.msg 
                     })
-                    console.log(res.data.params[0].uPAccount,res.data.params[0].uPFollow,res.data.params[0].uPFans);
-                    this.ruleForm.basic = res.data.params[0].uPAccount;                             
-                    this.ruleForm.attention = res.data.params[0].uPFollow;                             
-                    this.ruleForm.fans = res.data.params[0].uPFans;                             
+                    // console.log(res.data.params[0].uPAccount,res.data.params[0].uPFollow,res.data.params[0].uPFans);
+                    this.ruleForm.basic = String(res.data.params[0].uPAccount);                             
+                    this.ruleForm.attention = String(res.data.params[0].uPFollow);                             
+                    this.ruleForm.fans = String(res.data.params[0].uPFans);                            
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
@@ -126,12 +126,13 @@ export default {
                 }
             })
             .catch(error => {
-                this.$message("账号或密码错误");
+                console.log(error);
+                this.$message("参数错误");
             })
         }
     },
     mounted(){
-        
+
     }
 }
 </script>
