@@ -7,8 +7,8 @@
         <el-form-item label="登录密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="新手机" prop="checkPass">
-          <el-input type="" v-model="ruleForm.checkPass" autocomplete="off"><template slot="prepend">+86</template></el-input>
+        <el-form-item label="新手机" prop="checkphone">
+          <el-input type="" v-model="ruleForm.checkphone" autocomplete="off"><template slot="prepend">+86</template></el-input>
         </el-form-item>
         <div class="code_con">
           <el-form-item class="filed coder" prop="code" label="验证码">
@@ -37,57 +37,62 @@
 export default {
     name:"changephone",
     data(){
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('密码不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
+      //用户名登录
+    let regphone = /^1[3456789]\d{9}$/;
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
       var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-16位数字、字母或字符！'))
+          } else{
+            callback()
           }
+        }
+      };
+      var phoneNumber2 = (rule, value, callback) => {
+        if (value == '') {
+          callback(new Error('请输入新手机号'));
+        } else if (value == this.ruleForm.phone) {
+          callback(new Error('手机号重复！'));
+        } else if (!regphone.test(value)) {
+          callback(new Error('手机号格式错误'));
+        } else {
           callback();
         }
       };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
+      //手机号登录
+      var phoneNumber = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('手机号不能为空'))
+        }else{
+          if (!regphone.test(value)) {
+            callback(new Error('手机号格式错误'))
+          } else{
+            callback()
+          }
         }
       };
       return {
         ruleForm: {
           phone:'',
           pass: '',
-          checkPass: '',
+          checkphone: '',
           code: ''
         },
         rules: {
+          phone: [
+            { validator: phoneNumber, trigger: 'blur' }
+          ],
           pass: [
             { validator: validatePass, trigger: 'blur' }
           ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
+          checkphone: [
+            { validator: phoneNumber2, trigger: 'blur' }
           ],
           code: [
-            { validator: checkAge, trigger: 'blur' }
+            { required:true,message:"验证码不能为空", trigger: 'blur' }
           ]
         },
         count:"",
@@ -96,12 +101,12 @@ export default {
       }
     },
     methods:{
+      //base64转码
+      encode(str){
+        return  str == null ? null : btoa(encodeURIComponent(str));
+      },
       //获取验证码倒计时
-    getVerify() {
-            // 验证手机号
-      // if (this.checkPhone() == false) {
-      //     return false;
-      // } else {
+      getVerify() {
         console.log(111);
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
@@ -117,12 +122,51 @@ export default {
                   }
               }, 1000);
           }
+          this.$axios({
+              url:`${this.$api.getCode}/${this.ruleForm.checkphone}/1`,
+              method: "post",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
       // }
     },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             alert('submit!');
+            this.$api.changephone.changemobile({
+                pwd:this.encode(this.ruleForm.pass),
+                old_mobile:this.ruleForm.phone,
+                new_mobile:this.ruleForm.checkphone,
+                vcode:this.ruleForm.code
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                }
+            })
+            .catch(error => {
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;

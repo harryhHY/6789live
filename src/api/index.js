@@ -12,6 +12,7 @@ import chanel from "./channelist"
 import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
 import setpassword from "./setpassword"
+import changephone from "./changephone"
 import checkreal from "./checkreal"
 import homeindex from "./httpget"
 import attchanelist from "./attchanelist"
@@ -41,6 +42,8 @@ export default {
     nickname,
     //设置-修改密码
     setpassword,
+    //设置-修改手机号
+    changephone,
     //设置-身份认证
     checkreal,
     //首页-获取数据

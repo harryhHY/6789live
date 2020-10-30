@@ -187,7 +187,7 @@ export default {
     changeRegion(value){
       console.log(value)
     },
-    //是否记住密码
+    //同意条款
     changeRadio(){
       console.log(this.checked)
     },
@@ -220,7 +220,7 @@ export default {
           }
           //注册获取验证码
           this.$axios({
-              url:`${this.$api.getCode}/${this.register.phoneNum}/'0'`,
+              url:`${this.$api.getCode}/${this.register.phoneNum}/0`,
               method: "post",
               timeout: 3000
           })
@@ -255,6 +255,7 @@ export default {
                     })
                     //token存入VUEX
                     this.token(res.data.params.token)
+                    this.dialogVisible = false;
                     this.$router.push("/")                              
                 } else if (res.data.code == -1) {
 

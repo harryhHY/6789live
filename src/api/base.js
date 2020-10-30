@@ -24,6 +24,8 @@ const base = {
   nickname: `${host}/apiv2/user/account/nickname`,
   //用户设置-密码修改
   setpassword: `${host}/apiv2/user/account/pwd`,
+  //用户设置-绑定手机修改
+  changephone: `${host}/apiv2/user/account/mobile`,
   //用户设置-身份认证
   checkReal: `${host}/apiv2/user/account/real`,
   //用户关注设置获取，频道列表获取

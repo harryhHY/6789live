@@ -54,6 +54,12 @@ export default {
                 this.$refs.privacyset.getPristatus();
             }
         }
+    },
+    mounted(){
+        if(this.$route.params.name){
+            this.activeName = this.$route.params.name;
+        }
+        
     }
 }
 </script>

@@ -100,35 +100,40 @@
 
 <script>
 import { mapState ,mapMutations } from "vuex";
-
+let params;
 export default {
   name: "login",
   data() {
     //用户名登录
-    var validateName = (rule, value, callback) => {
-      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/
-        if (value == "") {
-          return callback(new Error('用户名不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+    let regphone = /^1[3456789]\d{9}$/;
+    let regmail = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
+      var validateName = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('用户名不能为空'))
+        }else{
+          if (!reg.test(value) && !regphone.test(value) && !regmail.test(value)) {
+            callback(new Error('用户名格式错误'))
+          } else{
+            callback()
+          }
         }
       };
-    var validatePass = (rule, value, callback) => {
-        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-        if (value === '') {
-          return callback(new Error('请输入密码'));
-        } else if(new RegExp(reg).test(value) == false){
-           return callback(new Error('密码为6-20位数字字母组成'));
-          // if (this.user.password !== '') {
-          //   this.$refs.user.validateField('checkPass');
-          // }
-          // callback();
+      var validatePass = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-16位数字、字母或字符！'))
+          } else{
+            callback()
+          }
         }
       };
       var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
+        if (value == '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.user.password) {
+        } else if (value !== this.register.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -136,11 +141,14 @@ export default {
       };
       //手机号登录
       var phoneNumber = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
-        if (value == "") {
-          return callback(new Error('手机号不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+        if(value == ''){
+          callback(new Error('手机号不能为空'))
+        }else{
+          if (!regphone.test(value)) {
+            callback(new Error('手机号格式错误'))
+          } else{
+            callback()
+          }
         }
       };
     return {
@@ -231,7 +239,7 @@ export default {
               }, 1000);
           }
           this.$axios({
-              url:`${this.$api.getCode}/${this.iphone.phoneNum}/'1'`,
+              url:`${this.$api.getCode}/${this.iphone.phoneNum}/1`,
               method: "post",
               timeout: 3000
           })
@@ -242,17 +250,6 @@ export default {
               console.log(error);
           });
     },
-      // doLogin(user) {
-      //   console.log("登录");
-      //   this.$refs['user'].validate((valid) => {
-      //     if (valid) {
-      //       alert('submit!');
-      //     } else {
-      //       console.log('error submit!!');
-      //       return false;
-      //     }
-      //   });
-      // },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       },
@@ -260,28 +257,9 @@ export default {
       encode(str){
         return  str == null ? null : btoa(encodeURIComponent(str));
       },
-      doLogin() {
-        let params;
-        console.log(this.user.username);
-        console.log(this.user.password);
-        if(this.activeName == 1){
-          params = {
-            name:this.user.username,
-            mobile:"",
-            vcode:"",
-            pwd:this.encode(this.user.password),
-            type:1,
-          }
-        }else{
-          params = {
-            name:"",
-            mobile:this.iphone.phoneNum,
-            vcode:this.iphone.code,
-            pwd:"",
-            type:2,
-          }
-        }
-        this.$api.login.useLogin(
+      //用户名登录
+      login(){
+          this.$api.login.useLogin(
           params
           ).then(res => {
               console.log(res);
@@ -310,7 +288,44 @@ export default {
           .catch(error => {
             this.$message("账号或密码错误");
           })
-      }
+      },
+      doLogin() {
+        if(this.activeName == 1){
+          params = {
+            name:this.user.username,
+            mobile:"",
+            vcode:"",
+            pwd:this.encode(this.user.password),
+            type:1,
+          }
+          this.$refs['user'].validate((valid) => {
+            if (valid) {
+              alert('submit!');
+               this.login();
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        }else{
+          params = {
+            name:"",
+            mobile:this.iphone.phoneNum,
+            vcode:this.iphone.code,
+            pwd:"",
+            type:2,
+          }
+          this.$refs['iphone'].validate((valid) => {
+            if (valid) {
+              alert('submit!');
+              this.login();    
+            } else {
+              console.log('error submit!!');
+              return false;
+            }
+          });
+        } 
+      },
   },
   mounted(){
     // console.log(this.$api.login);

@@ -11,7 +11,7 @@
                         <el-breadcrumb-item>{{routeAddress}}</el-breadcrumb-item>
                     </el-breadcrumb>
                     <div class="backset">
-                        <el-button type="primary" class="back" size="small" plain @click="backSet">返回</el-button>
+                        <el-button type="primary" class="back" size="small" plain @click="backSet('second')">返回</el-button>
                     </div>         
                     <hr style="margin-top:10px">
                 </div>
@@ -98,8 +98,8 @@ export default {
             parentEvent(data) {
                 this.menu_num = data;
             },
-            backSet(){
-                this.$router.push("/settings")
+            backSet(value){
+                this.$router.push({name:"settings",params:{name:value}})
             }
         },
         mounted(){
