@@ -6,6 +6,7 @@ import getCode from "./getcode"
 import login from "./login"
 import registered from "./registered"
 import basic from "./basicInfo"
+import getbasicInfo from "./getbasicInfo"
 import privacy from "./privacy"
 import getprivacy from "./getprivacy"
 import chanel from "./channelist"
@@ -30,6 +31,8 @@ export default {
     registered,
     //基本信息
     basic,
+    //基本信息获取
+    getbasicInfo,
     //隐私设置
     privacy,
     //隐私设置获取

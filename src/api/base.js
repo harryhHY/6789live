@@ -12,6 +12,8 @@ const base = {
   registered: `${host}/apiv2/user_reg`,
   //基本资料设置
   basicInfo: `${host}/apiv2/user/base`,
+  //基本资料获取
+  getbasicInfo: `${host}/apiv2/user/base`,
   //隐私设置
   privacy: `${host}/apiv2/user/account/personal`,
   //隐私设置获取

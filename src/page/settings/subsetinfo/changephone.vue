@@ -123,7 +123,7 @@ export default {
               }, 1000);
           }
           this.$axios({
-              url:`${this.$api.getCode}/${this.ruleForm.checkphone}/1`,
+              url:`${this.$api.getCode}/${this.ruleForm.checkphone}/3`,
               method: "post",
               timeout: 3000
           })
