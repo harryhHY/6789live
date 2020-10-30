@@ -35,9 +35,9 @@ export default {
     data(){
         return{
             ruleForm:{
-                basic: "",
-                attention:"",
-                fans:""
+                basic: "0",
+                attention:"0",
+                fans:"0"
             },
             rules:{
                 basic: [
@@ -54,13 +54,13 @@ export default {
     },
     methods: {
         changebasic(e){
-            this.ruleForm.basic = e
+            // this.ruleForm.basic = e
         },
         changeattention(e){
-            this.ruleForm.attention = e
+            // this.ruleForm.attention = e
         },
         changefans(e){
-            this.ruleForm.fans = e
+            // this.ruleForm.fans = e
         },
         submitForm(ruleForm) {
             this.$refs[ruleForm].validate((valid) => {
@@ -97,7 +97,41 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+        },
+        //获取设置状态
+        getPristatus(){
+            this.$api.getprivacy.useGetprivacy(          
+            ).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    console.log(res.data.params[0].uPAccount,res.data.params[0].uPFollow,res.data.params[0].uPFans);
+                    this.ruleForm.basic = res.data.params[0].uPAccount;                             
+                    this.ruleForm.attention = res.data.params[0].uPFollow;                             
+                    this.ruleForm.fans = res.data.params[0].uPFans;                             
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                this.$message("账号或密码错误");
+            })
         }
+    },
+    mounted(){
+        
     }
 }
 </script>

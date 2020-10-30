@@ -10,7 +10,7 @@
                         <el-tab-pane label="基本资料" name="first"><basicdata /></el-tab-pane>
                         <el-tab-pane label="账号信息" name="second"><accountinfo /></el-tab-pane>
                         <el-tab-pane label="关注设置" name="third"><attentionset ref="accountinfo" /></el-tab-pane>
-                        <el-tab-pane label="隐私设置" name="fourth"><privacyset /></el-tab-pane>
+                        <el-tab-pane label="隐私设置" name="fourth"><privacyset  ref="privacyset" /></el-tab-pane>
                     </el-tabs>
                 </div>
             </div>          
@@ -49,6 +49,9 @@ export default {
             if(tab.name == "third"){
                 //加载关注设置的频道列表
                 this.$refs.accountinfo.getChanelList();
+            }else if(tab.name == "fourth"){
+                //加载隐私设置的状态
+                this.$refs.privacyset.getPristatus();
             }
         }
     }

@@ -12,6 +12,8 @@ const base = {
   basicInfo: `${host}/apiv2/user/base`,
   //隐私设置
   privacy: `${host}/apiv2/user/account/personal`,
+  //隐私设置获取
+  getprivacy: `${host}/apiv2/user/account/personal`,
   //用户设置-频道列表
   channelist: `${host}/apiv2/channel`,
   //用户设置-头像上传

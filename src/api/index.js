@@ -6,6 +6,7 @@ import login from "./login"
 import registered from "./registered"
 import basic from "./basicInfo"
 import privacy from "./privacy"
+import getprivacy from "./getprivacy"
 import chanel from "./channelist"
 import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
@@ -25,6 +26,8 @@ export default {
     basic,
     //隐私设置
     privacy,
+    //隐私设置获取
+    getprivacy,
     //设置页频道列表
     chanel,
     //头像上传地址
