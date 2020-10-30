@@ -15,7 +15,7 @@
               <span
                 @click="changtype(item.id, item.name)"
                 :class="item.id == footballflag ? 'footerclick' : ''"
-                >{{ item.name }}</span
+                >{{ item.ch_name }}</span
               >
               <i>|</i>
             </div>
@@ -88,60 +88,15 @@ const liveheader = () => import("./liveheader");
 export default {
   data() {
     return {
-      football: [
-        {
-          id: 1,
-          name: "最新",
-        },
-        {
-          id: 2,
-          name: "英超",
-        },
-        {
-          id: 3,
-          name: "西甲",
-        },
-        {
-          id: 4,
-          name: "意甲",
-        },
-        {
-          id: 5,
-          name: "法甲",
-        },
-        {
-          id: 6,
-          name: "欧冠",
-        },
-        {
-          id: 7,
-          name: "欧联",
-        },
-        {
-          id: 8,
-          name: "英冠",
-        },
-        {
-          id: 9,
-          name: "澳超",
-        },
-        {
-          id: 10,
-          name: "俄超",
-        },
-        {
-          id: 11,
-          name: "国足",
-        },
-      ],
+      football: [], //栏目
       buttonList: [],
       livedata: [],
       check: 0,
       headerKey: "2",
-      footballflag: 0,
+      footballflag: 1,
       todaydate: "",
-      type:'',
-      livemenudata:[]
+      type: "",
+      livemenudata: [],
     };
   },
   methods: {
@@ -195,16 +150,17 @@ export default {
           dataRightBasketball,
           dataRightFootball,
         } = res.data.params;
+
         switch (this.footballflag) {
           case 0:
             this.livedata = dataFootball;
-            this.livemenudata = dataRightFootball
-            this.type = '足球'
+            this.livemenudata = dataRightFootball;
+            this.type = "足球";
             break;
           case 1:
             this.livedata = dataBasketball;
-            this.livemenudata = dataRightBasketball
-            this.type = '篮球'
+            this.livemenudata = dataRightBasketball;
+            this.type = "篮球";
             break;
         }
       });
@@ -217,7 +173,7 @@ export default {
     liveheader,
   },
   computed: {
-    ...mapState(["liveheader"]),
+    ...mapState(["liveheader", "menufootData", "menubacketballdata"]),
     liveheaderfn() {
       return this.$store.state.liveheader;
     },
@@ -225,18 +181,19 @@ export default {
   watch: {
     liveheaderfn(newValue) {
       this.footballflag = newValue;
+      if ((newValue == 0)) {
+        this.football = this.menufootData;
+      }else{
+         this.football = this.menubacketballdata;
+      }
       this.getdata();
     },
   },
   created() {
     this.changeButtonList();
+     this.football = this.menufootData;
     this.getdata();
   },
-  // watch: {
-  //     data(newValue, oldValue) {
-
-  //     }
-  // },
 };
 </script>
 
@@ -317,6 +274,9 @@ export default {
   padding: 5px;
   color: #a9a9a9;
   cursor: pointer;
+  span:hover{
+     color: #1a90fc;
+  }
 }
 .morespan {
   color: #a9a9a9;

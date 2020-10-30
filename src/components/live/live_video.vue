@@ -1,9 +1,7 @@
 <template>
   <div class="live_video boxshadow left cl" id="live_video">
     <div class="header_div">
-      <div class="header">
-        {{ type }}视频精选
-      </div>
+      <div class="header">{{ type }}视频精选</div>
     </div>
     <div>
       <div
@@ -16,7 +14,7 @@
           {{ item.lname }}
         </div>
         <div class="videotitle left ov">
-          {{ item.aname }} VS {{item.hname}}
+          {{ item.aname }} VS {{ item.hname }}
         </div>
       </div>
       <div class="lookmore cu">查看更多视频</div>
@@ -28,21 +26,39 @@
 export default {
   data() {
     return {
-      videoData: [
-      ],
+      videoData: [],
     };
   },
-  props: ["data",'type'],
+  props: ["data", "type"],
   methods: {
     gotovideo(id) {
       this.$router.push("/newdel");
       this.$store.commit("newsList", id);
       console.log(id);
     },
+    getlivevideo() {
+      this.$api.homeindex.livevideo({}).then((res) => {
+        let { params } = res.data;
+        this.videoData = params;
+      });
+    },
   },
   watch: {
     data(newValue) {
       this.videoData = newValue;
+    },
+  },
+  created() {
+    switch (this.$route.path){
+      case "/Livedel":
+         this.getlivevideo();
+         break;
+      case "/newdel":
+        // this.get
+         break;
+    }
+    if (this.$route.path == "/Livedel") {
+      this.getlivevideo();
     }
   },
 };

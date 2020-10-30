@@ -39,23 +39,23 @@
           @click="gotonewsdel(item)"
         >
           <div class="left img_div">
-            <img :src="item.imgsrc" alt="" class="news_img" />
+            <img :src="host + item.news_cover_url" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
             <div class="news_title cl">
               <div class="newstype1 left">
                 {{ item.newstype1 }}
               </div>
-              <div class="left ov">{{ item.title }}</div>
+              <div class="left ov">{{ item.news_title }}</div>
             </div>
-            <div class="details ov">详情：{{ item.details }}</div>
+            <div class="details ov">详情：{{ item.news_body }}</div>
             <div class="label_div cl">
               <div class="label left cu">
-                {{ item.newstype }}
+                {{ item.news_channel_id }}
               </div>
             </div>
             <div class="newstime">
-              {{ item.time }}
+              {{ item.news_addtime | formDate }}
             </div>
             <div class="cl share_div">
               <div class="centerimg left cu">
@@ -71,11 +71,12 @@
         </div>
       </div>
     </div>
-    <newslive></newslive>
+    <newslive v-if="live_data || promote_news_data"></newslive>
   </div>
 </template>
 
 <script>
+import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
@@ -84,6 +85,7 @@ export default {
     return {
       headerKey: "3",
       searchmsg: "",
+      host: "",
       newsClass: [
         {
           name: "西甲",
@@ -116,44 +118,16 @@ export default {
           name: "中超",
         },
       ],
-      newsdata: [
-        {
-          newstype1: "篮球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          newstype: "国际新闻",
-          time: "10.20",
-        },
-        {
-          newstype1: "篮球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          newstype: "国际新闻",
-          time: "10.20",
-        },
-        {
-          newstype1: "篮球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          newstype: "国际新闻",
-          time: "10.20",
-        },
-        {
-          newstype1: "篮球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          details: "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-          newstype: "国际新闻",
-          time: "10.20",
-        },
-      ],
+      newsdata: [], ///新闻列表
       changemenuflag: "0",
+      live_data: [], //右边直播数据
+      promote_news_data: [], //右边轮播数据
     };
   },
   methods: {
+    inst() {
+      this.host = host;
+    },
     changemenu(idx) {
       this.changemenuflag = idx;
     },
@@ -167,11 +141,17 @@ export default {
       this.searchmsg = this.$inHTMLData(msg);
       console.log(this.searchmsg);
     },
-    getdata(){
-      this.$api.homeindex.getnewsindex({}).then((res)=>{
-        console.log(res.data.params)
-      })
-    }
+    getdata() {
+      //获取新闻首页数据
+      this.$api.homeindex.getnewsindex({}).then((res) => {
+        let { live_data, news_data, promote_news_data } = res.data.params;
+        this.newsdata = news_data;
+        this.live_data = live_data;
+        this.promote_news_data = promote_news_data;
+        this.$store.commit("newslivedata", this.live_data);
+        this.$store.commit("newsmenuswp", this.promote_news_data);
+      });
+    },
   },
   computed: {
     name() {
@@ -183,13 +163,18 @@ export default {
     home_herder,
     newslive,
   },
-  created () {
+  created() {
+    this.inst();
     this.getdata();
   },
 };
 </script>
 
 <style lang="less" scoped>
+.new {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+}
 .newstype1 {
   background-image: url("../../image/liveclass.png");
   background-size: 100%;
@@ -282,17 +267,18 @@ export default {
 .news_content {
   padding: 20px 0;
   border-top: 1px solid #999999;
+  position: relative;
   .img_div {
     width: 200px;
     height: 135px;
     margin-left: 80px;
     .news_img {
-      width: 100%;
+      width: 200px;
+      height: 135px;
     }
   }
   .news_content_right {
     height: 135px;
-    position: relative;
     margin-left: 32px;
   }
   .news_title {
@@ -300,8 +286,8 @@ export default {
   }
   .share_div {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 100px;
+    bottom: 30px;
     font-size: 14px;
   }
   .share_div div:nth-child(2) {
@@ -315,8 +301,8 @@ export default {
   .newstime {
     font-size: 14px;
     position: absolute;
-    bottom: 0;
-    left: 43px;
+    bottom: 30px;
+    left: 350px;
   }
 }
 

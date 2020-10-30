@@ -16,20 +16,20 @@
                 <img :src="liveList.aicon" alt="" class="aiconimg" />
               </div>
               <div class="ascore left">
-                {{ liveList.ascore }}
+                {{ liveList.aTotalScore }}
               </div>
               <div class="time_type left">
-                <div>{{ liveList.time }}</div>
-                <div>{{ liveList.type }}</div>
+                <div>{{ liveList.gameTimeFormat }}</div>
+                <div>{{ liveList.gameStage }}</div>
               </div>
               <div class="ascore left">
-                {{ liveList.bscore }}
+                {{ liveList.hTotalScore }}
               </div>
               <div class="left aicon">
-                <img :src="liveList.bicon" alt="" class="aiconimg" />
+                <img :src="liveList.hicon" alt="" class="aiconimg" />
               </div>
               <div class="bname ov left">
-                {{ liveList.bname }}
+                {{ liveList.hname }}
               </div>
             </div>
           </div>
@@ -110,7 +110,7 @@ export default {
           name: "人人网",
         },
       ],
-      videosrc: "https://sm.lssjy.cn/liveb/325897503503298560/playlist.m3u8?wsSecret=749fc7b7de3f651c91e7dc570a0c33ea&wsABSTime=5f97d380",
+      videosrc: "",
       liveroom: [{}, {}],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
@@ -127,6 +127,33 @@ export default {
     },
     goto(src) {
       this.$router.push(src);
+    },
+    getlivedata() {
+      this.$axios({
+        url: `${this.$api.homeindex.getlivedel()}${this.liveList.matchId}`,
+      }).then((res) => {
+        let { murl } = res.data.params;
+        this.videosrc = murl;
+        const dp = new DPlayer({
+          container: document.getElementById("dplayer"),
+          live: true,
+          autoplay: true,
+          apiBackend: {
+            read: function (endpoint, callback) {
+              console.log("Pretend to connect WebSocket");
+              // callback();
+            },
+            send: function (endpoint, danmakuData, callback) {
+              console.log("Pretend to send danmaku via WebSocket", danmakuData);
+              // callback();
+            },
+          },
+          video: {
+            url: this.videosrc,
+            type: "hls",
+          },
+        });
+      });
     },
     sharegoto(idx) {
       let title = "111";
@@ -149,7 +176,6 @@ export default {
     },
     parentEvent(data) {
       this.menu_num = data;
-      console.log(data);
     },
     // 左边直播分类传过来的值
     pve(e) {
@@ -166,28 +192,10 @@ export default {
     ...mapState(["liveList"]),
   },
   created() {
-    console.log(this.liveList);
-  },
+    },
   mounted() {
-    const dp = new DPlayer({
-      container: document.getElementById("dplayer"),
-      live: true,
-      autoplay:true,
-      apiBackend: {
-        read: function (endpoint, callback) {
-          console.log("Pretend to connect WebSocket");
-          // callback();
-        },
-        send: function (endpoint, danmakuData, callback) {
-          console.log("Pretend to send danmaku via WebSocket", danmakuData);
-          // callback();
-        },
-      },
-      video: {
-        url: this.videosrc,
-        type: "hls",
-      },
-    });
+    console.log(this.videosrc);
+    this.getlivedata();
   },
 };
 </script>

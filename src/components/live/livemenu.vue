@@ -15,17 +15,17 @@
           <div
             v-for="(item, key, index) in mylike"
             :key="item.id"
-            class="playnum cu left"
+            class="playnum cu left ov"
             @click="changetype(item.id)"
           >
-            {{ item.playnum }}
+            {{ item.ch_name }}
           </div>
         </div>
         <!-- 直播分类 -->
         <div class="liveclass">
           <div class="liveclass_header">
             <img src="../../image/news/sort.png" alt="" />
-            直播分类
+            {{menutitle}}
           </div>
         </div>
         <!-- 足球 -->
@@ -48,10 +48,10 @@
               <div
                 v-for="(item, index) in footData"
                 :key="item.id"
-                class="playnum cu left"
+                class="playnum cu left ov"
                 @click="changetype(item.id)"
               >
-                {{ item.playname }}
+                {{ item.ch_name }}
               </div>
             </div>
             <div class="cu">
@@ -77,10 +77,10 @@
               <div
                 v-for="(item, index) in backetballdata"
                 :key="item.id"
-                class="playnum cu left"
+                class="playnum cu left ov"
                 @click="changetype1(item.id)"
               >
-                {{ item.playname }}
+                {{ item.ch_name }}
               </div>
             </div>
             <div class="cu">
@@ -100,6 +100,21 @@
               "
             ></div>
           </div>
+          <div class="cl mylike" v-if="!bbflag">
+            <div class="cl">
+              <div
+                v-for="(item, index) in Collapsedata"
+                :key="item.id"
+                class="playnum cu left ov"
+                @click="changetype1(item.id)"
+              >
+                {{ item.ch_name }}
+              </div>
+            </div>
+            <div class="cu">
+              <div class="lookmore"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -110,67 +125,78 @@
 export default {
   data() {
     return {
-      mylike: [
-        {
-          id: 1,
-          playtype: 1,
-          playnum: "英超",
-        },
-        {
-          id: 2,
-          playtype: 2,
-          playnum: "NBA",
-        },
-        {
-          id: 3,
-          playtype: 3,
-          playnum: "CBA",
-        },
-        {
-          id: 4,
-          playtype: 4,
-          playnum: "NBA",
-        },
-        {
-          id: 5,
-          playtype: 5,
-          playnum: "CBA",
-        },
-      ],
-      footData: [
-        {
-          id: 1,
-          playname: "西甲",
-        },
-        {
-          id: 2,
-          playname: "意甲",
-        },
-        {
-          id: 3,
-          playname: "国足",
-        },
-        {
-          id: 4,
-          playname: "英超",
-        },
-      ],
+      mylike: [], //我的关注
+      footData: [], //足球
       footdataflag: false,
-      backetballdata: [
-        {
-          id: 1,
-          playname: "NBA",
-        },
-        {
-          id: 2,
-          playname: "CBA",
-        },
-      ],
+      backetballdata: [], //篮球
       bbflag: false,
+      Collapsedata: [], //综合
       isCollapse: true,
+      menutitle: "",
     };
   },
   methods: {
+    getlivemenu() {
+      console.log(this.$route.path);
+      let type = 0;
+      switch (this.$route.path) {
+        case "/live":
+          type = 1;
+          this.menutitle = "直播分类";
+          break;
+        case "/Livedel":
+          type = 1;
+          this.menutitle = "直播分类";
+          break;
+        case "/new":
+          type = 2;
+          this.menutitle = "新闻分类";
+          break;
+        case "/newdel":
+          type = 2;
+          this.menutitle = "新闻分类";
+          break;
+        case "/community":
+          type = 3;
+          this.menutitle = "社区分类";
+          break;
+        case "/communitydel":
+          type = 3;
+          this.menutitle = "社区分类";
+          break;
+      }
+      this.$api.attchanelist
+        .attchanel({
+          type,
+        })
+        .then((res) => {
+          let { channel, user_followed_id } = res.data.params;
+          this.backetballdata = channel[2];
+          this.footData = channel[1];
+          this.Collapsedata = channel[3];
+
+          this.$store.commit("menufootData", this.footData);
+          this.$store.commit("menubacketballdata", this.backetballdata);
+
+          let likelist = [];
+          let newarr = [];
+          let totalList = this.backetballdata.concat(
+            this.footData,
+            this.Collapsedata
+          );
+          totalList.map((item) => {
+            newarr.push({ item });
+          });
+          user_followed_id.filter((item) => {
+            newarr.map((it) => {
+              if (it.item.id == item) {
+                likelist.push(it.item);
+              }
+            });
+          });
+          this.mylike = likelist;
+        });
+    },
     //是否收齐直播栏目
     changebbkUnfold(id, even) {
       switch (id) {
@@ -201,6 +227,9 @@ export default {
       console.log(key, keyPath);
     },
   },
+  created() {
+    this.getlivemenu();
+  },
 };
 </script>
 
@@ -208,7 +237,7 @@ export default {
 .livemenu {
   width: 279px;
   margin-top: -24px;
-  background-image: url("../../image/news/leftbg.png")  ;
+  background-image: url("../../image/news/leftbg.png");
   background-size: 100%;
   height: 1027px;
   .mylike {
@@ -267,7 +296,7 @@ export default {
     position: relative;
   }
   .footerclass_header_img {
-    background-image: url("../../image/news/Unfold.png")  ;
+    background-image: url("../../image/news/Unfold.png");
     background-size: 100%;
     position: absolute;
     width: 21px;
@@ -278,7 +307,7 @@ export default {
     margin: auto;
   }
   .footerclass_header_img1 {
-    background-image: url("../../image/news/Unfold1.png")  ;
+    background-image: url("../../image/news/Unfold1.png");
     background-size: 100%;
     position: absolute;
     width: 21px;
@@ -292,11 +321,11 @@ export default {
     width: 17px;
     height: 14px;
     margin: 19px auto;
-    background-image: url("../../image/news/Unfoldicon.png")  ;
+    background-image: url("../../image/news/Unfoldicon.png");
     background-size: 100%;
   }
   .lookmore:hover {
-    background-image: url("../../image/news/Unfoldicon1.png")  ;
+    background-image: url("../../image/news/Unfoldicon1.png");
   }
 }
 

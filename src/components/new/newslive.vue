@@ -4,8 +4,8 @@
       <el-carousel height="238px">
         <el-carousel-item v-for="(item, index) in swpList" :key="index">
           <div class="swp">
-            <img :src="item.imgsrc" alt="" />
-            <div class="newstitle">{{ item.newstitle }}</div>
+            <img :src="host + item.news_cover_url" alt="" />
+            <div class="newstitle">{{ item.news_title }}</div>
           </div>
         </el-carousel-item>
       </el-carousel>
@@ -18,16 +18,16 @@
       </div>
       <div>
         <div
-          v-for="(item, key, index) in videoData"
-          :key="item.id"
-          @click="gotovideo(item.id)"
+          v-for="(item, key) in videoData"
+          :key="key"
+          @click="gotovideo(key)"
           class="videotitle_div cu"
         >
           <div class="videotype left">
-            {{ item.videotype }}
+            {{ item.gameStage }}
           </div>
           <div class="videotitle left ov">
-            {{ item.videotitle }}
+            {{ item.aname }} VS {{ item.hname }}
           </div>
         </div>
         <div class="lookmore cu">查看更多直播</div>
@@ -37,64 +37,15 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import host from "../../api/httpurl";
 export default {
   data() {
     return {
       title: "热门直播",
-      videoData: [
-        {
-          id: 1,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 2,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 3,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 4,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 5,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-        {
-          id: 6,
-          videotype: "正在直播",
-          videotitle: "Russia Division 1-莫斯科鱼雷vsD. Bryansk",
-        },
-      ],
-      swpList: [
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-        {
-          imgsrc: require("../../image/news.jpeg"),
-          newstitle:
-            "秋冬季疫情风险是否加大？个人如何做好防护？——中国疾控中心专",
-        },
-      ],
+      videoData: [],
+      swpList: [],
+      host: "",
     };
   },
   methods: {
@@ -103,6 +54,19 @@ export default {
       this.$store.commit("newsList", id);
       console.log(id);
     },
+    inithost() {
+      this.host = host;
+    },
+  },
+  computed: {
+    ...mapState(["newslivedata", "newsmenuswp"]),
+  },
+
+  watch: {},
+  created() {
+    this.videoData = this.newslivedata;
+    this.swpList = this.newsmenuswp;
+    this.inithost();
   },
 };
 </script>
@@ -165,7 +129,7 @@ export default {
     border-radius: 15px;
   }
 }
-.newslive_div{
+.newslive_div {
   width: 350px;
   margin-left: 18px;
   margin-top: 23px;
@@ -173,10 +137,10 @@ export default {
 }
 .swp {
   width: 356px;
-
   position: relative;
   img {
-    width: 100%;
+    width: 356px;
+    height: 236px;
   }
   .newstitle {
     position: absolute;
@@ -189,5 +153,4 @@ export default {
     padding: 0 10px;
   }
 }
-
 </style>

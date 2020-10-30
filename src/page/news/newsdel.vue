@@ -153,7 +153,7 @@
         </div>
       </div>
     </div>
-    <newslive></newslive>
+    <newslive v-if="newsmenuswp"></newslive>
   </div>
 </template>
 
@@ -239,7 +239,9 @@ export default {
     };
   },
   methods: {
-    getrouterdata() {},
+    getrouterdata() {
+
+    },
   },
   components: {
     home_herder,
@@ -250,10 +252,10 @@ export default {
     this.getrouterdata();
   },
   computed: {
-    ...mapState(["newsList"]),
+    ...mapState(["newsList",'newsmenuswp']),
   },
   mounted() {
-    console.log(this.newsList);
+    console.log(this.newsmenuswp);
     // const dp = new DPlayer({
     //   container: document.getElementById("dplayer"),
     //   video: {
