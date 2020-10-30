@@ -39,7 +39,11 @@ const base = {
   //获取直播首页信息
   liveindex: `${host}/apiv2/live/`,
   //获取新闻首页信息
-  newsindex: `${host}/apiv2/news`
+  newsindex: `${host}/apiv2/news`,
+  //获取直播信息
+  livedel:`${host}/apiv2/live/player/`,
+  //获取直播推荐数据
+  livevideo:`${host}/apiv2/live/promote`
 }
 
 

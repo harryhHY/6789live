@@ -13,7 +13,15 @@ const homeindex = {
     return axios.get(base.newsindex
 
     );
-  }
+  },
+  getlivedel() {
+    return base.livedel
+  },
+  livevideo() {
+    return axios.get(base.livevideo
+
+    );
+  },
 }
 
 export default homeindex
