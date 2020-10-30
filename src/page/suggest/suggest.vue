@@ -85,16 +85,71 @@ export default {
         getEditorData() {
             // 通过代码获取编辑器内容
             let data = this.editor.txt.html()
-            alert(data)
+            this.$api.sendsuggest.suggest({
+                body:data
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })                        
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                this.$message("设置失败")
+            })
 
             //清空编辑器
             this.editor.txt.clear()
         },
         cancleHandler(){
 
+        },
+        //获取反馈列表
+        getSuggestList(){
+            let params;
+            this.$api.suggestList.getSuggestList(
+            params
+            ).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })                             
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                this.$message("账号或密码错误");
+            })
         }
     },
     mounted(){
+        this.getSuggestList();
         const editor = new wangEditor(`#editor`);
         // 配置 onchange 回调函数，将数据同步到 vue 中
         editor.config.onchange = (newHtml) => {

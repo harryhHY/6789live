@@ -3,6 +3,8 @@
  */
 import host from './httpurl'
 const base = {
+  //发送验证码
+  getCode:`${host}/apiv2/user_sent_mms`,
   //登录
   getToken: `${host}/apiv2/user_login`,
   // getToken: "​/joke/content/list.php",

@@ -2,6 +2,7 @@
  * api接口统一出口
  */
 //登录接口
+import getCode from "./getcode"
 import login from "./login"
 import registered from "./registered"
 import basic from "./basicInfo"
@@ -20,6 +21,8 @@ import sendsuggest from "./sendsuggest"
 
 //导出接口
 export default {
+    //获取验证码
+    getCode,
     //登录
     login,
     //注册

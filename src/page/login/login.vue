@@ -215,11 +215,7 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-            // 验证手机号
-      // if (this.checkPhone() == false) {
-      //     return false;
-      // } else {
-        console.log(111);
+
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
@@ -234,7 +230,17 @@ export default {
                   }
               }, 1000);
           }
-      // }
+          this.$axios({
+              url:`${this.$api.getCode}/${this.iphone.phoneNum}/'1'`,
+              method: "post",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
     },
       // doLogin(user) {
       //   console.log("登录");

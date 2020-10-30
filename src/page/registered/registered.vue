@@ -15,7 +15,7 @@
   <p class="registitle">立即注册</p>
   <div class="harftab">
       <el-row type="flex" justify="center">
-          <el-form ref="register" :model="register" :rules="registerRules" status-icon label-width="80px" class="second_con">
+          <el-form ref="register" :model="register" :rules="registerRules" label-width="80px" class="second_con">
             <el-form-item  class="filed" prop="username" label="">
               <img class="user" :src="imgs.user" alt="">
               <el-input v-model="register.username" @blur="checkBlur($event)" placeholder="用户名：4-20位英文或字母或“-”、“_”" prefix-icon></el-input>
@@ -51,7 +51,7 @@
               </el-button>
             </div>
             <div class="auto_box">
-                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">同意并接受</el-checkbox><span class="liverule">《6789直播用户条款》</span>
+                <el-checkbox class="autologin" disabled v-model="checked" @change = "changeRadio">同意并接受</el-checkbox><span class="liverule">《6789直播用户条款》</span>
             </div>
             <el-form-item>
               <el-button type="primary" class="userlogin" @click="doRegiste('iphone')">注 册</el-button>
@@ -83,29 +83,33 @@ import { mapState ,mapMutations } from "vuex";
 export default {
   name: "login",
   data() {
-    //用户名登录
-    var validateName = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
-        if (value == "") {
-          return callback(new Error('用户名不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+    //用户名注册
+    let regphone = /^1[3456789]\d{9}$/;
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
+      var validateName = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('用户名不能为空'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('用户名格式错误'))
+          } else{
+            callback()
+          }
         }
       };
-    var validatePass = (rule, value, callback) => {
-        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
-        if (value === '') {
-          return callback(new Error('请输入密码'));
-        } else if(new RegExp(reg).test(value) == false){
-           return callback(new Error('密码为6-16位数字字母组成'));
-          // if (this.user.password !== '') {
-          //   this.$refs.user.validateField('checkPass');
-          // }
-          // callback();
+      var validatePass = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-16位数字、字母或字符！'))
+          } else{
+            callback()
+          }
         }
       };
       var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
+        if (value == '') {
           callback(new Error('请再次输入密码'));
         } else if (value !== this.register.password) {
           callback(new Error('两次输入密码不一致!'));
@@ -115,11 +119,14 @@ export default {
       };
       //手机号登录
       var phoneNumber = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
-        if (value == "") {
-          return callback(new Error('手机号不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+        if(value == ''){
+          callback(new Error('手机号不能为空'))
+        }else{
+          if (!regphone.test(value)) {
+            callback(new Error('手机号格式错误'))
+          } else{
+            callback()
+          }
         }
       };
     return {
@@ -137,7 +144,6 @@ export default {
         username: "",
         password: "",
         checkPass:"",
-        region:"+86",
         phoneNum:"",
         code:""
       },
@@ -154,10 +160,11 @@ export default {
         ],
         phoneNum:[
           { validator: phoneNumber, trigger: 'blur' }
-        ]
+        ],
+        code:[{required:true,message:"验证码不能为空", trigger: 'blur'}]
       },
       activeName: 'first',
-      checked: false,
+      checked: true,
       count:"",
       show: true,
       timer:null,
@@ -171,10 +178,10 @@ export default {
     ...mapMutations(["token"]),
     checkBlur(e){
       console.log(e.target.value);
-      this.$message({
-        type: 'error', // warning、success
-        message: '这是一条消息' 
-      }) 
+      // this.$message({
+      //   type: 'error', // warning、success
+      //   message: '这是一条消息' 
+      // }) 
     },
     //选择手机区号
     changeRegion(value){
@@ -197,11 +204,6 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-            // 验证手机号
-      // if (this.checkPhone() == false) {
-      //     return false;
-      // } else {
-        console.log(111);
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
@@ -216,40 +218,51 @@ export default {
                   }
               }, 1000);
           }
+          //注册获取验证码
+          this.$axios({
+              url:`${this.$api.getCode}/${this.register.phoneNum}/'0'`,
+              method: "post",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
       // }
     },
      doRegiste(register) {
-       console.log(this.encode("a1234567"));
-       this.$api.registered.useRegister({
-            mobile:'15711112222',
-            name:"a123456",
-            vcode:23582,
-            pwd:'a123456'
-          }).then(res => {
-              console.log(res);
-              if (res.data.code == 1) {
-                  this.$message({
-                    type: 'error', // warning、success
-                    message: res.data.msg 
-                  }) 
-              } else if (res.data.code == 0) {
-                  this.$message({
-                    type: 'success', // warning、success
-                    message: res.data.msg 
-                  })
-                  //token存入VUEX
-                  this.token(res.data.params.token)
-                  this.$router.push("/login")                              
-              } else if (res.data.code == -1) {
-
-              }
-          })
-          .catch(error => {
-            this.$message("注册失败")
-          }),
         this.$refs['register'].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            alert('submit');
+            this.$api.registered.useRegister({
+              mobile:this.register.phoneNum,
+              name:this.register.username,
+              vcode:this.register.code,
+              pwd:this.encode(this.register.password)
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                      type: 'error', // warning、success
+                      message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                      type: 'success', // warning、success
+                      message: res.data.msg 
+                    })
+                    //token存入VUEX
+                    this.token(res.data.params.token)
+                    this.$router.push("/")                              
+                } else if (res.data.code == -1) {
+
+                }
+            })
+            .catch(error => {
+              this.$message("注册失败")
+            })
           } else {
             console.log('error submit!!');
             return false;
