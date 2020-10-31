@@ -8,33 +8,33 @@
           <div class="left menu_header_foot"></div>
           <div class="menu_header_foot_class left">
             <div
-              class="left menu_header_foot_class_title cu"
+              class="left menu_header_foot_class_title cu ov"
               v-for="(item, index) in footer_menu"
-              :key="index"
+              :key="item.ch_columnm + index"
             >
-              {{ item.title }}
+              {{ item.ch_name }}
             </div>
           </div>
           <!-- 篮球栏目 -->
           <div class="left menu_header_bsb"></div>
           <div class="menu_header_foot_class left">
             <div
-              class="left menu_header_foot_class_title cu"
-              v-for="(item, index) in footer_menu"
-              :key="index"
+              class="left menu_header_foot_class_title cu ov"
+              v-for="(item, index) in basket_menu"
+              :key="item.ch_order + index"
             >
-              {{ item.title }}
+              {{ item.ch_name }}
             </div>
           </div>
           <!-- 综合栏目 -->
           <div class="left menu_header_translation"></div>
           <div class="menu_header_foot_class left">
             <div
-              class="left menu_header_foot_class_title cu"
-              v-for="(item, index) in footer_menu"
+              class="left menu_header_foot_class_title cu ov"
+              v-for="(item, index) in complex_menu"
               :key="index"
             >
-              {{ item.title }}
+              {{ item.ch_name }}
             </div>
           </div>
         </div>
@@ -65,25 +65,25 @@
       <div class="footertitle"></div>
       <div
         class="cl footer_content"
-        v-for="(item, index) in listdata"
-        :key="index"
+        v-for="(item, index) in listfooterdata"
+        :key="item.id + index"
         @click="gotocommdel()"
       >
         <div class="footer_content_left left">
           <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_type left">{{ item.columnm }}</div>
             <div class="footer_title left">
-              {{ item.title }}
+              {{ item.forum_title }}
             </div>
           </div>
-          <div class="footer_content_del ov">详情：{{ item.del }}</div>
+
           <div class="cl footer_content_belong">
             <div class="left cl">
               <div class="left footer_name">
-                {{ item.name }}
+                {{ item.ch_owner }}
               </div>
               <div class="left footer_time">
-                {{ item.time }}
+                {{ item.forum_addtime }}
               </div>
             </div>
             <div class="right cl">
@@ -91,14 +91,7 @@
                 <div class="footer_commnum_img"></div>
                 <div>评论：</div>
                 <div>
-                  {{ item.commnum }}
-                </div>
-              </div>
-              <div class="left centerimg footer_goods_div">
-                <div class="footer_goods_img"></div>
-                <div>点赞：</div>
-                <div>
-                  {{ item.commnum }}
+                  {{ item.ch_reply_num }}
                 </div>
               </div>
             </div>
@@ -106,13 +99,8 @@
         </div>
         <div class="footer_content_right left cl">
           <div class="footer_content_right_div right">
-            <img
-              :src="item.avatar"
-              alt=""
-              class="footer_content_right_avatar"
-            />
             <div>
-              {{ item.teamname }}
+              {{ item.ch_name }}
             </div>
           </div>
         </div>
@@ -124,24 +112,24 @@
       <div class="bsktitle"></div>
       <div
         class="cl footer_content"
-        v-for="(item, index) in listdata"
-        :key="item.time + index"
+        v-for="(item, index) in listbasketdata"
+        :key="item.title + index"
       >
         <div class="footer_content_left left">
           <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_type left">{{ item.columnm }}</div>
             <div class="footer_title left">
-              {{ item.title }}
+              {{ item.forum_title }}
             </div>
           </div>
-          <div class="footer_content_del ov">详情：{{ item.del }}</div>
+
           <div class="cl footer_content_belong">
             <div class="left cl">
               <div class="left footer_name">
-                {{ item.name }}
+                {{ item.ch_owner }}
               </div>
               <div class="left footer_time">
-                {{ item.time }}
+                {{ item.forum_addtime }}
               </div>
             </div>
             <div class="right cl">
@@ -149,14 +137,7 @@
                 <div class="footer_commnum_img"></div>
                 <div>评论：</div>
                 <div>
-                  {{ item.commnum }}
-                </div>
-              </div>
-              <div class="left centerimg footer_goods_div">
-                <div class="footer_goods_img"></div>
-                <div>点赞：</div>
-                <div>
-                  {{ item.commnum }}
+                  {{ item.ch_reply_num }}
                 </div>
               </div>
             </div>
@@ -164,13 +145,8 @@
         </div>
         <div class="footer_content_right left cl">
           <div class="footer_content_right_div right">
-            <img
-              :src="item.avatar"
-              alt=""
-              class="footer_content_right_avatar"
-            />
             <div>
-              {{ item.teamname }}
+              {{ item.ch_name }}
             </div>
           </div>
         </div>
@@ -182,24 +158,23 @@
       <div class="translationtitle"></div>
       <div
         class="cl footer_content"
-        v-for="(item, index) in listdata"
-        :key="item.title + index"
+        v-for="(item, index) in listcomplexdata"
+        :key="item.ch_name + index"
       >
         <div class="footer_content_left left">
           <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.type }}</div>
+            <div class="footer_type left">{{ item.columnm }}</div>
             <div class="footer_title left">
-              {{ item.title }}
+              {{ item.forum_title }}
             </div>
           </div>
-          <div class="footer_content_del ov">详情：{{ item.del }}</div>
           <div class="cl footer_content_belong">
             <div class="left cl">
               <div class="left footer_name">
-                {{ item.name }}
+                {{ item.ch_owner }}
               </div>
               <div class="left footer_time">
-                {{ item.time }}
+                {{ item.forum_addtime }}
               </div>
             </div>
             <div class="right cl">
@@ -207,14 +182,7 @@
                 <div class="footer_commnum_img"></div>
                 <div>评论：</div>
                 <div>
-                  {{ item.commnum }}
-                </div>
-              </div>
-              <div class="left centerimg footer_goods_div">
-                <div class="footer_goods_img"></div>
-                <div>点赞：</div>
-                <div>
-                  {{ item.commnum }}
+                  {{ item.ch_reply_num }}
                 </div>
               </div>
             </div>
@@ -222,13 +190,8 @@
         </div>
         <div class="footer_content_right left cl">
           <div class="footer_content_right_div right">
-            <img
-              :src="item.avatar"
-              alt=""
-              class="footer_content_right_avatar"
-            />
             <div>
-              {{ item.teamname }}
+              {{ item.ch_name }}
             </div>
           </div>
         </div>
@@ -266,79 +229,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 export default {
   data() {
     return {
       headerKey: "4",
-      footer_menu: [
-        {
-          title: "足球",
-          isRotate: true,
-        },
-        {
-          title: "篮球",
-          isRotate: false,
-        },
-        {
-          title: "国足",
-          isRotate: false,
-        },
-        {
-          title: "球幕茶疗",
-          isRotate: true,
-        },
-        {
-          title: "国足",
-          isRotate: false,
-        },
-        {
-          title: "更多》",
-          isRotate: false,
-        },
-      ],
+      footer_menu: [], //足球社区
+      basket_menu: [], //篮球社区
+      complex_menu: [], //综合社区
       serachMsg: "",
       todaypost: 0,
       yesterdaypost: 0,
-      listdata: [
-        {
-          type: "足球",
-          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          del:
-            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          time: "102/22/20",
-          name: "大家叫他少爷",
-          commnum: "222",
-          teamname: "青岛大连",
-          goodsnum: "222",
-          avatar: require("../../image/team.jpg"),
-        },
-        {
-          type: "足球",
-          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          del:
-            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          time: "102/22/20",
-          name: "大家叫他少爷",
-          commnum: "222",
-          teamname: "青岛大连",
-          goodsnum: "222",
-          avatar: require("../../image/team.jpg"),
-        },
-        {
-          type: "足球",
-          title: "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          del:
-            "美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨美媒给交易方案2换1 惟金色啊实打实大阿萨德阿萨",
-          time: "102/22/20",
-          name: "大家叫他少爷",
-          commnum: "222",
-          teamname: "青岛大连",
-          goodsnum: "222",
-          avatar: require("../../image/team.jpg"),
-        },
-      ],
+      listfooterdata: [], //足球评论区
+      listbasketdata: [], //篮球评论区
+      listcomplexdata: [], //综合评论区
       totalpost: 111,
       hotmenu: [
         {
@@ -365,6 +271,19 @@ export default {
     };
   },
   methods: {
+    getdata() {
+      this.$api.homeindex.fourm({}).then((res) => {
+        let { forum, statistc } = res.data.params;
+        let { today_count, total, yesterday_count } = statistc;
+        this.todaypost = today_count;
+        this.yesterdaypost = yesterday_count;
+        this.totalpost = total;
+        this.listfooterdata = forum[1];
+        this.listbasketdata = forum[2];
+        this.listcomplexdata = forum[3];
+        console.log(res.data.params[1]);
+      });
+    },
     serach(msg) {
       this.serachMsg = this.$inHTMLData(msg);
       console.log(this.serachMsg);
@@ -373,11 +292,19 @@ export default {
       this.$router.push("/communitydel");
     },
   },
+  computed: {
+    ...mapState(["menufootData", "menubacketballdata", "menucomplexdata"]),
+  },
   components: {
     home_herder,
     livemenu,
   },
-  created() {},
+  created() {
+    this.footer_menu = this.menufootData;
+    this.basket_menu = this.menubacketballdata;
+    this.complex_menu = this.menucomplexdata;
+    this.getdata(this.footer_menu);
+  },
 };
 </script>
 
@@ -493,6 +420,7 @@ export default {
     }
     .footer_content_del {
       margin: 14px 0 0 55px;
+      text-align: left;
       color: #555;
       width: 608px;
     }

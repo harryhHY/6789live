@@ -57,7 +57,7 @@ const base = {
   //获取新闻详情信息
   newsdel:`${host}/apiv2/news/`,
   //获取社区首页数据
-  fourm:`${host}/api2/fourm`
+  fourm:`${host}/apiv2/fourm`
 }
 
 

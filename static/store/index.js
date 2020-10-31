@@ -38,6 +38,9 @@ const mutations = {
   menubacketballdata(state, data) { //左边栏目篮球
     state.menubacketballdata = data;
   },
+  menucomplexdata(state, data) { //左边栏目综合
+    state.menucomplexdata = data;
+  },
 
   /**
    * 跳转新闻详情页面

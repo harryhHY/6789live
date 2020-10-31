@@ -8,10 +8,16 @@
       </div>
       <div class="title_div cl">
         <div class="newstype1 left">
-          {{ newsList.newstype1 }}
+          {{ newsdel.newsChannelId }}
         </div>
         <div class="title left">
-          {{ newsList.title }}
+          {{ newsdel.newsTitle }}
+        </div>
+      </div>
+      <div class="newsbody">
+        <img :src="host + newsdel.newsCoverUrl" class="newsCoverUrl" alt="" />
+        <div>
+          {{ newsdel.newsBody }}
         </div>
       </div>
       <div class="cl title_bottom">
@@ -26,14 +32,14 @@
           <img src="../../image/news/shareicon4.png" alt="" />
         </div>
         <div class="cl right title_bottom_right">
-          <div class="cl favorites_div left cu">
+          <!-- <div class="cl favorites_div left cu">
             <div class="favorites_img left"></div>
             <div class="left favorites">收藏</div>
           </div>
           <div class="cl comment_div left cu">
             <div class="comment_img left"></div>
             <div class="comment left">评论</div>
-          </div>
+          </div> -->
           <div class="cl report_div left cu">
             <div class="report_img left"></div>
             <div class="report left">举报</div>
@@ -56,12 +62,9 @@
             :key="index"
             class="showavatar left cu"
           >
-            <img :src="item.avatar" alt="" class="showavatar_img" />
+            <img :src="host + item.user_pic" alt="" class="showavatar_img" />
             <div>
-              {{ item.name }}
-            </div>
-            <div>
-              {{ item.time }}
+              {{ item.user_name }}
             </div>
           </div>
         </div>
@@ -100,22 +103,30 @@
                 <div class="left">
                   <div class="otheruser_name_div">
                     <span class="otheruser_name">
-                      {{ item.name }}
+                      {{ item.user_name }}
                     </span>
                     <span class="otheruser_time">
-                      {{ item.time }}
+                      {{ item.c_addtime }}
                     </span>
                     <div class="otheruser_msg">
-                      {{ item.msg }}
+                      {{ item.c_body }}
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="replynum">查看全部{{ item.replynum }}回复></div>
+              <div class="replynum cu" @click="">
+                查看全部{{ item.c_reply_count }}回复>
+              </div>
+              <div>
+                <div v-if="!item.child">暂无回复</div>
+                <div v-else="item.child">
+                  {{ item.user_name }} : {{ item.c_body }}
+                </div>
+              </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu">
                   <div class="otheruser_goods_img left"></div>
-                  <div class="left">赞{{ item.goodsnum }}</div>
+                  <div class="left">赞{{ item.c_good_count }}</div>
                 </div>
                 <div class="otheruserreply left cu">
                   <div class="otheruser_reply_img left"></div>
@@ -142,12 +153,12 @@
           :key="index"
         >
           <div class="tuijian_img left">
-            <img :src="item.avatar" alt="" />
+            <img :src="host + item.newsCoverUrl" alt="" />
           </div>
           <div class="left">
             <div class="certerimg tuijian_title_div">
-              <div class="tuijian_title">{{ item.title }}</div>
-              <div class="tuijian_time">{{ item.time }}</div>
+              <div class="tuijian_title">{{ item.newsTitle }}</div>
+              <div class="tuijian_time">{{ item.newsAddtime | formDate }}</div>
             </div>
           </div>
         </div>
@@ -162,6 +173,7 @@ import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
+import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
   data() {
@@ -170,77 +182,38 @@ export default {
       headerKey: "3",
       querydata: "",
       videosrc: "http://static.smartisanos.cn/common/video/t1-ui.mp4",
-      accessList: [
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-      ],
+      accessList: [], //用户访问列表
       commentmsg: "",
       avatar: require("../../image/team.jpg"),
-      commentList: [
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-          msg: "阿萨德大大多数",
-          replynum: 7,
-          goodsnum: 55,
-          replyflag: false,
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-          msg: "阿萨德大大多数",
-          replynum: 7,
-          goodsnum: 55,
-          replyflag: false,
-        },
-      ],
-      recommend: [
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-      ],
+      commentList: [], //评论
+      recommend: [], // 推荐新闻
+      newsdel: [],
+      showreply:false
     };
   },
   methods: {
     getrouterdata() {
-
+      console.log(this.$api.homeindex.newsdel());
+      this.$axios({
+        url: `${this.$api.homeindex.newsdel()}${this.newsList.id}`,
+      }).then((res) => {
+        let {
+          news,
+          live_data,
+          comments,
+          promote,
+          recentVisitor,
+        } = res.data.params;
+        this.newsdel = news[0];
+        this.accessList = recentVisitor;
+        this.recommend = promote;
+        this.$store.commit("newslivedata", live_data);
+        this.commentList = comments;
+        console.log(comments);
+      });
+    },
+    inithost() {
+      this.host = host;
     },
   },
   components: {
@@ -249,13 +222,14 @@ export default {
     newslive,
   },
   created() {
+    this.inithost();
     this.getrouterdata();
   },
   computed: {
-    ...mapState(["newsList",'newsmenuswp']),
+    ...mapState(["newsList", "newsmenuswp"]),
   },
   mounted() {
-    console.log(this.newsmenuswp);
+    console.log(this.newsList.id);
     // const dp = new DPlayer({
     //   container: document.getElementById("dplayer"),
     //   video: {
@@ -267,6 +241,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.newsdel {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+}
 .newsdel_content {
   font-size: 14px;
   margin-left: 29px;
@@ -278,7 +256,13 @@ export default {
     height: 97px;
     margin: 18px 17px;
   }
-  .newsdel_body {
+  .newsbody {
+    margin: 30px 117px;
+    line-height: 40px;
+    .newsCoverUrl {
+      width: 706px;
+      height: 550px;
+    }
   }
   .title_div {
     font-size: 24px;
@@ -478,6 +462,9 @@ export default {
     margin-left: 50px;
     color: #848484;
   }
+  .replay_child {
+    margin: 10px 50px;
+  }
   .otheruser_time {
     color: #848484;
   }
@@ -500,12 +487,12 @@ export default {
       width: 142px;
     }
   }
-  .tuijian_title_div{
-    .tuijian_title{
+  .tuijian_title_div {
+    .tuijian_title {
       font-size: 18px;
       margin-top: 37px;
     }
-    .tuijian_time{
+    .tuijian_time {
       margin-top: 21px;
       color: #848484;
     }

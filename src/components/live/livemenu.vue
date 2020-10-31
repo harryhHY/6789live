@@ -177,6 +177,7 @@ export default {
 
           this.$store.commit("menufootData", this.footData);
           this.$store.commit("menubacketballdata", this.backetballdata);
+          this.$store.commit("menucomplexdata", this.Collapsedata);
 
           let likelist = [];
           let newarr = [];
