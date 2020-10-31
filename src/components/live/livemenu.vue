@@ -137,6 +137,7 @@ export default {
   },
   methods: {
     getlivemenu() {
+      //获取关注列表
       console.log(this.$route.path);
       let type = 0;
       switch (this.$route.path) {
@@ -212,21 +213,17 @@ export default {
           break;
       }
     },
+    //切换左边
     changetype1(clid, id) {
       switch (this.$route.path) {
         case "/live":
+          this.$emit("changetype", clid, id);
           break;
       }
-      this.$emit("changetype",clid, id);
     },
+    //去个人关注设置
     gotoattention() {
       this.$router.push("/person/attention");
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
     },
   },
   created() {

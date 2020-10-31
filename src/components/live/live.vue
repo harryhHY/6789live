@@ -1,7 +1,7 @@
 <template>
   <div id="live" class="cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu @changetype="pve" />
+    <livemenu @changetype="changetype" />
     <div class="live_content left">
       <liveheader></liveheader>
       <div class="livemain boxshadow">
@@ -111,7 +111,7 @@ export default {
     // 切换最新栏目
     changtype(id, name) {
       this.footballflag = name;
-      console.log(this.footballflag)
+      console.log(this.footballflag);
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
       }).then((res) => {
@@ -121,14 +121,14 @@ export default {
           dataRightBasketball,
           dataRightFootball,
         } = res.data.params;
-        let pipi = name +1 
+        let pipi = name + 1;
         switch (pipi) {
-          case '1':
+          case "1":
             this.livedata = dataFootball;
             this.livemenudata = dataRightFootball;
             this.type = "足球";
             break;
-          case '2':
+          case "2":
             this.livedata = dataBasketball;
             this.livemenudata = dataRightBasketball;
             this.type = "篮球";
@@ -143,9 +143,29 @@ export default {
       this.$router.push("Livedel");
     },
     // 左边直播分类传过来的值
-    pve(clid,id) {
-      console.log(clid,id);
-      this.changtype(id , clid)
+    changetype(clid, id) {
+      this.$axios({
+        url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
+      }).then((res) => {
+        let {
+          dataFootball,
+          dataBasketball,
+          dataRightBasketball,
+          dataRightFootball,
+        } = res.data.params;
+        switch (clid) {
+          case 1:
+            this.livedata = dataFootball;
+            this.livemenudata = dataRightFootball;
+            this.type = "足球";
+            break;
+          case 2:
+            this.livedata = dataBasketball;
+            this.livemenudata = dataRightBasketball;
+            this.type = "篮球";
+            break;
+        }
+      });
     },
     //日期函数
     getDate1(num) {
@@ -166,7 +186,7 @@ export default {
     },
     getdata() {
       this.$axios({
-        url: `${this.$api.homeindex.getliveindex()}${ this.footballflag + 1}`,
+        url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
       }).then((res) => {
         let {
           dataFootball,
@@ -174,7 +194,7 @@ export default {
           dataRightBasketball,
           dataRightFootball,
         } = res.data.params;
-        let pipi = this.footballflag + 1
+        let pipi = this.footballflag + 1;
         switch (pipi) {
           case 1:
             this.livedata = dataFootball;
@@ -187,8 +207,6 @@ export default {
             this.type = "篮球";
             break;
         }
-        console.log(this.livedata,dataFootball)
-        console.log(this.livedata,dataBasketball)
       });
     },
   },
@@ -207,7 +225,7 @@ export default {
   watch: {
     liveheaderfn(newValue) {
       this.footballflag = newValue;
-      console.log(newValue)
+      console.log(newValue);
       if (newValue == 0) {
         this.football = this.menufootData;
       } else {
