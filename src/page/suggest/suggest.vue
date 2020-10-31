@@ -1,8 +1,11 @@
 <template>
 <div id="home">
-    <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
+    <div class="head">
+        <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
+    </div>
     <div class="info_set">
       <div class="line"></div>
+        <el-button type="primary" class="editorjump" icon="el-icon-edit" @click="editorJump">反馈</el-button>
         <p class="p_title">意见反馈</p>
         <div class="top_list">
             <div class="list_con" v-for="(item,index) in article_list" :key="item.id">
@@ -17,7 +20,7 @@
                         <!-- 详情：{{item.feedback_body}}   -->
                     </p>
                     <span href="#" @click="toSuggetDetail(index)">详情>></span>
-                    <img v-for="(images,index) in item.imgList" :key="index" :src="images" alt="">
+                    <img v-for="(images,index) in item.feedback_pic" :key="index" :src="imgurl + images" alt="">
                 </div>
                 <div class="message">
                     您有新消息
@@ -33,7 +36,8 @@
                 <el-button class="submitbtn"  type="primary" @click="getEditorData">提交</el-button>
             </div>
         </div>       
-  </div>
+    </div>
+    <el-backtop target="body #home"></el-backtop>
 </div>
   
 </template>
@@ -53,6 +57,7 @@ export default {
             menu_num: "1",
             headerKey:'1',
             articletitle:'',
+            urlImgList:[],
             article_list:[
                 {
                     id:1,
@@ -81,44 +86,62 @@ export default {
         }
     },
     methods:{
+        //锚点
+        editorJump(){
+            document.querySelector("#editor").scrollIntoView(true)
+        },
         parentEvent(data) {
             this.menu_num = data;
         },
         toSuggetDetail(index){
             this.$router.push({name:'suggestdetail',params:{name:index}})
         },
+        //反馈
         getEditorData() {
             // 通过代码获取编辑器内容
+            this.urlImgList = JSON.parse(localStorage.getItem("imgList"));
+            console.log(this.urlImgList);            
             let data = this.editor.txt.html()
-            this.$api.sendsuggest.suggest({
-                title:this.articletitle,
-                body:data
-            }).then(res => {
-                console.log(res);
-                if (res.data.code == 1) {
-                    this.$message({
-                        type: 'error', // warning、success
-                        message: res.data.msg 
-                    }) 
-                } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })                        
-                } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$router.push("/") 
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                this.$message("设置失败")
-            })
+            if(this.articletitle != ''){
+                this.$api.sendsuggest.suggest({
+                    title:this.articletitle,
+                    body:data,
+                    pic:String(this.urlImgList)
+                }).then(res => {
+                    console.log(res);
+                    if (res.data.code == 1) {
+                        this.$message({
+                            type: 'error', // warning、success
+                            message: res.data.msg 
+                        }) 
+                    } else if (res.data.code == 0) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        //成功清除保存的imglist
+                        localStorage.setItem("imgList", ['']);                   
+                    } else if (res.data.code == -1) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        this.$router.push("/") 
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    this.$message("设置失败")
+                })
+            }else{
+               this.$message({
+                    type: 'warning', // warning、success
+                    message: '标题不能为空'
+                }) 
+            }
+            
 
-            //清空编辑器
+            // 清空编辑器
             this.editor.txt.clear()
         },
         cancleHandler(){
@@ -137,10 +160,6 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
                     this.article_list = res.data.params;                         
                 } else if (res.data.code == -1) {
                     this.$message({
@@ -166,8 +185,7 @@ export default {
         //配置编辑器高度
         // editor.config.height = this.editorParams.height;
         //默认提示语
-        editor.config.placeholder = '请发表讲话3'
-
+        editor.config.placeholder = '多张图片请同时上传最多上传3张'
         //配置菜单
         editor.config.menus = [
             //'head',//标题
@@ -229,6 +247,8 @@ export default {
         // 对粘贴的文本进行处理，然后返回处理后的结果
         return pasteStr + '-6789直播'
         }
+        //上传限制3张
+        editor.config.uploadImgMaxLength = 3;
         // 配置上传图片 server 接口地址
         editor.config.uploadImgServer = this.upImgUrl;
         //定义上传参数
@@ -260,11 +280,22 @@ export default {
             },
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
-                console.log('fail', resData)
+                this.urlImgList = resData.data;
+                console.log(this.urlImgList);
+                //存入本地
+                this.$message({
+                    type: 'success', // warning、success
+                    message: '上传成功' 
+                })
+                localStorage.setItem("imgList", JSON.stringify(this.urlImgList));
             },
             // 上传图片出错，一般为 http 请求的错误
             error: function(xhr, editor, resData) {
                 console.log('error', xhr, resData)
+                this.$message({
+                    type: 'error', // warning、success
+                    message: '上传失败' 
+                })
             },
             // 上传图片超时
             timeout: function(xhr) {
@@ -295,18 +326,26 @@ export default {
 <style lang="less" scoped>
 #home{
     width: 100%;
+    height: 100%;
     background-image: url("../../image/bj.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
-    // position: fixed;
-    // top: 0;
-    // left: 0;
-    // overflow:scroll;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow:scroll;
+    .head{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
 }
 .info_set{
     width: 1273px;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 90px;
     // height: 800px;
     background-color: #FFF;
     // padding: 13px 13px 0;
@@ -315,6 +354,13 @@ export default {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     box-sizing: border-box;
+    .editorjump{
+        position: fixed;
+        top: 450px;
+        right: 340px;
+        opacity: 0.7;
+        z-index: 999;
+    }
     .line{
         width: 200px;
         height: 2px;
@@ -346,7 +392,7 @@ export default {
     }
     .top_list{
         width: 1147px;
-        height: 666px;
+        // height: 666px;
         overflow: auto;
         overflow-x: hidden;
         padding-bottom: 20px;
