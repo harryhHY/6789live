@@ -13,7 +13,7 @@
               class="foot_span"
             >
               <span
-                @click="changtype(item.id, item.name)"
+                @click="changtype(item.id, item.ch_columnm)"
                 :class="item.id == footballflag ? 'footerclick' : ''"
                 >{{ item.ch_name }}</span
               >
@@ -93,7 +93,7 @@ export default {
       livedata: [],
       check: 0,
       headerKey: "2",
-      footballflag: 1,
+      footballflag: 0,
       todaydate: "",
       type: "",
       livemenudata: [],
@@ -110,8 +110,31 @@ export default {
     },
     // 切换最新栏目
     changtype(id, name) {
-      this.footballflag = id;
-      console.log(id, name);
+      this.footballflag = name;
+      console.log(this.footballflag)
+      this.$axios({
+        url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
+      }).then((res) => {
+        let {
+          dataFootball,
+          dataBasketball,
+          dataRightBasketball,
+          dataRightFootball,
+        } = res.data.params;
+        let pipi = name +1 
+        switch (pipi) {
+          case '1':
+            this.livedata = dataFootball;
+            this.livemenudata = dataRightFootball;
+            this.type = "足球";
+            break;
+          case '2':
+            this.livedata = dataBasketball;
+            this.livemenudata = dataRightBasketball;
+            this.type = "篮球";
+            break;
+        }
+      });
     },
     //跳转直播页面
     gotolive(e) {
@@ -120,8 +143,8 @@ export default {
       this.$router.push("Livedel");
     },
     // 左边直播分类传过来的值
-    pve(e) {
-      console.log(e);
+    pve(clid) {
+      // console.log(clid);
     },
     //日期函数
     getDate1(num) {
@@ -142,7 +165,7 @@ export default {
     },
     getdata() {
       this.$axios({
-        url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
+        url: `${this.$api.homeindex.getliveindex()}${ this.footballflag + 1}`,
       }).then((res) => {
         let {
           dataFootball,
@@ -150,19 +173,21 @@ export default {
           dataRightBasketball,
           dataRightFootball,
         } = res.data.params;
-
-        switch (this.footballflag) {
-          case 0:
+        let pipi = this.footballflag + 1
+        switch (pipi) {
+          case 1:
             this.livedata = dataFootball;
             this.livemenudata = dataRightFootball;
             this.type = "足球";
             break;
-          case 1:
+          case 2:
             this.livedata = dataBasketball;
             this.livemenudata = dataRightBasketball;
             this.type = "篮球";
             break;
         }
+        console.log(this.livedata,dataFootball)
+        console.log(this.livedata,dataBasketball)
       });
     },
   },
@@ -181,17 +206,18 @@ export default {
   watch: {
     liveheaderfn(newValue) {
       this.footballflag = newValue;
-      if ((newValue == 0)) {
+      console.log(newValue)
+      if (newValue == 0) {
         this.football = this.menufootData;
-      }else{
-         this.football = this.menubacketballdata;
+      } else {
+        this.football = this.menubacketballdata;
       }
       this.getdata();
     },
   },
   created() {
     this.changeButtonList();
-     this.football = this.menufootData;
+    this.football = this.menufootData;
     this.getdata();
   },
 };
@@ -274,8 +300,8 @@ export default {
   padding: 5px;
   color: #a9a9a9;
   cursor: pointer;
-  span:hover{
-     color: #1a90fc;
+  span:hover {
+    color: #1a90fc;
   }
 }
 .morespan {

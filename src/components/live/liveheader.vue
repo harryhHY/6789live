@@ -6,7 +6,7 @@
           <img src="../../image/news/sicon.png" alt="" class="sicon" />
           <img
             :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
-            v-for="(item, key, index) in liveList"
+            v-for="(item, key) in liveList"
             :key="item.id"
             @click="changetype(key)"
             alt=""
@@ -46,12 +46,13 @@ export default {
     //中间切换足球、篮球种类的
     changetype(index) {
       let data = this.liveList;
+      console.log(index)
       this.$store.commit("liveheader", index);
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < this.liveList.length; i++) {
         if (i == index) {
-          data[i].clicktype = true;
+          this.liveList[i].clicktype = true;
         } else {
-          data[i].clicktype = false;
+          this.liveList[i].clicktype = false;
         }
       }
       // this.$router.push("/live");

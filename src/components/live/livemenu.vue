@@ -16,7 +16,7 @@
             v-for="(item, key, index) in mylike"
             :key="item.id"
             class="playnum cu left ov"
-            @click="changetype(item.id)"
+            @click="changetype1(item.ch_columnm, item.id)"
           >
             {{ item.ch_name }}
           </div>
@@ -25,7 +25,7 @@
         <div class="liveclass">
           <div class="liveclass_header">
             <img src="../../image/news/sort.png" alt="" />
-            {{menutitle}}
+            {{ menutitle }}
           </div>
         </div>
         <!-- 足球 -->
@@ -49,7 +49,7 @@
                 v-for="(item, index) in footData"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype(item.id)"
+                @click="changetype1(item.ch_columnm, item.id)"
               >
                 {{ item.ch_name }}
               </div>
@@ -78,7 +78,7 @@
                 v-for="(item, index) in backetballdata"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype1(item.id)"
+                @click="changetype1(item.ch_columnm, item.id)"
               >
                 {{ item.ch_name }}
               </div>
@@ -106,7 +106,7 @@
                 v-for="(item, index) in Collapsedata"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype1(item.id)"
+                @click="changetype1(item.ch_columnm, item.id)"
               >
                 {{ item.ch_name }}
               </div>
@@ -212,14 +212,15 @@ export default {
           break;
       }
     },
-    changetype1(id) {
+    changetype1(clid, id) {
+      switch (this.$route.path) {
+        case "/live":
+          break;
+      }
       this.$emit("changetype", id);
     },
     gotoattention() {
       this.$router.push("/person/attention");
-    },
-    changetype(id) {
-      this.$emit("changetype", id);
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
