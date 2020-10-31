@@ -8,13 +8,13 @@
             <div class="list_con" v-for="(item,index) in article_list" :key="item.id">
                 <div class="title">
                     <p>
-                        {{item.title}}
-                        <span class="title_time">{{item.timer}}</span>
+                        {{item.feedback_title}}
+                        <span class="title_time">{{item.addtime_format}}</span>
                     </p>
                 </div>
                 <div class="content_con">
-                    <p class="content">
-                        详情：{{item.content}}  
+                    <p class="content" v-html="item.feedback_body">
+                        <!-- 详情：{{item.feedback_body}}   -->
                     </p>
                     <span href="#" @click="toSuggetDetail(index)">详情>></span>
                     <img v-for="(images,index) in item.imgList" :key="index" :src="images" alt="">
@@ -25,6 +25,8 @@
             </div>
         </div>
         <div class="editor_con">
+            <input class="articletitle" type="text" maxlength="20" placeholder="请输入标题(最多20个字)" v-model="articletitle">
+        <hr>
             <div id="editor"></div>
             <div class="btn_con">
                 <el-button class="cancler"  type="info" plain @click="cancleHandler">取消</el-button>
@@ -46,15 +48,18 @@ export default {
     },
     data(){
         return{
+            imgurl:this.JuheHOST,
+            upImgUrl:this.$api.upimg,
             menu_num: "1",
             headerKey:'1',
+            articletitle:'',
             article_list:[
                 {
                     id:1,
-                    title:"建议标题",
-                    timer:"2020-20-20",
-                    content:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-                    imgList:[
+                    feedback_title:"建议标题",
+                    addtime_format:"2020-20-20",
+                    feedback_body:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
+                    feedback_pic:[
                         require("@/image/news.jpeg"),
                         require("@/image/news.jpeg"),
                         require("@/image/news.jpeg")
@@ -62,15 +67,15 @@ export default {
                 },
                 {
                     id:2,
-                    title:"建议标题2",
-                    timer:"2020-20-20",
-                    content:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-                    imgList:[
+                    feedback_title:"建议标题",
+                    addtime_format:"2020-20-20",
+                    feedback_body:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
+                    feedback_pic:[
                         require("@/image/news.jpeg"),
                         require("@/image/news.jpeg"),
                         require("@/image/news.jpeg")
                     ],
-                },
+                }
             ],
             editorData:""
         }
@@ -86,6 +91,7 @@ export default {
             // 通过代码获取编辑器内容
             let data = this.editor.txt.html()
             this.$api.sendsuggest.suggest({
+                title:this.articletitle,
                 body:data
             }).then(res => {
                 console.log(res);
@@ -134,7 +140,8 @@ export default {
                     this.$message({
                         type: 'success', // warning、success
                         message: res.data.msg 
-                    })                             
+                    })
+                    this.article_list = res.data.params;                         
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
@@ -181,7 +188,7 @@ export default {
             "redo",//前进
         ]
         //评论框过滤粘贴的图片
-        editor.config.pasteIgnoreImg = false;
+        editor.config.pasteIgnoreImg = true;
         // 配置行高
         // editor.config.lineHeights = ['1', '1.15', '1.6', '2', '2.5', '3']
         editor.config.emotions = [
@@ -223,7 +230,16 @@ export default {
         return pasteStr + '-6789直播'
         }
         // 配置上传图片 server 接口地址
-        editor.config.uploadImgServer = '/upload-img'
+        editor.config.uploadImgServer = this.upImgUrl;
+        //定义上传参数
+        // editor.config.uploadImgParams = {
+        //     token: localStorage.getItem('token')
+        // }
+        //header携带token
+        editor.config.uploadImgHeaders = {
+            token: localStorage.getItem('token')
+        }
+        editor.config.uploadFileName = 'file[]'
         //取消网络图片上传
         editor.config.showLinkImg = false
         //图片上传操作钩子函数
@@ -233,10 +249,10 @@ export default {
                 console.log(xhr)
 
                 // 可阻止图片上传
-                return {
-                    prevent: true,
-                    msg: '需要提示给用户的错误信息'
-                }
+                // return {
+                //     prevent: true,
+                //     msg: '需要提示给用户的错误信息'
+                // }
             },
             // 图片上传并返回了结果，图片插入已成功
             success: function(xhr) {
@@ -256,13 +272,13 @@ export default {
             },
             // 图片上传并返回了结果，想要自己把图片插入到编辑器中
             // 例如服务器端返回的不是 { errno: 0, data: [...] } 这种格式，可使用 customInsert
-            customInsert: function(insertImgFn, result) {
-                // result 即服务端返回的接口
-                console.log('customInsert', result)
+            // customInsert: function(insertImgFn, result) {
+            //     // result 即服务端返回的接口
+            //     console.log('customInsert', result)
 
-                // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
-                insertImgFn(result.data[0])
-            }
+            //     // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
+            //     insertImgFn(result.data[0])
+            // }
         }
         // 创建编辑器
         editor.create()
@@ -282,6 +298,10 @@ export default {
     background-image: url("../../image/bj.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
+    // position: fixed;
+    // top: 0;
+    // left: 0;
+    // overflow:scroll;
 }
 .info_set{
     width: 1273px;
@@ -326,6 +346,9 @@ export default {
     }
     .top_list{
         width: 1147px;
+        height: 666px;
+        overflow: auto;
+        overflow-x: hidden;
         padding-bottom: 20px;
         margin: auto;
         .list_con{
@@ -349,7 +372,7 @@ export default {
             }
             .content_con{
                 width: 900px;
-                height: 20px;
+                // height: 20px;
                 line-height: 20px;
                 font-size: 14px;
                 .content{
@@ -360,6 +383,14 @@ export default {
                     text-overflow:ellipsis;
                     float: left;
                     color: #AAAAAA;
+                    p{
+                        width: 115px !important;
+                        img{
+                            width: 115px !important;
+                            height: 73px;
+                            margin-right: 1%;
+                        }
+                    } 
                 }
                 span{
                     float: right;
@@ -376,7 +407,7 @@ export default {
             .message{
                 position: absolute;
                 top:0;
-                right: 10px;
+                right: 30px;
                 color: #FC6D6F;
                 font-size: 12px;
                 height: 20px;
@@ -393,6 +424,11 @@ export default {
             width:1147px;         
             resize: vertical;
             font-size: 14px;
+        }
+        .articletitle{
+            width: 100%;
+            padding: 1px 2px;
+            border: none;
         }
         .btn_con{
             position: absolute;
@@ -423,6 +459,19 @@ export default {
 /deep/.w-e-menu .w-e-panel-container .w-e-panel-tab-content{
     height: 200px !important;
 }
+</style>
+<style scoped>
+    .content >>> img{
+        width: 115px;
+        height: 73px;
+        margin-right: 1%;
+        display: none;
+    }
+    .content >>> p{
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
 </style>
 <style>
 .w-e-text-container{

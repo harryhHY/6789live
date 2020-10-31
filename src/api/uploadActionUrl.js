@@ -1,5 +1,5 @@
 /**
- * 隐私设置模块接口demo
+ * 设置-上传头像模块接口
  */
 
 import base from "./base"
