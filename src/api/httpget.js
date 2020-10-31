@@ -18,11 +18,15 @@ const homeindex = {
     return base.livedel
   },
   livevideo() {
-    return axios.get(base.livevideo
-    );
+    return axios.get(base.livevideo);
   },
   newsdel() {
     return base.newsdel
+  },
+  fourm(params) {
+    return axios.get(base.fourm, {
+      params
+    });
   },
 }
 

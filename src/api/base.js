@@ -53,7 +53,9 @@ const base = {
   //获取直播推荐数据
   livevideo:`${host}/apiv2/live/promote`,
   //获取新闻详情信息
-  newsdel:`${host}/apiv2/news/`
+  newsdel:`${host}/apiv2/news/`,
+  //获取社区首页数据
+  fourm:`${host}/api2/fourm`
 }
 
 
