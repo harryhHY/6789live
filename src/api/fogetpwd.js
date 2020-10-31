@@ -5,12 +5,12 @@
 import base from "./base"
 import axios from "./http.js"
 
-const setpassword = {
-    setPwd(content) {
-        return axios.put(base.setpassword,
+const fogetpwd = {
+    changePwd(content) {
+        return axios.put(base.fogetpwd,
             content
         );
     }
 }
 
-export default setpassword
+export default fogetpwd

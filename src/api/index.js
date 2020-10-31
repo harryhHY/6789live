@@ -5,6 +5,7 @@
 import getCode from "./getcode"
 import login from "./login"
 import checkname from "./checkname"
+import fogetpwd from "./fogetpwd"
 import registered from "./registered"
 import basic from "./basicInfo"
 import getbasicInfo from "./getbasicInfo"
@@ -32,6 +33,8 @@ export default {
     registered,
     //检查用户是否存在
     checkname,
+    //忘记密码修改密码
+    fogetpwd,
     //基本信息
     basic,
     //基本信息获取

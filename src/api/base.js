@@ -12,6 +12,8 @@ const base = {
   registered: `${host}/apiv2/user_reg`,
   //检查用户是否存在
   checkname: `${host}/apiv2/user_name_visible`,
+  //忘记密码修改密码
+  fogetpwd: `${host}/apiv2/user_change_pwd`,
   //基本资料设置
   basicInfo: `${host}/apiv2/user/base`,
   //基本资料获取

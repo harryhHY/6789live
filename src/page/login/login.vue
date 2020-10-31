@@ -223,7 +223,6 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;

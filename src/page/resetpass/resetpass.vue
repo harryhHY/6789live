@@ -31,7 +31,15 @@
                 <el-form-item class="code" prop="code" label="">
                   <el-input v-model="register.code" show-password placeholder="请输入验证码" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-button type="primary" class="code_btn">获取验证码</el-button>
+                <el-button
+                  class="code_btn"
+                  type="primary"
+                  @click="getVerify"
+                  :disabled="disabled=!show"
+                >
+                <span v-show="show">获取验证码</span>
+                <span v-show="!show" class="count">{{count}} s</span>
+                </el-button>
               </div>
               <el-form-item>
                 <el-button class="sencond_btn2" type="primary" icon="el-icon-upload" @click="forward()">上一步</el-button>   
@@ -95,7 +103,7 @@ export default {
       var validatePass2 = (rule, value, callback) => {
         if (value == '') {
           callback(new Error('请再次输入密码'));
-        } else if (value !== this.register.password) {
+        } else if (value !== this.resetpass.password) {
           callback(new Error('两次输入密码不一致!'));
         } else {
           callback();
@@ -151,6 +159,9 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ],
       },
+      checked: true,
+      count:"",
+      show: true,
       //步骤条状态
       active: 0,
       oneflag:true,
@@ -173,8 +184,6 @@ export default {
     },
     //第一步提交
     doConfirm(confirmUser) {
-      this.oneflag = false;
-      this.twoflag = true;
         this.$refs['confirmUser'].validate((valid) => {
             if (valid) {
               let params = { name : this.confirmUser.username}
@@ -192,6 +201,8 @@ export default {
                           type: 'success', // warning、success
                           message: res.data.msg 
                         })
+                        this.oneflag = false;
+                        this.twoflag = true;
                         this.active = this.active+1;                             
                     } else if (res.data.code == -1) {
                         this.$message({
@@ -209,9 +220,36 @@ export default {
             }
         });
     },
+    //获取验证码倒计时
+    getVerify() {
+          const TIME_COUNT = 60; //更改倒计时时间
+          if (!this.timer) {
+              this.count = TIME_COUNT;
+              this.show = false;
+              this.timer = setInterval(() => {
+                  if (this.count > 0 && this.count <= TIME_COUNT) {
+                      this.count--;
+                  } else {
+                      this.show = true;
+                      clearInterval(this.timer); // 清除定时器
+                      this.timer = null;
+                  }
+              }, 1000);
+          }
+          this.$axios({
+              url:`${this.$api.getCode}/${this.register.phoneNum}/2`,
+              method: "post",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
     //上一步
     forward(){
-        console.log(111);
         this.oneflag = true;
         this.twoflag = false;
         this.active = this.active-1;
@@ -221,21 +259,44 @@ export default {
         this.twoflag = false;
         this.threeflag = true;
         this.active = this.active+1;
-        this.$refs['register'].validate((valid) => {
-            if (valid) {
-                alert('submit!');
-            } else {
-                console.log('error submit!!');
-                return false;
-            }
-        });
     },
+    //base64转码
+      encode(str){
+        return  str == null ? null : btoa(encodeURIComponent(str));
+      },
     //第三步提交
-    resetPass(resetpass) {
-        this.active = this.active+1;
+    resetPass(resetpass) {       
         this.$refs['resetpass'].validate((valid) => {
             if (valid) {
-                alert('submit!');
+                this.$api.fogetpwd.changePwd({
+                  mobile:this.register.phoneNum,
+                  vcode:this.register.code,
+                  pwd:this.encode(this.resetpass.password)
+                }).then(res => {
+                    console.log(res);
+                    if (res.data.code == 1) {
+                        this.$message({
+                            type: 'error', // warning、success
+                            message: res.data.msg 
+                        }) 
+                    } else if (res.data.code == 0) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        this.$router.push('/');
+                        // this.active = this.active+1;
+                        this.$refs[formName].resetFields();                            
+                    } else if (res.data.code == -1) {
+                        this.$message({
+                            type: 'warning', // warning、success
+                            message: res.data.msg 
+                        })
+                    }
+                })
+                .catch(error => {
+                    this.$message("设置失败")
+                })
             } else {
                 console.log('error submit!!');
                 return false;
