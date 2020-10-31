@@ -10,6 +10,8 @@ const base = {
   // getToken: "​/joke/content/list.php",
   //注册
   registered: `${host}/apiv2/user_reg`,
+  //检查用户是否存在
+  checkname: `${host}/apiv2/user_name_visible`,
   //基本资料设置
   basicInfo: `${host}/apiv2/user/base`,
   //基本资料获取

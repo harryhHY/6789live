@@ -4,6 +4,7 @@
 //登录接口
 import getCode from "./getcode"
 import login from "./login"
+import checkname from "./checkname"
 import registered from "./registered"
 import basic from "./basicInfo"
 import getbasicInfo from "./getbasicInfo"
@@ -29,6 +30,8 @@ export default {
     login,
     //注册
     registered,
+    //检查用户是否存在
+    checkname,
     //基本信息
     basic,
     //基本信息获取

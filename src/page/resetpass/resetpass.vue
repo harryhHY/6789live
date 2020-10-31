@@ -67,29 +67,33 @@ export default {
     home_herder
   },
   data() {
-    //用户名登录
-    var validateName = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
-        if (value == "") {
-          return callback(new Error('用户名不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+    let regphone = /^1[3456789]\d{9}$/;
+    let regmail = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
+      var validateName = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('用户名不能为空'))
+        }else{
+          if (!reg.test(value) && !regphone.test(value) && !regmail.test(value)) {
+            callback(new Error('用户名格式错误'))
+          } else{
+            callback()
+          }
         }
       };
-    var validatePass = (rule, value, callback) => {
-        let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
-        if (value === '') {
-          return callback(new Error('请输入密码'));
-        } else if(new RegExp(reg).test(value) == false){
-           return callback(new Error('密码为6-20位数字字母组成'));
-          // if (this.user.password !== '') {
-          //   this.$refs.user.validateField('checkPass');
-          // }
-          // callback();
+      var validatePass = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-16位数字、字母或字符！'))
+          } else{
+            callback()
+          }
         }
       };
       var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
+        if (value == '') {
           callback(new Error('请再次输入密码'));
         } else if (value !== this.register.password) {
           callback(new Error('两次输入密码不一致!'));
@@ -99,11 +103,14 @@ export default {
       };
       //手机号登录
       var phoneNumber = (rule, value, callback) => {
-      let reg = /^1[3456789]\d{9}$/
-        if (value == "") {
-          return callback(new Error('手机号不能为空'));
-        } else if(new RegExp(reg).test(value) == false){
-          return callback(new Error('手机号格式错误'));
+        if(value == ''){
+          callback(new Error('手机号不能为空'))
+        }else{
+          if (!regphone.test(value)) {
+            callback(new Error('手机号格式错误'))
+          } else{
+            callback()
+          }
         }
       };
     return {
@@ -115,7 +122,6 @@ export default {
         },
         //第二步
       register: {
-        region:"+86",
         phoneNum:"",
         code:"",
       },
@@ -160,10 +166,6 @@ export default {
     //blur事件
     checkBlur(e){
       console.log(e.target.value);
-      this.$message({
-        type: 'error', // warning、success
-        message: '这是一条消息' 
-      }) 
     },
     //选择手机区号
     changeRegion(value){
@@ -173,10 +175,34 @@ export default {
     doConfirm(confirmUser) {
       this.oneflag = false;
       this.twoflag = true;
-        this.active = this.active+1;
         this.$refs['confirmUser'].validate((valid) => {
             if (valid) {
-                alert('submit!');
+              let params = { name : this.confirmUser.username}
+                this.$api.checkname.checkUser(
+                  params
+                ).then(res => {
+                    console.log(res);
+                    if (res.data.code == 1) {
+                        this.$message({
+                          type: 'error', // warning、success
+                          message: res.data.msg 
+                        }) 
+                    } else if (res.data.code == 0) {
+                        this.$message({
+                          type: 'success', // warning、success
+                          message: res.data.msg 
+                        })
+                        this.active = this.active+1;                             
+                    } else if (res.data.code == -1) {
+                        this.$message({
+                          type: 'success', // warning、success
+                          message: res.data.msg 
+                        })
+                    }
+                })
+                .catch(error => {
+                  this.$message("账号或密码错误");
+                })
             } else {
                 console.log('error submit!!');
                 return false;
@@ -218,35 +244,8 @@ export default {
     },
     //移除表单
     resetForm(formName) {
-    this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields();
     }
-    
-    // doLogin() {
-    //   if (!this.user.username) {
-    //     this.$message.error("请输入用户名！");
-    //     return;
-    //   } else if (!this.user.password) {
-    //     this.$message.error("请输入密码！");
-    //     return;
-    //   } else {
-    //     //校验用户名和密码是否正确;
-    //     // this.$router.push({ path: "/personal" });
-    //     axios
-    //       .post("/login/", {
-    //         name: this.user.username,
-    //         password: this.user.password
-    //       })
-    //       .then(res => {
-    //         // console.log("输出response.data.status", res.data.status);
-    //         if (res.data.status === 200) {
-    //           this.$router.push({ path: "/personal" });
-    //         } else {
-    //           alert("您输入的用户名或密码错误！");
-    //         }
-    //       });
-    //   }
-    // }
-    // }
   },
   // computed: {
   //   ...mapState(["activityDetail"]),

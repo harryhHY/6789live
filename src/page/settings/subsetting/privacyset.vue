@@ -115,9 +115,9 @@ export default {
                     })
                     // console.log(res.data.params[0].uPAccount,res.data.params[0].uPFollow,res.data.params[0].uPFans);
                     if(res.data.params.length > 0){
-                        this.ruleForm.basic = String(res.data.params[0].uPAccount);                             
-                        this.ruleForm.attention = String(res.data.params[0].uPFollow);                             
-                        this.ruleForm.fans = String(res.data.params[0].uPFans); 
+                        this.ruleForm.basic = String(res.data.params[0].u_p_account);                             
+                        this.ruleForm.attention = String(res.data.params[0].u_p_follow);                             
+                        this.ruleForm.fans = String(res.data.params[0].u_p_fans); 
                     }
                                                
                 } else if (res.data.code == -1) {
