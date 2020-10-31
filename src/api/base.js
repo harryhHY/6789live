@@ -51,7 +51,9 @@ const base = {
   //获取直播信息
   livedel:`${host}/apiv2/live/player/`,
   //获取直播推荐数据
-  livevideo:`${host}/apiv2/live/promote`
+  livevideo:`${host}/apiv2/live/promote`,
+  //获取新闻详情信息
+  newsdel:`${host}/apiv2/news/`
 }
 
 

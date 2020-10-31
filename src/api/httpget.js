@@ -19,8 +19,10 @@ const homeindex = {
   },
   livevideo() {
     return axios.get(base.livevideo
-
     );
+  },
+  newsdel() {
+    return base.newsdel
   },
 }
 
