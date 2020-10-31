@@ -143,8 +143,9 @@ export default {
       this.$router.push("Livedel");
     },
     // 左边直播分类传过来的值
-    pve(clid) {
-      // console.log(clid);
+    pve(clid,id) {
+      console.log(clid,id);
+      this.changtype(id , clid)
     },
     //日期函数
     getDate1(num) {

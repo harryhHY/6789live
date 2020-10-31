@@ -217,7 +217,7 @@ export default {
         case "/live":
           break;
       }
-      this.$emit("changetype", id);
+      this.$emit("changetype",clid, id);
     },
     gotoattention() {
       this.$router.push("/person/attention");
