@@ -25,6 +25,7 @@ const Helps = import('../page/helps/helps.vue');
 const Suggest = import('../page/suggest/suggest.vue');
 const Suggestdetail = import('../page/suggest/suggestdetail.vue');
 const Nonetwork = import('../page/nonetwork/nonetwork.vue');
+const Search = import('../page/search/search.vue')
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -53,6 +54,11 @@ export default new Router({
       path: '/community',
       name: 'Community',
       component: () => Community
+    },
+    {
+      path: '/search',
+      name: 'Search',
+      component: () => Search
     },
     {
       path: '/communitydel',
