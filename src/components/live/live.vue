@@ -70,7 +70,6 @@
               {{ item.gameStage }}
             </div>
             <div class="liveicon left cu" @click="gotolive(item)"></div>
-            <div class="left hqlive">高清直播</div>
           </div>
         </div>
       </div>
@@ -115,22 +114,17 @@ export default {
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
       }).then((res) => {
-        let {
-          dataFootball,
-          dataBasketball,
-          dataRightBasketball,
-          dataRightFootball,
-        } = res.data.params;
+        let { dataFootball, dataBasketball, hot_live } = res.data.params;
         let pipi = name + 1;
+        this.livemenudata = hot_live;
         switch (pipi) {
           case "1":
             this.livedata = dataFootball;
-            this.livemenudata = dataRightFootball;
+
             this.type = "足球";
             break;
           case "2":
             this.livedata = dataBasketball;
-            this.livemenudata = dataRightBasketball;
             this.type = "篮球";
             break;
         }
@@ -147,21 +141,17 @@ export default {
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
       }).then((res) => {
-        let {
-          dataFootball,
-          dataBasketball,
-          dataRightBasketball,
-          dataRightFootball,
-        } = res.data.params;
+        let { dataFootball, dataBasketball, hot_live } = res.data.params;
+        this.livemenudata = hot_live;
         switch (clid) {
           case 1:
             this.livedata = dataFootball;
-            this.livemenudata = dataRightFootball;
+
             this.type = "足球";
             break;
           case 2:
             this.livedata = dataBasketball;
-            this.livemenudata = dataRightBasketball;
+
             this.type = "篮球";
             break;
         }
@@ -188,22 +178,16 @@ export default {
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
       }).then((res) => {
-        let {
-          dataFootball,
-          dataBasketball,
-          dataRightBasketball,
-          dataRightFootball,
-        } = res.data.params;
+        let { dataFootball, dataBasketball, hot_live } = res.data.params;
         let pipi = this.footballflag + 1;
+        this.livemenudata = hot_live;
         switch (pipi) {
           case 1:
             this.livedata = dataFootball;
-            this.livemenudata = dataRightFootball;
             this.type = "足球";
             break;
           case 2:
             this.livedata = dataBasketball;
-            this.livemenudata = dataRightBasketball;
             this.type = "篮球";
             break;
         }
@@ -221,6 +205,9 @@ export default {
     liveheaderfn() {
       return this.$store.state.liveheader;
     },
+    menufootDatafn() {
+      return this.$store.state.menufootData;
+    },
   },
   watch: {
     liveheaderfn(newValue) {
@@ -232,6 +219,9 @@ export default {
         this.football = this.menubacketballdata;
       }
       this.getdata();
+    },
+    menufootDatafn(newValue) {
+      this.football = newValue;
     },
   },
   created() {
@@ -435,12 +425,6 @@ export default {
   .liveicon:hover {
     background-image: url("../../image/news/liveicon1.png");
     background-repeat: no-repeat;
-  }
-  .hqlive {
-    font-size: 14px;
-    width: 76px;
-    text-align: center;
-    color: #014681;
   }
 }
 .live_all .livecontent:nth-child(2n-1) {

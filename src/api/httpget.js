@@ -9,9 +9,9 @@ const homeindex = {
   getliveindex() {
     return base.liveindex
   },
-  getnewsindex() {
-    return axios.get(base.newsindex
-
+  getnewsindex(params) {
+    return axios.get(base.newsindex,
+      {params}
     );
   },
   getlivedel() {

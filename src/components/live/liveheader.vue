@@ -46,7 +46,7 @@ export default {
     //中间切换足球、篮球种类的
     changetype(index) {
       let data = this.liveList;
-      console.log(index)
+      console.log(index);
       this.$store.commit("liveheader", index);
       for (let i = 0; i < this.liveList.length; i++) {
         if (i == index) {
@@ -60,9 +60,17 @@ export default {
   },
   computed: {
     ...mapState(["liveheader"]),
+    liveheaderfn() {
+      this.$store.state.liveheader;
+    },
   },
-  created () {
-     this.changetype(this.liveheader);
+  watch: {
+    liveheaderfn(newValue) {
+      console.log(newValue)
+    },
+  },
+  created() {
+    this.changetype(this.liveheader);
   },
 };
 </script>

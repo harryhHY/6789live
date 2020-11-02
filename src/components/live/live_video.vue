@@ -1,7 +1,7 @@
 <template>
   <div class="live_video boxshadow left cl" id="live_video">
     <div class="header_div">
-      <div class="header">{{ type }}视频精选</div>
+      <div class="header">热门直播</div>
     </div>
     <div>
       <div
@@ -17,7 +17,7 @@
           {{ item.aname }} VS {{ item.hname }}
         </div>
       </div>
-      <div class="lookmore cu">查看更多视频</div>
+      <div class="lookmore cu">查看更多直播</div>
     </div>
   </div>
 </template>

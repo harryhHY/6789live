@@ -21,7 +21,7 @@
             <div
               class="left menu_header_foot_class_title cu ov"
               v-for="(item, index) in basket_menu"
-              :key="item.ch_order + index"
+              :key="item.ch_reply_num + index"
             >
               {{ item.ch_name }}
             </div>
@@ -46,11 +46,14 @@
             type="text"
             class="serarch_input"
             placeholder="请输入搜索内容"
+            v-model="searchmsg"
+            v-on:keyup.enter="serach(searchmsg)"
           />
           <img
             src="../../image/news/sousuo.png"
             alt=""
             class="cu search_div_left_img"
+            @click="serach(searchmsg)"
           />
         </div>
         <div class="right search_div_right cl">
@@ -62,7 +65,7 @@
         </div>
       </div>
       <!-- 足球社区 -->
-      <div class="footertitle"></div>
+      <div class="footertitle" v-show="listfooterdata!=false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listfooterdata"
@@ -109,11 +112,11 @@
         <div class="more cu"></div>
       </div>
       <!-- 篮球社区 -->
-      <div class="bsktitle"></div>
+      <div class="bsktitle" v-show="listbasketdata!=false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listbasketdata"
-        :key="item.title + index"
+        :key="item.ch_views_num + index"
       >
         <div class="footer_content_left left">
           <div class="cl footer_content_left_titleheader">
@@ -155,7 +158,7 @@
         <div class="more cu"></div>
       </div>
       <!-- 综合社区 -->
-      <div class="translationtitle"></div>
+      <div class="translationtitle" v-show="listcomplexdata!=false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listcomplexdata"
@@ -200,31 +203,6 @@
         <div class="more cu"></div>
       </div>
     </div>
-    <div class="community_hotmenu left boxshadow">
-      <div class="community_hotmenu_header">今日热门社区</div>
-      <div class="boreder_bt cl">
-        <div class="boreder_bt_left left"></div>
-        <div class="boreder_bt_right left"></div>
-      </div>
-      <div
-        v-for="(item, index) in hotmenu"
-        :key="index"
-        class="community_hotmenu_content cl"
-      >
-        <div class="community_hotmenu_content_commavatar left">
-          <div class="cl centerimg">
-            <img :src="item.commavatar" alt="" class="left" />
-            <div class="left community_hotmenu_commname ov">
-              {{ item.commname }}
-            </div>
-          </div>
-        </div>
-        <div class="hotmenu_content_todaynum left">
-          今日发帖：{{ item.commnum }}
-        </div>
-      </div>
-      <div class="lookmore">查看更多</div>
-    </div>
   </div>
 </template>
 
@@ -245,7 +223,7 @@ export default {
       listfooterdata: [], //足球评论区
       listbasketdata: [], //篮球评论区
       listcomplexdata: [], //综合评论区
-      totalpost: 111,
+      totalpost: 0,
       hotmenu: [
         {
           commavatar: require("../../image/team.jpg"),
@@ -268,6 +246,7 @@ export default {
           commnum: 222,
         },
       ],
+      searchmsg: "",
     };
   },
   methods: {
@@ -281,12 +260,34 @@ export default {
         this.listfooterdata = forum[1];
         this.listbasketdata = forum[2];
         this.listcomplexdata = forum[3];
-        console.log(res.data.params[1]);
+        console.log(this.listfooterdata);
       });
     },
     serach(msg) {
-      this.serachMsg = this.$inHTMLData(msg);
-      console.log(this.serachMsg);
+      console.log(msg);
+      let addmsg = this.$inHTMLData(msg);
+      this.$api.homeindex
+        .search({
+          search_type: 3,
+          keywords: addmsg,
+        })
+        .then((res) => {
+          let { code, params } = res.data;
+          if (code == 0) {
+            if (params != false) {
+              this.listfooterdata = params;
+              this.listbasketdata = []
+              this.listcomplexdata = []
+            } else {
+              this.$message({
+                message: "没有此类新闻哦",
+                type: "warning",
+              });
+            }
+          }
+        });
+      this.searchmsg = "";
+      console.log(this.searchmsg);
     },
     gotocommdel() {
       this.$router.push("/communitydel");

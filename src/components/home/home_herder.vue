@@ -174,14 +174,17 @@ export default {
   methods: {
     exit() {
       this.$store.commit("token", "");
-      localStorage.setItem('token','')
-      this.$router.push('/');
+      localStorage.setItem("token", "");
+      this.$router.push("/");
     },
     gptoperson(e) {
       console.log(e);
     },
     gotosm(src) {
       this.$router.push(src);
+      if (src == "/live") {
+        this.$store.commit("liveheader", 0);
+      }
     },
     //登录
     gologin() {

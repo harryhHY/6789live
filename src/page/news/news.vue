@@ -1,7 +1,7 @@
 <template>
   <div class="new cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu></livemenu>
+    <livemenu @changenewstype="changenewstype"></livemenu>
     <div class="new_content boxshadow left">
       <div>
         <div class="newsclass_div cl">
@@ -13,9 +13,9 @@
                 ? 'newsclass1 left cu'
                 : 'newsclass left cu'
             "
-            @click="changemenu(index)"
+            @click="changemenu(index, item)"
           >
-            {{ item.name }}
+            {{ item.ch_name }}
             <div
               :class="
                 changemenuflag == index ? 'newsclass_click1' : 'newsclass_click'
@@ -43,15 +43,15 @@
           </div>
           <div class="left news_content_right">
             <div class="news_title cl">
-              <div class="newstype1 left">
-                {{ item.newstype1 }}
+              <div class="newstype1 left ov">
+                {{ item.ch_name }}
               </div>
               <div class="left ov">{{ item.news_title }}</div>
             </div>
             <div class="details ov">详情：{{ item.news_body }}</div>
             <div class="label_div cl">
               <div class="label left cu">
-                {{ item.news_channel_id }}
+                {{ item.ch_name }}
               </div>
             </div>
             <div class="newstime">
@@ -76,6 +76,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
@@ -86,38 +87,7 @@ export default {
       headerKey: "3",
       searchmsg: "",
       host: "",
-      newsClass: [
-        {
-          name: "西甲",
-        },
-        {
-          name: "中超",
-        },
-        {
-          name: "西甲",
-        },
-        {
-          name: "中超",
-        },
-        {
-          name: "西甲",
-        },
-        {
-          name: "中超",
-        },
-        {
-          name: "西甲",
-        },
-        {
-          name: "中超",
-        },
-        {
-          name: "西甲",
-        },
-        {
-          name: "中超",
-        },
-      ],
+      newsClass: [], //新闻的栏目menu
       newsdata: [], ///新闻列表
       changemenuflag: "0",
       live_data: [], //右边直播数据
@@ -128,8 +98,38 @@ export default {
     inst() {
       this.host = host;
     },
-    changemenu(idx) {
+    changemenu(idx, item) {
       this.changemenuflag = idx;
+      console.log(item.id);
+      this.$api.homeindex
+        .getnewsindex({
+          cid: item.id,
+        })
+        .then((res) => {
+          let { code, params } = res.data;
+          let { news_data } = params;
+          if (code == 0) {
+            this.newsdata = news_data;
+          }
+        });
+    },
+    changenewstype(id) {
+      for (let i = 0; i < this.newsClass.length; i++) {
+        if (this.newsClass[i].id == id) {
+          this.changemenuflag = i;
+        }
+      }
+      this.$api.homeindex
+        .getnewsindex({
+          cid: id,
+        })
+        .then((res) => {
+          let { code, params } = res.data;
+          let { news_data } = params;
+          if (code == 0) {
+            this.newsdata = news_data;
+          }
+        });
     },
     gotonewsdel(e) {
       this.$router.push({
@@ -138,8 +138,28 @@ export default {
       this.$store.commit("newsList", e);
     },
     serach(msg) {
-      this.searchmsg = this.$inHTMLData(msg);
-      console.log(this.searchmsg);
+      this.$router.push('/search')
+      // let addmsg = this.$inHTMLData(msg);
+      // this.$api.homeindex
+      //   .search({
+      //     search_type: 1,
+      //     keywords: addmsg,
+      //   })
+      //   .then((res) => {
+      //     let { code, params } = res.data;
+      //     if (code == 0) {
+      //       if (params != false) {
+      //         this.newsdata = params;
+      //       } else {
+      //         this.$message({
+      //           message: "没有此类新闻哦",
+      //           type: "warning",
+      //         });
+      //       }
+      //     }
+      //   });
+      // this.searchmsg = "";
+      // console.log(this.searchmsg);
     },
     getdata() {
       //获取新闻首页数据
@@ -151,11 +171,29 @@ export default {
         this.$store.commit("newslivedata", this.live_data);
         this.$store.commit("newsmenuswp", this.promote_news_data);
       });
+
+      this.newsClass = this.menubacketballdata.concat(
+        this.menucomplexdata,
+        this.menufootData
+      );
+      console.log(this.newsClass);
     },
   },
   computed: {
+    ...mapState(["menubacketballdata", "menucomplexdata", "menufootData"]),
+    menufootDatafn() {
+      return this.$store.state.menufootData;
+    },
     name() {
       return this.data;
+    },
+  },
+  watch: {
+    menufootDatafn(newValue) {
+      this.newsClass = this.menubacketballdata.concat(
+        this.menucomplexdata,
+        this.menufootData
+      );
     },
   },
   components: {

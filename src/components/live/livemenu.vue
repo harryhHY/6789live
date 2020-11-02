@@ -171,32 +171,41 @@ export default {
           type,
         })
         .then((res) => {
-          let { channel, user_followed_id } = res.data.params;
-          this.backetballdata = channel[2];
-          this.footData = channel[1];
-          this.Collapsedata = channel[3];
-
-          this.$store.commit("menufootData", this.footData);
-          this.$store.commit("menubacketballdata", this.backetballdata);
-          this.$store.commit("menucomplexdata", this.Collapsedata);
-
-          let likelist = [];
-          let newarr = [];
-          let totalList = this.backetballdata.concat(
-            this.footData,
-            this.Collapsedata
-          );
-          totalList.map((item) => {
-            newarr.push({ item });
-          });
-          user_followed_id.filter((item) => {
-            newarr.map((it) => {
-              if (it.item.id == item) {
-                likelist.push(it.item);
-              }
+          let { code, msg } = res.data;
+          if (code == -1 && msg == "token过期") {
+            console.log(code);
+            this.$message({
+              message: "想要查看完整功能请登录",
+              type: "warning",
             });
-          });
-          this.mylike = likelist;
+          } else if (code == 0) {
+            let { channel, user_followed_id } = res.data.params;
+            this.backetballdata = channel[2];
+            this.footData = channel[1];
+            this.Collapsedata = channel[3];
+
+            this.$store.commit("menufootData", this.footData);
+            this.$store.commit("menubacketballdata", this.backetballdata);
+            this.$store.commit("menucomplexdata", this.Collapsedata);
+
+            let likelist = [];
+            let newarr = [];
+            let totalList = this.backetballdata.concat(
+              this.footData,
+              this.Collapsedata
+            );
+            totalList.map((item) => {
+              newarr.push({ item });
+            });
+            user_followed_id.filter((item) => {
+              newarr.map((it) => {
+                if (it.item.id == item) {
+                  likelist.push(it.item);
+                }
+              });
+            });
+            this.mylike = likelist;
+          }
         });
     },
     //是否收齐直播栏目
@@ -217,8 +226,10 @@ export default {
     changetype1(clid, id) {
       switch (this.$route.path) {
         case "/live":
-          this.$emit("changetype", clid, id);
+          this.$emit("changetype", clid, );
           break;
+        case "/new":
+          this.$emit('changenewstype',id);
       }
     },
     //去个人关注设置

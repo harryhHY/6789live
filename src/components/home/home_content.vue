@@ -160,7 +160,7 @@
         >
           <div class="left livegametype_div">
             <div class="livegametype">{{ gametype }}</div>
-            <div>{{ item.lname }}</div>
+            <div class="ov">{{ item.lname }}</div>
           </div>
           <div class="cl leftcontent left">
             <div class="left aname ov">
