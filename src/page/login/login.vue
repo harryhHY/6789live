@@ -299,7 +299,6 @@ export default {
           }
           this.$refs['user'].validate((valid) => {
             if (valid) {
-              alert('submit!');
                this.login();
             } else {
               console.log('error submit!!');
@@ -316,7 +315,6 @@ export default {
           }
           this.$refs['iphone'].validate((valid) => {
             if (valid) {
-              alert('submit!');
               this.login();    
             } else {
               console.log('error submit!!');

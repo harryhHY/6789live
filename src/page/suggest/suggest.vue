@@ -160,7 +160,11 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.article_list = res.data.params;                         
+                    this.article_list = res.data.params;
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })                        
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
@@ -280,22 +284,15 @@ export default {
             },
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
-                this.urlImgList = resData.data;
+                console.log(resData);
+                this.urlImgList = resData.params;
                 console.log(this.urlImgList);
                 //存入本地
-                this.$message({
-                    type: 'success', // warning、success
-                    message: '上传成功' 
-                })
                 localStorage.setItem("imgList", JSON.stringify(this.urlImgList));
             },
             // 上传图片出错，一般为 http 请求的错误
             error: function(xhr, editor, resData) {
                 console.log('error', xhr, resData)
-                this.$message({
-                    type: 'error', // warning、success
-                    message: '上传失败' 
-                })
             },
             // 上传图片超时
             timeout: function(xhr) {

@@ -87,8 +87,22 @@ export default {
         getEditorData() {
             // 通过代码获取编辑器内容
             let data = this.editor.txt.html()
-            alert(data)
-
+            //回复提交
+            this.$axios({
+                url:`${this.$api.suggestreply}/1`,
+                method: "post",
+                data: {
+                    fid: 1,
+                    body: data
+                },
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.log(error);
+            });
             //清空编辑器
             this.editor.txt.clear()
         },
@@ -203,7 +217,19 @@ export default {
         }
         // 创建编辑器
         editor.create()
-        this.editor = editor
+        this.editor = editor;
+        //获取反馈详情
+        this.$axios({
+              url:`${this.$api.suggestdetail}/1`,
+              method: "get",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
     },
     beforeDestroy() {
         // 调用销毁 API 对当前编辑器实例进行销毁

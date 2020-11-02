@@ -23,6 +23,8 @@ import editchanel from "./editchanel"
 import suggestList from "./suggestList"
 import sendsuggest from "./sendsuggest"
 import upimg from "./upimg"
+import suggestdetail from "./suggestdetail"
+import suggestreply from "./suggestreply"
 
 //导出接口
 export default {
@@ -67,5 +69,9 @@ export default {
     //反馈提交
     sendsuggest,
     //图片上传
-    upimg
+    upimg,
+    //获取反馈详情
+    suggestdetail,
+    //反馈回复
+    suggestreply
 }
