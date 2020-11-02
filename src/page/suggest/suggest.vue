@@ -8,7 +8,7 @@
         <el-button type="primary" class="editorjump" icon="el-icon-edit" @click="editorJump">反馈</el-button>
         <p class="p_title">意见反馈</p>
         <div class="top_list">
-            <div class="list_con" v-for="(item,index) in article_list" :key="item.id">
+            <div class="list_con" v-for="(item,index) in article_list" :key="index">
                 <div class="title">
                     <p>
                         {{item.feedback_title}}
@@ -19,7 +19,7 @@
                     <p class="content" v-html="item.feedback_body">
                         <!-- 详情：{{item.feedback_body}}   -->
                     </p>
-                    <span href="#" @click="toSuggetDetail(index)">详情>></span>
+                    <span href="#" @click="toSuggetDetail(item.id)">详情>></span>
                     <img v-for="(images,index) in item.feedback_pic" :key="index" :src="imgurl + images" alt="">
                 </div>
                 <div class="message">
@@ -174,7 +174,7 @@ export default {
                 }
             })
             .catch(error => {
-                this.$message("账号或密码错误");
+                this.$message("");
             })
         }
     },
@@ -285,7 +285,7 @@ export default {
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
                 console.log(resData);
-                this.urlImgList = resData.params;
+                this.urlImgList = resData.data;
                 console.log(this.urlImgList);
                 //存入本地
                 localStorage.setItem("imgList", JSON.stringify(this.urlImgList));

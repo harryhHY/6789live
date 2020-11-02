@@ -43,7 +43,7 @@ const base = {
   //反馈提交
   sendsuggest:`${host}/apiv2/feedback`,
   //图片上传
-  upImg: `${host}/apiv2/pic/common`,
+  upImg: `${host}/apiv2/pic`,
   //反馈详情
   suggestdetail:`${host}/apiv2/feedback`,
   //反馈回复提交
