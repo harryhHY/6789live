@@ -174,6 +174,8 @@ export default {
   methods: {
     exit() {
       this.$store.commit("token", "");
+      localStorage.setItem('token','')
+      this.$router.push('/');
     },
     gptoperson(e) {
       console.log(e);

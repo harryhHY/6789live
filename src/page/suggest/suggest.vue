@@ -30,6 +30,7 @@
         <div class="editor_con">
             <input class="articletitle" type="text" maxlength="20" placeholder="请输入标题(最多20个字)" v-model="articletitle">
         <hr>
+            <div id="toolbar" class="toolbar"></div>
             <div id="editor"></div>
             <div class="btn_con">
                 <el-button class="cancler"  type="info" plain @click="cancleHandler">取消</el-button>
@@ -58,30 +59,7 @@ export default {
             headerKey:'1',
             articletitle:'',
             urlImgList:[],
-            article_list:[
-                {
-                    id:1,
-                    feedback_title:"建议标题",
-                    addtime_format:"2020-20-20",
-                    feedback_body:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-                    feedback_pic:[
-                        require("@/image/news.jpeg"),
-                        require("@/image/news.jpeg"),
-                        require("@/image/news.jpeg")
-                    ],
-                },
-                {
-                    id:2,
-                    feedback_title:"建议标题",
-                    addtime_format:"2020-20-20",
-                    feedback_body:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-                    feedback_pic:[
-                        require("@/image/news.jpeg"),
-                        require("@/image/news.jpeg"),
-                        require("@/image/news.jpeg")
-                    ],
-                }
-            ],
+            article_list:[],
             editorData:""
         }
     },
@@ -106,7 +84,7 @@ export default {
                 this.$api.sendsuggest.suggest({
                     title:this.articletitle,
                     body:data,
-                    pic:String(this.urlImgList)
+                    pic:String(...this.urlImgList)
                 }).then(res => {
                     console.log(res);
                     if (res.data.code == 1) {
@@ -180,7 +158,8 @@ export default {
     },
     mounted(){
         this.getSuggestList();
-        const editor = new wangEditor(`#editor`);
+        // const editor = new wangEditor(`#editor`);
+        const editor = new wangEditor('#toolbar', '#editor')
         // 配置 onchange 回调函数，将数据同步到 vue 中
         editor.config.onchange = (newHtml) => {
             this.editorData = newHtml;
@@ -267,6 +246,7 @@ export default {
         //取消网络图片上传
         editor.config.showLinkImg = false
         //图片上传操作钩子函数
+        let that = this;
         editor.config.uploadImgHooks = {
             // 上传图片之前
             before: function(xhr) {
@@ -289,6 +269,10 @@ export default {
                 console.log(this.urlImgList);
                 //存入本地
                 localStorage.setItem("imgList", JSON.stringify(this.urlImgList));
+                that.$message({
+                    type: 'success', // warning、success
+                    message: "上传成功"
+                })
             },
             // 上传图片出错，一般为 http 请求的错误
             error: function(xhr, editor, resData) {
@@ -463,10 +447,17 @@ export default {
         margin: auto;
         padding-bottom: 100px;
         position: relative;
+        z-index: 10;
         #editor{
             width:1147px;         
-            resize: vertical;
+            resize: vertical !important;
             font-size: 14px;
+            border: 1px solid #CACACA;
+        }
+        .toolbar{
+            width:1147px;
+            font-size: 14px;
+            border: 1px solid #CACACA;
         }
         .articletitle{
             width: 100%;
@@ -499,7 +490,12 @@ export default {
       padding: 5px 10px;
       cursor: pointer;
     }
+/deep/.w-e-menu .w-e-panel-container{
+    width: 600px !important;
+    margin-left: 0 !important;
+}
 /deep/.w-e-menu .w-e-panel-container .w-e-panel-tab-content{
+    width: 600px !important;
     height: 200px !important;
 }
 </style>
@@ -517,10 +513,6 @@ export default {
     }
 </style>
 <style>
-.w-e-text-container{
-    /* resize: vertical !important; */
-    height: 197px !important;
-}
 .w-e-toolbar{
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;

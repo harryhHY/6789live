@@ -5,6 +5,7 @@
       </div>     
       <div class="info_set">
       <div class="line"></div>
+      <el-button type="primary" class="editorjump" icon="el-icon-edit" @click="editorJump">回复</el-button>
         <p class="p_title">意见详情</p>
         <div class="detal">
                 <div class="list_con">
@@ -74,29 +75,16 @@ export default {
             imgurl:this.JuheHOST,
             replyUpImgUrl:this.$api.upimg,
             replyUrlImgList:[],
-            detail_list:
-            {
-                id:1,
-                title:"建议标题",
-                timer:"2020-20-20",
-                content:"dolor sit amet lacus m socis mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.",
-                imgList:[
-                    require("@/image/news.jpeg"),
-                    require("@/image/news.jpeg"),
-                    require("@/image/news.jpeg")
-                ],
-            },
-            reply_list:{
-                id:1,
-                user:"官方回复",
-                img:"",
-                timer:"2020-10-21",
-                content:" Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio."
-            },
+            detail_list:{},
+            reply_list:{},
             uid:''     
         }
     },
     methods:{
+        //锚点
+        editorJump(){
+            document.querySelector("#editor").scrollIntoView(true)
+        },
         parentEvent(data) {
             this.menu_num = data;
         },
@@ -159,18 +147,33 @@ export default {
             })
             .then(res => {
                 console.log(res);
-                for(let index in res.data.params.feedback_pic){
-                    res.data.params.feedback_pic[index] = this.imgurl + res.data.params.feedback_pic[index];
-                    // console.log(res.data.params.feedback_pic[index]);
-                }
-                for(let index in res.data.params.feedback_reply){                       
-                    for(let i in res.data.params.feedback_reply[index].f_r_pic){
-                        res.data.params.feedback_reply[index].f_r_pic[i] = this.imgurl + res.data.params.feedback_reply[index].f_r_pic[i];
-                        // console.log(res.data.params.feedback_reply[index].f_r_pic[i]);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    let feedback_pic = res.data.params.feedback_pic;
+                    for(let index in feedback_pic){
+                        feedback_pic[index] = this.imgurl + feedback_pic[index];
+                        // console.log(res.data.params.feedback_pic[index]);
                     }
+                    let feedback_reply = res.data.params.feedback_reply;
+                    for(let index in feedback_reply){                       
+                        for(let i in feedback_reply[index].f_r_pic){
+                            feedback_reply[index].f_r_pic[i] = this.imgurl + feedback_reply[index].f_r_pic[i];
+                            // console.log(res.data.params.feedback_reply[index].f_r_pic[i]);
+                        }
+                    }
+                    this.detail_list = res.data.params;
+                    this.reply_list = res.data.params.feedback_reply;                  
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
                 }
-                this.detail_list = res.data.params;
-                this.reply_list = res.data.params.feedback_reply;
                 // console.log(this.detail_list);
             })
             .catch(error => {
@@ -260,6 +263,7 @@ export default {
         //取消网络图片上传
         editor.config.showLinkImg = false
         //图片上传操作钩子函数
+        let that = this;
         editor.config.uploadImgHooks = {
             // 上传图片之前
             before: function(xhr) {
@@ -281,6 +285,10 @@ export default {
                 console.log(resData);
                 this.replyUrlImgList = resData.data;
                 console.log(this.replyUrlImgList);
+                that.$message({
+                    type: 'success', // warning、success
+                    message: "上传成功"
+                })
                 //存入本地
                 localStorage.setItem("relpyImgList", JSON.stringify(this.replyUrlImgList));
             },
@@ -345,6 +353,13 @@ export default {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     box-sizing: border-box;
+    .editorjump{
+        position: fixed;
+        top: 250px;
+        right: 340px;
+        opacity: 0.7;
+        z-index: 999;
+    }
     .line{
         width: 200px;
         height: 2px;
@@ -433,6 +448,7 @@ export default {
         }
         .reply_con{
             width: 1147px;
+            border-bottom: 1px dashed #CACACA;
             .reply_title{
                 color: #1a94fc;
                 font-size: 16px;
@@ -476,6 +492,8 @@ export default {
             resize: vertical;
             font-size: 14px;
             border: 1px solid #ccc;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
         }
         .toolbar{
             width:1147px;
@@ -508,6 +526,6 @@ export default {
 }
 /deep/.w-e-menu .w-e-panel-container .w-e-panel-tab-content{
     width: 600px !important;
-    height: 120px !important;
+    height: 200px !important;
 }
 </style>
