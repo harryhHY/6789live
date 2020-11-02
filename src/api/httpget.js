@@ -28,6 +28,11 @@ const homeindex = {
       params
     });
   },
+  search(params) {
+    return axios.get(base.search, {
+      params
+    });
+  }
 }
 
 export default homeindex
