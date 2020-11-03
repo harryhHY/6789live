@@ -37,15 +37,20 @@
           class="exponentfor cl"
         >
           <div class="left w142">{{ item.provider }}</div>
-          <div class="left w187">
-            {{ item.data[3].marketOdds }}
+          <div class="left w187 cl">
+            <div
+              v-for="(item, index) in item.data[3].marketOdds"
+              class="left w30"
+            >
+              {{ item }}
+            </div>
           </div>
           <div class="left w184">{{ item.data[3].refreshTime }}</div>
-          <div class="left w75">{{ item.data[3].marketValue }}</div>
-          <div class="left w75">{{ item.data[1].marketValue }}</div>
-          <div class="left w165">{{ item.data[1].refreshTime }}</div>
+          <div class="left w75">{{ item.data[5].marketOdds }}</div>
+          <div class="left w75">{{ item.data[5].marketValue }}</div>
+          <div class="left w165">{{ item.data[5].refreshTime }}</div>
           <div class="left w115">{{ item.data[1].marketOdds }}</div>
-          <div class="left w115">{{ item.rangqiu1 }}</div>
+          <div class="left w115">{{ item.data[1].marketValue }}</div>
           <div class="left w195">{{ item.data[1].refreshTime }}</div>
         </div>
         <div
@@ -214,6 +219,10 @@ export default {
       }
       .w187 {
         width: 187px + 2px;
+        .w30 {
+          border: none;
+          width:33%;
+        }
       }
       .w184 {
         width: 184px + 2px;
