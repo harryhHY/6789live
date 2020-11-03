@@ -23,14 +23,13 @@
             ></div>
           </div>
         </div>
-        <div class="search">
+        <div class="search" @click="serach()">
           <input
             type="text"
             placeholder="请输入搜索内容"
             v-model="searchmsg"
-            v-on:keyup.enter="serach(searchmsg)"
           />
-          <div class="sousuo" @click="serach(searchmsg)"></div>
+          <div class="sousuo" ></div>
         </div>
         <div
           class="news_content cl"
@@ -139,27 +138,6 @@ export default {
     },
     serach(msg) {
       this.$router.push('/search')
-      // let addmsg = this.$inHTMLData(msg);
-      // this.$api.homeindex
-      //   .search({
-      //     search_type: 1,
-      //     keywords: addmsg,
-      //   })
-      //   .then((res) => {
-      //     let { code, params } = res.data;
-      //     if (code == 0) {
-      //       if (params != false) {
-      //         this.newsdata = params;
-      //       } else {
-      //         this.$message({
-      //           message: "没有此类新闻哦",
-      //           type: "warning",
-      //         });
-      //       }
-      //     }
-      //   });
-      // this.searchmsg = "";
-      // console.log(this.searchmsg);
     },
     getdata() {
       //获取新闻首页数据

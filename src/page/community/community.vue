@@ -41,19 +41,17 @@
       </div>
       <!-- 搜索框 -->
       <div class="search_div cl">
-        <div class="left search_div_left">
+        <div class="left search_div_left"  @click="serach(searchmsg)">
           <input
             type="text"
             class="serarch_input"
             placeholder="请输入搜索内容"
             v-model="searchmsg"
-            v-on:keyup.enter="serach(searchmsg)"
           />
           <img
             src="../../image/news/sousuo.png"
             alt=""
             class="cu search_div_left_img"
-            @click="serach(searchmsg)"
           />
         </div>
         <div class="right search_div_right cl">
@@ -65,7 +63,7 @@
         </div>
       </div>
       <!-- 足球社区 -->
-      <div class="footertitle" v-show="listfooterdata!=false"></div>
+      <div class="footertitle" v-show="listfooterdata != false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listfooterdata"
@@ -112,7 +110,7 @@
         <div class="more cu"></div>
       </div>
       <!-- 篮球社区 -->
-      <div class="bsktitle" v-show="listbasketdata!=false"></div>
+      <div class="bsktitle" v-show="listbasketdata != false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listbasketdata"
@@ -158,7 +156,7 @@
         <div class="more cu"></div>
       </div>
       <!-- 综合社区 -->
-      <div class="translationtitle" v-show="listcomplexdata!=false"></div>
+      <div class="translationtitle" v-show="listcomplexdata != false"></div>
       <div
         class="cl footer_content"
         v-for="(item, index) in listcomplexdata"
@@ -264,30 +262,7 @@ export default {
       });
     },
     serach(msg) {
-      console.log(msg);
-      let addmsg = this.$inHTMLData(msg);
-      this.$api.homeindex
-        .search({
-          search_type: 3,
-          keywords: addmsg,
-        })
-        .then((res) => {
-          let { code, params } = res.data;
-          if (code == 0) {
-            if (params != false) {
-              this.listfooterdata = params;
-              this.listbasketdata = []
-              this.listcomplexdata = []
-            } else {
-              this.$message({
-                message: "没有此类新闻哦",
-                type: "warning",
-              });
-            }
-          }
-        });
-      this.searchmsg = "";
-      console.log(this.searchmsg);
+      this.$router.push("/search");
     },
     gotocommdel() {
       this.$router.push("/communitydel");
