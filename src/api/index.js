@@ -28,6 +28,7 @@ import suggestreply from "./suggestreply"
 import myprofile from "./myprofile"
 import followfans from "./followfans"
 import publish from "./publish"
+import getformatechanel from "./getformatechanel"
 
 //导出接口
 export default {
@@ -82,5 +83,7 @@ export default {
     //我的粉丝，我的关注
     followfans,
     //帖子发布
-    publish
+    publish,
+    //级联选中
+    getformatechanel
 }

@@ -1,17 +1,10 @@
 /**
- * 帖子发布模块接口
+ * 级联选中模块接口
  */
 
 import base from "./base"
 import axios from "./http.js"
 
-const publish = {
-    publishPost(content) {
-        return axios.post(base.publish,
-            content
-        );
-    }
-}
 const getformatechanel = {
     getChanel(params) {
         return axios.get(base.getformatechanel, {
@@ -20,7 +13,4 @@ const getformatechanel = {
     }
 }
 
-export default {
-    publish,
-    getformatechanel
-}
+export default getformatechanel

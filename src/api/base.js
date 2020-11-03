@@ -50,6 +50,8 @@ const base = {
   suggestreply:`${host}/apiv2/feedback/reply`,
   //帖子发布
   publish:`${host}/apiv2/fourm`,
+  //级联选项
+  getformatechanel:`${host}/apiv2/get_format_channel`,
   //我的主页,我的帖子
   myprofile:`${host}/apiv2/user/profile`,
   //我的粉丝，关注
