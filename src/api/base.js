@@ -49,7 +49,7 @@ const base = {
   //反馈回复提交
   suggestreply:`${host}/apiv2/feedback/reply`,
   //帖子发布
-  publish:`${host}/apiv2/fourm`,
+  publish:`${host}/apiv2/forum`,
   //级联选项
   getformatechanel:`${host}/apiv2/get_format_channel`,
   //我的主页,我的帖子

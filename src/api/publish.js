@@ -12,15 +12,5 @@ const publish = {
         );
     }
 }
-const getformatechanel = {
-    getChanel(params) {
-        return axios.get(base.getformatechanel, {
-            params: params
-        });
-    }
-}
 
-export default {
-    publish,
-    getformatechanel
-}
+export default publish

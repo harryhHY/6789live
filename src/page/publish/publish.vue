@@ -69,7 +69,7 @@ export default {
         //配置编辑器高度
         editor.config.height = 600;
         //默认提示语
-        editor.config.placeholder = '请发表讲话3'
+        editor.config.placeholder = '图片最多同时上传3张,请编辑帖子'
 
         //配置菜单
         editor.config.menus = [
@@ -200,13 +200,37 @@ export default {
          getEditorData() {
             // 通过代码获取编辑器内容
             let data = this.editor.txt.html()
-            alert(data)
+            this.$api.publish.publishPost({
+                forum_title:this.articletitle,
+                channel:this.value[2],
+                body:data
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    //清空编辑器
+                    this.editor.txt.clear()
+                    this.articletitle = ''                            
+                } else if (res.data.code == -1) {
 
-            //清空编辑器
-            this.editor.txt.clear()
+                }
+            })
+            .catch(error => {
+                this.$message("未知错误")
+            })
+
+            
         },
         cancleHandler(){
-
+            this.editor.txt.clear()
         },
         parentEvent(data) {
             this.menu_num = data;
@@ -332,6 +356,8 @@ export default {
                 width:1012px;         
                 resize: vertical;
                 font-size: 14px;
+                border-top-right-radius: 5px !important;
+                border-top-left-radius: 5px;
             }
             .articletitle{
                 padding: 1px 2px;
