@@ -18,6 +18,7 @@ import setpassword from "./setpassword"
 import changephone from "./changephone"
 import checkreal from "./checkreal"
 import homeindex from "./httpget"
+import httppost from "./httppost"
 import attchanelist from "./attchanelist"
 import editchanel from "./editchanel"
 import suggestList from "./suggestList"
@@ -64,6 +65,8 @@ export default {
     checkreal,
     //首页-获取数据
     homeindex,
+    //post结构
+    httppost,
     //获取关注，频道列表
     attchanelist,
     //用户关注频道编辑
