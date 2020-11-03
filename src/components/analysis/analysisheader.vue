@@ -12,24 +12,24 @@
         </div>
       </div>
       <div class="analysisgametype1_div">
-        {{ liveList.gametype1 }}
-        {{ liveList.time }}
+        {{ liveList.lname }}
+        {{ liveList.gameTimeFormat }}
       </div>
       <div class="against">
-        <div class="against_aname ov">{{ liveList.aname }}</div>
-        <div class="against_type">{{ liveList.type }}</div>
-        <div class="against_bname ov">{{ liveList.bname }}</div>
+        <div class="against_aname ov">{{ liveList.hname }}</div>
+        <div class="against_type">{{ liveList.gameStage }}</div>
+        <div class="against_bname ov">{{ liveList.aname }}</div>
       </div>
       <div class="cl team_score">
-        <img :src="liveList.aicon" alt="" class="left analysteaminfo_aicon" />
+        <img :src="liveList.hicon" alt="" class="left analysteaminfo_aicon" />
         <div class="left analysteaminfo_ascore">
-          {{ liveList.ascore }}
+          {{ liveList.hTotalScore }}
         </div>
         <img src="../../image/news/vs.png" alt="" class="left vs" />
         <div class="left analysteaminfo_bscore">
-          {{ liveList.bscore }}
+          {{ liveList.aTotalScore }}
         </div>
-        <img :src="liveList.bicon" alt="" class="left analysteaminfo_aicon" />
+        <img :src="liveList.aicon" alt="" class="left analysteaminfo_aicon" />
       </div>
     </div>
   </div>

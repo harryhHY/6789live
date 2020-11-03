@@ -10,26 +10,26 @@
           <div class="live_title centerimg">
             <div class="livecontent cl">
               <div class="aname ov left">
-                {{ liveList.aname }}
+                {{ liveList.hname }}
               </div>
               <div class="left aicon">
-                <img :src="liveList.aicon" alt="" class="aiconimg" />
+                <img :src="liveList.hicon" alt="" class="aiconimg" />
               </div>
               <div class="ascore left">
-                {{ liveList.aTotalScore }}
+                {{ liveList.hTotalScore }}
               </div>
               <div class="time_type left">
                 <div>{{ liveList.gameTimeFormat }}</div>
                 <div>{{ liveList.gameStage }}</div>
               </div>
               <div class="ascore left">
-                {{ liveList.hTotalScore }}
+                {{ liveList.aTotalScore }}
               </div>
               <div class="left aicon">
-                <img :src="liveList.hicon" alt="" class="aiconimg" />
+                <img :src="liveList.aicon" alt="" class="aiconimg" />
               </div>
               <div class="bname ov left">
-                {{ liveList.hname }}
+                {{ liveList.aname }}
               </div>
             </div>
           </div>

@@ -164,13 +164,13 @@
           </div>
           <div class="cl leftcontent left">
             <div class="left aname ov">
-              {{ item.aname }}
+              {{ item.hname }}
             </div>
             <div class="aicon left">
-              <img :src="item.aicon" alt="" />
+              <img :src="item.hicon" alt="" />
             </div>
             <div class="ascore left">
-              {{ item.aTotalScore }}
+              {{ item.hTotalScore }}
             </div>
           </div>
 
@@ -180,13 +180,13 @@
           </div>
           <div class="rightcontent left cl">
             <div class="right ascore">
-              {{ item.hTotalScore }}
+              {{ item.aTotalScore }}
             </div>
             <div class="aicon right">
-              <img :src="item.hicon" alt="" />
+              <img :src="item.aicon" alt="" />
             </div>
             <div class="right aname ov">
-              {{ item.hname }}
+              {{ item.aname }}
             </div>
           </div>
         </div>

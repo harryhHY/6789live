@@ -37,26 +37,26 @@
               <div class="gametype1 ov">{{ item.lname }}</div>
             </div>
             <div class="aname ov left">
-              {{ item.aname }}
+              {{ item.hname }}
             </div>
             <div class="left aicon">
-              <img :src="item.aicon" alt="" class="aiconimg" />
+              <img :src="item.hicon" alt="" class="aiconimg" />
             </div>
             <div class="ascore left">
-              {{ item.aTotalScore }}
+              {{ item.hTotalScore }}
             </div>
             <div class="time_type left">
               <div>{{ item.gameTimeFormat }}</div>
               <div>{{ item.gameStage }}</div>
             </div>
             <div class="ascore left">
-              {{ item.hTotalScore }}
+              {{ item.aTotalScore }}
             </div>
             <div class="left aicon">
-              <img :src="item.hicon" alt="" class="aiconimg" />
+              <img :src="item.aicon" alt="" class="aiconimg" />
             </div>
             <div class="bname ov left">
-              {{ item.hname }}
+              {{ item.aname }}
             </div>
             <div class="cl left anadiv cu" @click="gotoanalysis(item)">
               <div class="anaimg left"></div>

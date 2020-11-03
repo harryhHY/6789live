@@ -11,11 +11,11 @@
             <div class="opthings_div" v-show="show">
               <div
                 v-for="(item, index) in tableData"
-                :key="index"
+                :key="index + item.provider + index"
                 class="opthings cu"
-                @click="changeopthings(item.name)"
+                @click="changeopthings(item.provider)"
               >
-                {{ item.name }}
+                {{ item.provider }}
               </div>
             </div>
           </div>
@@ -30,18 +30,41 @@
           <div class="left w232">让球</div>
           <div class="left w195">更新时间</div>
         </div>
-        <div v-for="(item, index) in List" :key="index" class="exponentfor cl">
-          <div class="left w142">{{ item.com }}</div>
+        <div
+          v-if="filter == false"
+          v-for="(item, index) in List"
+          :key="index"
+          class="exponentfor cl"
+        >
+          <div class="left w142">{{ item.provider }}</div>
           <div class="left w187">
-            {{ item.duying1 }} {{ item.duying3 }} {{ item.duying3 }}
+            {{ item.data[3].marketOdds }}
           </div>
-          <div class="left w184">{{ item.update }}</div>
-          <div class="left w75">{{ item.big }}</div>
-          <div class="left w75">{{ item.small }}</div>
-          <div class="left w165">{{ item.update1 }}</div>
-          <div class="left w115">{{ item.rangqiu }}</div>
+          <div class="left w184">{{ item.data[3].refreshTime }}</div>
+          <div class="left w75">{{ item.data[3].marketValue }}</div>
+          <div class="left w75">{{ item.data[1].marketValue }}</div>
+          <div class="left w165">{{ item.data[1].refreshTime }}</div>
+          <div class="left w115">{{ item.data[1].marketOdds }}</div>
           <div class="left w115">{{ item.rangqiu1 }}</div>
-          <div class="left w195">{{ item.update2 }}</div>
+          <div class="left w195">{{ item.data[1].refreshTime }}</div>
+        </div>
+        <div
+          v-if="filter != false"
+          v-for="(item, index) in filter"
+          :key="item.provider + index"
+          class="exponentfor cl"
+        >
+          <div class="left w142">{{ item.provider }}</div>
+          <div class="left w187">
+            {{ item.data[3].marketOdds }}
+          </div>
+          <div class="left w184">{{ item.data[3].refreshTime }}</div>
+          <div class="left w75">{{ item.data[3].marketValue }}</div>
+          <div class="left w75">{{ item.data[1].marketValue }}</div>
+          <div class="left w165">{{ item.data[1].refreshTime }}</div>
+          <div class="left w115">{{ item.data[1].marketOdds }}</div>
+          <div class="left w115">{{ item.rangqiu1 }}</div>
+          <div class="left w195">{{ item.data[1].refreshTime }}</div>
         </div>
       </div>
     </div>
@@ -49,92 +72,66 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const analysisheader = () => import("../../components/analysis/analysisheader");
 export default {
   data() {
     return {
-      checkmenutype:2,
+      checkmenutype: 2,
       headerKey: "2",
-      tableData: [
-        {
-          name: "足协杯公司1",
-        },
-        {
-          name: "足协杯公司2",
-        },
-        {
-          name: "足协杯公司3",
-        },
-        {
-          name: "足协杯公司4",
-        },
-      ],
+      tableData: [], //下拉公司选项
       show: false,
       value: "足协杯公司",
-      List: [
-        {
-          com: "足协杯公司",
-          duying1: "111",
-          duying2: "111",
-          duying3: "111",
-          update: "2020.01.01",
-          big: 11,
-          small: 22,
-          update1: "2020.01.01",
-          rangqiu: "11",
-          rangqiu1: "22",
-          update2: "2020.01.01",
-        },
-        {
-          com: "足协杯公司",
-          duying1: "111",
-          duying2: "111",
-          duying3: "111",
-          update: "2020.01.01",
-          big: 11,
-          small: 22,
-          update1: "2020.01.01",
-          rangqiu: "11",
-          rangqiu1: "22",
-          update2: "2020.01.01",
-        },
-        {
-          com: "足协杯公司",
-          duying1: "111",
-          duying2: "111",
-          duying3: "111",
-          update: "2020.01.01",
-          big: 11,
-          small: 22,
-          update1: "2020.01.01",
-          rangqiu: "11",
-          rangqiu1: "22",
-          update2: "2020.01.01",
-        },
-      ],
+      List: [], //指数数据
+      filter: [],
     };
   },
-  methods: {  
-    changeopthings(e){
-      this.value = e
+  methods: {
+    changeopthings(e) {
+      this.value = e;
+      let pipi = this.List;
+      this.filter = [];
+      for (let i = 0; i < pipi.length; i++) {
+        if (e == pipi[i].provider) {
+          this.filter.push(pipi[i]);
+        }
+      }
     },
     openValue() {
       this.show = !this.show;
     },
-    getvalue(index, item) {
-      this.value = item.name;
-      this.show = false;
+    getratedata() {
+      this.$axios({
+        url: `${this.$api.homeindex.rate()}${this.liveList.matchId}`,
+      }).then((res) => {
+        let { code, params } = res.data;
+        if (code == 0) {
+          this.List = params;
+          this.tableData = params;
+          this.value = params[0].provider;
+        }
+      });
     },
+  },
+  computed: {
+    ...mapState(["liveList"]),
   },
   components: {
     home_herder,
     analysisheader,
   },
+  created() {
+    this.getratedata();
+  },
 };
 </script>
 
 <style lang="less" scoped>
+#exponent {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+}
 .exponent {
   padding: 17px 16px;
   width: 1300px;
