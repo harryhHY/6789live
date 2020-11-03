@@ -55,7 +55,7 @@ const base = {
   //获取首页信息
   homeindex: `${host}/apiv2/index`,
   //获取直播首页信息
-  liveindex: `${host}/apiv2/live/`,
+  liveindex: `${host}/apiv2/live/index/`,
   //获取新闻首页信息
   newsindex: `${host}/apiv2/news`,
   //获取直播信息
