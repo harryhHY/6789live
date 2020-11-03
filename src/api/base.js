@@ -4,7 +4,7 @@
 import host from './httpurl'
 const base = {
   //发送验证码
-  getCode:`${host}/apiv2/user_sent_mms`,
+  getCode: `${host}/apiv2/user_sent_mms`,
   //登录
   getToken: `${host}/apiv2/user_login`,
   // getToken: "​/joke/content/list.php",
@@ -39,23 +39,23 @@ const base = {
   //用户关注频道设置编辑
   editchanel: `${host}/apiv2/user/account/follow`,
   //反馈列表
-  suggestList:`${host}/apiv2/feedback`,
+  suggestList: `${host}/apiv2/feedback`,
   //反馈提交
-  sendsuggest:`${host}/apiv2/feedback`,
+  sendsuggest: `${host}/apiv2/feedback`,
   //图片上传
   upImg: `${host}/apiv2/pic`,
   //反馈详情
-  suggestdetail:`${host}/apiv2/feedback`,
+  suggestdetail: `${host}/apiv2/feedback`,
   //反馈回复提交
-  suggestreply:`${host}/apiv2/feedback/reply`,
+  suggestreply: `${host}/apiv2/feedback/reply`,
   //帖子发布
-  publish:`${host}/apiv2/forum`,
+  publish: `${host}/apiv2/forum`,
   //级联选项
-  getformatechanel:`${host}/apiv2/get_format_channel`,
+  getformatechanel: `${host}/apiv2/get_format_channel`,
   //我的主页,我的帖子
-  myprofile:`${host}/apiv2/user/profile`,
+  myprofile: `${host}/apiv2/user/profile`,
   //我的粉丝，关注
-  followfans:`${host}/apiv2/user/follow_fans`,
+  followfans: `${host}/apiv2/user/follow_fans`,
   //获取首页信息
   homeindex: `${host}/apiv2/index`,
   //获取直播首页信息
@@ -63,17 +63,19 @@ const base = {
   //获取新闻首页信息
   newsindex: `${host}/apiv2/news`,
   //获取直播信息
-  livedel:`${host}/apiv2/live/player/`,
+  livedel: `${host}/apiv2/live/player/`,
   //获取直播推荐数据
-  livevideo:`${host}/apiv2/live/promote`,
+  livevideo: `${host}/apiv2/live/promote`,
   //获取新闻详情信息
-  newsdel:`${host}/apiv2/news/`,
+  newsdel: `${host}/apiv2/news/`,
   //获取社区首页数据
-  fourm:`${host}/apiv2/fourm`,
+  fourm: `${host}/apiv2/fourm`,
   //搜索新闻话题用户
-  search:`${host}/apiv2/search`,
+  search: `${host}/apiv2/search`,
   //直播指数
-  rate:`${host}/apiv2/live/rate/`
+  rate: `${host}/apiv2/live/rate/`,
+  //添加、取消关注接口
+  follow: `${host}/apiv2/user/follow/`
 }
 
 
