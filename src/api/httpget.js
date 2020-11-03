@@ -32,6 +32,9 @@ const homeindex = {
     return axios.get(base.search, {
       params
     });
+  },
+  rate(){
+    return base.rate
   }
 }
 

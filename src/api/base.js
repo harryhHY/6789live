@@ -67,7 +67,9 @@ const base = {
   //获取社区首页数据
   fourm:`${host}/apiv2/fourm`,
   //搜索新闻话题用户
-  search:`${host}/apiv2/search`
+  search:`${host}/apiv2/search`,
+  //直播指数
+  rate:`${host}/apiv2/live/rate/`
 }
 
 
