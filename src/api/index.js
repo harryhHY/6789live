@@ -25,6 +25,8 @@ import sendsuggest from "./sendsuggest"
 import upimg from "./upimg"
 import suggestdetail from "./suggestdetail"
 import suggestreply from "./suggestreply"
+import myprofile from "./myprofile"
+import followfans from "./followfans"
 
 //导出接口
 export default {
@@ -73,5 +75,9 @@ export default {
     //获取反馈详情
     suggestdetail,
     //反馈回复
-    suggestreply
+    suggestreply,
+    //我的主页。我的帖子
+    myprofile,
+    //我的粉丝，我的关注
+    followfans
 }

@@ -48,6 +48,10 @@ const base = {
   suggestdetail:`${host}/apiv2/feedback`,
   //反馈回复提交
   suggestreply:`${host}/apiv2/feedback/reply`,
+  //我的主页,我的帖子
+  myprofile:`${host}/apiv2/user/profile`,
+  //我的粉丝，关注
+  followfans:`${host}/apiv2/user/follow_fans`,
   //获取首页信息
   homeindex: `${host}/apiv2/index`,
   //获取直播首页信息
