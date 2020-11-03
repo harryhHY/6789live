@@ -27,6 +27,7 @@ import suggestdetail from "./suggestdetail"
 import suggestreply from "./suggestreply"
 import myprofile from "./myprofile"
 import followfans from "./followfans"
+import publish from "./publish"
 
 //导出接口
 export default {
@@ -79,5 +80,7 @@ export default {
     //我的主页。我的帖子
     myprofile,
     //我的粉丝，我的关注
-    followfans
+    followfans,
+    //帖子发布
+    publish
 }

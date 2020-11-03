@@ -48,6 +48,8 @@ const base = {
   suggestdetail:`${host}/apiv2/feedback`,
   //反馈回复提交
   suggestreply:`${host}/apiv2/feedback/reply`,
+  //帖子发布
+  publish:`${host}/apiv2/fourm`,
   //我的主页,我的帖子
   myprofile:`${host}/apiv2/user/profile`,
   //我的粉丝，关注

@@ -10,16 +10,16 @@
             </div>
             <div class="des_con">
                 <div>
-                    <p class="p1">用户名：爱生活爱体育</p>
-                    <p class="p2">个性签名：又是玩命的一天</p>
+                    <p class="p1">用户名：{{profile.user_name}}</p>
+                    <p class="p2">个性签名：{{profile.user_desc}}</p>
                     <div class="info">
-                        <p>关注：0</p>
-                        <p>粉丝：0</p>
+                        <p>关注：{{profile.user_follow_num}}</p>
+                        <p>粉丝：{{profile.user_fans_num}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
+        <div v-if="uid !=0">
             <el-button class="reportbtn" size="mini" type="info" plain @click="reportHandler('id')">举报</el-button>
             <el-button class="attentionbtn" size="mini" type="primary">+ 加关注</el-button>
         </div>
@@ -35,11 +35,11 @@
     <div class="person_info">
         <p class="p_title">个人信息</p>
         <div class="info_detail">
-            <p>生日:1999-09-09</p>
-            <p>性别:</p>
+            <p>生日:{{profile.user_birthday}}</p>
+            <p>性别:{{profile.user_sex ==1 ? '男' : '女'}}</p>
             <p>星座:</p>
-            <p>地区:</p>
-            <p>爱好:</p>
+            <p>地区:{{profile.user_location}}</p>
+            <p>爱好:{{profile.user_hobby}}</p>
         </div>
         
     </div>
@@ -59,7 +59,9 @@ export default {
             nowWeekend:"",
             date:"",
             visible:false,
-            showReport:false
+            showReport:false,
+            profile:{},
+            uid:0
         }
     },
     methods:{
@@ -70,13 +72,42 @@ export default {
         },
         getVisible(value){
             this.showReport = value;
+        },
+        //获取个人信息
+        getInfo(){
+            this.$axios({
+                url:`${this.$api.myprofile}/${this.uid}`,
+                method: "get",
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.profile = res.data.params.profile;
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     mounted(){
         let weekend ="周" + "日一二三四五六".charAt(new Date().getDay());
         this.nowWeekend = weekend;
         let todayDate = new Date();
-        this.date = todayDate.getDate()
+        this.date = todayDate.getDate();
+        this.getInfo()
     }
 }
 </script>

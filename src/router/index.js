@@ -26,6 +26,7 @@ const Suggest = import('../page/suggest/suggest.vue');
 const Suggestdetail = import('../page/suggest/suggestdetail.vue');
 const Nonetwork = import('../page/nonetwork/nonetwork.vue');
 const Search = import('../page/search/search.vue')
+const Publish = import('../page/publish/publish.vue')
 //获取原型对象上的push函数
 const originalPush = Router.prototype.push
 //修改原型对象中的push方法
@@ -158,6 +159,11 @@ export default new Router({
       path: '/nonetwork',
       name: 'nonetwork',
       component: () => Nonetwork,
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: () => Publish,
     }
 
     //联赛数据废弃
