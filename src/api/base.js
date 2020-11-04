@@ -75,7 +75,9 @@ const base = {
   //直播指数
   rate: `${host}/apiv2/live/rate/`,
   //添加、取消关注接口
-  follow: `${host}/apiv2/user/follow/`
+  follow: `${host}/apiv2/user/follow/`,
+  //评论点赞
+  star:`${host}/apiv2/comment/star/`
 }
 
 
