@@ -1,6 +1,8 @@
 <template>
     <div id="home">
-        <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
+        <div class="head">
+            <home_herder @changetype="parentEvent" :headerKey='headerKey'></home_herder>
+        </div>
         <div class="person_wrap cl">
             <div class="person_left">
                 <div class="person_board">
@@ -100,15 +102,27 @@ html #app{
 }
 #home{
     width: 100%;
+    height: 100%;
     background-image: url("../../image/bj.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow:scroll;
+    .head{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
 }
 .person_wrap{
     width: 1273px;
-    height: 100%;
+    // height: 100%;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 90px;
     background-color: #FFF;
     padding: 13px 13px 0;
     box-shadow: 0 3px 3px 3px #DBDBDB; 

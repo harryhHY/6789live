@@ -2,11 +2,11 @@
 <div>
     <div class="head_bg">
         <div>
-            <report v-if="showReport" :visible = "visible" @chidVisible="getVisible"/>
+            <report v-if="showReport" :visible = "visible" :uid = "uid" @chidVisible="getVisible"/>
         </div>
         <div>
             <div class="avator_con">
-                <img :src="avator" alt="">
+                <img :src="imgurl + profile.user_pic" alt="" v-if="profile.user_pic">
             </div>
             <div class="des_con">
                 <div>
@@ -19,7 +19,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="uid !=0">
+        <!-- <div v-if="uid !=0"> -->
+        <div>
             <el-button class="reportbtn" size="mini" type="info" plain @click="reportHandler('id')">举报</el-button>
             <el-button class="attentionbtn" size="mini" type="primary">+ 加关注</el-button>
         </div>
@@ -40,8 +41,7 @@
             <p>星座:</p>
             <p>地区:{{profile.user_location}}</p>
             <p>爱好:{{profile.user_hobby}}</p>
-        </div>
-        
+        </div>        
     </div>
 </div>
     
@@ -55,13 +55,14 @@ export default {
     },
     data(){
         return {
+            imgurl:this.JuheHOST,
             avator:require("@/image/news.jpeg"),
             nowWeekend:"",
             date:"",
             visible:false,
             showReport:false,
             profile:{},
-            uid:0
+            uid:0,
         }
     },
     methods:{

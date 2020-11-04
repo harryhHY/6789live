@@ -2,13 +2,13 @@
     <div>
         <div class="article_info">
             <p class="p_title">我的发帖</p>
-            <div class="article" v-for="(item,index) in activities" :key="index">
+            <div class="article" v-for="(item,index) in articleList" :key="index">
                 <div class="article_left">
-                    <p class="article_title"><span class="title_tag">{{item.type}}</span>{{item.title}}</p>
-                    <p class="article_content">{{item.content}}</p>
+                    <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
+                    <div class="article_content" ref="forum_body" v-html="item.forum_body"></div>
                 </div>
                 <p class="article_right">
-                    {{item.timestamp}}
+                    {{item.addtime_format}}
                 </p>
             </div>
             <!-- <el-timeline :reverse="reverse">
@@ -34,6 +34,7 @@
                 </el-timeline-item>
             </el-timeline> -->
         </div>
+        <el-backtop target="body #home"></el-backtop>
     </div>
 </template>
 <script>
@@ -41,9 +42,8 @@ export default {
     name:"",
     data(){
         return{
-            //帖子排序
-            reverse:true,
-            activities: [{
+            uid:0,
+            articleList: [{
                 title:"帖子主题",
                 content: '帖子详情',
                 timestamp: '2018-04-12 20:46',
@@ -68,6 +68,38 @@ export default {
                 }
             ]
         }
+    },
+    methods:{
+        getaAticle(){
+            this.$axios({
+                url:`${this.$api.myprofile}/${this.uid}`,
+                method: "get",
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.articleList = res.data.params.my_forum;
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    // this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    },
+    mounted(){
+        this.getaAticle();
     }
 }
 </script>
@@ -127,6 +159,7 @@ export default {
                 height: 15px;
                 line-height: 15px;
                 margin: 20px 0 0 50px;
+                overflow: hidden;
                 font-size: 12px;
                 color: #848484;
             }
@@ -138,6 +171,10 @@ export default {
             float: right;
             font-size: 12px;
         }
+    }
+    .article:hover{
+        background-color: aliceblue;
+        cursor: pointer;
     }
 }
 
@@ -151,11 +188,22 @@ export default {
 
 // }
 </style>
-<style>
-/* .odd_con .el-card {
-    color: darkorchid;
-    position: relative;
-    left: -110%;
-    top:25px;
-} */
+<style scoped>
+.article_content >>> img{
+    width: 115px;
+    height: 73px;
+    display: none;
+}
+.article_content >>> p{
+    width: 100%;
+    height: 15px;
+    line-height: 15px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.article_content >>> a{
+    pointer-events:none;
+}
+
 </style>
