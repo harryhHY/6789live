@@ -115,20 +115,15 @@
                   </div>
                 </div>
               </div>
-              <div class="replynum cu" @click="lookallreply" v-if="!showreply">
+              <div
+                class="replynum cu"
+                @click="lookallreply(item)"
+                v-if="!showreply"
+              >
                 查看全部{{ item.c_reply_count }}回复>
               </div>
-              <div class="replay_child" v-show="showreply">
-                <!-- <div v-if="!item.child">暂无回复</div> -->
-                <newstree
-                  :itemChild="item.child"
-                  v-show="item.child"
-                  :deep="deep"
-                  ref="child"
-                ></newstree>
-              </div>
               <div class="otherusergoodreply cl">
-                <div class="otherusergood left cu">
+                <div class="otherusergood left cu" @click="star(item)">
                   <div class="otheruser_goods_img left"></div>
                   <div class="left">赞{{ item.c_good_count }}</div>
                 </div>
@@ -136,6 +131,16 @@
                   <div class="otheruser_reply_img left"></div>
                   回复
                 </div>
+              </div>
+              <div class="replay_child">
+                <!-- <div v-if="!item.child">暂无回复</div> -->
+                <newstree
+                  :itemChild="item.child"
+                  v-if="item.child"
+                  :deep="deep"
+                  :ref="`child${item.id}`"
+                  :key="'father' + item.id"
+                ></newstree>
               </div>
             </div>
             <div class="lookmore_div centerimg">
@@ -198,9 +203,24 @@ export default {
     };
   },
   methods: {
-    lookallreply() {
+    star(item) {
+      //用户评论点赞
+      let url1 = `${this.$api.httppost.star()}${item.c_uid}/1`;
+      this.$axios({
+        methods: "post",
+        url: url1,
+      }).then((res) => {
+        let { code, params } = res.data;
+        if (code == 0) {
+          console.log(params);
+        }
+      });
+    },
+    lookallreply(item) {
       //查看全部回复
-      console.log(this.$refs.child)
+      // this.showreply = false;
+      console.log(this.showreply)
+      this.$refs[`child${item.id}`][0].changeshow();
     },
     getrouterdata() {
       console.log(this.$api.homeindex.newsdel());
@@ -219,6 +239,12 @@ export default {
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
         this.commentList = comments;
+        // let pipi = this.commentList;
+        // for (let i = 0; i < pipi.length; i++) {
+        //   pipi[i].flag = false;
+        // }
+        // console.log(pipi);
+        // this.commentList = pipi;
       });
     },
     inithost() {

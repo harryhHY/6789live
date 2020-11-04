@@ -5,15 +5,16 @@
       :key="index"
       :style="'margin-left:' + deep * 30 + 'px'"
       class="replay"
-      v-show="flag"
       @click="changeshow"
+      v-show="flag || showreply"
     >
       {{ item.user_name }} : {{ item.c_body }}
       <comment-tree
-        v-show="itemChild"
+        v-if="itemChild"
         :itemChild="item.child"
         :deep="deep + 1"
         :showreply="flag"
+        :key="'son' + item.id"
       >
       </comment-tree>
     </div>
@@ -25,25 +26,21 @@ export default {
   data() {
     return {
       child: "",
-      flag: false,
+      flag: false
     };
   },
   name: "comment-tree",
-  props: ["itemChild", "deep"],
+  props: ["itemChild", "deep", "showreply"],
   methods: {
-    changeshow(falg) {
-        this.flag = falg
-    },
+    changeshow() {
+      this.flag = !this.flag;
+    }
   },
-  watch: {
-    // showreply(newValue) {
-    //   this.flag = newValue;
-    // },
-  },
+
   created() {
     this.child = this.itemChild;
     // this.flag = this.showreply;
-  },
+  }
 };
 </script>
 
