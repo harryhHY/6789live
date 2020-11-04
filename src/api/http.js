@@ -68,6 +68,7 @@ const errorHandler = (status, other) => {
 }
 //其他请求携带token
 axios.defaults.headers.common['token'] = initStore.state.token;
+// console.log(initStore.state.token);
 //创建axios实例
 
 var instance = axios.create({ timeout: 5000 });

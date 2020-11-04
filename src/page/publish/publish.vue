@@ -18,7 +18,7 @@
             </div>
             
             <div class="editor_con">
-                <input class="articletitle" type="text" maxlength="5" placeholder="请输入标题(最多5个字)" v-model="articletitle">
+                <input class="articletitle" type="text" maxlength="35" placeholder="请输入标题(最多35个字)" v-model="articletitle">
             <hr>
                 <div id="editor"></div>
                 <div class="btn_con">
@@ -360,6 +360,7 @@ export default {
                 border-top-left-radius: 5px;
             }
             .articletitle{
+                width: 100%;
                 padding: 1px 2px;
                 border: none;
             }
