@@ -124,7 +124,7 @@
             </div>
             <div class="user left">{{ item.user_nickname }}</div>
             <div class="user left guanzhu cu" @click="attention(item)">
-              关注
+              {{ item.is_followed == 0 ? "关注" : "已关注" }}
             </div>
           </div>
         </div>
@@ -230,12 +230,19 @@ export default {
       this.getsearchdata();
     },
     attention(item) {
-      let url1 = `${this.$api.httppost.follow()}1/${item.id}`;
+      let type = 1;
+      if (item.is_followed == 0) {
+        type = 1;
+      } else {
+        type = 2;
+      }
+      let url1 = `${this.$api.httppost.follow()}${type}/${item.id}`;
       console.log(url1);
       this.$axios({
         method: "post",
         url: url1,
       });
+      // this.getsearchdata();
     },
     changesearch_type(id) {
       this.search_type = id;
