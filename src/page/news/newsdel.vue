@@ -48,7 +48,7 @@
       </div>
       <div></div>
       <div class="interaction">
-        <div class="access_header" >
+        <div class="access_header">
           <img
             src="../../image/news/sicon.png"
             alt=""
@@ -67,9 +67,7 @@
               {{ item.user_name }}
             </div>
           </div>
-          <div class="showavatar" v-if="accessList==false">
-            暂无访客
-          </div>
+          <div class="showavatar" v-if="accessList == false">暂无访客</div>
         </div>
         <div class="access_header comment_content">
           <img
@@ -117,12 +115,17 @@
                   </div>
                 </div>
               </div>
-              <div class="replynum cu" @click="">
+              <div class="replynum cu" @click="lookallreply" v-if="!showreply">
                 查看全部{{ item.c_reply_count }}回复>
               </div>
-              <div>
+              <div class="replay_child" v-show="showreply">
                 <!-- <div v-if="!item.child">暂无回复</div> -->
-                <newstree :itemChild='item.child' v-if="item.child"></newstree>
+                <newstree
+                  :itemChild="item.child"
+                  v-if="item.child"
+                  :deep="deep"
+                  ref="child"
+                ></newstree>
               </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu">
@@ -174,7 +177,7 @@ import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
-const newstree = ()=> import('../../components/new/newstree')
+const newstree = () => import("../../components/new/newstree");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
@@ -190,10 +193,15 @@ export default {
       commentList: [], //评论
       recommend: [], // 推荐新闻
       newsdel: [],
-      showreply:false
+      showreply: false,
+      deep: 0,
     };
   },
   methods: {
+    changeshow(flag) {
+      //查看全部回复
+      
+    },
     getrouterdata() {
       console.log(this.$api.homeindex.newsdel());
       this.$axios({
@@ -221,7 +229,7 @@ export default {
     home_herder,
     livemenu,
     newslive,
-    newstree
+    newstree: newstree,
   },
   created() {
     this.inithost();
@@ -465,7 +473,7 @@ export default {
     color: #848484;
   }
   .replay_child {
-    margin: 10px 50px;
+    margin-left: 50px;
   }
   .otheruser_time {
     color: #848484;

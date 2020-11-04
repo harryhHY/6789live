@@ -1,8 +1,21 @@
 <template>
   <div class="comment-wrap">
-    <div v-for="(item, index) in child" :key="index" v-if="item.child">
-      {{ item.user_name }}
-      <comment-tree v-if="item.child" :itemChild='item.child'> </comment-tree>
+    <div
+      v-for="(item, index) in child"
+      :key="index"
+      :style="'margin-left:' + deep * 30 + 'px'"
+      class="replay"
+      v-show="flag"
+      @click="changeshow"
+    >
+      {{ item.user_name }} : {{ item.c_body }}
+      <comment-tree
+        v-show="itemChild"
+        :itemChild="item.child"
+        :deep="deep + 1"
+        :showreply="flag"
+      >
+      </comment-tree>
     </div>
   </div>
 </template>
@@ -12,16 +25,24 @@ export default {
   data() {
     return {
       child: "",
-      flag: true,
+      flag: false,
     };
   },
   name: "comment-tree",
-  props: ["itemChild"],
+  props: ["itemChild", "deep"],
+  methods: {
+    changeshow(falg) {
+        this.flag = falg
+    },
+  },
+  watch: {
+    // showreply(newValue) {
+    //   this.flag = newValue;
+    // },
+  },
   created() {
     this.child = this.itemChild;
-    this.flag = this.child != false;
-    //   console.log(this.itemChild[0].user_name)
-    console.log(this.child);
+    // this.flag = this.showreply;
   },
 };
 </script>
@@ -29,7 +50,9 @@ export default {
 <style lang="less" scoped>
 .comment-wrap {
   width: 500px;
-  height: 30px;
   line-height: 30px;
+}
+.replay {
+  margin: 10px 0;
 }
 </style>
