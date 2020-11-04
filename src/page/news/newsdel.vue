@@ -122,7 +122,7 @@
                 <!-- <div v-if="!item.child">暂无回复</div> -->
                 <newstree
                   :itemChild="item.child"
-                  v-if="item.child"
+                  v-show="item.child"
                   :deep="deep"
                   ref="child"
                 ></newstree>
@@ -198,9 +198,9 @@ export default {
     };
   },
   methods: {
-    changeshow(flag) {
+    lookallreply() {
       //查看全部回复
-      
+      console.log(this.$refs.child)
     },
     getrouterdata() {
       console.log(this.$api.homeindex.newsdel());
