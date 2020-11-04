@@ -48,7 +48,7 @@
       </div>
       <div></div>
       <div class="interaction">
-        <div class="access_header">
+        <div class="access_header" >
           <img
             src="../../image/news/sicon.png"
             alt=""
@@ -66,6 +66,9 @@
             <div>
               {{ item.user_name }}
             </div>
+          </div>
+          <div class="showavatar" v-if="accessList==false">
+            暂无访客
           </div>
         </div>
         <div class="access_header comment_content">
@@ -118,10 +121,8 @@
                 查看全部{{ item.c_reply_count }}回复>
               </div>
               <div>
-                <div v-if="!item.child">暂无回复</div>
-                <div v-else="item.child">
-                  {{ item.user_name }} : {{ item.c_body }}
-                </div>
+                <!-- <div v-if="!item.child">暂无回复</div> -->
+                <newstree :itemChild='item.child' v-if="item.child"></newstree>
               </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu">
@@ -173,6 +174,7 @@ import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
+const newstree = ()=> import('../../components/new/newstree')
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
@@ -209,7 +211,6 @@ export default {
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
         this.commentList = comments;
-        console.log(comments);
       });
     },
     inithost() {
@@ -220,6 +221,7 @@ export default {
     home_herder,
     livemenu,
     newslive,
+    newstree
   },
   created() {
     this.inithost();

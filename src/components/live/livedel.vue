@@ -70,10 +70,10 @@
           </div>
         </div>
 
-        <div class="news_div">
+        <!-- <div class="news_div">
           <div class="cu">上一篇：{{ pre }}</div>
           <div class="cu">下一篇：{{ nex }}</div>
-        </div>
+        </div> -->
       </div>
     </div>
     <liveVideo />
