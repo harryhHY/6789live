@@ -76,7 +76,7 @@
             v-for="(item, index) in searchdata"
             @click="gotocommdel()"
           >
-            <div class="left title">{{ item.forum_title }}</div>
+            <div class="left title ov">{{ item.forum_title }}</div>
             <div class="left plate">{{ item.forum_type }}</div>
             <div class="left announcer">{{ item.forum_owner }}</div>
             <div class="left release_time">
@@ -133,8 +133,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page.sync="currentPage3"
-              :page-size="5"
+              :page-size="page_size"
               layout="prev, pager, next, jumper"
               :total="totalArtcle"
             >
@@ -209,6 +208,8 @@ export default {
       plate: "", //板块ID
       totalArtcle: 0, //查询总条数
       consumeTime: "", //查询所消耗时间
+      currentPage3:'1',
+      page_size:'',//一页多少数据
     };
   },
   methods: {
@@ -217,7 +218,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.page = val;
-      // this.getsearchdata();
+      this.getsearchdata();
     },
     inst() {
       this.host = host;
@@ -241,8 +242,12 @@ export default {
       this.$axios({
         method: "post",
         url: url1,
+      }).then(res=>{
+        let {code} = res.data
+        if(code==0){
+          this.getsearchdata();
+        }
       });
-      // this.getsearchdata();
     },
     changesearch_type(id) {
       this.search_type = id;
@@ -297,9 +302,12 @@ export default {
         })
         .then((res) => {
           let { code, params } = res.data;
+          let {data , total, page_size} = params
           console.log(params);
-          this.searchdata = params;
-          this.totalArtcle = params.length;
+          this.searchdata = data;
+          this.totalArtcle = total;
+          console.log(page_size)
+          this.page_size = page_size
           let dateEnd = new Date().getTime();
           this.consumeTime = (dateEnd - dateStart) / 1000;
         });
