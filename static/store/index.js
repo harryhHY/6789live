@@ -28,6 +28,9 @@ const mutations = {
   token(state, data) {
     state.token = data;
   },
+  communitydel(state, data) { //社区讨论区
+    state.communitydel = data;
+  },
   liveheader(state, data) {
     state.liveheader = data;
   },
