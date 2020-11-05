@@ -2,7 +2,7 @@
 <div>
     <div class="head_bg">
         <div>
-            <report v-if="showReport" :visible = "visible" :uid = "uid" @chidVisible="getVisible"/>
+            <report v-if="showReport" :visible = "visible" :report_id = "uid" :report_type = "type" @chidVisible="getVisible"/>
         </div>
         <div>
             <div class="avator_con">
@@ -62,7 +62,9 @@ export default {
             visible:false,
             showReport:false,
             profile:{},
-            uid:0,
+            //举报实体 1：新闻2：帖子3：用户4:评论
+            type:3,
+            uid:1,
         }
     },
     methods:{

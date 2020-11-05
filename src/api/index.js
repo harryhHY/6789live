@@ -30,6 +30,7 @@ import myprofile from "./myprofile"
 import followfans from "./followfans"
 import publish from "./publish"
 import getformatechanel from "./getformatechanel"
+import report from "./report"
 
 //导出接口
 export default {
@@ -88,5 +89,7 @@ export default {
     //帖子发布
     publish,
     //级联选中
-    getformatechanel
+    getformatechanel,
+    //举报
+    report
 }

@@ -36,21 +36,31 @@
                 :close-on-click-modal = "onmodalclick"
                 width="30%"
                 :before-close="handleTwoClose"
-                :modal-append-to-body="false">
+                :modal-append-to-body="false"
+                append-to-body>
                 <el-input type="textarea" placeholder="请详细描述被举报人的行为" v-model="textdetail"></el-input>
                 <el-upload
                     class="imgup"
-                    action="https://jsonplaceholder.typicode.com/posts/"
+                    ref="upload"
+                    :headers = "Myheaders"
+                    :action="uploadreport"
+                    :data="uploadData"
                     list-type="picture-card"
+                    :auto-upload="false"
+                    :limit="1"
+                    :on-success="handleSuccess"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove">
                     <i class="el-icon-plus"></i>                   
                 </el-upload>
-                <div class="imgbox">
+                <!-- <div class="imgbox">
                     <img width="100%" :src="avator" alt="">
-                </div>
-                <el-dialog :visible.sync="imgVisible">
-                    <img width="100%" :src="avator" alt="">
+                </div> -->
+                <el-dialog
+                    :visible.sync="imgVisible"
+                    :before-upload="handleimgClose"
+                    :append-to-body="appendbody">
+                    <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="cancleTwo()">取 消</el-button>
@@ -76,13 +86,24 @@
 </template>
 
 <script>
+let uptoken = localStorage.getItem("token");
 export default {
     name:"report",
      data() {
       return {
+        imgurl:this.JuheHOST,
+        uploadreport:`${this.$api.report.uploadreport}/${this.report_type}`,
+        Myheaders:{token : uptoken},
+        uploadData:{
+            type:'',
+            id:'',
+            report_type:'',
+            body:''
+        },
         avator:require("@/image/news.jpeg"),
         reportType: {
           type: '',
+          desc:''
         },
         textdetail:'',
         rules: {
@@ -91,16 +112,20 @@ export default {
           ]
         },
         oneVisible: this.visible,
-        userid:this.uid,
+        //举报实体 1：新闻2：帖子3：用户4:评论
+        type:this.report_type,
+        //举报新闻id、帖子id、用户id、评论id
+        id:this.report_id,       
         twoVisible: false,
         threeVisible: false,
         onmodalclick:false,
+        appendbody:true,
         //图
         dialogImageUrl: '',
-        imgVisible: true
+        imgVisible: false
       };
     },
-    props:["visible","uid"],
+    props:["visible","report_id","report_type"],
     methods: {
         //第一个下一步存储信息，打开第二个
         nextHandler(reportType){
@@ -128,8 +153,15 @@ export default {
         },
         //第二个提交
         submitHandler(){
-            this.twoVisible = false;
-            this.threeVisible = true;
+            this.uploadData.type = this.type;
+            this.uploadData.id = this.id;
+            if(this.reportType.type == '其他'){
+                this.uploadData.report_type = this.reportType.desc;
+            }else{
+                this.uploadData.report_type = this.reportType.type;
+            }
+            this.uploadData.body = this.textdetail;
+            this.$refs.upload.submit();
         },
         //第二个关闭
         handleTwoClose(done) {
@@ -152,17 +184,40 @@ export default {
             this.$emit("chidVisible",this.onmodalclick)
         },
         //图片上传
+        handleSuccess(res, file){
+            console.log(res,file);
+            if(res.code == 0){
+                this.twoVisible = false;
+                this.threeVisible = true;
+                this.$message({
+                    type: 'success', // warning、success
+                    message: res.msg 
+                })
+            }else{
+                this.$message({
+                    type: 'error', // warning、success
+                    message: res.msg 
+                })
+            }
+        },
         handleRemove(file, fileList) {
             console.log(file, fileList);
+            this.imgVisible = false;
+            this.twoVisible = true;
+        },
+        handleimgClose(){
+            console.log('关闭图片');
+            this.imgVisible = false;
         },
         handlePictureCardPreview(file) {
+            console.log(file);
             this.dialogImageUrl = file.url;
             this.imgVisible = true;
+            this.twoVisible = true;
         },
     },
     mounted(){
-        console.log(this.visible);
-        console.log(this.userid);
+        console.log(this.visible);      
     }
 }
 </script>

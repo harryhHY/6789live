@@ -56,6 +56,8 @@ const base = {
   myprofile: `${host}/apiv2/user/profile`,
   //我的粉丝，关注
   followfans: `${host}/apiv2/user/follow_fans`,
+  //举报
+  report: `${host}/apiv2/report`,
   //获取首页信息
   homeindex: `${host}/apiv2/index`,
   //获取直播首页信息
