@@ -208,8 +208,8 @@ export default {
       plate: "", //板块ID
       totalArtcle: 0, //查询总条数
       consumeTime: "", //查询所消耗时间
-      currentPage3:'1',
-      page_size:'',//一页多少数据
+      currentPage3: "1",
+      page_size: 1, //一页多少数据
     };
   },
   methods: {
@@ -242,9 +242,9 @@ export default {
       this.$axios({
         method: "post",
         url: url1,
-      }).then(res=>{
-        let {code} = res.data
-        if(code==0){
+      }).then((res) => {
+        let { code } = res.data;
+        if (code == 0) {
           this.getsearchdata();
         }
       });
@@ -302,12 +302,11 @@ export default {
         })
         .then((res) => {
           let { code, params } = res.data;
-          let {data , total, page_size} = params
-          console.log(params);
+          let { data, pagination } = params;
           this.searchdata = data;
-          this.totalArtcle = total;
-          console.log(page_size)
-          this.page_size = page_size
+          let { page_size, total } = pagination;
+          this.page_size = page_size;
+          this.totalArtcle = total
           let dateEnd = new Date().getTime();
           this.consumeTime = (dateEnd - dateStart) / 1000;
         });
