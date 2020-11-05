@@ -44,7 +44,9 @@ const mutations = {
   menucomplexdata(state, data) { //左边栏目综合
     state.menucomplexdata = data;
   },
-
+  menulike(state, data) {//我关注的栏目
+    state.menulike = data;
+  },
   /**
    * 跳转新闻详情页面
    * @param {obj} state 

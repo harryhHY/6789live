@@ -187,6 +187,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.newsclass_div{
+  overflow: hidden;
+}
 .new {
   background-image: url("../../image/bj.jpg");
   background-size: 100%;
@@ -201,6 +204,7 @@ export default {
   line-height: 22px;
   text-align: center;
   height: 22px;
+   
   margin-right: 5px;
 }
 .newsclass {
@@ -211,6 +215,7 @@ export default {
   font-size: 18px;
   text-align: center;
   position: relative;
+ margin: 10px 0;
 }
 .newsclass:last-child {
   border-right: 4px solid #848484;
@@ -226,6 +231,7 @@ export default {
   text-align: center;
   position: relative;
   color: #1a90fc;
+  margin: 10px 0;
 }
 .newsclass_click1 {
   height: 4px;

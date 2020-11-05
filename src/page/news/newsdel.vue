@@ -143,9 +143,6 @@
                 ></newstree>
               </div>
             </div>
-            <div class="lookmore_div centerimg">
-              <div class="lookmore cu">查看更多评论</div>
-            </div>
           </div>
         </div>
         <div class="access_header comment_content">
@@ -204,22 +201,37 @@ export default {
   },
   methods: {
     star(item) {
+      let type =0
+      if(item.is_stared == 0){
+        type = 1
+      }else{
+        type = 2
+      }
       //用户评论点赞
-      let url1 = `${this.$api.httppost.star()}${item.c_uid}/1`;
+      let url1 = `${this.$api.httppost.star()}${item.c_uid}/${type}`;
       this.$axios({
-        methods: "post",
+        method: "post",
         url: url1,
       }).then((res) => {
-        let { code, params } = res.data;
+        let { code, params, msg } = res.data;
         if (code == 0) {
           console.log(params);
+          this.$message({
+            message: msg,
+            type: "success",
+          });
+        } else {
+          this.$message({
+            message: msg,
+            type: "warning",
+          });
         }
       });
     },
     lookallreply(item) {
       //查看全部回复
       // this.showreply = false;
-      console.log(this.showreply)
+      console.log(this.showreply);
       this.$refs[`child${item.id}`][0].changeshow();
     },
     getrouterdata() {

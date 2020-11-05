@@ -11,6 +11,7 @@
               class="left menu_header_foot_class_title cu ov"
               v-for="(item, index) in footer_menu"
               :key="item.ch_columnm + index"
+              @click="gotocommunitydel(item)"
             >
               {{ item.ch_name }}
             </div>
@@ -22,6 +23,7 @@
               class="left menu_header_foot_class_title cu ov"
               v-for="(item, index) in basket_menu"
               :key="item.ch_reply_num + index"
+              @click="gotocommunitydel(item)"
             >
               {{ item.ch_name }}
             </div>
@@ -33,6 +35,7 @@
               class="left menu_header_foot_class_title cu ov"
               v-for="(item, index) in complex_menu"
               :key="index"
+              @click="gotocommunitydel(item)"
             >
               {{ item.ch_name }}
             </div>
@@ -41,7 +44,7 @@
       </div>
       <!-- 搜索框 -->
       <div class="search_div cl">
-        <div class="left search_div_left"  @click="serach(searchmsg)">
+        <div class="left search_div_left" @click="serach(searchmsg)">
           <input
             type="text"
             class="serarch_input"
@@ -64,142 +67,152 @@
       </div>
       <!-- 足球社区 -->
       <div class="footertitle" v-show="listfooterdata != false"></div>
-      <div
-        class="cl footer_content"
-        v-for="(item, index) in listfooterdata"
-        :key="item.id + index"
-        @click="gotocommdel()"
-      >
-        <div class="footer_content_left left">
-          <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.columnm }}</div>
-            <div class="footer_title left">
-              {{ item.forum_title }}
+      <div class="footer_content_div">
+        <div
+          class="cl footer_content"
+          v-for="(item, index) in listfooterdata"
+          :key="item.id + index"
+          @click="gotocommdel()"
+        >
+          <div class="footer_content_left left">
+            <div class="cl footer_content_left_titleheader">
+              <div class="footer_type left">{{ item.columnm }}</div>
+              <div class="footer_title left">
+                {{ item.forum_title }}
+              </div>
             </div>
-          </div>
 
-          <div class="cl footer_content_belong">
-            <div class="left cl">
-              <div class="left footer_name">
-                {{ item.ch_owner }}
+            <div class="cl footer_content_belong">
+              <div class="left cl">
+                <div class="left footer_name">
+                  {{ item.ch_owner }}
+                </div>
+                <div class="left footer_time">
+                  {{ item.forum_addtime | formDate }}
+                </div>
               </div>
-              <div class="left footer_time">
-                {{ item.forum_addtime }}
-              </div>
-            </div>
-            <div class="right cl">
-              <div class="left centerimg">
-                <div class="footer_commnum_img"></div>
-                <div>评论：</div>
-                <div>
-                  {{ item.ch_reply_num }}
+              <div class="right cl">
+                <div class="left centerimg">
+                  <div class="footer_commnum_img"></div>
+                  <div>评论：</div>
+                  <div>
+                    {{ item.ch_reply_num }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="footer_content_right left cl">
-          <div class="footer_content_right_div right">
-            <div>
-              {{ item.ch_name }}
+          <div class="footer_content_right left cl">
+            <div class="footer_content_right_div right">
+              <div>
+                {{ item.ch_name }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="centerimg more_div">
+      <!-- <div class="centerimg more_div">
         <div class="more cu"></div>
-      </div>
+      </div> -->
       <!-- 篮球社区 -->
       <div class="bsktitle" v-show="listbasketdata != false"></div>
-      <div
-        class="cl footer_content"
-        v-for="(item, index) in listbasketdata"
-        :key="item.ch_views_num + index"
-      >
-        <div class="footer_content_left left">
-          <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.columnm }}</div>
-            <div class="footer_title left">
-              {{ item.forum_title }}
+      <div class="footer_content_div">
+        <div
+          class="cl footer_content"
+          v-for="(item, index) in listbasketdata"
+          :key="item.ch_views_num + index"
+        >
+          <div class="footer_content_left left">
+            <div class="cl footer_content_left_titleheader">
+              <div class="footer_type left">{{ item.columnm }}</div>
+              <div class="footer_title left">
+                {{ item.forum_title }}
+              </div>
             </div>
-          </div>
 
-          <div class="cl footer_content_belong">
-            <div class="left cl">
-              <div class="left footer_name">
-                {{ item.ch_owner }}
+            <div class="cl footer_content_belong">
+              <div class="left cl">
+                <div class="left footer_name">
+                  {{ item.ch_owner }}
+                </div>
+                <div class="left footer_time">
+                  {{ item.forum_addtime | formDate }}
+                </div>
               </div>
-              <div class="left footer_time">
-                {{ item.forum_addtime }}
-              </div>
-            </div>
-            <div class="right cl">
-              <div class="left centerimg">
-                <div class="footer_commnum_img"></div>
-                <div>评论：</div>
-                <div>
-                  {{ item.ch_reply_num }}
+              <div class="right cl">
+                <div class="left centerimg">
+                  <div class="footer_commnum_img"></div>
+                  <div>评论：</div>
+                  <div>
+                    {{ item.ch_reply_num }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="footer_content_right left cl">
-          <div class="footer_content_right_div right">
-            <div>
-              {{ item.ch_name }}
+          <div class="footer_content_right left cl">
+            <div class="footer_content_right_div right">
+              <div>
+                {{ item.ch_name }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="centerimg more_div">
+      <!-- <div class="centerimg more_div">
         <div class="more cu"></div>
-      </div>
+      </div> -->
       <!-- 综合社区 -->
-      <div class="translationtitle" v-show="listcomplexdata != false"></div>
       <div
-        class="cl footer_content"
-        v-for="(item, index) in listcomplexdata"
-        :key="item.ch_name + index"
-      >
-        <div class="footer_content_left left">
-          <div class="cl footer_content_left_titleheader">
-            <div class="footer_type left">{{ item.columnm }}</div>
-            <div class="footer_title left">
-              {{ item.forum_title }}
-            </div>
-          </div>
-          <div class="cl footer_content_belong">
-            <div class="left cl">
-              <div class="left footer_name">
-                {{ item.ch_owner }}
-              </div>
-              <div class="left footer_time">
-                {{ item.forum_addtime }}
+        class="translationtitle"
+        v-show="listcomplexdata != false && listcomplexdata != undefined"
+      ></div>
+      <div class="footer_content_div">
+        <div
+          class="cl footer_content"
+          v-for="(item, index) in listcomplexdata"
+          :key="item.ch_name + index"
+        >
+          <div class="footer_content_left left">
+            <div class="cl footer_content_left_titleheader">
+              <div class="footer_type left">{{ item.columnm }}</div>
+              <div class="footer_title left">
+                {{ item.forum_title }}
               </div>
             </div>
-            <div class="right cl">
-              <div class="left centerimg">
-                <div class="footer_commnum_img"></div>
-                <div>评论：</div>
-                <div>
-                  {{ item.ch_reply_num }}
+            <div class="cl footer_content_belong">
+              <div class="left cl">
+                <div class="left footer_name">
+                  {{ item.ch_owner }}
+                </div>
+                <div class="left footer_time">
+                  {{ item.forum_addtime | formDate }}
+                </div>
+              </div>
+              <div class="right cl">
+                <div class="left centerimg">
+                  <div class="footer_commnum_img"></div>
+                  <div>评论：</div>
+                  <div>
+                    {{ item.ch_reply_num }}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="footer_content_right left cl">
-          <div class="footer_content_right_div right">
-            <div>
-              {{ item.ch_name }}
+          <div class="footer_content_right left cl">
+            <div class="footer_content_right_div right">
+              <div>
+                {{ item.ch_name }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="centerimg more_div">
+
+      <!-- <div class="centerimg more_div">
         <div class="more cu"></div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -222,32 +235,16 @@ export default {
       listbasketdata: [], //篮球评论区
       listcomplexdata: [], //综合评论区
       totalpost: 0,
-      hotmenu: [
-        {
-          commavatar: require("../../image/team.jpg"),
-          commname: "热议NBA",
-          commnum: 222,
-        },
-        {
-          commavatar: require("../../image/team.jpg"),
-          commname: "湖人",
-          commnum: 222,
-        },
-        {
-          commavatar: require("../../image/team.jpg"),
-          commname: "中国篮球",
-          commnum: 222,
-        },
-        {
-          commavatar: require("../../image/team.jpg"),
-          commname: "英雄联盟",
-          commnum: 222,
-        },
-      ],
+      hotmenu: [],
       searchmsg: "",
     };
   },
   methods: {
+    gotocommunitydel(item) {
+      //跳转话题社区
+      this.$router.push("/communitydel");
+      this.$store.commit("communitydel", item);
+    },
     getdata() {
       this.$api.homeindex.fourm({}).then((res) => {
         let { forum, statistc } = res.data.params;
@@ -258,27 +255,34 @@ export default {
         this.listfooterdata = forum[1];
         this.listbasketdata = forum[2];
         this.listcomplexdata = forum[3];
-        console.log(this.listfooterdata);
+        console.log(this.listcomplexdata == undefined);
       });
     },
     serach(msg) {
       this.$router.push("/search");
     },
     gotocommdel() {
-      this.$router.push("/communitydel");
+      this.$router.push("/postdetails");
     },
   },
   computed: {
     ...mapState(["menufootData", "menubacketballdata", "menucomplexdata"]),
+    menufootDatafn() {
+      return this.$store.state.menufootData;
+    },
+  },
+  watch: {
+    menufootDatafn(newValue) {
+      this.footer_menu = this.menufootData;
+      this.basket_menu = this.menubacketballdata;
+      this.complex_menu = this.menucomplexdata;
+    },
   },
   components: {
     home_herder,
     livemenu,
   },
   created() {
-    this.footer_menu = this.menufootData;
-    this.basket_menu = this.menubacketballdata;
-    this.complex_menu = this.menucomplexdata;
     this.getdata(this.footer_menu);
   },
 };
@@ -292,7 +296,7 @@ export default {
 }
 .community_content {
   width: 1165px;
-  margin: 20px 0 0 48px;
+  margin: 20px 0 20px 48px;
   border-radius: 5px;
   background: #fff;
   .menu_header {
@@ -322,6 +326,7 @@ export default {
     .menu_header_foot_class {
       width: 270px;
       height: 68px;
+      overflow: hidden;
       .menu_header_foot_class_title {
         width: 33%;
         line-height: 34px;
@@ -466,66 +471,7 @@ export default {
     }
   }
 }
-.community_hotmenu {
-  width: 352px;
-  padding: 18px 13px;
-  border-top: 4px solid #0190fc;
-  background-color: #fff;
-  border-radius: 10px;
-  margin: 20px 0 0 10px;
-  .community_hotmenu_header {
-    color: #01a0fc;
-    border-left: 5px solid #014581;
-    padding-left: 11px;
-    margin-left: 10px;
-  }
-  .boreder_bt {
-    margin: 16px 0;
-    .boreder_bt_left {
-      height: 2px;
-      width: 49%;
-      margin-right: 2%;
-      background-color: #0190fc;
-    }
-    .boreder_bt_right {
-      height: 2px;
-      width: 49%;
-      background-color: #dedede;
-    }
-  }
-  .community_hotmenu_content {
-    width: 352px;
-    height: 78px;
-    border-bottom: 1px solid #dedede;
-    .community_hotmenu_content_commavatar {
-      width: 50%;
-      font-size: 18px;
-      img {
-        width: 52px;
-        height: 52px;
-      }
-    }
-    .community_hotmenu_commname {
-      width: 100px;
-      margin-left: 15px;
-      line-height: 78px;
-    }
-    .hotmenu_content_todaynum {
-      width: 50%;
-      line-height: 78px;
-      color: #555;
-      text-align: center;
-    }
-  }
-  .lookmore {
-    color: #0190fc;
-    border: 1px solid #0190fc;
-    width: 125px;
-    height: 28px;
-    line-height: 28px;
-    text-align: center;
-    border-radius: 14px;
-    margin: 24px auto;
-  }
+.footer_content_div {
+  margin-bottom: 30px;
 }
 </style>

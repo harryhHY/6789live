@@ -16,7 +16,7 @@
             v-for="(item, key, index) in mylike"
             :key="item.id"
             class="playnum cu left ov"
-            @click="changetype1(item.ch_columnm, item.id)"
+            @click="changetype1(item.ch_columnm, item.id, item)"
           >
             {{ item.ch_name }}
           </div>
@@ -49,7 +49,7 @@
                 v-for="(item, index) in footData"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype1(item.ch_columnm, item.id)"
+                @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
               </div>
@@ -78,7 +78,7 @@
                 v-for="(item, index) in backetballdata"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype1(item.ch_columnm, item.id)"
+                @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
               </div>
@@ -106,7 +106,7 @@
                 v-for="(item, index) in Collapsedata"
                 :key="item.id"
                 class="playnum cu left ov"
-                @click="changetype1(item.ch_columnm, item.id)"
+                @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
               </div>
@@ -138,7 +138,7 @@ export default {
   methods: {
     getlivemenu() {
       //获取关注列表
-      console.log(this.$route.path);
+      // console.log(this.$route.path);
       let type = 0;
       switch (this.$route.path) {
         case "/live":
@@ -162,6 +162,10 @@ export default {
           this.menutitle = "社区分类";
           break;
         case "/communitydel":
+          type = 3;
+          this.menutitle = "社区分类";
+          break;
+        case "/postdetails":
           type = 3;
           this.menutitle = "社区分类";
           break;
@@ -204,6 +208,7 @@ export default {
                 }
               });
             });
+            this.$store.commit("menulike", likelist);
             this.mylike = likelist;
           }
         });
@@ -222,14 +227,19 @@ export default {
           break;
       }
     },
-    //切换左边
-    changetype1(clid, id) {
+    //点击左边菜单 触发的事件
+    changetype1(clid, id, item) {
       switch (this.$route.path) {
         case "/live":
-          this.$emit("changetype", clid, );
+          this.$emit("changetype", clid);
           break;
         case "/new":
-          this.$emit('changenewstype',id);
+          this.$emit("changenewstype", id);
+          break;
+        case "/community":
+          this.$router.push("/communitydel");
+          this.$store.commit("communitydel", item);
+          break;
       }
     },
     //去个人关注设置

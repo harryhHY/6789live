@@ -1,7 +1,7 @@
 <template>
   <div class="communitydel cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu></livemenu>
+    <livemenu ref="livemenu"></livemenu>
     <div class="communitydel_content boxshadow left">
       <div class="communitydel_header">
         <el-breadcrumb separator="/">
@@ -20,6 +20,7 @@
             type="text"
             class="serachinput right"
             placeholder="搜索热门话题"
+            @click="gotosearch()"
           />
           <div class="sousuodiv"></div>
         </div>
@@ -27,17 +28,24 @@
       <div class="communitydel_main">
         <div class="main_header cl">
           <div class="left">
-            <img src="../../image/team.jpg" alt="" />
+            <img :src="host + communitydel.ch_logo" alt="" />
           </div>
           <div class="main_header_right left">
             <div class="cl">
-              <div class="comm_header_type left">中国篮球</div>
-              <div class="left joincom">+加入社区</div>
+              <div class="comm_header_type left">
+                {{ communitydel.ch_name }}
+              </div>
+              <div class="left joincom cu" @click="joincommunity()">
+                {{ actionmsg }}
+              </div>
             </div>
             <div class="comm_num">
-              今日发帖：100 / 昨日发帖： 135 / 总共累计发帖：215255
+              今日发帖：{{ statistc.today_count }} / 昨日发帖：
+              {{ statistc.total }} / 总共累计发帖：{{
+                statistc.yesterday_count
+              }}
             </div>
-            <div class="introduction">社区介绍：我们是地表最强</div>
+            <div class="introduction">社区介绍：{{ communitydel.ch_desc }}</div>
           </div>
         </div>
         <div class="cl release_div">
@@ -47,9 +55,9 @@
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page.sync="currentPage3"
-              :page-size="1"
+              :page-size="pagination.page_size"
               layout="prev, pager, next, jumper"
-              :total="1000"
+              :total="pagination.total"
             >
             </el-pagination>
           </div>
@@ -81,32 +89,31 @@
                   <div class="centerimg">
                     <div class="comm_type left"></div>
                     <div class="main_content_title left">
-                      {{ item.title }}
+                      {{ item.forum_title }}
                     </div>
                     <img src="../../image/cmm/imgs.png" alt="" />
                   </div>
                 </div>
-                <div class="main_content_del ov">详情：{{ item.comm_del }}</div>
               </div>
               <div class="main_content_right right cl">
                 <div class="left main_content_right_author_div">
-                  <div>{{ item.author }}</div>
-                  <div class="c555">{{ item.time }}</div>
+                  <div>{{ item.forum_owner }}</div>
+                  <div class="c555">{{ item.forum_addtime | formDate }}</div>
                 </div>
                 <div class="left main_content_right_reply_div">
                   <div>
-                    {{ item.reply }}
+                    {{ item.forum_comments }}
                   </div>
                   <div class="c555">
-                    {{ item.browse }}
+                    {{ item.forum_views }}
                   </div>
                 </div>
                 <div class="left main_content_right_last_div">
                   <div>
-                    {{ item.lastauthor }}
+                    {{ item.forum_comments_ower }}
                   </div>
                   <div class="c555">
-                    {{ item.lasttime }}
+                    {{ item.forum_comments_time | formDate }}
                   </div>
                 </div>
               </div>
@@ -127,105 +134,96 @@
           v-for="(item, index) in menudata"
           :key="index"
         >
-          <div class="left menu_img">
-            <img :src="item.imgsrc" alt="" />
-          </div>
           <div class="left menu_type_div">
-            <span class="menu_type">{{ item.type }}</span>
-            {{ item.title }}
+            <span class="menu_type">{{ communitydel.ch_columnm_name }}</span>
+            {{ item.forum_title }}
           </div>
           <div class="lookdel centerimg">
             查看详情
             <span></span>
           </div>
         </div>
-        <div class="lookmorr">查看更多</div>
+        <!-- <div class="lookmorr">查看更多</div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 export default {
   data() {
     return {
       headerKey: "4",
-      commdata: [
-        {
-          commtype: 1,
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-          comm_del:
-            "随着大陆称，整个世界都面临中国实现其民族复兴志向的挑战。对此，中国外交部发言人汪文斌28日在例行记者会上说，蓬佩奥声称的“中国威胁”，不过是“蓬氏谎言”的陈词滥调。",
-          time: "2020.10.02",
-          reply: "33",
-          browse: "2223",
-          lastauthor: "dagege",
-          author: "dajj",
-          lasttime: "20.20.20",
-        },
-        {
-          commtype: 1,
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-          comm_del:
-            "随着大陆称，整个世界都面临中国实现其民族复兴志向的挑战。对此，中国外交部发言人汪文斌28日在例行记者会上说，蓬佩奥声称的“中国威胁”，不过是“蓬氏谎言”的陈词滥调。",
-          time: "2020.10.02",
-          reply: "33",
-          browse: "2223",
-          lastauthor: "dagege",
-          author: "dajj",
-          lasttime: "20.20.20",
-        },
-        {
-          commtype: 1,
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-          comm_del:
-            "随着大陆称，整个世界都面临中国实现其民族复兴志向的挑战。对此，中国外交部发言人汪文斌28日在例行记者会上说，蓬佩奥声称的“中国威胁”，不过是“蓬氏谎言”的陈词滥调。",
-          time: "2020.10.02",
-          reply: "33",
-          browse: "2223",
-          lastauthor: "dagege",
-          author: "dajj",
-          lasttime: "20.20.20",
-        },
-      ],
+      commdata: [], //讨论区贴子数据
       currentPage3: 5,
-      menudata: [
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-        {
-          type: "足球",
-          imgsrc: require("../../image/news.jpeg"),
-          title: "连续两场至少10篮板 张正月喜欢唱新歌",
-        },
-      ],
+      menudata: [], //热门帖子推荐
+      statistc: [], //帖子数量
+      pagination: [], //分页数据
+      action: 0, //是否已经加入社区
+      likemenu: [], //已经关注的社区列表
+      actionmsg: "", //动态显示是否加入社区
     };
   },
   methods: {
+    trigger() {
+      this.$refs.livemenu.getlivemenu();
+      this.judgment();
+    },
+    async joincommunity() {
+      this.judgment();
+      let url = `${this.$api.httppost.follow1()}`;
+      this.$axios({
+        method: "post",
+        url,
+        data: {
+          type: 1,
+          action: this.action,
+          channel: this.communitydel.id,
+        },
+      }).then((res) => {
+        let { code, msg, params } = res.data;
+        let pipi = "";
+        if (code == 0) {
+          switch (this.action) {
+            case 0:
+              pipi = "加入社区成功";
+              break;
+
+            default:
+              pipi = "退出社区成功";
+              break;
+          }
+          this.trigger();
+          this.$message({
+            message: pipi,
+            type: "success",
+            duration:500
+          });
+        }
+      });
+    },
+    judgment() {
+      //判断是否存在关注列表
+      console.log(this.action);
+      if (this.likemenu.length == 0) {
+        this.action = 0;
+        this.actionmsg = "+加入社区";
+      } else {
+        for (let i = 0; i < this.likemenu.length; i++) {
+          if (this.likemenu[i].id == this.communitydel.id) {
+            this.action = 1;
+            this.actionmsg = "-退出社区";
+          } else {
+            this.action = 0;
+            this.actionmsg = "+加入社区";
+          }
+        }
+      }
+    },
     gotopostdel() {
       this.$router.push("/postdetails");
     },
@@ -235,10 +233,66 @@ export default {
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
     },
+    getdeldata() {
+      //获取社区讨论区
+      let cid = this.communitydel.id;
+      this.$api.homeindex
+        .fourm({
+          cid,
+        })
+        .then((res) => {
+          let { code, params, msg } = res.data;
+          if (code == 0) {
+            let { statistc, forum, pagination, promote_forum } = params;
+            this.statistc = statistc; //发帖数量
+            this.pagination = pagination; //分页数据
+            this.menudata = promote_forum; //热门贴子推荐
+            this.commdata = forum; //贴子列表
+          } else {
+            this.$message({
+              message: msg,
+              type: "warning",
+            });
+          }
+        });
+      // this.$api.homeindex.livevideo({}).then(res=>{
+      //   let {code,params,msg} = res.data
+
+      //   console.log(params)
+      // })
+    },
+    gotosearch() {
+      //跳转搜索页面
+      this.$router.push("/search");
+    },
+    inithost() {
+      //重置图片
+      this.host = host;
+    },
   },
   components: {
     home_herder,
     livemenu,
+  },
+  computed: {
+    ...mapState(["communitydel", "menulike"]),
+    menulikefn() {
+      return this.$store.state.menulike;
+    },
+  },
+  watch: {
+    menulikefn(newValue) {
+      this.likemenu = newValue;
+    },
+    action(newValue) {
+      this.action = newValue;
+    },
+  },
+  created() {
+    this.likemenu = this.menulike;
+    this.judgment();
+    this.inithost();
+    this.getdeldata();
   },
 };
 </script>
@@ -463,13 +517,6 @@ export default {
         position: relative;
         border-bottom: 1px solid #dedede;
         background-color: #fff;
-      }
-      .menu_img {
-        margin: 11px 0;
-        img {
-          height: 73px;
-          width: 115px;
-        }
       }
       .menu_type_div {
         width: 220px;
