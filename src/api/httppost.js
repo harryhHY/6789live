@@ -6,6 +6,9 @@ const httppost = {
   },
   star(){
     return base.star
+  },
+  follow1(){
+    return base.follow1
   }
 }
 

@@ -79,7 +79,9 @@ const base = {
   //添加、取消关注接口
   follow: `${host}/apiv2/user/follow/`,
   //评论点赞
-  star:`${host}/apiv2/comment/star/`
+  star:`${host}/apiv2/comment/star/`,
+  //用户关注讨论区频道
+  follow1:`${host}/apiv2/user/account/follow`
 }
 
 
