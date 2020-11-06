@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="cl release_div">
-          <div class="left release"></div>
+          <div class="left release cu" @click="gotopublish()"></div>
           <div class="right pageination">
             <el-pagination
               @size-change="handleSizeChange"
@@ -196,6 +196,9 @@ export default {
     };
   },
   methods: {
+    gotopublish(){//跳转发帖
+      this.$router.push('/publish');
+    },
     delsort(item) {
       this.newsclick = item.id
       let cid = this.communitydel.id;
@@ -281,7 +284,7 @@ export default {
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
-    handleCurrentChange(val) {
+    handleCurrentChange(val) {//分页请求
       this.p = val
       this.getdeldata()
     },
