@@ -73,13 +73,29 @@ axios.interceptors.request.use(
         if (initStore.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
             config.headers.token = initStore.state.token;
         }
-        console.log(initStore.state.token);
+        // console.log(initStore.state.token);
         return config;
     },
     err => {
         return Promise.reject(err);
     }
 )
+axios.interceptors.response.use(res => {
+    // 对响应数据做些什么
+    // console.log(res);
+    if(res.status == 200){
+        if(res.data.code == -1){
+            //清除token
+            initStore.store.commit("token", "");
+            localStorage.removeItem("token");
+        }
+    }
+    return res
+  }, err => {
+    // 对响应错误做些什么
+    console.log('err', err.response) // 修改后
+    return Promise.resolve(errsresponse) // 可在组件内获取到服务器返回信息
+  })
 //创建axios实例
 
 var instance = axios.create({ timeout: 5000 });
@@ -97,7 +113,7 @@ instance.interceptors.request.use(function(config) {
     if (config.method == 'post' || config.method == 'put') {
         config.data = qs.stringify(config.data);
     }
-    console.log(initStore.state.token);
+    // console.log(initStore.state.token);
     config.headers.token = initStore.state.token;
     // const token = store.state.token;
     // if(token){
@@ -112,6 +128,13 @@ instance.interceptors.request.use(function(config) {
 instance.interceptors.response.use(
     // 请求成功
     res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
+    res => {
+        if(res.data.code == -1){
+            //清除token
+            initStore.store.commit("token", "");
+            localStorage.removeItem("token");
+        }
+    },
     // 请求失败
     error => {
         const { response } = error;

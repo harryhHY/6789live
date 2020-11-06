@@ -47,7 +47,9 @@
                     :data="uploadData"
                     list-type="picture-card"
                     :auto-upload="false"
+                    accept=".jpg,.jpeg,.png,.gif,.bmp,.pdf,.JPG,.JPEG,.PBG,.GIF,.BMP,.PDF"
                     :limit="1"
+                    :on-change="handleimgChange"
                     :on-success="handleSuccess"
                     :on-preview="handlePictureCardPreview"
                     :on-remove="handleRemove">
@@ -121,6 +123,7 @@ export default {
         onmodalclick:false,
         appendbody:true,
         //图
+        fileList:[],
         dialogImageUrl: '',
         imgVisible: false
       };
@@ -151,6 +154,11 @@ export default {
             this.$emit("chidVisible",this.onmodalclick)
             this.$refs['reportType'].resetFields();
         },
+        //图片改变时
+        handleimgChange(filelist){
+            console.log(filelist);
+            this.fileList = filelist;
+        },
         //第二个提交
         submitHandler(){
             this.uploadData.type = this.type;
@@ -161,7 +169,15 @@ export default {
                 this.uploadData.report_type = this.reportType.type;
             }
             this.uploadData.body = this.textdetail;
-            this.$refs.upload.submit();
+            console.log(this.fileList.length);
+            if(this.fileList.length != 0){
+                this.$refs.upload.submit();
+            }else{
+                this.$message({
+                    type: 'error', // warning、success
+                    message: "请上传举报图片"
+                })
+            }
         },
         //第二个关闭
         handleTwoClose(done) {
@@ -189,6 +205,7 @@ export default {
             if(res.code == 0){
                 this.twoVisible = false;
                 this.threeVisible = true;
+                this.fileList = [];
                 this.$message({
                     type: 'success', // warning、success
                     message: res.msg 
@@ -200,8 +217,9 @@ export default {
                 })
             }
         },
-        handleRemove(file, fileList) {
-            console.log(file, fileList);
+        handleRemove(file, filelist) {
+            console.log(file, filelist);
+            this.fileList = filelist;
             this.imgVisible = false;
             this.twoVisible = true;
         },
