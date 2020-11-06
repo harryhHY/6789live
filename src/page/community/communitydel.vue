@@ -54,7 +54,6 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page.sync="currentPage3"
               :page-size="pagination.page_size"
               layout="prev, pager, next, jumper"
               :total="pagination.total"
@@ -192,7 +191,8 @@ export default {
           name: "回复时间",
         },
       ],
-      newsclick:1
+      newsclick:1,
+      p:1,//翻页
     };
   },
   methods: {
@@ -282,7 +282,8 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      this.p = val
+      this.getdeldata()
     },
     getdeldata() {
       //获取社区讨论区
@@ -290,6 +291,7 @@ export default {
       this.$api.homeindex
         .fourm({
           cid,
+          p:this.p
         })
         .then((res) => {
           let { code, params, msg } = res.data;
