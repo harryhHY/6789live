@@ -81,7 +81,9 @@ const base = {
   //评论点赞
   star:`${host}/apiv2/comment/star/`,
   //用户关注讨论区频道
-  follow1:`${host}/apiv2/user/account/follow`
+  follow1:`${host}/apiv2/user/account/follow`,
+  //用户评论添加
+  comment:`${host}/apiv2/comment`
 }
 
 

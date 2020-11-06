@@ -9,6 +9,9 @@ const httppost = {
   },
   follow1(){
     return base.follow1
+  },
+  comment(data){
+    return axios.post(base.comment,data)
   }
 }
 
