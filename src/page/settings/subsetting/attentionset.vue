@@ -18,7 +18,7 @@
                 </el-form-item>
                 <el-form-item>
                     <!-- <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>    -->
-                    <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>                                    
+                    <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')" v-preventReClick>提交</el-button>                                    
                 </el-form-item>
             </el-form>
             <!-- <el-checkbox-group v-for="(data,index) in checkboxList" :key="index" v-model="checkedCities" @change="handleCheckedCitiesChange">

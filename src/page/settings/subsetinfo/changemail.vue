@@ -4,8 +4,8 @@
         <el-form-item label="登录密码" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="新邮箱" prop="checkPass">
-          <el-input type="" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+        <el-form-item label="新邮箱" prop="checkMail">
+          <el-input type="" v-model="ruleForm.checkMail" autocomplete="off"></el-input>
         </el-form-item>
         <div class="code_con">
           <el-form-item class="filed coder" prop="code" label="验证码">
@@ -23,7 +23,7 @@
           </el-button>
         </div>
         <el-form-item>
-          <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')" v-preventReClick>提交</el-button>
           <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>  
         </el-form-item>
       </el-form>
@@ -34,56 +34,45 @@
 export default {
     name:"changemail",
     data(){
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('密码不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须'));
-            } else {
-              callback();
-            }
+      let regmail = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+      let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
+      var validateMail = (rule, value, callback) => {
+        if(value == ''){
+          callback(new Error('邮箱不能为空'))
+        }else{
+          if (!regmail.test(value)) {
+            callback(new Error('邮箱格式错误'))
+          } else{
+            callback()
           }
-        }, 1000);
+        }
       };
       var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
+        if(value == ''){
+          callback(new Error('请输入密码'))
+        }else{
+          if (!reg.test(value)) {
+            callback(new Error('密码应是6-16位数字、字母或字符！'))
+          } else{
+            callback()
           }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
         }
       };
       return {
         ruleForm: {
           pass: '',
-          checkPass: '',
+          checkMail: '',
           code: ''
         },
         rules: {
           pass: [
             { validator: validatePass, trigger: 'blur' }
           ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
+          checkMail: [
+            { validator: validateMail, trigger: 'blur' }
           ],
           code: [
-            { validator: checkAge, trigger: 'blur' }
+            { required: true, message: '请填写验证码', trigger: 'blur'}
           ]
         },
         count:"",
@@ -92,13 +81,16 @@ export default {
       }
     },
     methods:{
+      //base64转码
+      encode(str){
+        return  str == null ? null : btoa(encodeURIComponent(str));
+      },
       //获取验证码倒计时
     getVerify() {
             // 验证手机号
       // if (this.checkPhone() == false) {
       //     return false;
       // } else {
-        console.log(111);
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
@@ -113,12 +105,51 @@ export default {
                   }
               }, 1000);
           }
+          this.$axios({
+              url:`${this.$api.getCode}/${this.ruleForm.checkMail}/4`,
+              method: "post",
+              timeout: 3000
+          })
+          .then(res => {
+              console.log(res);
+          })
+          .catch(error => {
+              console.log(error);
+          });
       // }
     },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$api.changemail.email({
+                pwd:this.encode(this.ruleForm.pass),
+                email:this.ruleForm.checkMail,
+                vcode:this.ruleForm.code
+            }).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$refs[formName].resetFields();                            
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+              console.log(error);
+                this.$message("设置失败")
+            })
           } else {
             console.log('error submit!!');
             return false;

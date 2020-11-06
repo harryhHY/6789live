@@ -16,6 +16,7 @@ import uploadActionUrl from "./uploadActionUrl"
 import nickname from "./nickname"
 import setpassword from "./setpassword"
 import changephone from "./changephone"
+import changemail from "./changemail"
 import checkreal from "./checkreal"
 import homeindex from "./httpget"
 import httppost from "./httppost"
@@ -62,6 +63,8 @@ export default {
     setpassword,
     //设置-修改手机号
     changephone,
+    //修改邮箱
+    changemail,
     //设置-身份认证
     checkreal,
     //首页-获取数据

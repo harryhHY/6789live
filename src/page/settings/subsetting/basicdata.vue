@@ -32,7 +32,7 @@
             <br>
             <el-form-item class="btn_box">
                 <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>
-                <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">修改</el-button>
+                <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')" v-preventReClick>修改</el-button>
             </el-form-item>
         </el-form>
   </div>

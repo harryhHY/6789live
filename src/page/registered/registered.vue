@@ -54,7 +54,7 @@
                 <el-checkbox class="autologin" disabled v-model="checked" @change = "changeRadio">同意并接受</el-checkbox><span class="liverule">《6789直播用户条款》</span>
             </div>
             <el-form-item>
-              <el-button type="primary" class="userlogin" @click="doRegiste('iphone')">注 册</el-button>
+              <el-button type="primary" class="userlogin" @click="doRegiste('iphone')" v-preventReClick>注 册</el-button>
             </el-form-item>
           </el-form>
         </el-row>

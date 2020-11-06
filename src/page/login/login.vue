@@ -67,7 +67,7 @@
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
             <el-form-item>
-              <el-button type="primary" class="userlogin" @click="doLogin('iphone')">登 录</el-button>
+              <el-button type="primary" class="userlogin" @click="doLogin('iphone')" v-preventReClick>登 录</el-button>
             </el-form-item>
           </el-form>
         </el-row>

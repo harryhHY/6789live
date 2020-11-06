@@ -57,7 +57,7 @@
                 </el-form-item>
                 
                 <el-form-item>
-                  <el-button class="third_btn" type="primary" icon="el-icon-upload" @click="resetPass('resetpass')">提 交</el-button>
+                  <el-button class="third_btn" type="primary" icon="el-icon-upload" @click="resetPass('resetpass')" v-preventReClick>提 交</el-button>
                 </el-form-item>
               </el-form>
           </div>

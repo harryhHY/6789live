@@ -10,7 +10,7 @@
             <p class="nicheng">* 昵称仅可设置一次，提交后不能再修改，请慎重考虑</p>                 
             <el-form-item>
               <el-button class="canclebtn" @click="resetForm('ruleForm')">取消</el-button>   
-              <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')">提交</el-button>
+              <el-button class="submitbtn" type="primary" @click="submitForm('ruleForm')" v-preventReClick>提交</el-button>
             </el-form-item>
           </el-form>
         </div>

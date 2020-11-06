@@ -32,6 +32,8 @@ const base = {
   setpassword: `${host}/apiv2/user/account/pwd`,
   //用户设置-绑定手机修改
   changephone: `${host}/apiv2/user/account/mobile`,
+  //修改邮箱
+  changemail:`${host}/apiv2/user/account/email`,
   //用户设置-身份认证
   checkReal: `${host}/apiv2/user/account/real`,
   //用户关注设置获取，频道列表获取

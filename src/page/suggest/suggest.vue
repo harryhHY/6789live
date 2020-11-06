@@ -34,7 +34,7 @@
             <div id="editor"></div>
             <div class="btn_con">
                 <el-button class="cancler"  type="info" plain @click="cancleHandler">取消</el-button>
-                <el-button class="submitbtn"  type="primary" @click="getEditorData">提交</el-button>
+                <el-button class="submitbtn"  type="primary" @click="getEditorData" v-preventReClick>提交</el-button>
             </div>
         </div>       
     </div>
