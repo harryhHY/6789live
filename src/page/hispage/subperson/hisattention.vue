@@ -1,6 +1,6 @@
 <template>
     <div class="attention">
-        <p class="p_title">我的关注</p>
+        <p class="p_title">他的关注</p>
         <div class="attention_list">
             <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->

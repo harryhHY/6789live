@@ -54,7 +54,28 @@ Vue.directive('preventReClick', {
 // Object.keys (directive).forEach(keys=>{
 //   Vue.prototype.directive(keys,directive[keys])
 // })
-
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((item) => item.meta.requireAuth)) {
+      // let token = true
+      let token = localStorage.getItem("token");
+      // console.log(token);
+      if (token) {
+          next();
+      } else {
+        Vue.prototype.$message({
+          type: 'warning',
+          message: "请先登录再进行操作"
+        }) 
+          // next({
+          //     path: "/"
+          // })
+      }
+  } else {
+      // 不需要登陆
+      next();
+  }
+})
 
 
 new Vue({

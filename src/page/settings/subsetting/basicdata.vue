@@ -118,7 +118,11 @@ export default {
                     })
                     this.$refs[formName].resetFields();                            
                 } else if (res.data.code == -1) {
-
+                    this.$message({
+                        type: 'warning', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/")
                 }
             })
             .catch(error => {

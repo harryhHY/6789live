@@ -64,6 +64,9 @@ export default new Router({
     {
       path: '/search',
       name: 'Search',
+      meta: {
+        requireAuth: true
+      },
       component: () => Search
     },
     {
@@ -114,6 +117,9 @@ export default new Router({
     {
       path: '/settings',
       name: 'settings',
+      meta: {
+        requireAuth: true
+      },
       component: () => Settings
     },
     {
@@ -124,6 +130,9 @@ export default new Router({
     {
       path: '/person',
       name: 'person',
+      meta: {
+        requireAuth: true
+      },
       redirect:"/person/homeperson",
       component: () => Person,
       children:[
@@ -148,6 +157,9 @@ export default new Router({
     {
       path: '/hispage',
       name: 'hispage',
+      meta: {
+        requireAuth: true
+      },
       redirect:"/hispage/hishomeperson",
       component: () => Hispage,
       children:[
@@ -177,11 +189,17 @@ export default new Router({
     {
       path: '/suggest',
       name: 'suggest',
+      meta: {
+        requireAuth: true
+      },
       component: () => Suggest,
     },
     {
       path: '/suggestdetail',
       name: 'suggestdetail',
+      meta: {
+        requireAuth: true
+      },
       component: () => Suggestdetail,
     },
     {
@@ -192,6 +210,9 @@ export default new Router({
     {
       path: '/publish',
       name: 'publish',
+      meta: {
+        requireAuth: true
+      },
       component: () => Publish,
     }
 

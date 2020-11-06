@@ -93,15 +93,15 @@ axios.interceptors.response.use(res => {
     return res
   }, err => {
     // 对响应错误做些什么
-    console.log('err', err.response) // 修改后
-    return Promise.resolve(errsresponse) // 可在组件内获取到服务器返回信息
+    console.log('err', err.response)
+    return Promise.resolve(err.response) // 可在组件内获取到服务器返回信息
   })
 //创建axios实例
 
 var instance = axios.create({ timeout: 5000 });
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 instance.defaults.headers.post['enctype'] = 'multipart/form-data';
-instance.defaults.headers.common['Authorization'] = initStore.state.token;// token在vuex
+// instance.defaults.headers.common['Authorization'] = initStore.state.token;// token在vuex
 
 
 instance.defaults.headers.token = initStore.state.token;// token在vuex
