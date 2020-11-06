@@ -213,6 +213,7 @@ export default {
       margin: 0 3px;
       div {
         border: 1px solid #dedede;
+        height: 35px;
       }
       .w142 {
         width: 142px + 2px;

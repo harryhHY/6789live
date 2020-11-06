@@ -20,7 +20,7 @@
         <div
           v-for="(item, key) in videoData"
           :key="key"
-          @click="gotovideo(key)"
+          @click="gotovideo(item)"
           class="videotitle_div cu"
         >
           <div class="videotype left">
@@ -49,10 +49,9 @@ export default {
     };
   },
   methods: {
-    gotovideo(id) {
-      this.$router.push("/newdel");
-      this.$store.commit("newsList", id);
-      console.log(id);
+    gotovideo(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("Livedel");
     },
     inithost() {
       this.host = host;

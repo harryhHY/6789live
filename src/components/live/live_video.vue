@@ -7,7 +7,7 @@
       <div
         v-for="(item, key) in videoData"
         :key="key"
-        @click="gotovideo(key)"
+        @click="gotovideo(item)"
         class="videotitle_div cu"
       >
         <div class="videotype left ov">
@@ -31,10 +31,9 @@ export default {
   },
   props: ["data", "type"],
   methods: {
-    gotovideo(id) {
-      this.$router.push("/newdel");
-      this.$store.commit("newsList", id);
-      console.log(id);
+    gotovideo(e) {
+      this.$store.commit("liveList", e);
+      this.$router.push("Livedel");
     },
     getlivevideo() {
       this.$api.homeindex.livevideo({}).then((res) => {
@@ -49,13 +48,13 @@ export default {
     },
   },
   created() {
-    switch (this.$route.path){
+    switch (this.$route.path) {
       case "/Livedel":
-         this.getlivevideo();
-         break;
+        this.getlivevideo();
+        break;
       case "/newdel":
         // this.get
-         break;
+        break;
     }
     if (this.$route.path == "/Livedel") {
       this.getlivevideo();
