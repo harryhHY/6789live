@@ -90,6 +90,7 @@
                 placeholder="来说两句吧！"
               ></textarea>
             </div>
+            <div class="left fabiao" @click="postcomment()">发表</div>
           </div>
           <div class="otheruser_comment_div">
             <div
@@ -107,7 +108,7 @@
                       {{ item.user_name }}
                     </span>
                     <span class="otheruser_time">
-                      {{ item.c_addtime }}
+                      {{ item.c_addtime | formDate }}
                     </span>
                     <div class="otheruser_msg">
                       {{ item.c_body }}
@@ -127,8 +128,10 @@
                   <div class="otheruser_goods_img left"></div>
                   <div class="left">赞{{ item.c_good_count }}</div>
                 </div>
-                <div class="otheruserreply left cu">
-                  <div class="otheruser_reply_img left"></div>
+                <div class="otheruserreply left cu"   @click="getcommentid(item,$event)">
+                  <div
+                    class="otheruser_reply_img left"
+                  ></div>
                   回复
                 </div>
               </div>
@@ -143,6 +146,10 @@
                 ></newstree>
               </div>
             </div>
+            <!-- <div class="cl relpyinput_div">
+              <input type="text" v-model="commentReplyMsg" />
+              <div @click="commentreply()">回复</div>
+            </div> -->
           </div>
         </div>
         <div class="access_header comment_content">
@@ -207,10 +214,62 @@ export default {
       showreply: false, //显示回复
       deep: 0,
       showreport: false, //显示举报弹窗
+      commentReplyMsg: "", //评论回复
+      showReplyinput: false,
+      showcommentid:0,//评论回复id
+      showcommentheight:'',//评论的位置
     };
   },
   methods: {
+    getcommentid(item,e){
+      this.showcommentid = item.id;
+      this.showcommentheight = e.clientY
+    },
+    commentreply() {
+      //评论回复
+      let body = this.$inHTMLData(this.commentReplyMsg);
+      this.$api.httppost
+        .comment({
+          nid: this.newsList.id,
+          type: 1,
+          cid:this.showcommentid,
+          body,
+        })
+        .then((res) => {
+          let { code, msg, params } = res.data;
+          if (code == 0) {
+            this.$message({
+              message: "评论成功",
+              type: "success",
+            });
+            this.commentReplyMsg = "";
+          }
+        });
+      this.getrouterdata();
+    },
+    postcomment() {
+      //给新闻添加评论
+      let body = this.$inHTMLData(this.commentmsg);
+      this.$api.httppost
+        .comment({
+          nid: this.newsList.id,
+          type: 1,
+          body,
+        })
+        .then((res) => {
+          let { code, msg, params } = res.data;
+          if (code == 0) {
+            this.$message({
+              message: "评论成功",
+              type: "success",
+            });
+            this.commentmsg = "";
+          }
+        });
+      this.getrouterdata();
+    },
     getVisible(value) {
+      //切换举报弹窗
       this.showreport = value;
     },
     showreportfn() {
@@ -253,7 +312,7 @@ export default {
       console.log(this.showreply);
       this.$refs[`child${item.id}`][0].changeshow();
     },
-    getrouterdata() {
+    getrouterdata() {//获取新闻详情
       console.log(this.$api.homeindex.newsdel());
       this.$axios({
         url: `${this.$api.homeindex.newsdel()}${this.newsList.id}`,
@@ -297,7 +356,7 @@ export default {
     ...mapState(["newsList", "newsmenuswp"]),
   },
   mounted() {
-    console.log(this.newsList.id);
+    // console.log(this.newsList.id);
     // const dp = new DPlayer({
     //   container: document.getElementById("dplayer"),
     //   video: {
@@ -309,6 +368,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fabiao{
+  background-color: #01a0fc;
+  color:#ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 80px 0 0 5px;
+}
 .report_div_com {
   position: fixed;
   top: 0;
@@ -327,6 +393,7 @@ export default {
   margin-top: 7px;
   width: 1090px;
   background-color: #ffffff;
+  border-radius: 5px;
   .banner {
     width: 1112px;
     height: 97px;
@@ -432,6 +499,7 @@ export default {
   }
 }
 .interaction {
+  padding-bottom: 20px;
   .access_header {
     display: flex;
     margin-left: 49px;
@@ -469,7 +537,7 @@ export default {
 }
 .user_comment_div {
   margin: 0 50px 0 50px;
-  padding: 19px 38px;
+  padding: 19px 0 19px 38px;
   border-bottom: 1px solid #848484;
   .user_comment_img {
     img {

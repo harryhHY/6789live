@@ -496,6 +496,7 @@ export default {
 }
 .news_title1 {
   width: 20%;
+  height: 60px;
   box-shadow: 0 0 0 1px #555;
 }
 .user {

@@ -8,10 +8,7 @@
       </div>
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
-          <el-carousel-item
-            v-for="(item,index) in swiperdata"
-            :key="item.id"
-          >
+          <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
             <img :src="host + item.news_cover_url" alt="" class="swiper_img" />
           </el-carousel-item>
         </el-carousel>
@@ -203,7 +200,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
-      swiperdata: [],//轮播图
+      swiperdata: [], //轮播图
       football: [
         {
           id: 1,
@@ -257,128 +254,6 @@ export default {
       footerball: [], //足球新闻
       footerballdata: [], //足球新闻数据
       host: "",
-      footballdata: [
-        {
-          id: 1,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 2,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 3,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 4,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 5,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 6,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 7,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-        {
-          id: 8,
-          imgsrc: require("../../image/logo.png"),
-          title: "[女足]中国之队友谊赛：中国 0-0 墨西哥",
-          type: "一结束",
-          gametype: "足球",
-          gametype1: "意甲",
-          time: "10:20",
-          aicon: require("../../image/team.jpg"),
-          aname: "哥伦甲-圣塔菲",
-          bicon: require("../../image/team.jpg"),
-          bname: "拉伊奎达德",
-          ascore: 0,
-          bscore: 1,
-        },
-      ],
       todaymenu: [
         {
           id: 1,
@@ -521,6 +396,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.home_content{
+  background-image: url('../../image/bj.jpg');
+  background-size: 100%;
+}
 .aname {
   width: 50px;
   font-size: 12px /**no */;
@@ -589,6 +468,10 @@ export default {
 .swp {
   width: 100%;
   height: 300px;
+  img {
+    width: 450px;
+    height: 300px;
+  }
   .is-active {
     color: #1a90fc;
   }
