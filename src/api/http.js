@@ -86,8 +86,8 @@ axios.interceptors.response.use(res => {
     if(res.status == 200){
         if(res.data.code == -1){
             //清除token
-            initStore.store.commit("token", "");
-            localStorage.removeItem("token");
+            localStorage.setItem("token",'');
+            initStore.state.commit("token", ""); 
         }
     }
     return res
@@ -127,16 +127,26 @@ instance.interceptors.request.use(function(config) {
 //响应拦截
 instance.interceptors.response.use(
     // 请求成功
-    res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
+    
+    // res => res.status === 200 ? Promise.resolve(res) : Promise.reject(res),
     res => {
-        if(res.data.code == -1){
-            //清除token
-            initStore.store.commit("token", "");
-            localStorage.removeItem("token");
+        if(res.status === 200){
+            console.log(res)
+            console.log(initStore.state);
+            if(res.data.code == -1){
+                //清除token
+                localStorage.setItem("token",'');
+                initStore.state.commit("token", "");               
+            }
+            return Promise.resolve(res);
+        }else{
+            return Promise.reject(res);
         }
+        
     },
     // 请求失败
     error => {
+        console.log(error);
         const { response } = error;
         if (response) {
             // 请求已发出，但是不在2xx的范围
