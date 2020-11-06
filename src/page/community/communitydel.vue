@@ -65,11 +65,14 @@
         <div class="main_data">
           <div class="main_title cl">
             <div class="left main_title_left cl">
-              <div class="left news">最新</div>
-              <div class="left news">热门</div>
-              <div class="left news">精华</div>
-              <div class="left news">发帖时间</div>
-              <div class="left news">回复时间</div>
+              <div
+                :class="item.id == newsclick?'left news cu click':'left news cu' "
+                v-for="(item, index) in sortList"
+                :key="item.id"
+                @click="delsort(item)"
+              >
+                {{ item.name }}
+              </div>
             </div>
             <div class="right main_title_right cl">
               <div class="author left">作者</div>
@@ -166,9 +169,57 @@ export default {
       action: 0, //是否已经加入社区
       likemenu: [], //已经关注的社区列表
       actionmsg: "", //动态显示是否加入社区
+      sortList: [
+        //排序方式
+        {
+          id: 1,
+          name: "最新",
+        },
+        {
+          id: 2,
+          name: "热门",
+        },
+        {
+          id: 3,
+          name: "精华",
+        },
+        {
+          id: 4,
+          name: "发帖时间",
+        },
+        {
+          id: 5,
+          name: "回复时间",
+        },
+      ],
+      newsclick:1
     };
   },
   methods: {
+    delsort(item) {
+      this.newsclick = item.id
+      let cid = this.communitydel.id;
+      this.$api.homeindex
+        .fourm({
+          cid,
+          order:item.id
+        })
+        .then((res) => {
+          let { code, params, msg } = res.data;
+          if (code == 0) {
+            let { statistc, forum, pagination, promote_forum } = params;
+            this.statistc = statistc; //发帖数量
+            this.pagination = pagination; //分页数据
+            this.menudata = promote_forum; //热门贴子推荐
+            this.commdata = forum; //贴子列表
+          } else {
+            this.$message({
+              message: msg,
+              type: "warning",
+            });
+          }
+        });
+    },
     trigger() {
       this.$refs.livemenu.getlivemenu();
       this.judgment();
@@ -201,7 +252,7 @@ export default {
           this.$message({
             message: pipi,
             type: "success",
-            duration:500
+            duration: 500,
           });
         }
       });
@@ -420,6 +471,9 @@ export default {
               height: 44px;
               line-height: 44px;
               text-align: center;
+            }
+            .click{
+              color: #01a1fc;
             }
           }
           .main_title_right {
