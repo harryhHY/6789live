@@ -19,7 +19,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="uid !=0">
+        <!-- <div v-if="uid !=0"> -->
+        <div>
             <el-button class="reportbtn" size="mini" type="info" plain @click="reportHandler('id')">举报</el-button>
             <el-button v-if="flag == 1" class="attentionbtn" size="mini" type="primary" @click="follow">+ 加关注</el-button>
             <el-button v-if="flag == 2" class="attentionbtn" size="mini" type="primary" @click="follow">取消关注</el-button>
@@ -64,7 +65,7 @@ export default {
             profile:{},
             //举报实体 1：新闻2：帖子3：用户4:评论
             type:3,
-            uid:0,
+            uid:1,
             //关注
             flag:1,//关注1,取消关注2
         }
