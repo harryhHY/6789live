@@ -15,10 +15,10 @@
         </div>
       </div>
       <div class="newsbody">
-        <img :src="host + newsdel.newsCoverUrl" class="newsCoverUrl" alt="" />
-        <div>
-          {{ newsdel.newsBody }}
+        <div class="newsCoverUrl_div">
+          <img :src="host + newsdel.newsCoverUrl" class="newsCoverUrl" alt="" />
         </div>
+        <div v-html="newsdel.newsBody"></div>
       </div>
       <div class="cl title_bottom">
         <div class="left">6789直播</div>
@@ -40,7 +40,7 @@
             <div class="comment_img left"></div>
             <div class="comment left">评论</div>
           </div> -->
-          <div class="cl report_div left cu">
+          <div class="cl report_div left cu" @click="showreportfn()">
             <div class="report_img left"></div>
             <div class="report left">举报</div>
           </div>
@@ -170,6 +170,14 @@
         </div>
       </div>
     </div>
+    <div class="report_div_com" v-if="showreport">
+      <report
+        :report_type="1"
+        :report_id="newsList.id"
+        :visible="showreport"
+        @chidVisible="getVisible"
+      ></report>
+    </div>
     <newslive v-if="newsmenuswp"></newslive>
   </div>
 </template>
@@ -180,6 +188,7 @@ const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 const newstree = () => import("../../components/new/newstree");
+const report = () => import("../../components/person/report");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
@@ -195,17 +204,27 @@ export default {
       commentList: [], //评论
       recommend: [], // 推荐新闻
       newsdel: [],
-      showreply: false,
+      showreply: false, //显示回复
       deep: 0,
+      showreport: false, //显示举报弹窗
     };
   },
   methods: {
+    getVisible(value) {
+      this.showreport = value;
+    },
+    showreportfn() {
+      //举报弹窗
+
+      console.log(this.showreport);
+      this.showreport = !this.showreport;
+    },
     star(item) {
-      let type =0
-      if(item.is_stared == 0){
-        type = 1
-      }else{
-        type = 2
+      let type = 0;
+      if (item.is_stared == 0) {
+        type = 1;
+      } else {
+        type = 2;
       }
       //用户评论点赞
       let url1 = `${this.$api.httppost.star()}${item.c_uid}/${type}`;
@@ -268,6 +287,7 @@ export default {
     livemenu,
     newslive,
     newstree: newstree,
+    report,
   },
   created() {
     this.inithost();
@@ -289,6 +309,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.report_div_com {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 .newsdel {
   background-image: url("../../image/bj.jpg");
   background-size: 100%;
@@ -307,9 +335,15 @@ export default {
   .newsbody {
     margin: 30px 117px;
     line-height: 40px;
+    .newsCoverUrl_div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .newsCoverUrl {
       width: 706px;
       height: 550px;
+      margin: auto;
     }
   }
   .title_div {
