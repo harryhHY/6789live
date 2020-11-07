@@ -65,7 +65,7 @@ export default {
             profile:{},
             //举报实体 1：新闻2：帖子3：用户4:评论
             type:3,
-            uid:1,
+            uid:'',
             //关注
             flag:1,//关注1,取消关注2
         }
@@ -82,13 +82,19 @@ export default {
         },
         //获取个人信息
         getInfo(){
+            // console.log(this.$route.params.uname);
+            if(this.$route.params.uname){
+                this.uid = this.$route.params.uname;
+            }else{
+                this.uid = localStorage.getItem('otherId')
+            }
             this.$axios({
                 url:`${this.$api.myprofile}/${this.uid}`,
                 method: "get",
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -156,7 +162,11 @@ export default {
         let todayDate = new Date();
         this.date = todayDate.getDate();
         this.getInfo()
-        console.log(this.$route.params.uname)
+    },
+    created(){
+        if(this.$route.params.uname){
+            localStorage.setItem('otherId',this.$route.params.uname)
+        }       
     }
 }
 </script>

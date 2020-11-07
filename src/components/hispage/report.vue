@@ -236,6 +236,7 @@ export default {
     },
     mounted(){
         console.log(this.visible);      
+        console.log(this.report_id);      
     }
 }
 </script>

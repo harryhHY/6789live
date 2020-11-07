@@ -274,6 +274,7 @@ export default {
                     })
                     localStorage.setItem('user_uid',res.data.params.user_uid);                       
                     localStorage.setItem('user_name',res.data.params.user_name);                       
+                    localStorage.setItem('nick_name',res.data.params.user_nickname);                       
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success

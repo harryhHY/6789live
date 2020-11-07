@@ -24,14 +24,14 @@
             <el-button v-if="flag == 1" class="attentionbtn" size="mini" type="primary" @click="follow">+ 加关注</el-button>
             <el-button v-if="flag == 2" class="attentionbtn" size="mini" type="primary" @click="follow">取消关注</el-button>
         </div>
-        <!-- <div class="timer">
+        <div class="timer">
             <div class="date">
                 {{date}}
             </div>
             <div class="weekend">
                 {{nowWeekend}}
             </div>
-        </div> -->
+        </div>
     </div>
     <div class="person_info">
         <p class="p_title">个人信息</p>
@@ -87,7 +87,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -155,7 +155,6 @@ export default {
         let todayDate = new Date();
         this.date = todayDate.getDate();
         this.getInfo()
-        console.log(this.nameId);
     }
 }
 </script>
@@ -218,8 +217,8 @@ export default {
         width: 70px;
         height: 100px;
         position: absolute;
-        right: 15px;
-        top: 15px;
+        right: 40px;
+        top: 30px;
         text-align: center;
         border-radius: 5px;
         .date{

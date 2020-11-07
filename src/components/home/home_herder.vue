@@ -147,7 +147,7 @@ export default {
           src: "/community",
         },
       ],
-      namely: "一切都是为了活着",
+      namely: localStorage.getItem("nick_name") ? localStorage.getItem("nick_name") : localStorage.getItem("user_name"),
       menuitem: [
         {
           title: "账号设置",

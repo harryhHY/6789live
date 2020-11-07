@@ -199,37 +199,45 @@ export default {
     methods:{
          getEditorData() {
             // 通过代码获取编辑器内容
-            let data = this.editor.txt.html()
-            this.$api.publish.publishPost({
-                forum_title:this.articletitle,
-                channel:this.value[2],
-                body:data
-            }).then(res => {
-                console.log(res);
-                if (res.data.code == 1) {
-                    this.$message({
-                        type: 'error', // warning、success
-                        message: res.data.msg 
-                    }) 
-                } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    //清空编辑器
-                    this.editor.txt.clear()
-                    this.articletitle = ''                            
-                } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'warning', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$router.push("/")
-                }
-            })
-            .catch(error => {
-                this.$message("未知错误")
-            })
+            if(this.articletitle != ''){
+                let data = this.editor.txt.html()
+                this.$api.publish.publishPost({
+                    forum_title:this.articletitle,
+                    channel:this.value[2],
+                    body:data
+                }).then(res => {
+                    console.log(res);
+                    if (res.data.code == 1) {
+                        this.$message({
+                            type: 'error', // warning、success
+                            message: res.data.msg 
+                        }) 
+                    } else if (res.data.code == 0) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        //清空编辑器
+                        this.editor.txt.clear()
+                        this.articletitle = ''                            
+                    } else if (res.data.code == -1) {
+                        this.$message({
+                            type: 'warning', // warning、success
+                            message: res.data.msg 
+                        })
+                        this.$router.push("/")
+                    }
+                })
+                .catch(error => {
+                    this.$message("未知错误")
+                })
+            }else{
+                this.$message({
+                    type: 'warning', // warning、success
+                    message: '标题不能为空'
+                })
+            }
+            
 
             
         },

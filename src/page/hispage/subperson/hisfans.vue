@@ -84,7 +84,7 @@ export default {
         }
     },
     mounted(){
-        console.log(1>90 ? 200 :300);
+        console.log(this.$route.params.uname)
     }
 
 }

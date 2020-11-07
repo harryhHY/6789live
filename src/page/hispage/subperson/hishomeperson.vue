@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="article_info">
-            <p class="p_title">我的发帖</p>
+            <p class="p_title">他的发帖</p>
             <div class="article" v-for="(item,index) in articleList" :key="index">
                 <div class="article_left">
                     <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
@@ -10,6 +10,9 @@
                 <p class="article_right">
                     {{item.addtime_format}}
                 </p>
+            </div>
+            <div class="noarticle" v-if="articleList.length == 0">
+                暂未发布帖子
             </div>
             <!-- <el-timeline :reverse="reverse">
                 <el-timeline-item
@@ -42,35 +45,17 @@ export default {
     name:"",
     data(){
         return{
-            uid:0,
-            articleList: [{
-                title:"帖子主题",
-                content: '帖子详情',
-                timestamp: '2018-04-12 20:46',
-                type:"足球",
-                size: 'large',
-                icon: 'el-icon-more'
-                }, 
-                {
-                title:"帖子主题",
-                content: '帖子详情',
-                type:"篮球",
-                timestamp: '2018-04-03 10:46',
-                color: '#0bbd87'
-                }, 
-                {
-                title:"帖子主题",
-                content: '帖子详情',
-                type:"电竞",
-                imgsrc:require("@/image/news.jpeg"),
-                timestamp: '2019-04-03 20:46',
-                size: 'large'
-                }
-            ]
+            uid:'',
+            articleList: []
         }
     },
     methods:{
         getaAticle(){
+            if(this.$route.params.uname){
+                this.uid = this.$route.params.uname;
+            }else{
+                this.uid = localStorage.getItem('otherId')
+            }
             this.$axios({
                 url:`${this.$api.myprofile}/${this.uid}`,
                 method: "get",
@@ -100,7 +85,11 @@ export default {
     },
     mounted(){
         this.getaAticle();
-        console.log(this.$route.params.uname)
+    },
+    created(){
+        if(this.$route.params.uname){
+            localStorage.setItem('otherId',this.$route.params.uname)
+        }       
     }
 }
 </script>
@@ -172,6 +161,12 @@ export default {
             float: right;
             font-size: 12px;
         }
+    }
+    .noarticle{
+        text-align: center;
+        height: 100px;
+        line-height: 100px;
+        color: #848484;
     }
     .article:hover{
         background-color: aliceblue;

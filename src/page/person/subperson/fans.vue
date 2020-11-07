@@ -34,6 +34,7 @@ export default {
             colorStyle: 'red',
             background: 'blue',
             newWidth:10,
+            uid:localStorage.getItem("user_uid"),
             attentionData:[
                 {
                     person_avotor:require("@/image/news.jpeg"),
@@ -81,10 +82,37 @@ export default {
     methods:{
         getIndex(i){
             console.log(i);
+        },
+        getAttention(){
+            this.$axios({
+                url:`${this.$api.followfans}/${this.uid}/1`,
+                method: "get",
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
         }
     },
     mounted(){
-        console.log(1>90 ? 200 :300);
+        this.getAttention()
     }
 
 }

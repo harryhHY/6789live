@@ -2,7 +2,7 @@
     <div>
         <div class="article_info">
             <p class="p_title">我的发帖</p>
-            <div class="article" v-for="(item,index) in articleList" :key="index">
+            <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
                 <div class="article_left">
                     <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
                     <div class="article_content" ref="forum_body" v-html="item.forum_body"></div>
@@ -43,30 +43,7 @@ export default {
     data(){
         return{
             uid:0,
-            articleList: [{
-                title:"帖子主题",
-                content: '帖子详情',
-                timestamp: '2018-04-12 20:46',
-                type:"足球",
-                size: 'large',
-                icon: 'el-icon-more'
-                }, 
-                {
-                title:"帖子主题",
-                content: '帖子详情',
-                type:"篮球",
-                timestamp: '2018-04-03 10:46',
-                color: '#0bbd87'
-                }, 
-                {
-                title:"帖子主题",
-                content: '帖子详情',
-                type:"电竞",
-                imgsrc:require("@/image/news.jpeg"),
-                timestamp: '2019-04-03 20:46',
-                size: 'large'
-                }
-            ]
+            articleList: []
         }
     },
     methods:{
@@ -96,11 +73,14 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }
+        },
+        gotopostdetails(item){//跳转贴子详情页面
+            this.$router.push('/postdetails');
+            this.$store.commit('postdel',item)
+        },
     },
     mounted(){
         this.getaAticle();
-        console.log(this.$route.params.nameId)
     }
 }
 </script>

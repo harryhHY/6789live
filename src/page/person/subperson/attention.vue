@@ -34,7 +34,7 @@ export default {
             colorStyle: 'red',
             background: 'blue',
             newWidth:10,
-            uid:0,
+            uid:localStorage.getItem("user_uid"),
             attentionData:[
                 {
                     person_avotor:require("@/image/news.jpeg"),
@@ -112,7 +112,7 @@ export default {
         }
     },
     mounted(){
-        // this.getAttention()
+        this.getAttention()
     }
 
 }
