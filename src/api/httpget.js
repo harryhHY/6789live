@@ -35,6 +35,9 @@ const homeindex = {
   },
   rate(){
     return base.rate
+  },
+  forumdel(){
+    return base.forumdel
   }
 }
 

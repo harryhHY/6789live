@@ -85,7 +85,9 @@ const base = {
   //用户关注讨论区频道
   follow1:`${host}/apiv2/user/account/follow`,
   //用户评论添加
-  comment:`${host}/apiv2/comment`
+  comment:`${host}/apiv2/comment`,
+  //贴子详情
+  forumdel:`${host}/apiv2/forum/`
 }
 
 
