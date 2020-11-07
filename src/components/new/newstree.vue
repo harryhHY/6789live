@@ -9,6 +9,7 @@
       v-show="flag || showreply"
     >
       {{ item.user_name }} : {{ item.c_body }}
+      <div @click="reply()">回复</div>
       <comment-tree
         v-if="itemChild"
         :itemChild="item.child"
@@ -32,6 +33,9 @@ export default {
   name: "comment-tree",
   props: ["itemChild", "deep", "showreply"],
   methods: {
+    reply(){
+
+    },
     changeshow() {
       this.flag = !this.flag;
     }
