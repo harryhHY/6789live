@@ -11,6 +11,9 @@
                     {{item.addtime_format}}
                 </p>
             </div>
+            <div class="noarticle" v-if="articleList.length == 0">
+                暂未发布帖子
+            </div>
             <!-- <el-timeline :reverse="reverse">
                 <el-timeline-item
                 v-for="(item, index) in activities"
@@ -156,6 +159,12 @@ export default {
     .article:hover{
         background-color: aliceblue;
         cursor: pointer;
+    }
+    .noarticle{
+        text-align: center;
+        height: 200px;
+        line-height: 100px;
+        color: #848484;
     }
 }
 

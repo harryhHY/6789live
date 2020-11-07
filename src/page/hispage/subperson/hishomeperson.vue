@@ -2,7 +2,7 @@
     <div>
         <div class="article_info">
             <p class="p_title">他的发帖</p>
-            <div class="article" v-for="(item,index) in articleList" :key="index">
+            <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
                 <div class="article_left">
                     <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
                     <div class="article_content" ref="forum_body" v-html="item.forum_body"></div>
@@ -81,7 +81,11 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }
+        },
+        gotopostdetails(item){//跳转贴子详情页面
+            this.$router.push('/postdetails');
+            this.$store.commit('postdel',item)
+        },
     },
     mounted(){
         this.getaAticle();
@@ -164,7 +168,7 @@ export default {
     }
     .noarticle{
         text-align: center;
-        height: 100px;
+        height: 200px;
         line-height: 100px;
         color: #848484;
     }

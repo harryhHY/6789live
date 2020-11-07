@@ -93,6 +93,7 @@
         v-if="showLogin"
         :loginVisible="loginVisible"
         @chidVisible="getVisible"
+        @childData="getChildData"
       />
     </div>
     <div class="footregistered">
@@ -147,7 +148,7 @@ export default {
           src: "/community",
         },
       ],
-      namely: localStorage.getItem("nick_name") ? localStorage.getItem("nick_name") : localStorage.getItem("user_name"),
+      namely: '',
       menuitem: [
         {
           title: "账号设置",
@@ -175,6 +176,9 @@ export default {
     exit() {
       this.$store.commit("token", "");
       localStorage.setItem("token", "");
+      localStorage.setItem("user_name", "");
+      localStorage.setItem("nick_name", "");
+      localStorage.setItem("user_uid", "");
       this.$router.push("/");
     },
     gptoperson(e) {
@@ -185,6 +189,9 @@ export default {
       if (src == "/live") {
         this.$store.commit("liveheader", 0);
       }
+    },
+    getChildData(data){
+      this.namely = data;
     },
     //登录
     gologin() {
@@ -225,6 +232,13 @@ export default {
   created() {
     this.activeIndex2 = this.headerKey;
   },
+  mounted(){
+    if(localStorage.getItem('nick_name')){
+      this.namely = localStorage.getItem('nick_name');
+    }else if(localStorage.getItem('user_name')){
+      this.namely = localStorage.getItem('user_name');
+    }
+  }
 };
 </script>
 

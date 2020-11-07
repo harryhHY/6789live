@@ -2,26 +2,29 @@
     <div class="attention">
         <p class="p_title">我的关注</p>
         <div class="attention_list">
-            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
+            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
                 <div class="attenhead">
-                    <img :src="item.person_avotor" alt="">
+                    <img :src="imgurl + item.user_pic" alt="">
                 </div>
                 <div class="attenmid">
-                    <div class="sign">{{item.sign}}</div>
+                    <div class="sign">{{item.user_name}}</div>
                     <div class="desc">
-                        <p>个性签名{{item.desc}}</p>
+                        <p>个性签名{{item.user_desc}}</p>
                     </div>
                     <div class="mid_con">
-                        <p>帖子:{{item.one}}</p>
-                        <p>粉丝:{{item.two}}</p>
-                        <p>关注:{{item.three}}</p>
+                        <p>帖子:{{item.forum_count}}</p>
+                        <p>粉丝:{{item.user_fans_num}}</p>
+                        <p>关注:{{item.user_follow_num}}</p>
                     </div>
                 </div>
                 <div class="attenfoot">               
-                    <el-button class="attenbtn" size="mini">取消关注</el-button>
+                    <el-button class="attenbtn" size="mini" @click="cancleAttention(item.id)">取消关注</el-button>
                 </div>
             </div>
+        </div>
+        <div class="noarticle" v-if="attentionData.length == 0">
+            暂未关注
         </div>
     </div>
 </template>
@@ -30,58 +33,50 @@ export default {
     name:"",
     data(){
         return{
-            imgsrc:require("@/image/news.jpeg"),
+            imgurl:this.JuheHOST,
             colorStyle: 'red',
             background: 'blue',
             newWidth:10,
             uid:localStorage.getItem("user_uid"),
-            attentionData:[
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:101,
-                    two:26,
-                    three:85,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:101,
-                    two:26,
-                    three:85,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:101,
-                    two:26,
-                    three:85,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:101,
-                    two:26,
-                    three:85,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-                {
-                    person_avotor:require("@/image/news.jpeg"),
-                    sign:"小清新",
-                    one:101,
-                    two:26,
-                    three:85,
-                    desc:"专业就是不一样+++++++++++++++++++"
-                },
-            ]
+            attentionData:[]
         }
     },
     methods:{
-        getIndex(i){
-            console.log(i);
+        cancleAttention(i){
+            let id = i;
+            this.$axios({
+                url:`${this.$api.httppost.follow()}/2/${id}`,
+                method: "post",
+                data: {
+                    uid: this.uid,
+                    type: 2,
+                },
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+                    if (res.data.code == 1) {
+                        this.$message({
+                            type: 'error', // warning、success
+                            message: res.data.msg 
+                        }) 
+                    } else if (res.data.code == 0) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        this.getAttention()              
+                    } else if (res.data.code == -1) {
+                        this.$message({
+                            type: 'success', // warning、success
+                            message: res.data.msg 
+                        })
+                        this.$router.push("/") 
+                    }
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
         getAttention(){
             this.$axios({
@@ -97,7 +92,7 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-
+                    this.attentionData = res.data.params.follow_fans;
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
@@ -221,7 +216,12 @@ export default {
     }
     
 }
-
+.noarticle{
+    text-align: center;
+    height: 200px;
+    line-height: 100px;
+    color: #848484;
+}
 .subatten:hover{
     transform: translateY(-3px);
     box-shadow: 0 5px 10px #CACACA;

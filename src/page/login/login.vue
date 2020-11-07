@@ -194,7 +194,9 @@ export default {
       show: true,
       timer:null,
       dialogVisible:this.loginVisible,
-      onmodalclick:false 
+      onmodalclick:false,
+      user_name:'',
+      nick_name:''
     };
   },
   props:["loginVisible"],
@@ -261,17 +263,24 @@ export default {
             this.$api.getbasicInfo.getbasic(
 
             ).then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
+                    this.user_name = res.data.params.user_name;
+                    this.nick_name = res.data.params.user_nickname;
+                    // this.$nextTick(() => {
+                    //   console.log(this.nick_name);
+                    //   console.log(this.user_name);
+                    // }) 
+                    if(this.nick_name != ''){
+                      this.$emit("childData",this.nick_name)
+                    }else{
+                      this.$emit("childData",this.user_name)
+                    }  
                     localStorage.setItem('user_uid',res.data.params.user_uid);                       
                     localStorage.setItem('user_name',res.data.params.user_name);                       
                     localStorage.setItem('nick_name',res.data.params.user_nickname);                       
@@ -307,9 +316,9 @@ export default {
                   this.getbasic();
                   //token存入VUEX
                   this.token(res.data.params.token)
-                  localStorage.setItem("token", res.data.params.token);
+                  localStorage.setItem("token", res.data.params.token);                
                   this.dialogVisible = false;
-                  this.$router.push("/")                              
+                  this.$router.push("/")                                               
               } else if (res.data.code == -1) {
                   this.$message({
                     type: 'success', // warning、success

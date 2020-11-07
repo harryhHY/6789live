@@ -39,7 +39,7 @@
         <div class="info_detail">
             <p>生日:{{profile.user_birthday}}</p>
             <p>性别:{{profile.user_sex ==1 ? '男' : '女'}}</p>
-            <p>星座:</p>
+            <p>星座:{{constellation}}</p>
             <p>地区:{{profile.user_location}}</p>
             <p>爱好:{{profile.user_hobby}}</p>
         </div>        
@@ -67,7 +67,7 @@ export default {
             type:3,
             uid:'',
             //关注
-            flag:1,//关注1,取消关注2
+            flag:'',//关注1,取消关注2
         }
     },
     props:["nameId"],
@@ -79,6 +79,33 @@ export default {
         },
         getVisible(value){
             this.showReport = value;
+        },
+        //时间转换
+        dateFormat(dateData) {
+            var date = new Date(dateData)
+            var y = date.getFullYear()
+            var m = date.getMonth() + 1
+            m = m < 10 ? ('0' + m) : m
+            var d = date.getDate()
+            d = d < 10 ? ('0' + d) : d
+            const time = y + '-' + m + '-' + d
+            return time
+        },
+        //星座函数
+        getAstro(strBirthday){
+            let birthYear,birthMonth,birthDay; 
+            let strBirthdayArr=strBirthday.split("-");
+            // console.log(strBirthdayArr);
+            if (strBirthdayArr.length>0 && this.profile.user_birthday) {
+                birthYear = strBirthdayArr[0];  
+                birthMonth = strBirthdayArr[1];  
+                birthDay = strBirthdayArr[2];  
+            }else{
+                return;
+            }
+            let s="魔羯水瓶双鱼牡羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
+            let arr=[20,19,21,21,21,22,23,23,23,23,22,22];
+            return s.substr(birthMonth*2-(birthDay< arr[birthMonth-1]?2:0),2);//12  21
         },
         //获取个人信息
         getInfo(){
@@ -94,7 +121,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -102,6 +129,11 @@ export default {
                     }) 
                 } else if (res.data.code == 0) {
                     this.profile = res.data.params.profile;
+                    if(res.data.params.profile.is_followed == 1){
+                        this.flag = 2;
+                    }else{
+                        this.flag = 1;
+                    }
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
@@ -116,6 +148,11 @@ export default {
         },
         //点击关注
         follow(){
+            if(this.$route.params.uname){
+                this.uid = this.$route.params.uname;
+            }else{
+                this.uid = localStorage.getItem('otherId')
+            }
             this.$axios({
                 url:`${this.$api.httppost.follow()}/${this.flag}/${this.uid}`,
                 method: "post",
@@ -154,6 +191,11 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        }
+    },
+    computed:{
+        constellation(){
+            return this.getAstro(this.dateFormat(this.profile.user_birthday));
         }
     },
     mounted(){
