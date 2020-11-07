@@ -34,7 +34,9 @@ const mutations = {
   liveheader(state, data) {
     state.liveheader = data;
   },
-
+  postdel(state,data){//贴子详情
+    state.postdel = data;
+  },
   menufootData(state, data) { //左边栏目足球
     state.menufootData = data;
   },

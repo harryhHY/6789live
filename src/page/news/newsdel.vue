@@ -128,10 +128,11 @@
                   <div class="otheruser_goods_img left"></div>
                   <div class="left">赞{{ item.c_good_count }}</div>
                 </div>
-                <div class="otheruserreply left cu"   @click="getcommentid(item,$event)">
-                  <div
-                    class="otheruser_reply_img left"
-                  ></div>
+                <div
+                  class="otheruserreply left cu"
+                  @click="getcommentid(item, $event)"
+                >
+                  <div class="otheruser_reply_img left"></div>
                   回复
                 </div>
               </div>
@@ -164,6 +165,7 @@
           class="cl tuijian_div"
           v-for="(item, index) in recommend"
           :key="index"
+          @click="gotonewsdel(item)"
         >
           <div class="tuijian_img left">
             <img :src="host + item.newsCoverUrl" alt="" />
@@ -216,14 +218,14 @@ export default {
       showreport: false, //显示举报弹窗
       commentReplyMsg: "", //评论回复
       showReplyinput: false,
-      showcommentid:0,//评论回复id
-      showcommentheight:'',//评论的位置
+      showcommentid: 0, //评论回复id
+      showcommentheight: "", //评论的位置
     };
   },
   methods: {
-    getcommentid(item,e){
+    getcommentid(item, e) {
       this.showcommentid = item.id;
-      this.showcommentheight = e.clientY
+      this.showcommentheight = e.clientY;
     },
     commentreply() {
       //评论回复
@@ -232,7 +234,7 @@ export default {
         .comment({
           nid: this.newsList.id,
           type: 1,
-          cid:this.showcommentid,
+          cid: this.showcommentid,
           body,
         })
         .then((res) => {
@@ -312,7 +314,8 @@ export default {
       console.log(this.showreply);
       this.$refs[`child${item.id}`][0].changeshow();
     },
-    getrouterdata() {//获取新闻详情
+    getrouterdata() {
+      //获取新闻详情
       console.log(this.$api.homeindex.newsdel());
       this.$axios({
         url: `${this.$api.homeindex.newsdel()}${this.newsList.id}`,
@@ -342,15 +345,19 @@ export default {
       this.host = host;
     },
     //去个人中心
-    goPerson(value){
-      let uid = localStorage.getItem("user_uid")
-      if(uid == value){
-        this.$router.push("/person")
-      }else{
+    goPerson(value) {
+      let uid = localStorage.getItem("user_uid");
+      if (uid == value) {
+        this.$router.push("/person");
+      } else {
         console.log(value);
-        this.$router.push({name:'hishomeperson',params:{uname:value}})
+        this.$router.push({ name: "hishomeperson", params: { uname: value } });
       }
-    }
+    },
+    gotonewsdel(item) {
+      //新闻推荐跳转新闻详情页面
+      this.$store.commit("newsList", item);
+    },
   },
   components: {
     home_herder,
@@ -365,6 +372,15 @@ export default {
   },
   computed: {
     ...mapState(["newsList", "newsmenuswp"]),
+    liveheaderfn() {
+      return this.$store.state.newsList;
+    },
+  },
+  watch: {
+    liveheaderfn(newValue) {
+      this.inithost();
+      this.getrouterdata();
+    },
   },
   mounted() {
     // console.log(this.newsList.id);
@@ -379,9 +395,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.fabiao{
+.fabiao {
   background-color: #01a0fc;
-  color:#ffffff;
+  color: #ffffff;
   padding: 5px 10px;
   border-radius: 5px;
   margin: 80px 0 0 5px;
