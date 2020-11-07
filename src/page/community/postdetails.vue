@@ -1,5 +1,5 @@
 <template>
-  <div class="cl postdetails">
+  <div class="cl newsdel">
     <home_herder :headerKey="headerKey"></home_herder>
     <livemenu></livemenu>
     <div class="newsdel_content boxshadow left">
@@ -8,11 +8,14 @@
       </div>
       <div class="title_div cl">
         <div class="newstype1 left">
-          {{ newsList.newstype1 }}
+          {{ postdel.columnm }}
         </div>
         <div class="title left">
-          {{ newsList.title }}
+          {{ newsdel.forum_title }}
         </div>
+      </div>
+      <div class="newsbody">
+        <div v-html="newsdel.forum_body"></div>
       </div>
       <div class="cl title_bottom">
         <div class="left">6789直播</div>
@@ -26,15 +29,15 @@
           <img src="../../image/news/shareicon4.png" alt="" />
         </div>
         <div class="cl right title_bottom_right">
-          <div class="cl favorites_div left cu">
+          <!-- <div class="cl favorites_div left cu">
             <div class="favorites_img left"></div>
             <div class="left favorites">收藏</div>
           </div>
           <div class="cl comment_div left cu">
             <div class="comment_img left"></div>
             <div class="comment left">评论</div>
-          </div>
-          <div class="cl report_div left cu">
+          </div> -->
+          <div class="cl report_div left cu" @click="showreportfn()">
             <div class="report_img left"></div>
             <div class="report left">举报</div>
           </div>
@@ -56,14 +59,12 @@
             :key="index"
             class="showavatar left cu"
           >
-            <img :src="item.avatar" alt="" class="showavatar_img" />
+            <img :src="host + item.user_pic" alt="" class="showavatar_img" />
             <div>
-              {{ item.name }}
-            </div>
-            <div>
-              {{ item.time }}
+              {{ item.user_name }}
             </div>
           </div>
+          <div class="showavatar" v-if="accessList == false">暂无访客</div>
         </div>
         <div class="access_header comment_content">
           <img
@@ -86,6 +87,7 @@
                 placeholder="来说两句吧！"
               ></textarea>
             </div>
+            <div class="left fabiao" @click="postcomment()">发表</div>
           </div>
           <div class="otheruser_comment_div">
             <div
@@ -94,38 +96,58 @@
               :key="index"
             >
               <div class="cl">
-                <div class="otheruser_img left">
+                <div class="otheruser_img left" @click="goPerson(item.c_uid)">
                   <img :src="avatar" alt="" />
                 </div>
                 <div class="left">
                   <div class="otheruser_name_div">
                     <span class="otheruser_name">
-                      {{ item.name }}
+                      {{ item.user_name }}
                     </span>
                     <span class="otheruser_time">
-                      {{ item.time }}
+                      {{ item.c_addtime | formDate }}
                     </span>
                     <div class="otheruser_msg">
-                      {{ item.msg }}
+                      {{ item.c_body }}
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="replynum">查看全部{{ item.replynum }}回复></div>
+              <div
+                class="replynum cu"
+                @click="lookallreply(item)"
+                v-if="!showreply"
+              >
+                查看全部{{ item.c_reply_count }}回复>
+              </div>
               <div class="otherusergoodreply cl">
-                <div class="otherusergood left cu">
+                <div class="otherusergood left cu" @click="star(item)">
                   <div class="otheruser_goods_img left"></div>
-                  <div class="left">赞{{ item.goodsnum }}</div>
+                  <div class="left">赞{{ item.c_good_count }}</div>
                 </div>
-                <div class="otheruserreply left cu">
+                <div
+                  class="otheruserreply left cu"
+                  @click="getcommentid(item, $event)"
+                >
                   <div class="otheruser_reply_img left"></div>
                   回复
                 </div>
               </div>
+              <div class="replay_child">
+                <!-- <div v-if="!item.child">暂无回复</div> -->
+                <newstree
+                  :itemChild="item.child"
+                  v-if="item.child"
+                  :deep="deep"
+                  :ref="`child${item.id}`"
+                  :key="'father' + item.id"
+                ></newstree>
+              </div>
             </div>
-            <div class="lookmore_div centerimg">
-              <div class="lookmore cu">查看更多评论</div>
-            </div>
+            <!-- <div class="cl relpyinput_div">
+              <input type="text" v-model="commentReplyMsg" />
+              <div @click="commentreply()">回复</div>
+            </div> -->
           </div>
         </div>
         <div class="access_header comment_content">
@@ -140,20 +162,29 @@
           class="cl tuijian_div"
           v-for="(item, index) in recommend"
           :key="index"
+          @click="gotonewsdel(item)"
         >
           <div class="tuijian_img left">
-            <img :src="item.avatar" alt="" />
+            <img :src="host + item.news_cover_url" alt="" />
           </div>
           <div class="left">
             <div class="certerimg tuijian_title_div">
-              <div class="tuijian_title">{{ item.title }}</div>
-              <div class="tuijian_time">{{ item.time }}</div>
+              <div class="tuijian_title">{{ item.news_title }}</div>
+              <div class="tuijian_time">{{ item.news_addtime | formDate }}</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <newslive></newslive>
+    <div class="report_div_com" v-if="showreport">
+      <report
+        :report_type="1"
+        :report_id="postdel.id"
+        :visible="showreport"
+        @chidVisible="getVisible"
+      ></report>
+    </div>
+    <newslive v-if="newsmenuswp"></newslive>
   </div>
 </template>
 
@@ -162,6 +193,9 @@ import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
+const newstree = () => import("../../components/new/newstree");
+const report = () => import("../../components/person/report");
+import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
   data() {
@@ -170,90 +204,187 @@ export default {
       headerKey: "4",
       querydata: "",
       videosrc: "http://static.smartisanos.cn/common/video/t1-ui.mp4",
-      accessList: [
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-        },
-      ],
+      accessList: [], //用户访问列表
       commentmsg: "",
       avatar: require("../../image/team.jpg"),
-      commentList: [
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-          msg: "阿萨德大大多数",
-          replynum: 7,
-          goodsnum: 55,
-          replyflag: false,
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          name: "张三",
-          time: "10.20",
-          msg: "阿萨德大大多数",
-          replynum: 7,
-          goodsnum: 55,
-          replyflag: false,
-        },
-      ],
-      recommend: [
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-        {
-          avatar: require("../../image/team.jpg"),
-          time: "10.00",
-          title: "asdadadasddasasdasdasd",
-        },
-      ],
+      commentList: [], //评论
+      recommend: [], // 推荐新闻
+      newsdel: [],
+      showreply: false, //显示回复
+      deep: 0,
+      showreport: false, //显示举报弹窗
+      commentReplyMsg: "", //评论回复
+      showReplyinput: false,
+      showcommentid: 0, //评论回复id
+      showcommentheight: "", //评论的位置
     };
   },
   methods: {
-    getrouterdata() {},
+    gotonewsdel(item) {
+      //新闻推荐跳转新闻详情页面
+      this.$router.push({
+        path: "/newdel",
+      });
+      this.$store.commit("newsList", item);
+    },
+    getcommentid(item, e) {
+      this.showcommentid = item.id;
+      this.showcommentheight = e.clientY;
+    },
+    commentreply() {
+      //评论回复
+      let body = this.$inHTMLData(this.commentReplyMsg);
+      this.$api.httppost
+        .comment({
+          nid: this.postdel.id,
+          type: 2,
+          cid: this.showcommentid,
+          body,
+        })
+        .then((res) => {
+          let { code, msg, params } = res.data;
+          if (code == 0) {
+            this.$message({
+              message: "评论成功",
+              type: "success",
+            });
+            this.commentReplyMsg = "";
+          }
+        });
+      this.getrouterdata();
+    },
+    postcomment() {
+      //给新闻添加评论
+      let body = this.$inHTMLData(this.commentmsg);
+      this.$api.httppost
+        .comment({
+          nid: this.postdel.id,
+          type: 2,
+          body,
+        })
+        .then((res) => {
+          let { code, msg, params } = res.data;
+          if (code == 0) {
+            this.$message({
+              message: "评论成功",
+              type: "success",
+            });
+            this.commentmsg = "";
+          }
+        });
+      this.getrouterdata();
+    },
+    getVisible(value) {
+      //切换举报弹窗
+      this.showreport = value;
+    },
+    showreportfn() {
+      //举报弹窗
+
+      console.log(this.showreport);
+      this.showreport = !this.showreport;
+    },
+    star(item) {
+      let type = 0;
+      if (item.is_stared == 0) {
+        type = 1;
+      } else {
+        type = 2;
+      }
+      //用户评论点赞
+      let url1 = `${this.$api.httppost.star()}${item.c_uid}/${type}`;
+      this.$axios({
+        method: "post",
+        url: url1,
+      }).then((res) => {
+        let { code, params, msg } = res.data;
+        if (code == 0) {
+          console.log(params);
+          this.$message({
+            message: msg,
+            type: "success",
+          });
+        } else {
+          this.$message({
+            message: msg,
+            type: "warning",
+          });
+        }
+      });
+    },
+    lookallreply(item) {
+      //查看全部回复
+      // this.showreply = false;
+      console.log(this.showreply);
+      this.$refs[`child${item.id}`][0].changeshow();
+    },
+    getrouterdata() {
+      //获取新闻详情
+
+      this.$axios({
+        url: `${this.$api.homeindex.forumdel()}${this.postdel.id}`,
+      }).then((res) => {
+        let { code, msg, params } = res.data;
+        if (code == 0) {
+          let { hotLive, comments, forum, promote, recent_visitor } = params;
+
+          this.commentList = comments; //评论
+          this.newsdel = forum; //贴子详情
+          console.log(promote);
+          this.recommend = promote; //新闻推荐
+          this.accessList = recent_visitor;
+          this.$store.commit("newslivedata", hotLive);
+        }
+      });
+      // console.log(this.$api.homeindex.newsdel());
+      // this.$axios({
+      //   url: `${this.$api.homeindex.newsdel()}${this.newsList.id}`,
+      // }).then((res) => {
+      //   let {
+      //     news,
+      //     live_data,
+      //     comments,
+      //     promote,
+      //     recentVisitor,
+      //   } = res.data.params;
+      //   this.newsdel = news[0];
+      //   this.accessList = recentVisitor;
+      //   this.recommend = promote;
+      //   this.$store.commit("newslivedata", live_data);
+      //   this.commentList = comments;
+      //   console.log(this.commentList);
+      // });
+    },
+    inithost() {
+      this.host = host;
+    },
+    //去个人中心
+    goPerson(value) {
+      let uid = localStorage.getItem("user_uid");
+      if (uid == value) {
+        this.$router.push("/person");
+      } else {
+        console.log(value);
+        this.$router.push({ name: "hishomeperson", params: { uname: value } });
+      }
+    },
   },
   components: {
     home_herder,
     livemenu,
     newslive,
+    newstree: newstree,
+    report,
   },
   created() {
+    this.inithost();
     this.getrouterdata();
   },
   computed: {
-    ...mapState(["newsList"]),
+    ...mapState(["newsList", "newsmenuswp", "postdel"]),
   },
   mounted() {
-    console.log(this.newsList);
+    // console.log(this.newsList.id);
     // const dp = new DPlayer({
     //   container: document.getElementById("dplayer"),
     //   video: {
@@ -265,18 +396,50 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fabiao {
+  background-color: #01a0fc;
+  color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 80px 0 0 5px;
+}
+.report_div_com {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.newsdel {
+  background-image: url("../../image/bj.jpg");
+  background-size: 100%;
+}
 .newsdel_content {
   font-size: 14px;
   margin-left: 29px;
   margin-top: 7px;
   width: 1090px;
   background-color: #ffffff;
+  border-radius: 5px;
   .banner {
     width: 1112px;
     height: 97px;
     margin: 18px 17px;
   }
-  .newsdel_body {
+  .newsbody {
+    margin: 30px 117px;
+    line-height: 40px;
+    .newsCoverUrl_div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .newsCoverUrl {
+      width: 706px;
+      height: 550px;
+      margin: auto;
+    }
   }
   .title_div {
     font-size: 24px;
@@ -364,6 +527,7 @@ export default {
   }
 }
 .interaction {
+  padding-bottom: 20px;
   .access_header {
     display: flex;
     margin-left: 49px;
@@ -401,7 +565,7 @@ export default {
 }
 .user_comment_div {
   margin: 0 50px 0 50px;
-  padding: 19px 38px;
+  padding: 19px 0 19px 38px;
   border-bottom: 1px solid #848484;
   .user_comment_img {
     img {
@@ -475,6 +639,9 @@ export default {
   .otherusergoodreply {
     margin-left: 50px;
     color: #848484;
+  }
+  .replay_child {
+    margin-left: 50px;
   }
   .otheruser_time {
     color: #848484;

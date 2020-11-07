@@ -84,7 +84,7 @@
               v-for="(item, index) in commdata"
               :key="index"
               class="cl main_content"
-              @click="gotopostdel()"
+              @click="gotopostdetails(item)"
             >
               <div class="main_content_left left cl">
                 <div class="cl left">
@@ -135,6 +135,7 @@
           class="cl com_menu_for"
           v-for="(item, index) in menudata"
           :key="index"
+          @click="gotopostdetails(item)"
         >
           <div class="left menu_type_div">
             <span class="menu_type">{{ communitydel.ch_columnm_name }}</span>
@@ -196,8 +197,9 @@ export default {
     };
   },
   methods: {
-    gotopublish(){//跳转发帖
-      this.$router.push('/publish');
+    gotopostdetails(item){//跳转贴子详情页面
+      this.$router.push('/postdetails');
+      this.$store.commit('postdel',item)
     },
     delsort(item) {
       this.newsclick = item.id

@@ -67,12 +67,12 @@
       </div>
       <!-- 足球社区 -->
       <div class="footertitle" v-show="listfooterdata != false"></div>
-      <div class="footer_content_div">
+      <div class="footer_content_div" >
         <div
           class="cl footer_content"
           v-for="(item, index) in listfooterdata"
           :key="item.id + index"
-          @click="gotocommdel()"
+         @click="gotopostdetails(item)"
         >
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
@@ -116,11 +116,12 @@
       </div> -->
       <!-- 篮球社区 -->
       <div class="bsktitle" v-show="listbasketdata != false"></div>
-      <div class="footer_content_div">
+      <div class="footer_content_div" >
         <div
           class="cl footer_content"
           v-for="(item, index) in listbasketdata"
           :key="item.ch_views_num + index"
+          @click="gotopostdetails(item)"
         >
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
@@ -172,6 +173,7 @@
           class="cl footer_content"
           v-for="(item, index) in listcomplexdata"
           :key="item.ch_name + index"
+          @click="gotopostdetails(item)"
         >
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
@@ -240,6 +242,10 @@ export default {
     };
   },
   methods: {
+    gotopostdetails(item) {
+      this.$router.push("/postdetails");
+      this.$store.commit("postdel", item);
+    },
     gotocommunitydel(item) {
       //跳转话题社区
       this.$router.push("/communitydel");
@@ -261,7 +267,8 @@ export default {
     serach(msg) {
       this.$router.push("/search");
     },
-    gotocommdel() {
+    gotocommdel(item) {
+      this.$store.commit("postdel", item);
       this.$router.push("/postdetails");
     },
   },
