@@ -9,7 +9,7 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
-            <img :src="host + item.news_cover_url" alt="" class="swiper_img" />
+            <img :src="host + item.news_cover_url" alt="" class="swiper_img"  />
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -44,7 +44,7 @@
                 v-for="(item, key, index) in footerballdata"
                 :key="item.id"
                 class="live_div left cu"
-                @click="gotolive(item)"
+                @click="gotonewsdel(item)"
               >
                 <img
                   :src="host + item.news_cover_url"
@@ -63,6 +63,7 @@
                 v-for="(item, key, index) in forum_foottball"
                 :key="item.id"
                 class="communitymsg_div cl cu"
+                @click="gotopostdetails(item)"
               >
                 <div class="communitymsg_class left">{{ item.forum_type }}</div>
                 <div class="communitymsg_title left">
@@ -106,7 +107,7 @@
               v-for="(item, key, index) in basketballdata"
               :key="item.id"
               class="live_div left cu"
-              @click="gotolive(item.news_channel_id)"
+              @click="gotonewsdel(item)"
             >
               <img :src="host + item.news_cover_url" alt="" class="live_img" />
               <span class="live_title ov">{{ item.news_title }}</span>
@@ -121,6 +122,7 @@
               v-for="(item, key, index) in forum_basketball"
               :key="item.id"
               class="communitymsg_div cl cu"
+              @click="gotopostdetails(item)"
             >
               <div class="communitymsg_class left">{{ item.forum_type }}</div>
               <div class="communitymsg_title left">
@@ -281,6 +283,11 @@ export default {
     };
   },
   methods: {
+    gotopostdetails(item) {
+      //跳转贴子详情页面
+      this.$router.push("/postdetails");
+      this.$store.commit("postdel", item);
+    },
     // 获取首页页面数据
     async gethomedata() {
       await this.$api.homeindex.gethomeindex({}).then((res) => {
@@ -318,6 +325,12 @@ export default {
       this.basketballdata = basketball[0].data;
       this.footerballdata = football[0].data;
       // 'http://dev.6789zbz.com' +
+    },
+    gotonewsdel(e) {
+      this.$router.push({
+        path: "/newdel",
+      });
+      this.$store.commit("newsList", e);
     },
     gotolive(e) {
       console.log(e);
@@ -396,8 +409,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.home_content{
-  background-image: url('../../image/bj.jpg');
+.home_content {
+  background-image: url("../../image/bj.jpg");
   background-size: 100%;
 }
 .aname {
