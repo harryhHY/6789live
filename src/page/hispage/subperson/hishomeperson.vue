@@ -100,7 +100,7 @@ export default {
     },
     mounted(){
         this.getaAticle();
-        console.log(this.$route.params.nameId)
+        console.log(this.$route.params.uname)
     }
 }
 </script>

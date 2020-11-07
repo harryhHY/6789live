@@ -156,7 +156,7 @@ export default {
         let todayDate = new Date();
         this.date = todayDate.getDate();
         this.getInfo()
-        console.log(this.nameId);
+        console.log(this.$route.params.uname)
     }
 }
 </script>

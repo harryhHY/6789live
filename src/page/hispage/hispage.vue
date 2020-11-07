@@ -93,6 +93,9 @@ export default {
         parentEvent(data) {
             this.menu_num = data;
         },
+    },
+    mounted(){
+        console.log(this.$route.params.uname)
     }
 }
 </script>

@@ -165,6 +165,7 @@ export default new Router({
       children:[
         {
           path:"hishomeperson",
+          name:'hishomeperson',
           component: () => Hishomeperson,
         },
         {

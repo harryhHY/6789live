@@ -256,6 +256,36 @@ export default {
       encode(str){
         return  str == null ? null : btoa(encodeURIComponent(str));
       },
+      //获取用户信息
+        getbasic(){
+            this.$api.getbasicInfo.getbasic(
+
+            ).then(res => {
+                // console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    localStorage.setItem('user_uid',res.data.params.user_uid);                       
+                    localStorage.setItem('user_name',res.data.params.user_name);                       
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+                this.$message("账号或密码错误");
+            })
+        },
       //用户名登录
       login(){
           this.$api.login.useLogin(
@@ -272,6 +302,8 @@ export default {
                     type: 'success', // warning、success
                     message: res.data.msg 
                   })
+                  //登录成功获取用户基本信息
+                  this.getbasic();
                   //token存入VUEX
                   this.token(res.data.params.token)
                   localStorage.setItem("token", res.data.params.token);

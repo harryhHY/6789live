@@ -99,7 +99,7 @@
               :key="index"
             >
               <div class="cl">
-                <div class="otheruser_img left">
+                <div class="otheruser_img left" @click="goPerson(item.c_uid)">
                   <img :src="avatar" alt="" />
                 </div>
                 <div class="left">
@@ -329,6 +329,7 @@ export default {
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
         this.commentList = comments;
+        console.log(this.commentList);
         // let pipi = this.commentList;
         // for (let i = 0; i < pipi.length; i++) {
         //   pipi[i].flag = false;
@@ -340,6 +341,16 @@ export default {
     inithost() {
       this.host = host;
     },
+    //去个人中心
+    goPerson(value){
+      let uid = localStorage.getItem("user_uid")
+      if(uid == value){
+        this.$router.push("/person")
+      }else{
+        console.log(value);
+        this.$router.push({name:'hishomeperson',params:{uname:value}})
+      }
+    }
   },
   components: {
     home_herder,
