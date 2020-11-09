@@ -55,10 +55,10 @@ export default {
                 authentication: authentication,
                 infoList:{
                     id:"",
-                    name:"shdishd",
+                    name:localStorage.getItem('user_name'),
                     password:"xxxx",
-                    email:"56616126@sina.com",
-                    phone:"15682672305",
+                    email:"",
+                    phone:"",
                 }
             }
 			

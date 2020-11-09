@@ -195,8 +195,7 @@ export default {
       timer:null,
       dialogVisible:this.loginVisible,
       onmodalclick:false,
-      user_name:'',
-      nick_name:''
+      headflag:''
     };
   },
   props:["loginVisible"],
@@ -258,44 +257,6 @@ export default {
       encode(str){
         return  str == null ? null : btoa(encodeURIComponent(str));
       },
-      //获取用户信息
-        getbasic(){
-            this.$api.getbasicInfo.getbasic(
-
-            ).then(res => {
-                // console.log(res);
-                if (res.data.code == 1) {
-                    this.$message({
-                        type: 'error', // warning、success
-                        message: res.data.msg 
-                    }) 
-                } else if (res.data.code == 0) {
-                    this.user_name = res.data.params.user_name;
-                    this.nick_name = res.data.params.user_nickname;
-                    // this.$nextTick(() => {
-                    //   console.log(this.nick_name);
-                    //   console.log(this.user_name);
-                    // }) 
-                    if(this.nick_name != ''){
-                      this.$emit("childData",this.nick_name)
-                    }else{
-                      this.$emit("childData",this.user_name)
-                    }  
-                    localStorage.setItem('user_uid',res.data.params.user_uid);                       
-                    localStorage.setItem('user_name',res.data.params.user_name);                       
-                    localStorage.setItem('nick_name',res.data.params.user_nickname);                       
-                } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$router.push("/")
-                }
-            })
-            .catch(error => {
-                this.$message("账号或密码错误");
-            })
-        },
       //用户名登录
       login(){
           this.$api.login.useLogin(
@@ -313,7 +274,7 @@ export default {
                     message: res.data.msg 
                   })
                   //登录成功获取用户基本信息
-                  this.getbasic();
+                  this.$emit("childData")
                   //token存入VUEX
                   this.token(res.data.params.token)
                   localStorage.setItem("token", res.data.params.token);                

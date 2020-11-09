@@ -67,8 +67,15 @@
     <div class="other">
         <span class="help">帮助<span class="italic_line">/</span></span>  
         <span class="secret">隐私<span class="italic_line">/</span></span>  
-        <span class="rule">条款</span>
+        <span class="rule" @click="drawer = true">条款</span>
     </div>
+    <el-drawer
+      title="我是标题"
+      :visible.sync="drawer"
+      :with-header="false"
+      append-to-body>
+      <span>我来啦!</span>
+    </el-drawer>
     <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
   </span>
@@ -130,6 +137,7 @@ export default {
         }
       };
     return {
+      drawer: false,
       imgs:{
         qq:require("@/image/imgs/qq.png"),
         wx:require("@/image/imgs/wx.png"),

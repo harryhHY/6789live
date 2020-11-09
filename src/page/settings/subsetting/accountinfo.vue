@@ -75,6 +75,7 @@ export default {
     methods:{
         handleAvatarSuccess(res, file) {
             this.avator = this.JuheHOST + res.params.user_pic;
+            localStorage.setItem('user_pic',res.data.params.user_pic); 
             console.log(res);
             console.log(file);
             if (res.code == 1) {

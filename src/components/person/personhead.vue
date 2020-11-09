@@ -146,17 +146,17 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                             type: 'error', // warning、success
                             message: res.data.msg 
                         }) 
                     } else if (res.data.code == 0) {
-                        this.$message({
-                            type: 'success', // warning、success
-                            message: res.data.msg 
-                        })
+                        // this.$message({
+                        //     type: 'success', // warning、success
+                        //     message: res.data.msg 
+                        // })
                         if(this.flag == 1){
                             this.flag = 2
                         }else if(this.flag == 2){

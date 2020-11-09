@@ -74,7 +74,6 @@ axios.interceptors.request.use(
         if (initStore.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
             config.headers.token = initStore.state.token;
         }
-        // console.log(initStore.state.token);
         return config;
     },
     err => {
@@ -89,8 +88,9 @@ axios.interceptors.response.use(res => {
             //清除token
             localStorage.setItem('nick_name','');
             localStorage.setItem('user_name','');
+            localStorage.setItem('user_pic','');
             localStorage.setItem("token",'');
-            initStore.state.token = ""  
+            initStore.commit("token", ""); 
         }
     }
     return res
@@ -139,10 +139,14 @@ instance.interceptors.response.use(
             // console.log(initStore.state);
             if(res.data.code == -1){
                 //清除token
+                console.log(res)
                 localStorage.setItem("token",'');
                 localStorage.setItem('nick_name','')
                 localStorage.setItem('user_name','')
-                initStore.state.token = ""            
+                localStorage.setItem('user_pic','')
+                initStore.commit("token", "");
+                // initStore.state.token = ""
+                // console.log(initStore.state.token);            
             }
             return Promise.resolve(res);
         }else{

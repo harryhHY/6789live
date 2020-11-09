@@ -67,6 +67,8 @@
           <div class="left">
             <el-dropdown @command="gotosm">
               <span class="el-dropdown-link cu">
+                <el-avatar class="avatar" :size="25" :src="imgUrl + circleUrl" v-if="circleUrl"></el-avatar>
+                <el-avatar v-else> {{ namely }} </el-avatar>
                 {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
@@ -117,6 +119,8 @@ export default {
   },
   data() {
     return {
+      circleUrl: "",
+      imgUrl:this.JuheHOST,
       activeIndex2: "1",
       title_data: [
         {
@@ -192,6 +196,7 @@ export default {
                     localStorage.setItem("user_name", "");
                     localStorage.setItem("nick_name", "");
                     localStorage.setItem("user_uid", "");
+                    localStorage.setItem("user_pic", "");
                     this.$router.push("/");                           
                 } else if (res.data.code == -1) {
                     this.$message({
@@ -215,8 +220,45 @@ export default {
         this.$store.commit("liveheader", 0);
       }
     },
-    getChildData(data){
-      this.namely = data;
+    //获取用户信息
+        getbasic(){
+            this.$api.getbasicInfo.getbasic(
+
+            ).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    if(res.data.params.user_nickname != ''){
+                      this.namely = res.data.params.user_nickname;
+                    }else{
+                      this.namely = res.data.params.user_name;;
+                    }
+                    if(res.data.params.user_pic){
+                      this.circleUrl = res.data.params.user_pic
+                    }
+                    console.log(this.circleUrl);  
+                    localStorage.setItem('user_uid',res.data.params.user_uid);                       
+                    localStorage.setItem('user_pic',res.data.params.user_pic);                       
+                    localStorage.setItem('user_name',res.data.params.user_name);                       
+                    localStorage.setItem('nick_name',res.data.params.user_nickname);                       
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/")
+                }
+            })
+            .catch(error => {
+                this.$message("账号或密码错误");
+            })
+        },
+    getChildData(){
+      this.getbasic()
     },
     //登录
     gologin() {
@@ -263,6 +305,10 @@ export default {
     }else if(localStorage.getItem('user_name')){
       this.namely = localStorage.getItem('user_name');
     }
+    if(localStorage.getItem('user_pic')){
+      this.circleUrl = localStorage.getItem('user_pic');
+    }
+    console.log(this.circleUrl);
   }
 };
 </script>
@@ -389,5 +435,9 @@ export default {
   i {
     margin-right: 3px;
   }
+}
+.avatar{
+  position: relative;
+  top: 5px;
 }
 </style>
