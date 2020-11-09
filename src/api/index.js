@@ -4,6 +4,7 @@
 //登录接口
 import getCode from "./getcode"
 import login from "./login"
+import loginout from "./loginout"
 import checkname from "./checkname"
 import fogetpwd from "./fogetpwd"
 import registered from "./registered"
@@ -39,6 +40,8 @@ export default {
     getCode,
     //登录
     login,
+    //退出登录
+    loginout,
     //注册
     registered,
     //检查用户是否存在

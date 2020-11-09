@@ -70,6 +70,7 @@ const errorHandler = (status, other) => {
 axios.defaults.headers.common['token'] = initStore.state.token;
 axios.interceptors.request.use(
     config => {
+            config.headers.client = 'web';
         if (initStore.state.token) {  // 判断是否存在token，如果存在的话，则每个http header都加上token
             config.headers.token = initStore.state.token;
         }
@@ -116,6 +117,7 @@ instance.interceptors.request.use(function(config) {
         config.data = qs.stringify(config.data);
     }
     // console.log(initStore.state.token);
+    config.headers.client = 'web';
     config.headers.token = initStore.state.token;
     // const token = store.state.token;
     // if(token){

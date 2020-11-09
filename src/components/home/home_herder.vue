@@ -174,12 +174,37 @@ export default {
   props: ["headerKey"],
   methods: {
     exit() {
-      this.$store.commit("token", "");
-      localStorage.setItem("token", "");
-      localStorage.setItem("user_name", "");
-      localStorage.setItem("nick_name", "");
-      localStorage.setItem("user_uid", "");
-      this.$router.push("/");
+      this.$api.loginout.useLoginout(          
+            ).then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$store.commit("token", "");
+                    localStorage.setItem("token", "");
+                    localStorage.setItem("user_name", "");
+                    localStorage.setItem("nick_name", "");
+                    localStorage.setItem("user_uid", "");
+                    this.$router.push("/");                           
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                this.$message("参数错误");
+            })
     },
     gptoperson(e) {
       console.log(e);

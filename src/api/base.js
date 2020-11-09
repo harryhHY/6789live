@@ -7,6 +7,8 @@ const base = {
   getCode: `${host}/apiv2/user_sent_mms`,
   //登录
   getToken: `${host}/apiv2/user_login`,
+  //退出登录
+  loginout:`${host}/apiv2/user/logout`,
   // getToken: "​/joke/content/list.php",
   //注册
   registered: `${host}/apiv2/user_reg`,

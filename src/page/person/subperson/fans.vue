@@ -34,7 +34,8 @@ export default {
             colorStyle: 'red',
             background: 'blue',
             newWidth:10,
-            uid:localStorage.getItem("user_uid"),
+            // uid:localStorage.getItem("user_uid"),
+            uid:0,
             attentionData:[]
         }
     },

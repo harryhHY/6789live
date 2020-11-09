@@ -139,7 +139,7 @@ export default {
                         type: 'success', // warning、success
                         message: res.data.msg 
                     })
-                    // this.$router.push("/") 
+                    this.$router.push("/") 
                 }
             })
             .catch(error => {
