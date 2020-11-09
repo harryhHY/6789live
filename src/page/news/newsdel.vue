@@ -144,6 +144,7 @@
                   :deep="deep"
                   :ref="`child${item.id}`"
                   :key="'father' + item.id"
+                  @getcommentid='getcommentid'
                 ></newstree>
               </div>
             </div>
@@ -178,6 +179,14 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="user_reply" v-show="showReplyinput">
+      <textarea
+        type="text"
+        v-model="commentReplyMsg"
+        placeholder="输入回复内容"
+      ></textarea>
+      <div class="fabiao cu" @click="replyreply()">回复</div>
     </div>
     <div class="report_div_com" v-if="showreport">
       <report
@@ -223,31 +232,35 @@ export default {
     };
   },
   methods: {
-    getcommentid(item, e) {
-      this.showcommentid = item.id;
-      this.showcommentheight = e.clientY;
-    },
-    commentreply() {
-      //评论回复
+    replyreply() {
       let body = this.$inHTMLData(this.commentReplyMsg);
-      this.$api.httppost
-        .comment({
-          nid: this.newsList.id,
-          type: 1,
-          cid: this.showcommentid,
-          body,
-        })
-        .then((res) => {
-          let { code, msg, params } = res.data;
-          if (code == 0) {
-            this.$message({
-              message: "评论成功",
-              type: "success",
-            });
-            this.commentReplyMsg = "";
-          }
-        });
-      this.getrouterdata();
+      if (this.commentReplyMsg != "") {
+        this.$api.httppost
+          .comment({
+            nid: this.newsList.id,
+            type: 1,
+            cid: this.showcommentid,
+            body,
+          })
+          .then((res) => {
+            let { code, msg, params } = res.data;
+            if (code == 0) {
+              this.$message({
+                message: "评论成功",
+                type: "success",
+              });
+              this.commentReplyMsg = "";
+            }
+          });
+        this.getrouterdata();
+      }
+
+      this.showReplyinput = false;
+    },
+    getcommentid(item) {
+      this.showReplyinput = true;
+      console.log(this.showcommentid);
+      this.showcommentid = item.id;
     },
     postcomment() {
       //给新闻添加评论
@@ -413,6 +426,7 @@ export default {
 .newsdel {
   background-image: url("../../image/bj.jpg");
   background-size: 100%;
+  position: relative;
 }
 .newsdel_content {
   font-size: 14px;
@@ -580,6 +594,26 @@ export default {
       padding: 10px;
       border-radius: 9px;
     }
+  }
+}
+.user_reply {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  background-color: rgba(132, 132, 132, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  textarea {
+    width: 816px;
+    height: 91px;
+    border: 1px solid #848484;
+    padding: 10px;
+    border-radius: 9px;
   }
 }
 .otheruser_comment_div {

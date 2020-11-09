@@ -1,15 +1,19 @@
 <template>
-  <div class="comment-wrap">
+  <div class="comment-wrap ">
     <div
       v-for="(item, index) in child"
       :key="index"
       :style="'margin-left:' + deep * 30 + 'px'"
       class="replay"
-      @click="changeshow"
       v-show="flag || showreply"
     >
-      {{ item.user_name }} : {{ item.c_body }}
-      <div @click="reply()">回复</div>
+
+    <!--    @click="changeshow" -->
+      <div>
+        {{ item.user_name }} : {{ item.c_body }}
+        <span @click="reply(item)" class="reply_span cu">回复</span>
+      </div>
+      
       <comment-tree
         v-if="itemChild"
         :itemChild="item.child"
@@ -33,8 +37,8 @@ export default {
   name: "comment-tree",
   props: ["itemChild", "deep", "showreply"],
   methods: {
-    reply(){
-
+    reply(item){
+      this.$emit('getcommentid',item)
     },
     changeshow() {
       this.flag = !this.flag;
@@ -49,9 +53,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.reply_span{
+  display: inline-block;
+  padding: 2px 8px ;
+  background-color: #01a0fc;
+  color: #fff;
+  border-radius: 5px;
+  line-height: normal;
+}
 .comment-wrap {
   width: 500px;
   line-height: 30px;
+  font-size: 14px;
 }
 .replay {
   margin: 10px 0;
