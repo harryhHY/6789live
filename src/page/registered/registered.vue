@@ -475,8 +475,8 @@ export default {
     margin-left: 35px;
   }
 }
-/deep/.el-dialog__body{
-  padding: 0;
+/deep/.el-dialog .el-dialog__body{
+  padding: 0 !important;
 }
 /deep/.el-tabs__nav{
   width: 50%;

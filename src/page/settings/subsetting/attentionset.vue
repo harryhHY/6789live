@@ -220,6 +220,6 @@ export default {
 </style>
 <style>
 .el-tabs__content{
-    overflow: visible;
+    overflow: visible !important;
 }
 </style>
