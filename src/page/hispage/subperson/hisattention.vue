@@ -56,7 +56,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

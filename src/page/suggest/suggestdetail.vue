@@ -108,7 +108,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                             type: 'error', // warning、success
@@ -282,9 +282,9 @@ export default {
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
                 console.log('fail', resData)
-                console.log(resData);
+                // console.log(resData);
                 this.replyUrlImgList = resData.data;
-                console.log(this.replyUrlImgList);
+                // console.log(this.replyUrlImgList);
                 that.$message({
                     type: 'success', // warning、success
                     message: "上传成功"

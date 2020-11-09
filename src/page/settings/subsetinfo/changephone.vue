@@ -128,7 +128,7 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              console.log(res);
+              // console.log(res);
           })
           .catch(error => {
               console.log(error);
@@ -145,7 +145,7 @@ export default {
                 new_mobile:this.$inHTMLData(this.ruleForm.checkphone),
                 vcode:this.$inHTMLData(this.ruleForm.code)
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

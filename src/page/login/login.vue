@@ -88,9 +88,9 @@
   
   <span slot="footer" class="dialog-footer">
     <div class="other">
-        <span class="help">帮助<span class="italic_line">/</span></span>  
-        <span class="secret">隐私<span class="italic_line">/</span></span>  
-        <span class="rule">条款</span>
+        <span class="help" @click="toHelp">帮助<span class="italic_line">/</span></span>  
+        <span class="secret" @click="toRule">隐私<span class="italic_line">/</span></span>  
+        <span class="rule" @click="toRule">条款</span>
     </div>
   </span>
 </el-dialog>
@@ -202,6 +202,12 @@ export default {
   created() {},
   methods: {
     ...mapMutations(["token"]),
+    toRule(){
+      this.$router.push('/rule')
+    },
+    toHelp(){
+      this.$router.push('/helps')
+    },
     //选择手机区号
     changeRegion(value){
       console.log(value)
@@ -244,10 +250,10 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              console.log(res);
+              // console.log(res);
           })
           .catch(error => {
-              console.log(error);
+              // console.log(error);
           });
     },
       resetForm(formName) {

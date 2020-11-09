@@ -90,7 +90,7 @@ export default {
             this.$api.editchanel.editerchanel({
                 channel:this.checkedbox
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -118,7 +118,7 @@ export default {
             this.$api.attchanelist.attchanel(
                 params
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

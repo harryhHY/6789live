@@ -180,7 +180,7 @@ export default {
     exit() {
       this.$api.loginout.useLoginout(          
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -225,7 +225,7 @@ export default {
             this.$api.getbasicInfo.getbasic(
 
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -240,7 +240,7 @@ export default {
                     if(res.data.params.user_pic){
                       this.circleUrl = res.data.params.user_pic
                     }
-                    console.log(this.circleUrl);  
+                    // console.log(this.circleUrl);  
                     localStorage.setItem('user_uid',res.data.params.user_uid);                       
                     localStorage.setItem('user_pic',res.data.params.user_pic);                       
                     localStorage.setItem('user_name',res.data.params.user_name);                       
@@ -308,7 +308,7 @@ export default {
     if(localStorage.getItem('user_pic')){
       this.circleUrl = localStorage.getItem('user_pic');
     }
-    console.log(this.circleUrl);
+    // console.log(this.circleUrl);
   }
 };
 </script>

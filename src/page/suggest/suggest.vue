@@ -86,7 +86,7 @@ export default {
                     body:data,
                     pic:String(...this.urlImgList)
                 }).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                             type: 'error', // warning、success
@@ -131,7 +131,7 @@ export default {
             this.$api.suggestList.getSuggestList(
             params
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -163,7 +163,7 @@ export default {
         // 配置 onchange 回调函数，将数据同步到 vue 中
         editor.config.onchange = (newHtml) => {
             this.editorData = newHtml;
-            console.log(this.editorData);
+            // console.log(this.editorData);
         }
         //配置编辑器高度
         // editor.config.height = this.editorParams.height;
@@ -264,9 +264,9 @@ export default {
             },
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
-                console.log(resData);
+                // console.log(resData);
                 this.urlImgList = resData.data;
-                console.log(this.urlImgList);
+                // console.log(this.urlImgList);
                 //存入本地
                 localStorage.setItem("imgList", JSON.stringify(this.urlImgList));
                 that.$message({

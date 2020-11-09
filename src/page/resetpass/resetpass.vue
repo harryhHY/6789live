@@ -190,7 +190,7 @@ export default {
                 this.$api.checkname.checkUser(
                   params
                 ).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                           type: 'error', // warning、success
@@ -242,7 +242,7 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              console.log(res);
+              // console.log(res);
           })
           .catch(error => {
               console.log(error);
@@ -273,7 +273,7 @@ export default {
                   vcode:this.$inHTMLData(this.register.code),
                   pwd:this.$inHTMLData(this.encode(this.resetpass.password))
                 }).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                             type: 'error', // warning、success

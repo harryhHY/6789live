@@ -96,7 +96,7 @@ axios.interceptors.response.use(res => {
     return res
   }, err => {
     // 对响应错误做些什么
-    console.log('err', err.response)
+    // console.log('err', err.response)
     return Promise.resolve(err.response) // 可在组件内获取到服务器返回信息
   })
 //创建axios实例
@@ -139,7 +139,7 @@ instance.interceptors.response.use(
             // console.log(initStore.state);
             if(res.data.code == -1){
                 //清除token
-                console.log(res)
+                // console.log(res)
                 localStorage.setItem("token",'');
                 localStorage.setItem('nick_name','')
                 localStorage.setItem('user_name','')

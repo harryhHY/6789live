@@ -49,7 +49,7 @@ export default {
             this.$api.nickname.changeNickname({
                 nickname:this.$inHTMLData(this.ruleForm.name)
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

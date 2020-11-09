@@ -66,7 +66,7 @@ export default {
                 real_name:this.ruleForm.checkname,
                 id_no:this.ruleForm.realnumber
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

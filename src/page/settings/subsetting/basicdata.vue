@@ -105,7 +105,7 @@ export default {
                 hobby:this.$inHTMLData(this.ruleForm.hobby),
                 desc:this.$inHTMLData(this.ruleForm.desc)
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

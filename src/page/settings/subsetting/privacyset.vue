@@ -70,7 +70,7 @@ export default {
                         fllow:this.ruleForm.attention,
                         fans:this.ruleForm.fans,
                     }).then(res => {
-                        console.log(res);
+                        // console.log(res);
                         if (res.data.code == 1) {
                             this.$message({
                                 type: 'error', // warning、success

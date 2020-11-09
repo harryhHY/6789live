@@ -76,8 +76,8 @@ export default {
         handleAvatarSuccess(res, file) {
             this.avator = this.JuheHOST + res.params.user_pic;
             localStorage.setItem('user_pic',res.data.params.user_pic); 
-            console.log(res);
-            console.log(file);
+            // console.log(res);
+            // console.log(file);
             if (res.code == 1) {
                   this.$message({
                     type: 'error', // warning、success
@@ -116,7 +116,7 @@ export default {
             this.$api.getbasicInfo.getbasic(
 
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success

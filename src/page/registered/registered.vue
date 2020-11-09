@@ -51,7 +51,7 @@
               </el-button>
             </div>
             <div class="auto_box">
-                <el-checkbox class="autologin" disabled v-model="checked" @change = "changeRadio">同意并接受</el-checkbox><span class="liverule">《6789直播用户条款》</span>
+                <el-checkbox class="autologin" disabled v-model="checked" @change = "changeRadio">同意并接受</el-checkbox><span class="liverule" @click="toRule">《6789直播用户条款》</span>
             </div>
             <el-form-item>
               <el-button type="primary" class="userlogin" @click="doRegiste('iphone')" v-preventReClick>注 册</el-button>
@@ -65,8 +65,8 @@
   
   <span slot="footer" class="dialog-footer">
     <div class="other">
-        <span class="help">帮助<span class="italic_line">/</span></span>  
-        <span class="secret">隐私<span class="italic_line">/</span></span>  
+        <span class="help" @click="toHelp">帮助<span class="italic_line">/</span></span>  
+        <span class="secret" @click="toRule">隐私<span class="italic_line">/</span></span>  
         <span class="rule" @click="toRule">条款</span>
     </div>
     <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
@@ -179,6 +179,9 @@ export default {
     toRule(){
       this.$router.push('/rule')
     },
+    toHelp(){
+      this.$router.push('/helps')
+    },
     checkBlur(e){
       console.log(e.target.value);
       // this.$message({
@@ -228,10 +231,10 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              console.log(res);
+              // console.log(res);
           })
           .catch(error => {
-              console.log(error);
+              // console.log(error);
           });
       // }
     },
@@ -245,7 +248,7 @@ export default {
               vcode:this.$inHTMLData(this.register.code),
               pwd:this.$inHTMLData(this.encode(this.register.password))
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                       type: 'error', // warning、success
@@ -364,6 +367,7 @@ export default {
     color: #00cbfe;
     position: relative;
     top: 1.5px;
+    cursor: pointer;
   }
 }
 .userlogin{

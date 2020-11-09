@@ -46,7 +46,7 @@ export default {
       }
   },
   mounted() {
-    console.log(this.editorParams);
+    // console.log(this.editorParams);
     // const editorCommon = new wangEditor('#toolbar-container',`#editor`)
     const editorCommon = new wangEditor(`#editor`)
     // 配置 onchange 回调函数，将数据同步到 vue 中

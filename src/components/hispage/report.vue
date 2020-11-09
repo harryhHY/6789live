@@ -134,7 +134,7 @@ export default {
         nextHandler(reportType){
             this.$refs['reportType'].validate((valid) => {
                 if (valid) {
-                    console.log(this.reportType.type);
+                    // console.log(this.reportType.type);
                     this.oneVisible = false;
                     this.twoVisible = true;
                 } else {
@@ -156,7 +156,7 @@ export default {
         },
         //图片改变时
         handleimgChange(filelist){
-            console.log(filelist);
+            // console.log(filelist);
             this.fileList = filelist;
         },
         //第二个提交
@@ -169,7 +169,7 @@ export default {
                 this.uploadData.report_type = this.reportType.type;
             }
             this.uploadData.body = this.textdetail;
-            console.log(this.fileList.length);
+            // console.log(this.fileList.length);
             if(this.fileList.length != 0){
                 this.$refs.upload.submit();
             }else{
@@ -201,7 +201,7 @@ export default {
         },
         //图片上传
         handleSuccess(res, file){
-            console.log(res,file);
+            // console.log(res,file);
             if(res.code == 0){
                 this.twoVisible = false;
                 this.threeVisible = true;
@@ -218,7 +218,7 @@ export default {
             }
         },
         handleRemove(file, filelist) {
-            console.log(file, filelist);
+            // console.log(file, filelist);
             this.fileList = filelist;
             this.imgVisible = false;
             this.twoVisible = true;
@@ -228,15 +228,15 @@ export default {
             this.imgVisible = false;
         },
         handlePictureCardPreview(file) {
-            console.log(file);
+            // console.log(file);
             this.dialogImageUrl = file.url;
             this.imgVisible = true;
             this.twoVisible = true;
         },
     },
     mounted(){
-        console.log(this.visible);      
-        console.log(this.report_id);      
+        // console.log(this.visible);      
+        // console.log(this.report_id);      
     }
 }
 </script>

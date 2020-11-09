@@ -73,7 +73,6 @@ export default {
     props:["nameId"],
     methods:{
         reportHandler(){
-            console.log(1111);
             this.showReport = !this.showReport;
             this.visible = true;
         },
@@ -163,7 +162,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                console.log(res);
+                // console.log(res);
                     if (res.data.code == 1) {
                         this.$message({
                             type: 'error', // warning、success
@@ -179,7 +178,7 @@ export default {
                         }else if(this.flag == 2){
                             this.flag = 1
                         }
-                        console.log(this.flag);                
+                        // console.log(this.flag);                
                     } else if (res.data.code == -1) {
                         this.$message({
                             type: 'success', // warning、success

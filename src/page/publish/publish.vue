@@ -64,7 +64,7 @@ export default {
         // 配置 onchange 回调函数，将数据同步到 vue 中
         editor.config.onchange = (newHtml) => {
         this.editorData = newHtml;
-        console.log(this.editorData);
+        // console.log(this.editorData);
         }
         //配置编辑器高度
         editor.config.height = 600;
@@ -149,7 +149,7 @@ export default {
         editor.config.uploadImgHooks = {
             // 上传图片之前
             before: function(xhr) {
-                console.log(xhr)
+                // console.log(xhr)
 
                 // 可阻止图片上传
                 // return {
@@ -163,9 +163,9 @@ export default {
             },
             // 图片上传并返回了结果，但图片插入时出错了
             fail: function(xhr, editor, resData) {
-                console.log(resData);
+                // console.log(resData);
                 this.publishImglist = resData.data;
-                console.log(this.publishImglist);
+                // console.log(this.publishImglist);
                 //存入本地
                 localStorage.setItem("publishImglist", JSON.stringify(this.publishImglist));
                 that.$message({

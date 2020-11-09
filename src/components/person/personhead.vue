@@ -72,7 +72,6 @@ export default {
     props:["nameId"],
     methods:{
         reportHandler(){
-            console.log(1111);
             this.showReport = !this.showReport;
             this.visible = true;
         },

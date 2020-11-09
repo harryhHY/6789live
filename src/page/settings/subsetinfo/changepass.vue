@@ -85,7 +85,7 @@ export default {
                 new_pwd:this.$inHTMLData(this.encode(this.ruleForm.pass)),
                 old_pwd:this.$inHTMLData(this.encode(this.ruleForm.oldpass))
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
