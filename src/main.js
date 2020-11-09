@@ -6,6 +6,7 @@ import api from "./api"
 import store from '../static/store/index'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import host from "./api/httpurl";
 // import less from 'less';
 // import './style/iconfont.css';
 import './assets/font/iconfont.css'
@@ -25,7 +26,7 @@ const xssFilters = require('xss-filters');
 Vue.prototype.$inHTMLData = inHTMLData;
 
 // Vue.use(less);
-Vue.prototype.JuheHOST = "/live"
+Vue.prototype.JuheHOST = host
 // Vue.prototype.JuheHOST = "http://dev.6789zbz.com"
 Vue.prototype.$api = api;
 Vue.prototype.$axios = Axios;
