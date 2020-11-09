@@ -159,8 +159,7 @@ export default {
         pass:require("@/image/imgs/pass.png"),
         phone:require("@/image/imgs/phone.png"),
         user:require("@/image/imgs/user.png"),
-        code:require("@/image/imgs/code.png"),
-        login:require("@/image/imgs/login.png")
+        code:require("@/image/imgs/code.png")
       },
       user: {
         username: "",

@@ -25,9 +25,6 @@
                 <personhead />
                 <router-view></router-view>
             </div>
-            <!-- <publishEditor :editorParams = "editorDataPub" /> -->
-            <!-- <publishEditor /> -->
-            <!-- <commonEditor /> -->
         </div>
         
         <!-- <i class="iconfont icon-wangluo"></i> -->
@@ -35,16 +32,12 @@
 </template>
 <script>
 const home_herder = () => import("../../components/home/home_herder");
-const publishEditor = () => import("../../components/editor/editor");
-const commonEditor = () => import("../../components/editor/commonEditor");
 const personhead = () => import("../../components/person/personhead");
 export default {
     name:"Person",
     components:{
         home_herder,
-        personhead,
-        publishEditor,
-        commonEditor
+        personhead
     },
     data(){
         return{

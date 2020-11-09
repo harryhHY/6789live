@@ -6,12 +6,10 @@
 </template>
 <script>
 import wangEditor from 'wangeditor'
-const publishEditor = () => import("@/components/editor/editor");
 const hishomeperson = () => import("./hishomeperson");
 export default {
     name:"",
     components:{
-        publishEditor,
         hishomeperson
     },
     data(){

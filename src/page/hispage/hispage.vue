@@ -35,16 +35,12 @@
 </template>
 <script>
 const home_herder = () => import("../../components/home/home_herder");
-const publishEditor = () => import("../../components/editor/editor");
-const commonEditor = () => import("../../components/editor/commonEditor");
 const hispersonhead = () => import("../../components/hispage/hispersonhead");
 export default {
     name:"Person",
     components:{
         home_herder,
-        hispersonhead,
-        publishEditor,
-        commonEditor
+        hispersonhead
     },
     data(){
         return{

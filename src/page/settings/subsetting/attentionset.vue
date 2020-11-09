@@ -59,9 +59,6 @@ export default {
 
             },
             avator:require("@/image/news.jpeg"),
-            foot:require("@/image/imgs/foot.png"),
-            basket:require("@/image/imgs/basket.png"),
-            other:require("@/image/imgs/other.png"),
             checkboxList:{},
             imgurl:this.JuheHOST,
             checkedbox:[],
