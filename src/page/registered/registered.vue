@@ -67,15 +67,8 @@
     <div class="other">
         <span class="help">帮助<span class="italic_line">/</span></span>  
         <span class="secret">隐私<span class="italic_line">/</span></span>  
-        <span class="rule" @click="drawer = true">条款</span>
+        <span class="rule" @click="toRule">条款</span>
     </div>
-    <el-drawer
-      title="我是标题"
-      :visible.sync="drawer"
-      :with-header="false"
-      append-to-body>
-      <span>我来啦!</span>
-    </el-drawer>
     <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button> -->
   </span>
@@ -137,7 +130,6 @@ export default {
         }
       };
     return {
-      drawer: false,
       imgs:{
         qq:require("@/image/imgs/qq.png"),
         wx:require("@/image/imgs/wx.png"),
@@ -184,6 +176,9 @@ export default {
   props:["RegisteredVisible"],
   methods: {
     ...mapMutations(["token"]),
+    toRule(){
+      this.$router.push('/rule')
+    },
     checkBlur(e){
       console.log(e.target.value);
       // this.$message({
@@ -284,57 +279,10 @@ export default {
       goLogin(go){
         this.$emit("chidRegisterVisible",go)
       }
-      // doLogin() {
-      //   this.$api.login.useLogin({
-      //       key:'8f3e51cd2e461ab4f858ab48d8b5c027',
-      //       page:2,
-      //       pagesize:10,
-      //       sort:'asc',
-      //       time:1418745237
-      //     }).then(res => {
-      //         console.log(res);
-      //         // if (res.data.code == 1) {                             
-      //         //     this.$Message.info(res.data.msg);
-      //         // } else if (res.data.code == 0) {
-      //         //     //is_first:0非首次，1是首次 跳转修改密码
-      //         //         // console.log(res.data.params.is_first);
-      //         //         if(res.data.params.is_first){
-      //         //             localStorage.setItem("token", res.data.params.token);
-      //         //             localStorage.setItem("userName", this.user.username);
-      //         //             this.$router.push("/changepwd");
-      //         //         }else{
-      //         //             // 登陆存储
-      //         //             localStorage.setItem("token", res.data.params.token);
-      //         //             localStorage.setItem("userName", this.user.username);
-      //         //             //登录成功提示信息
-      //         //             this.$Message.info(res.data.msg);   
-      //         //             this.$router.push("/");                                 
-      //         //         }                               
-      //         // } else if (res.data.code == -1) {
-      //         //     this.$Message.info(res.data.msg); 
-      //         //     localStorage.removeItem("token");
-      //         //     this.$router.push("/login")        
-      //         // }
-      //     })
-      //     .catch(error => {
-      //       this.$Message.info("账号或密码错误");
-      //     })
-      // }
   },
   mounted(){
-    // this.$axios({
-    //   url:
-    //     this.JuheHOST +
-    //     "/joke/content/list.php?key=8f3e51cd2e461ab4f858ab48d8b5c027&page=2&pagesize=10&sort=asc&time=1418745237",
-    //   method: "get",
-    //   timeout: 3000
-    // })
-    //   .then(res => {
-    //     console.log(res.data);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+  },
+  components:{
   }
   // computed: {
   //   ...mapState(["activityDetail"]),
