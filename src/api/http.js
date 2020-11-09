@@ -101,7 +101,7 @@ axios.interceptors.response.use(res => {
   })
 //创建axios实例
 
-var instance = axios.create({ timeout: 5000 });
+var instance = axios.create({ timeout: 2*60*1000 });
 instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 instance.defaults.headers.post['enctype'] = 'multipart/form-data';
 // instance.defaults.headers.common['Authorization'] = initStore.state.token;// token在vuex
