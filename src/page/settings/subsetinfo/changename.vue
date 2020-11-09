@@ -47,7 +47,7 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.nickname.changeNickname({
-                nickname:this.ruleForm.name
+                nickname:this.$inHTMLData(this.ruleForm.name)
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {
@@ -61,6 +61,7 @@ export default {
                         message: res.data.msg 
                     })
                     this.name = this.ruleForm.name;
+                    localStorage.setItem('nick_name',this.name)
                     this.$refs[formName].resetFields();                            
                 } else if (res.data.code == -1) {
                     this.$message({

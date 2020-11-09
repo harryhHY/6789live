@@ -11,8 +11,11 @@
                     {{item.addtime_format}}
                 </p>
             </div>
-            <div class="noarticle" v-if="articleList.length == 0">
-                暂未发布帖子
+            <div class="noarticle" v-if="articleList.length == 0 && authority == '暂未发布帖子'">
+                {{authority}}
+            </div>
+            <div class="noarticle" v-if="articleList.length == 0 && authority == '用户隐私不可见'">
+                {{authority}}
             </div>
             <!-- <el-timeline :reverse="reverse">
                 <el-timeline-item
@@ -46,7 +49,8 @@ export default {
     data(){
         return{
             uid:'',
-            articleList: []
+            articleList: [],
+            authority:''
         }
     },
     methods:{
@@ -67,9 +71,11 @@ export default {
                     this.$message({
                         type: 'error', // warning、success
                         message: res.data.msg 
-                    }) 
+                    })
+                    this.authority = '用户隐私不可见' 
                 } else if (res.data.code == 0) {
                     this.articleList = res.data.params.my_forum;
+                    this.authority = '暂未发布帖子'
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success

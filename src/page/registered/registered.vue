@@ -237,10 +237,10 @@ export default {
           if (valid) {
             alert('submit');
             this.$api.registered.useRegister({
-              mobile:this.register.phoneNum,
-              name:this.register.username,
-              vcode:this.register.code,
-              pwd:this.encode(this.register.password)
+              mobile:this.$inHTMLData(this.register.phoneNum),
+              name:this.$inHTMLData(this.register.username),
+              vcode:this.$inHTMLData(this.register.code),
+              pwd:this.$inHTMLData(this.encode(this.register.password))
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {

@@ -263,7 +263,7 @@ export default {
             this.$api.getbasicInfo.getbasic(
 
             ).then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -333,10 +333,10 @@ export default {
       doLogin() {
         if(this.activeName == 1){
           params = {
-            name:this.user.username,
+            name:this.$inHTMLData(this.user.username),
             mobile:"",
             vcode:"",
-            pwd:this.encode(this.user.password),
+            pwd:this.$inHTMLData(this.encode(this.user.password)),
             type:1,
           }
           this.$refs['user'].validate((valid) => {
@@ -350,8 +350,8 @@ export default {
         }else{
           params = {
             name:"",
-            mobile:this.iphone.phoneNum,
-            vcode:this.iphone.code,
+            mobile:this.$inHTMLData(this.iphone.phoneNum),
+            vcode:this.$inHTMLData(this.iphone.code),
             pwd:"",
             type:2,
           }

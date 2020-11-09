@@ -141,9 +141,9 @@ export default {
             alert('submit!');
             this.$api.changephone.changemobile({
                 pwd:this.encode(this.ruleForm.pass),
-                old_mobile:this.ruleForm.phone,
-                new_mobile:this.ruleForm.checkphone,
-                vcode:this.ruleForm.code
+                old_mobile:this.$inHTMLData(this.ruleForm.phone),
+                new_mobile:this.$inHTMLData(this.ruleForm.checkphone),
+                vcode:this.$inHTMLData(this.ruleForm.code)
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {

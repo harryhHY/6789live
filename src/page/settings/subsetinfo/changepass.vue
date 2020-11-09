@@ -82,8 +82,8 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.setpassword.setPwd({
-                new_pwd:this.encode(this.ruleForm.pass),
-                old_pwd:this.encode(this.ruleForm.oldpass)
+                new_pwd:this.$inHTMLData(this.encode(this.ruleForm.pass)),
+                old_pwd:this.$inHTMLData(this.encode(this.ruleForm.oldpass))
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {

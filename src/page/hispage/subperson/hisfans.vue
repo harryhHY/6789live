@@ -23,8 +23,11 @@
                 </div> -->
             </div>
         </div>
-        <div class="noarticle" v-if="attentionData.length == 0">
-            暂无粉丝
+        <div class="noarticle" v-if="attentionData.length == 0 && authority == '暂无粉丝'">
+            {{authority}}
+        </div>
+        <div class="noarticle" v-if="attentionData.length == 0 && authority == '用户隐私不可见'">
+            {{authority}}
         </div>
     </div>
 </template>
@@ -38,7 +41,8 @@ export default {
             background: 'blue',
             newWidth:10,
             uid:localStorage.getItem("otherId"),
-            attentionData:[]
+            attentionData:[],
+            authority:''
         }
     },
     methods:{
@@ -57,9 +61,11 @@ export default {
                     this.$message({
                         type: 'error', // warning、success
                         message: res.data.msg 
-                    }) 
+                    })
+                    this.authority = '用户隐私不可见'
                 } else if (res.data.code == 0) {
                     this.attentionData = res.data.params.follow_fans;
+                    this.authority = '暂无粉丝'
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success

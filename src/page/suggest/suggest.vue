@@ -82,7 +82,7 @@ export default {
             let data = this.editor.txt.html()
             if(this.articletitle != ''){
                 this.$api.sendsuggest.suggest({
-                    title:this.articletitle,
+                    title:this.$inHTMLData(this.articletitle),
                     body:data,
                     pic:String(...this.urlImgList)
                 }).then(res => {

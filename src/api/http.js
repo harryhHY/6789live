@@ -86,6 +86,8 @@ axios.interceptors.response.use(res => {
     if(res.status == 200){
         if(res.data.code == -1){
             //清除token
+            localStorage.setItem('nick_name','');
+            localStorage.setItem('user_name','');
             localStorage.setItem("token",'');
             initStore.state.token = ""  
         }
@@ -136,6 +138,8 @@ instance.interceptors.response.use(
             if(res.data.code == -1){
                 //清除token
                 localStorage.setItem("token",'');
+                localStorage.setItem('nick_name','')
+                localStorage.setItem('user_name','')
                 initStore.state.token = ""            
             }
             return Promise.resolve(res);

@@ -99,11 +99,11 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.basic.basicInfo({
-                sex:this.ruleForm.gender,
-                birthday:this.dateFormat(this.ruleForm.date1),
-                location:this.ruleForm.area,
-                hobby:this.ruleForm.hobby,
-                desc:this.ruleForm.desc
+                sex:this.$inHTMLData(this.ruleForm.gender),
+                birthday:this.$inHTMLData(this.dateFormat(this.ruleForm.date1)),
+                location:this.$inHTMLData(this.ruleForm.area),
+                hobby:this.$inHTMLData(this.ruleForm.hobby),
+                desc:this.$inHTMLData(this.ruleForm.desc)
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {

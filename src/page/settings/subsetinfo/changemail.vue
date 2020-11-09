@@ -122,9 +122,9 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.changemail.email({
-                pwd:this.encode(this.ruleForm.pass),
-                email:this.ruleForm.checkMail,
-                vcode:this.ruleForm.code
+                pwd:this.$inHTMLData(this.encode(this.ruleForm.pass)),
+                email:this.$inHTMLData(this.ruleForm.checkMail),
+                vcode:this.$inHTMLData(this.ruleForm.code)
             }).then(res => {
                 console.log(res);
                 if (res.data.code == 1) {

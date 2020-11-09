@@ -186,7 +186,7 @@ export default {
     doConfirm(confirmUser) {
         this.$refs['confirmUser'].validate((valid) => {
             if (valid) {
-              let params = { name : this.confirmUser.username}
+              let params = { name : this.$inHTMLData(this.confirmUser.username)}
                 this.$api.checkname.checkUser(
                   params
                 ).then(res => {
@@ -269,9 +269,9 @@ export default {
         this.$refs['resetpass'].validate((valid) => {
             if (valid) {
                 this.$api.fogetpwd.changePwd({
-                  mobile:this.register.phoneNum,
-                  vcode:this.register.code,
-                  pwd:this.encode(this.resetpass.password)
+                  mobile:this.$inHTMLData(this.register.phoneNum),
+                  vcode:this.$inHTMLData(this.register.code),
+                  pwd:this.$inHTMLData(this.encode(this.resetpass.password))
                 }).then(res => {
                     console.log(res);
                     if (res.data.code == 1) {

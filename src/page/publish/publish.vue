@@ -86,6 +86,7 @@ export default {
             //'backColor',
             "emoticon",
             "image",
+            'link',
             "splitLine",//hr
             "undo",//后退
             "redo",//前进
@@ -199,10 +200,10 @@ export default {
     methods:{
          getEditorData() {
             // 通过代码获取编辑器内容
-            if(this.articletitle != ''){
+            if(this.articletitle && this.value[2] ){
                 let data = this.editor.txt.html()
                 this.$api.publish.publishPost({
-                    forum_title:this.articletitle,
+                    forum_title:this.$inHTMLData(this.articletitle),
                     channel:this.value[2],
                     body:data
                 }).then(res => {
@@ -234,7 +235,7 @@ export default {
             }else{
                 this.$message({
                     type: 'warning', // warning、success
-                    message: '标题不能为空'
+                    message: '频道和标题不能为空'
                 })
             }
             
