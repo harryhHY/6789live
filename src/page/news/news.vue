@@ -24,32 +24,32 @@
           </div>
         </div>
         <div class="search" @click="serach()">
-          <input
-            type="text"
-            placeholder="请输入搜索内容"
-            v-model="searchmsg"
-          />
-          <div class="sousuo" ></div>
+          <input type="text" placeholder="请输入搜索内容" v-model="searchmsg" />
+          <div class="sousuo"></div>
         </div>
         <div
           class="news_content cl"
           v-for="(item, index) in newsdata"
           :key="index"
-          @click="gotonewsdel(item)"
         >
-          <div class="left img_div">
+          <div class="left img_div" @click="gotonewsdel(item)">
             <img :src="host + item.news_cover_url" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
-            <div class="news_title cl">
+            <div class="news_title cl" @click="gotonewsdel(item)">
               <div class="newstype1 left ov">
                 {{ item.ch_name }}
               </div>
               <div class="left ov">{{ item.news_title }}</div>
             </div>
-            <div class="details ov">详情：{{ item.news_body }}</div>
+            <div class="details ov" @click="gotonewsdel(item)">
+              详情：{{ item.news_body }}
+            </div>
             <div class="label_div cl">
-              <div class="label left cu">
+              <div
+                class="label left cu"
+                @click="changenewstype(item.news_channel_id)"
+              >
                 {{ item.ch_name }}
               </div>
             </div>
@@ -100,9 +100,13 @@ export default {
     changemenu(idx, item) {
       this.changemenuflag = idx;
       console.log(item.id);
+      this.menuDataFilter(item.id);
+    },
+    menuDataFilter(id) {
+      //数据筛选
       this.$api.homeindex
         .getnewsindex({
-          cid: item.id,
+          cid: id,
         })
         .then((res) => {
           let { code, params } = res.data;
@@ -118,17 +122,7 @@ export default {
           this.changemenuflag = i;
         }
       }
-      this.$api.homeindex
-        .getnewsindex({
-          cid: id,
-        })
-        .then((res) => {
-          let { code, params } = res.data;
-          let { news_data } = params;
-          if (code == 0) {
-            this.newsdata = news_data;
-          }
-        });
+      this.menuDataFilter(id);
     },
     gotonewsdel(e) {
       this.$router.push({
@@ -137,7 +131,7 @@ export default {
       this.$store.commit("newsList", e);
     },
     serach(msg) {
-      this.$router.push('/search')
+      this.$router.push("/search");
     },
     getdata() {
       //获取新闻首页数据
@@ -187,7 +181,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.newsclass_div{
+.newsclass_div {
   overflow: hidden;
 }
 .new {
@@ -204,7 +198,7 @@ export default {
   line-height: 22px;
   text-align: center;
   height: 22px;
-   
+
   margin-right: 5px;
 }
 .newsclass {
@@ -215,7 +209,7 @@ export default {
   font-size: 18px;
   text-align: center;
   position: relative;
- margin: 10px 0;
+  margin: 10px 0;
 }
 .newsclass:last-child {
   border-right: 4px solid #848484;
