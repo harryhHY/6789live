@@ -64,7 +64,7 @@ export default {
   watch: {},
   created() {
     this.videoData = this.newslivedata;
-    this.swpList = this.newsmenuswp;
+    this.swpList = this.newsmenuswp.slice(0,4);
     this.inithost();
   },
 };
