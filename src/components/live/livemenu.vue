@@ -115,7 +115,7 @@
               "
             ></div>
           </div>
-          <div class="cl mylike" v-if="!bbflag">
+          <div class="cl mylike" v-if="!isCollapse">
             <div class="cl" v-if="!isCollapse">
               <div
                 v-for="(item, index) in Collapsedata"

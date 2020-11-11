@@ -114,13 +114,13 @@
                   </div>
                 </div>
               </div>
-              <div
+              <!-- <div
                 class="replynum cu"
                 @click="lookallreply(item)"
                 v-if="!showreply"
               >
                 查看全部{{ item.c_reply_count }}回复>
-              </div>
+              </div> -->
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
                   <div class="otheruser_goods_img left"></div>
@@ -235,7 +235,7 @@ export default {
       if (this.commentReplyMsg != "") {
         this.$api.httppost
           .comment({
-            nid: this.newsList.id,
+            nid: this.postdel.id,
             type: 2,
             cid: this.showcommentid,
             body,
@@ -285,6 +285,18 @@ export default {
               type: "success",
             });
             this.commentReplyMsg = "";
+          } else {
+            if (msg == "token无效") {
+              this.$message({
+                message: "请重新登录",
+                type: "warning",
+              });
+            } else {
+              this.$message({
+                message: msg,
+                type: "warning",
+              });
+            }
           }
         });
       this.getrouterdata();
@@ -306,9 +318,21 @@ export default {
               type: "success",
             });
             this.commentmsg = "";
+            this.getrouterdata();
+          } else {
+            if (msg == "token无效") {
+              this.$message({
+                message: "请重新登录",
+                type: "warning",
+              });
+            } else {
+              this.$message({
+                message: msg,
+                type: "warning",
+              });
+            }
           }
         });
-      this.getrouterdata();
     },
     getVisible(value) {
       //切换举报弹窗
@@ -321,6 +345,7 @@ export default {
       this.showreport = !this.showreport;
     },
     star(item) {
+      console.log(item)
       let type = 0;
       if (item.is_stared == 0) {
         type = 1;
@@ -328,7 +353,7 @@ export default {
         type = 2;
       }
       //用户评论点赞
-      let url1 = `${this.$api.httppost.star()}${item.c_uid}/${type}`;
+      let url1 = `${this.$api.httppost.star()}${item.id}/${type}`;
       this.$axios({
         method: "post",
         url: url1,
@@ -340,11 +365,19 @@ export default {
             message: msg,
             type: "success",
           });
+          this.getrouterdata();
         } else {
-          this.$message({
-            message: msg,
-            type: "warning",
-          });
+          if (msg == "token无效") {
+            this.$message({
+              message: "请重新登录",
+              type: "warning",
+            });
+          } else {
+            this.$message({
+              message: msg,
+              type: "warning",
+            });
+          }
         }
       });
     },
@@ -470,7 +503,7 @@ export default {
 .newsdel {
   background-image: url("../../image/bj.jpg");
   background-size: 100%;
-   position: relative;
+  position: relative;
 }
 .newsdel_content {
   font-size: 14px;
@@ -661,7 +694,7 @@ export default {
   }
   .otherusergoodreply {
     color: #848484;
-    margin: 19px 0;
+    margin-bottom: 19px ;
     .otherusergood {
       display: flex;
       align-items: center;

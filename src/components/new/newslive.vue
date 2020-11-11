@@ -129,8 +129,10 @@ export default {
   }
 }
 #newslive_div {
-  .el-carousel__button {
-    width: 15px;
+  .block {
+    .el-carousel__button {
+      width: 15px;
+    }
   }
 }
 .newslive_div {

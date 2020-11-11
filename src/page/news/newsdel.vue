@@ -87,7 +87,7 @@
               <textarea
                 type="text"
                 v-model="commentmsg"
-                 maxlength="500"
+                maxlength="500"
                 placeholder="来说两句吧！最多500字"
               ></textarea>
             </div>
@@ -117,13 +117,13 @@
                   </div>
                 </div>
               </div>
-              <div
+              <!-- <div
                 class="replynum cu"
                 @click="lookallreply(item)"
                 v-if="!showreply"
               >
-                查看全部{{ item.c_reply_count }}回复>
-              </div>
+                查看全部回复>
+              </div> -->
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
                   <div class="otheruser_goods_img left"></div>
@@ -141,7 +141,7 @@
                 <!-- <div v-if="!item.child">暂无回复</div> -->
                 <newstree
                   :itemChild="item.child"
-                  v-if="item.child"
+                  v-if="item.child!=false"
                   :deep="deep"
                   :ref="`child${item.id}`"
                   :key="'father' + item.id"
@@ -189,7 +189,7 @@
       ></textarea>
       <div class="fabiao cu" @click="replyreply()">回复</div>
     </div>
-    <div class="report_div_com" v-if="showreport">
+    <div class="report_div_com" v-show="showreport">
       <report
         :report_type="1"
         :report_id="newsList.id"
@@ -234,6 +234,7 @@ export default {
   },
   methods: {
     replyreply() {
+      //回复评论
       let body = this.$inHTMLData(this.commentReplyMsg);
       if (this.commentReplyMsg != "") {
         this.$api.httppost
@@ -251,11 +252,16 @@ export default {
                 type: "success",
               });
               this.commentReplyMsg = "";
+              this.getrouterdata();
+            } else {
+              this.$message({
+                message: msg,
+                type: "warning",
+              });
             }
           });
-        this.getrouterdata();
       }
-
+      
       this.showReplyinput = false;
     },
     getcommentid(item) {
@@ -280,6 +286,11 @@ export default {
               type: "success",
             });
             this.commentmsg = "";
+          } else {
+            this.$message({
+              message: msg,
+              type: "warning",
+            });
           }
         });
       this.getrouterdata();
@@ -295,14 +306,15 @@ export default {
       this.showreport = !this.showreport;
     },
     star(item) {
+      //用户评论点赞
       let type = 0;
       if (item.is_stared == 0) {
         type = 1;
       } else {
         type = 2;
       }
-      //用户评论点赞
-      let url1 = `${this.$api.httppost.star()}${item.c_uid}/${type}`;
+
+      let url1 = `${this.$api.httppost.star()}${item.id}/${type}`;
       this.$axios({
         method: "post",
         url: url1,
@@ -314,6 +326,7 @@ export default {
             message: msg,
             type: "success",
           });
+          this.getrouterdata();
         } else {
           this.$message({
             message: msg,
@@ -324,8 +337,7 @@ export default {
     },
     lookallreply(item) {
       //查看全部回复
-      // this.showreply = false;
-      console.log(this.showreply);
+      console.log(item)
       this.$refs[`child${item.id}`][0].changeshow();
     },
     getrouterdata() {
@@ -371,7 +383,7 @@ export default {
     gotonewsdel(item) {
       //新闻推荐跳转新闻详情页面
       this.$store.commit("newsList", item);
-       document.documentElement.scrollTop = 0
+      document.documentElement.scrollTop = 0;
     },
   },
   components: {
@@ -639,7 +651,7 @@ export default {
   }
   .otherusergoodreply {
     color: #848484;
-    margin: 19px 0;
+    margin-bottom: 19px;
     .otherusergood {
       display: flex;
       align-items: center;

@@ -1,26 +1,25 @@
 <template>
-  <div class="comment-wrap ">
+  <div class="comment-wrap">
     <div
       v-for="(item, index) in child"
       :key="index"
       :style="'margin-left:' + deep * 30 + 'px'"
       class="replay"
-      v-show="flag || showreply"
+      v-if="flag || showreply"
     >
-
-    <!--    @click="changeshow" -->
+      <!--    @click="changeshow" -->
       <div>
         {{ item.user_name }} : {{ item.c_body }}
         <span @click="reply(item)" class="reply_span cu">回复</span>
       </div>
-      
+
       <comment-tree
         v-if="itemChild"
         :itemChild="item.child"
         :deep="deep + 1"
-        :showreply="flag"
         :key="'son' + item.id"
       >
+        <!-- :showreply="flag" -->
       </comment-tree>
     </div>
   </div>
@@ -31,31 +30,44 @@ export default {
   data() {
     return {
       child: "",
-      flag: false
+      flag: true,
     };
   },
   name: "comment-tree",
   props: ["itemChild", "deep", "showreply"],
   methods: {
-    reply(item){
-      this.$emit('getcommentid',item)
+    reply(item) {
+      this.$emit("getcommentid", item);
     },
     changeshow() {
       this.flag = !this.flag;
-    }
+    },
   },
-
+  computed: {
+    itemChildfn() {
+      if (this.itemChild != false) {
+      console.log(this.itemChild);
+        return this.itemChild;
+      }
+    },
+  },
+  watch: {
+    itemChildfn(newValue) {
+      console.log(newValue);
+      this.child = newValue;
+    },
+  },
   created() {
     this.child = this.itemChild;
     // this.flag = this.showreply;
-  }
+  },
 };
 </script>
 
 <style lang="less" scoped>
-.reply_span{
+.reply_span {
   display: inline-block;
-  padding: 2px 8px ;
+  padding: 2px 8px;
   background-color: #01a0fc;
   color: #fff;
   border-radius: 5px;

@@ -96,7 +96,7 @@
                   <div class="footer_commnum_img"></div>
                   <div>评论：</div>
                   <div>
-                    {{ item.ch_reply_num }}
+                    {{ item.forum_comments }}
                   </div>
                 </div>
               </div>
