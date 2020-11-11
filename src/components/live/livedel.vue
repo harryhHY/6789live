@@ -38,11 +38,13 @@
           </div>
           <div class="cl liveroom_div">
             <div
-              v-for="(item, index) in liveroom"
+              v-for="(item, index) in signals"
               :key="index"
               class="liveroom left"
+              @click="cutoverurl(item)"
+              v-show="item.status"
             >
-              直播{{ index + 1 }}
+              {{item.title}}
             </div>
           </div>
           <div class="livebottom cl">
@@ -111,12 +113,18 @@ export default {
         },
       ],
       videosrc: "",
-      liveroom: [{}, {}],
+      signals: [],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
     };
   },
   methods: {
+    cutoverurl(item){//切换直播信号
+      this.videosrc = item.url;
+      if(item.status == true){
+        this.newddplayer()
+      }
+    },
     gotoexponent(e) {
       this.$store.commit("liveList", e);
       this.$router.push("/exponent");
@@ -125,34 +133,35 @@ export default {
       this.$store.commit("liveList", e);
       this.$router.push("/analysis");
     },
-    goto(src) {
-      this.$router.push(src);
-    },
-    getlivedata() {
+    getlivedata() {//直播详情页面请求数据
       this.$axios({
         url: `${this.$api.homeindex.getlivedel()}${this.liveList.matchId}`,
       }).then((res) => {
-        let { murl } = res.data.params;
+        let { murl, signals } = res.data.params;
         this.videosrc = murl;
-        const dp = new DPlayer({
-          container: document.getElementById("dplayer"),
-          live: true,
-          autoplay: true,
-          apiBackend: {
-            read: function (endpoint, callback) {
-              console.log("Pretend to connect WebSocket");
-              // callback();
-            },
-            send: function (endpoint, danmakuData, callback) {
-              console.log("Pretend to send danmaku via WebSocket", danmakuData);
-              // callback();
-            },
+        this.signals = signals
+        this.newddplayer();
+      });
+    },
+    newddplayer() {//初始化dplayer
+      const dp = new DPlayer({
+        container: document.getElementById("dplayer"),
+        live: true,
+        autoplay: true,
+        apiBackend: {
+          read: function (endpoint, callback) {
+            console.log("Pretend to connect WebSocket");
+            // callback();
           },
-          video: {
-            url: this.videosrc,
-            type: "hls",
+          send: function (endpoint, danmakuData, callback) {
+            console.log("Pretend to send danmaku via WebSocket", danmakuData);
+            // callback();
           },
-        });
+        },
+        video: {
+          url: this.videosrc,
+          type: "hls",
+        },
       });
     },
     sharegoto(idx) {
@@ -190,18 +199,17 @@ export default {
   },
   computed: {
     ...mapState(["liveList"]),
-    liveListfn(){
-     return this.$store.state.liveList
-    }
+    liveListfn() {
+      return this.$store.state.liveList;
+    },
   },
   watch: {
     liveListfn(newValue) {
       // this.liveList = newValue
       this.getlivedata();
-    }
-  },
-  created() {
     },
+  },
+  created() {},
   mounted() {
     console.log(this.videosrc);
     this.getlivedata();
