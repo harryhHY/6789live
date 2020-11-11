@@ -238,8 +238,9 @@ export default {
   border-radius: 13px;
 }
 #live {
-  background-image: url("../../image/bj.jpg");
-  background-repeat: repeat;
+  background: url("../../image/bj.jpg") 0 0 no-repeat,
+  url("../../image/3.jpg") 800px 0 repeat;
+ background-position: 0 0, 800px 0;
   background-size: 100%;
 }
 .playname {

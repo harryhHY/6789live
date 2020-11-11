@@ -67,12 +67,12 @@
       </div>
       <!-- 足球社区 -->
       <div class="footertitle" v-show="listfooterdata != false"></div>
-      <div class="footer_content_div" >
+      <div class="footer_content_div">
         <div
           class="cl footer_content"
           v-for="(item, index) in listfooterdata"
           :key="item.id + index"
-         @click="gotopostdetails(item)"
+          @click="gotopostdetails(item)"
         >
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
@@ -116,7 +116,7 @@
       </div> -->
       <!-- 篮球社区 -->
       <div class="bsktitle" v-show="listbasketdata != false"></div>
-      <div class="footer_content_div" >
+      <div class="footer_content_div">
         <div
           class="cl footer_content"
           v-for="(item, index) in listbasketdata"
@@ -297,7 +297,9 @@ export default {
 
 <style lang="less" scoped>
 .community {
-  background-image: url("../../image/bj.jpg");
+  background: url("../../image/bj.jpg") 0 0 no-repeat,
+    url("../../image/3.jpg") 800px 0 repeat;
+  background-position: 0 0, 800px 0;
   background-size: 100%;
   font-size: 14px;
 }

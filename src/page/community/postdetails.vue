@@ -345,7 +345,7 @@ export default {
       this.showreport = !this.showreport;
     },
     star(item) {
-      console.log(item)
+      console.log(item);
       let type = 0;
       if (item.is_stared == 0) {
         type = 1;
@@ -501,7 +501,9 @@ export default {
   margin: auto;
 }
 .newsdel {
-  background-image: url("../../image/bj.jpg");
+  background: url("../../image/bj.jpg") 0 0 no-repeat,
+    url("../../image/3.jpg") 800px 0 repeat;
+  background-position: 0 0, 800px 0;
   background-size: 100%;
   position: relative;
 }
@@ -694,7 +696,7 @@ export default {
   }
   .otherusergoodreply {
     color: #848484;
-    margin-bottom: 19px ;
+    margin-bottom: 19px;
     .otherusergood {
       display: flex;
       align-items: center;

@@ -185,7 +185,9 @@ export default {
   overflow: hidden;
 }
 .new {
-  background-image: url("../../image/bj.jpg");
+  background: url("../../image/bj.jpg") 0 0 no-repeat,
+    url("../../image/3.jpg") 800px 0 repeat;
+  background-position: 0 0, 800px 0;
   background-size: 100%;
 }
 .newstype1 {

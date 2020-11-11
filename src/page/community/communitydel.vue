@@ -65,7 +65,9 @@
           <div class="main_title cl">
             <div class="left main_title_left cl">
               <div
-                :class="item.id == newsclick?'left news cu click':'left news cu' "
+                :class="
+                  item.id == newsclick ? 'left news cu click' : 'left news cu'
+                "
                 v-for="(item, index) in sortList"
                 :key="item.id"
                 @click="delsort(item)"
@@ -168,7 +170,7 @@ export default {
       pagination: [], //分页数据
       action: 0, //是否已经加入社区
       likemenu: [], //已经关注的社区列表
-      actionmsg: "", //动态显示是否加入社区
+      actionmsg: "+加入社区", //动态显示是否加入社区
       sortList: [
         //排序方式
         {
@@ -192,25 +194,26 @@ export default {
           name: "回复时间",
         },
       ],
-      newsclick:1,
-      p:1,//翻页
+      newsclick: 1,
+      p: 1, //翻页
     };
   },
   methods: {
-    gotopublish(){
-      this.$router.push('/publish')
+    gotopublish() {
+      this.$router.push("/publish");
     },
-    gotopostdetails(item){//跳转贴子详情页面
-      this.$router.push('/postdetails');
-      this.$store.commit('postdel',item)
+    gotopostdetails(item) {
+      //跳转贴子详情页面
+      this.$router.push("/postdetails");
+      this.$store.commit("postdel", item);
     },
     delsort(item) {
-      this.newsclick = item.id
+      this.newsclick = item.id;
       let cid = this.communitydel.id;
       this.$api.homeindex
         .fourm({
           cid,
-          order:item.id
+          order: item.id,
         })
         .then((res) => {
           let { code, params, msg } = res.data;
@@ -233,7 +236,6 @@ export default {
       this.judgment();
     },
     async joincommunity() {
-      this.judgment();
       let url = `${this.$api.httppost.follow1()}`;
       this.$axios({
         method: "post",
@@ -265,15 +267,21 @@ export default {
         }
       });
     },
+    handleLikeID() {
+      const likeId = this.likemenu.map((item) => {
+        return item.id;
+      });
+      return likeId;
+    },
     judgment() {
       //判断是否存在关注列表
-      console.log(this.action);
-      if (this.likemenu.length == 0) {
-        this.action = 0;
-        this.actionmsg = "+加入社区";
-      } else {
-        for (let i = 0; i < this.likemenu.length; i++) {
-          if (this.likemenu[i].id == this.communitydel.id) {
+      let timer = setTimeout(() => {
+        if (this.likemenu.length == 0) {
+          this.action = 0;
+          this.actionmsg = "+加入社区";
+        } else {
+          const likeId = this.handleLikeID() || [];
+          if (likeId.includes(this.communitydel.id)) {
             this.action = 1;
             this.actionmsg = "-退出社区";
           } else {
@@ -281,7 +289,7 @@ export default {
             this.actionmsg = "+加入社区";
           }
         }
-      }
+      }, 500);
     },
     gotopostdel() {
       this.$router.push("/postdetails");
@@ -289,9 +297,10 @@ export default {
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
     },
-    handleCurrentChange(val) {//分页请求
-      this.p = val
-      this.getdeldata()
+    handleCurrentChange(val) {
+      //分页请求
+      this.p = val;
+      this.getdeldata();
     },
     getdeldata() {
       //获取社区讨论区
@@ -299,7 +308,7 @@ export default {
       this.$api.homeindex
         .fourm({
           cid,
-          p:this.p
+          p: this.p,
         })
         .then((res) => {
           let { code, params, msg } = res.data;
@@ -360,7 +369,9 @@ export default {
 
 <style lang="less" scoped>
 .communitydel {
-  background-image: url("../../image/bj.jpg");
+  background: url("../../image/bj.jpg") 0 0 no-repeat,
+    url("../../image/3.jpg") 800px 0 repeat;
+  background-position: 0 0, 800px 0;
   background-size: 100%;
   font-size: 14px;
   .communitydel_content {
@@ -482,7 +493,7 @@ export default {
               line-height: 44px;
               text-align: center;
             }
-            .click{
+            .click {
               color: #01a1fc;
             }
           }
