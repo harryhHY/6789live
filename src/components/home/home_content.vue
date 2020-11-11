@@ -9,7 +9,7 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
-            <img :src="host + item.news_cover_url" alt="" class="swiper_img"  />
+            <img :src="host + item.news_cover_url" alt="" class="swiper_img" />
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -24,6 +24,13 @@
           <div class="cl footer_content boxshadow">
             <div class="cl footerheader">
               <div class="football_class left">
+                <div class="centerimg left img_div">
+                  <img
+                    src="../../image/titleicon.png"
+                    class="titleicon"
+                    alt=""
+                  />
+                </div>
                 <div
                   v-for="(item, index) in footerball"
                   :key="index"
@@ -54,9 +61,12 @@
                 <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
-            <div class="communitymsg_header cl" v-if="forum_foottball!=false">
+            <div class="communitymsg_header cl" v-if="forum_foottball!=false" >
+              <div class="centerimg left img_div">
+                <img src="../../image/titleicon.png" class="titleicon" alt="" />
+              </div>
               <div class="left footercomm">足球社区</div>
-              <div class="right cu" @click="gotocommunity()" >更多》</div>
+              <div class="right cu" @click="gotocommunity()">更多》</div>
             </div>
             <div class="communitymsg">
               <div
@@ -87,6 +97,9 @@
         <div class="cl footer_content boxshadow">
           <div class="cl footerheader">
             <div class="football_class left">
+              <div class="centerimg left img_div">
+                <img src="../../image/titleicon.png" class="titleicon" alt="" />
+              </div>
               <div
                 v-for="(item, key, index) in baskeball"
                 :key="key"
@@ -113,7 +126,10 @@
               <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>
-          <div class="communitymsg_header cl" v-if="forum_basketball!=false">
+          <div class="communitymsg_header cl" v-if="forum_basketball != false">
+            <div class="centerimg left img_div">
+              <img src="../../image/titleicon.png" class="titleicon" alt="" />
+            </div>
             <div class="left footercomm">篮球社区</div>
             <div class="right cu" @click="gotocommunity()">更多》</div>
           </div>
@@ -189,9 +205,9 @@
             </div>
           </div>
         </div>
-        <div class="lookmore_div centerimg">
+        <!-- <div class="lookmore_div centerimg">
           <div class="lookmore cu">查看更多赛事</div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -283,11 +299,11 @@ export default {
     };
   },
   methods: {
-    gotonew(){
-       this.$router.push('/new')
+    gotonew() {
+      this.$router.push("/new");
     },
-    gotocommunity(){
-      this.$router.push('/community')
+    gotocommunity() {
+      this.$router.push("/community");
     },
     gotopostdetails(item) {
       //跳转贴子详情页面
@@ -469,12 +485,22 @@ export default {
   font-size: 16px;
   color: #a9a9a9;
   margin: 10px 40px 10px 32px;
-  border-left: 5px solid #014681;
+  .img_div {
+    height: 40px;
+  }
+  .titleicon {
+    width: 5px;
+    height: 18px;
+  }
 }
 .footerheader {
   margin: 10px 40px 10px 32px;
-  .football_class {
-    border-left: 5px solid #014681;
+  .img_div {
+    height: 40px;
+  }
+  .titleicon {
+    width: 5px;
+    height: 18px;
   }
   .football_class .foot_span:first-child {
     margin-left: 10px;
