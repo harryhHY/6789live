@@ -87,7 +87,8 @@
               <textarea
                 type="text"
                 v-model="commentmsg"
-                placeholder="来说两句吧！"
+                 maxlength="500"
+                placeholder="来说两句吧！最多500字"
               ></textarea>
             </div>
             <div class="left fabiao" @click="postcomment()">发表</div>
