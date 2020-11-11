@@ -51,14 +51,14 @@
             <div class="looktoday left" @click="gotolive()">
               【点击观看今日直播】
             </div>
-            <div class="share_div left">
+            <!-- <div class="share_div left">
               <img src="../../image/news/share.png" alt="" />
               分享
               <img src="../../image/news/shareicon1.png" alt="" class="cu" />
               <img src="../../image/news/shareicon2.png" alt="" class="cu" />
               <img src="../../image/news/shareicon3.png" alt="" class="cu" />
               <img src="../../image/news/shareicon4.png" alt="" class="cu" />
-            </div>
+            </div> -->
             <div class="right ana_div">
               <!-- <div class="cl left anadiv cu" @click="gotoanalysis(liveList)">
                 <div class="anaimg left"></div>

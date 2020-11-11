@@ -20,14 +20,14 @@
       <div class="cl title_bottom">
         <div class="left">6789直播</div>
         <div class="left title_bottom_time">{{ newsList.time }}</div>
-        <div class="left share_div">
+        <!-- <div class="left share_div">
           <img src="../../image/news/share.png" alt="" />
           分享到
           <img src="../../image/news/shareicon1.png" alt="" />
           <img src="../../image/news/shareicon2.png" alt="" />
           <img src="../../image/news/shareicon3.png" alt="" />
           <img src="../../image/news/shareicon4.png" alt="" />
-        </div>
+        </div> -->
         <div class="cl right title_bottom_right">
           <!-- <div class="cl favorites_div left cu">
             <div class="favorites_img left"></div>

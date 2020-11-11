@@ -56,7 +56,7 @@
             <div class="newstime">
               {{ item.news_addtime | formDate }}
             </div>
-            <div class="cl share_div">
+            <!-- <div class="cl share_div">
               <div class="centerimg left cu">
                 <img src="../../image/news/share.png" alt="" />
                 分享
@@ -65,7 +65,7 @@
                 <img src="../../image/news/share.png" alt="" />
                 更多
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
