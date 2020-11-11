@@ -287,6 +287,7 @@ export default {
       this.getsearchdata();
     },
     changeoption() {
+      this.page = 1
       this.getsearchdata();
       console.log(this.keywords);
     },

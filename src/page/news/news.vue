@@ -336,6 +336,7 @@ export default {
   margin: 7px 0 7px 43px;
   font-size: 14px;
   color: #aeaeae;
+  width: 640px;
 }
 .sousuo {
   background-image: url("../../image/news/sousuo.png");
