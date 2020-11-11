@@ -58,10 +58,10 @@
             <div class="bname ov left">
               {{ item.aname }}
             </div>
-            <div class="cl left anadiv cu" @click="gotoanalysis(item)">
+            <!-- <div class="cl left anadiv cu" @click="gotoanalysis(item)">
               <div class="anaimg left"></div>
               <div class="ana left">数据分析</div>
-            </div>
+            </div> -->
             <div class="indnxdiv left cu cl" @click="gotoexponent(item)">
               <div class="left indeximg"></div>
               <div>指数</div>

@@ -58,10 +58,10 @@
               <img src="../../image/news/shareicon4.png" alt="" class="cu" />
             </div>
             <div class="right ana_div">
-              <div class="cl left anadiv cu" @click="gotoanalysis(liveList)">
+              <!-- <div class="cl left anadiv cu" @click="gotoanalysis(liveList)">
                 <div class="anaimg left"></div>
                 <div class="ana left">数据分析</div>
-              </div>
+              </div> -->
               <div class="indnxdiv left cu cl" @click="gotoexponent(liveList)">
                 <div class="left indeximg"></div>
                 <div>指数</div>
