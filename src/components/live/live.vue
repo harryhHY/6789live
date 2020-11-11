@@ -211,7 +211,6 @@ export default {
   watch: {
     liveheaderfn(newValue) {
       this.footballflag = newValue;
-      console.log(newValue);
       if (newValue == 0) {
         this.football = this.menufootData;
       } else {

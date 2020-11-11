@@ -73,12 +73,12 @@ export default {
   computed: {
     ...mapState(["liveheader"]),
     liveheaderfn() {
-      this.$store.state.liveheader;
+     return this.$store.state.liveheader;
     },
   },
   watch: {
     liveheaderfn(newValue) {
-      console.log(newValue);
+      this.createdchangetype(newValue);
     },
   },
   created() {

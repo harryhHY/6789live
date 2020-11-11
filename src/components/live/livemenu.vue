@@ -90,7 +90,10 @@
         </div>
         <!-- 综合 -->
         <div>
-          <div class="footerclass_header cu"  @click="changebbkUnfold(3, isCollapse)">
+          <div
+            class="footerclass_header cu"
+            @click="changebbkUnfold(3, isCollapse)"
+          >
             <div>综合</div>
             <div
               :class="
@@ -231,7 +234,8 @@ export default {
     changetype1(clid, id, item) {
       switch (this.$route.path) {
         case "/live":
-          this.$emit("changetype", clid);
+          this.$store.commit("liveheader", clid - 1);
+          this.$emit("changetype", clid, id);
           break;
         case "/new":
           this.$emit("changenewstype", id);
