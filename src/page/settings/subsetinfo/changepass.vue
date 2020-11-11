@@ -29,7 +29,7 @@ export default {
           callback(new Error('请输入密码'))
         }else{
           if (!reg.test(value)) {
-            callback(new Error('密码应是6-12位数字、字母或字符！'))
+            callback(new Error('密码应是6-20位数字、字母或字符！'))
           } else{
             callback()
           }

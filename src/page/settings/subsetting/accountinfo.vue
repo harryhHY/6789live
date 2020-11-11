@@ -88,8 +88,8 @@ export default {
               } else if (res.code == 0) {
                   this.$message({
                     type: 'success', // warning、success
-                    message: "修改成功,请刷新页面" 
-                  })                            
+                    message: "修改成功"
+                  })        
               } else if (res.code == -1) {
                   this.$message({
                     type: 'warning', // warning、success

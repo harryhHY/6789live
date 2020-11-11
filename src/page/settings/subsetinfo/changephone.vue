@@ -109,33 +109,50 @@ export default {
       getVerify() {
         let regphone = /^1[3456789]\d{9}$/;
         if(this.ruleForm.checkphone != '' && regphone.test(this.ruleForm.checkphone)){
-          const TIME_COUNT = 60; //更改倒计时时间
-          if (!this.timer) {
-              this.count = TIME_COUNT;
-              this.show = false;
-              this.timer = setInterval(() => {
-                  if (this.count > 0 && this.count <= TIME_COUNT) {
-                      this.count--;
-                  } else {
-                      this.show = true;
-                      clearInterval(this.timer); // 清除定时器
-                      this.timer = null;
-                  }
-              }, 1000);
-          }
           this.$axios({
               url:`${this.$api.getCode}/${this.ruleForm.checkphone}/3`,
               method: "post",
               timeout: 3000
           })
           .then(res => {
-              this.$message({
-                type: 'success', // warning、success
-                message: "验证码已发送"
-              })
+            console.log(res);
+              if(res.data.code == 1) {
+                  this.$message({
+                      type: 'error', // warning、success
+                      message: '请一分钟后再试' 
+                  }) 
+              } else if (res.data.code == 0) {
+                this.$message({
+                  type: 'success', // warning、success
+                  message: "验证码已发送"
+                })
+                const TIME_COUNT = 60; //更改倒计时时间
+                if (!this.timer) {
+                    this.count = TIME_COUNT;
+                    this.show = false;
+                    this.timer = setInterval(() => {
+                        if (this.count > 0 && this.count <= TIME_COUNT) {
+                            this.count--;
+                        } else {
+                            this.show = true;
+                            clearInterval(this.timer); // 清除定时器
+                            this.timer = null;
+                        }
+                    }, 1000);
+                }                             
+              } else if (res.data.code == -1) {
+                  this.$message({
+                      type: 'success', // warning、success
+                      message: res.data.msg 
+                  })
+              }
           })
           .catch(error => {
-              console.log(error);
+              // console.log(error);
+              this.$message({
+                  type: 'warning', // warning、success
+                  message: '请求频繁，请稍后再试'
+              })
           });
         }else{
           this.$message({

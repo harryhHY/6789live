@@ -125,7 +125,7 @@ export default {
             this.editor.txt.clear()
         },
         cancleHandler(){
-
+            this.editor.txt.clear()
         },
         //获取反馈列表
         getSuggestList(){
@@ -140,11 +140,9 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.article_list = res.data.params;
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })                        
+                    if(res.data.params){
+                        this.article_list = res.data.params;
+                    }         
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success

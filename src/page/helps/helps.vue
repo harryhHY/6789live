@@ -7,9 +7,9 @@
             <div class="help_left">
                 <el-tabs v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="全部" name="first"><allhelps /></el-tab-pane>
-                    <el-tab-pane label="账号" name="second">配置管理</el-tab-pane>
-                    <el-tab-pane label="直播" name="third">角色管理</el-tab-pane>
-                    <el-tab-pane label="社区" name="fourth">定时任务补偿</el-tab-pane>
+                    <el-tab-pane label="账号" name="second">暂无</el-tab-pane>
+                    <el-tab-pane label="直播" name="third">暂无</el-tab-pane>
+                    <el-tab-pane label="社区" name="fourth">暂无</el-tab-pane>
                     <el-tab-pane label="其他">其他</el-tab-pane>
                 </el-tabs>
             </div>
@@ -19,16 +19,16 @@
                    <p>热门问题</p>
                </div>
                <ul class="qus_list">
-                   <li>
+                   <!-- <li>
                        <i class="el-icon-s-help"></i>
-                       用户名怎样修改?</li>
-                   <li><i class="el-icon-s-help"></i>用户名怎样修改2</li>
+                       用户名怎样修改?</li> -->
+                   <!-- <li><i class="el-icon-s-help"></i>用户名怎样修改2</li>
                    <li><i class="el-icon-s-help"></i>用户名怎样修改3</li>
                    <li><i class="el-icon-s-help"></i>用户名怎样修改4</li>
                    <li><i class="el-icon-s-help"></i>用户名怎样修改5</li>
                    <li><i class="el-icon-s-help"></i>用户名怎样修改6</li>
                    <li><i class="el-icon-s-help"></i>用户名怎样修改7</li>
-                   <li><i class="el-icon-s-help"></i>用户名怎样修改8</li>
+                   <li><i class="el-icon-s-help"></i>用户名怎样修改8</li> -->
                </ul>
                <div class="bottom1">
                    <p @click = "goSuggest()">意见反馈<span>></span></p>
@@ -146,7 +146,7 @@ export default {
             }
         }
         .qus_list{
-            margin: 36px 0 0 26px;
+            margin: 36px 0 36px 26px;
             li{
                 font-size: 16px;
                 height: 30px;
