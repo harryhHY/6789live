@@ -144,7 +144,7 @@
                   :deep="deep"
                   :ref="`child${item.id}`"
                   :key="'father' + item.id"
-                  @getcommentid='getcommentid'
+                  @getcommentid="getcommentid"
                 ></newstree>
               </div>
             </div>
@@ -370,6 +370,7 @@ export default {
     gotonewsdel(item) {
       //新闻推荐跳转新闻详情页面
       this.$store.commit("newsList", item);
+       document.documentElement.scrollTop = 0
     },
   },
   components: {
