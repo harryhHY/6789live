@@ -64,6 +64,7 @@
                     :append-to-body="appendbody">
                     <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
+                <p>举报图片限上传一张</p>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click="cancleTwo()">取 消</el-button>
                     <el-button type="primary" @click="submitHandler()">提交</el-button>
@@ -156,7 +157,7 @@ export default {
         },
         //图片改变时
         handleimgChange(filelist){
-            // console.log(filelist);
+            console.log(filelist);
             this.fileList = filelist;
         },
         //第二个提交
@@ -206,10 +207,10 @@ export default {
                 this.twoVisible = false;
                 this.threeVisible = true;
                 this.fileList = [];
-                this.$message({
-                    type: 'success', // warning、success
-                    message: res.msg 
-                })
+                // this.$message({
+                //     type: 'success', // warning、success
+                //     message: res.msg 
+                // })
             }else{
                 this.$message({
                     type: 'error', // warning、success
@@ -228,7 +229,7 @@ export default {
             this.imgVisible = false;
         },
         handlePictureCardPreview(file) {
-            // console.log(file);
+            console.log(file);
             this.dialogImageUrl = file.url;
             this.imgVisible = true;
             this.twoVisible = true;

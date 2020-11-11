@@ -77,14 +77,16 @@ export default {
         //反馈
         getEditorData() {
             // 通过代码获取编辑器内容
-            this.urlImgList = JSON.parse(localStorage.getItem("imgList"));
-            console.log(this.urlImgList);            
+            if(localStorage.getItem("imgList")){
+                this.urlImgList = JSON.parse(localStorage.getItem("imgList"));
+            } 
+            console.log(this.urlImgList);      
             let data = this.editor.txt.html()
             if(this.articletitle != ''){
                 this.$api.sendsuggest.suggest({
                     title:this.$inHTMLData(this.articletitle),
                     body:data,
-                    pic:String(...this.urlImgList)
+                    pic:String(this.urlImgList)
                 }).then(res => {
                     // console.log(res);
                     if (res.data.code == 1) {

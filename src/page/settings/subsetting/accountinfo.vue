@@ -69,15 +69,17 @@ export default {
             avator:require("@/image/news.jpeg"),
             Myheaders:{token : uptoken},
             showList:false,
-            infoList:{}
+            infoList:{
+                user_pic:''
+            }
         }
     },
     methods:{
         handleAvatarSuccess(res, file) {
-            this.avator = this.JuheHOST + res.params.user_pic;
-            localStorage.setItem('user_pic',res.data.params.user_pic); 
-            // console.log(res);
-            // console.log(file);
+            console.log(res);
+            console.log(file);
+            this.infoList.user_pic = res.params.user_pic;
+            localStorage.setItem('user_pic',res.params.user_pic); 
             if (res.code == 1) {
                   this.$message({
                     type: 'error', // warning、success
@@ -86,7 +88,7 @@ export default {
               } else if (res.code == 0) {
                   this.$message({
                     type: 'success', // warning、success
-                    message: res.msg 
+                    message: "修改成功,请刷新页面" 
                   })                            
               } else if (res.code == -1) {
                   this.$message({
@@ -123,10 +125,10 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
+                    // this.$message({
+                    //     type: 'success', // warning、success
+                    //     message: res.data.msg 
+                    // })
                     this.infoList = res.data.params;                        
                 } else if (res.data.code == -1) {
                     this.$message({

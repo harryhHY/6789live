@@ -216,7 +216,7 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '发布成功'
                         })
                         //清空编辑器
                         this.editor.txt.clear()

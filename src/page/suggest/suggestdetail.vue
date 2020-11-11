@@ -37,6 +37,7 @@
                             :key="index"
                             class="detail_img"
                             :src="images"
+                            v-if="item.f_r_pic[0] != imgurl +'null'"
                             :preview-src-list="item.f_r_pic">
                         </el-image>
                     </div>
@@ -94,7 +95,9 @@ export default {
         },
         getEditorData() {
             // 通过代码获取编辑器内容
-            this.replyUrlImgList = JSON.parse(localStorage.getItem("relpyImgList"));
+            if(localStorage.getItem("relpyImgList")){
+                this.replyUrlImgList = JSON.parse(localStorage.getItem("relpyImgList"));
+            }           
             let data = this.editor.txt.html()
             //回复提交
             this.$axios({
@@ -117,7 +120,7 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '提交成功'
                         })
                         //成功清除保存的imglist
                         localStorage.setItem("relpyImgList", ['']);
