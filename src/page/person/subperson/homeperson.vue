@@ -66,10 +66,10 @@ export default {
                 } else if (res.data.code == 0) {
                     this.articleList = res.data.params.my_forum;
                 } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
+                    // this.$message({
+                    //     type: 'success', // warning、success
+                    //     message: res.data.msg 
+                    // })
                     // this.$router.push("/") 
                 }
             })
