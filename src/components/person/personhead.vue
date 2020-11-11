@@ -213,7 +213,7 @@ export default {
         }
     }
     .des_con{
-        width: 40%;
+        width: 500px;
         height: 70px;
         position: absolute;
         left: 168px;
@@ -232,8 +232,12 @@ export default {
                 color: #1a90fc;
             }
             .p2{
+                width: 500px;
                 font-size: 14px;
                 color: #848484;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .info{
                 p{

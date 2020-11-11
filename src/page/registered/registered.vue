@@ -18,15 +18,15 @@
           <el-form ref="register" :model="register" :rules="registerRules" label-width="80px" class="second_con">
             <el-form-item  class="filed" prop="username" label="">
               <img class="user" :src="imgs.user" alt="">
-              <el-input v-model="register.username" @blur="checkBlur($event)" placeholder="用户名：4-20位英文或字母或“-”、“_”" prefix-icon></el-input>
+              <el-input v-model="register.username" @blur="checkBlur($event)" placeholder="请输入用户名" prefix-icon></el-input>
             </el-form-item>
             <el-form-item class="filed" prop="password" label="">
               <img class="password" :src="imgs.pass" alt="">
-              <el-input v-model="register.password" show-password placeholder="密码：6-16位密码，区分大小写" autocomplete="off"></el-input>
+              <el-input v-model="register.password" show-password placeholder="请输入密码" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item  class="filed" label="" prop="checkPass">
               <img class="password" :src="imgs.pass" alt="">
-              <el-input type="password" show-password v-model="register.checkPass" placeholder="确认密码" autocomplete="off"></el-input>
+              <el-input type="password" show-password v-model="register.checkPass" placeholder="请再次输入密码" autocomplete="off"></el-input>
             </el-form-item>
             <div class="region_con">
                 <el-form-item  class="filed" prop="phoneNum" label="">
@@ -91,7 +91,7 @@ export default {
           callback(new Error('用户名不能为空'))
         }else{
           if (!reg.test(value)) {
-            callback(new Error('用户名格式错误'))
+            callback(new Error('用户名为4-20位英文或字母或“-”、“_”'))
           } else{
             callback()
           }
@@ -102,7 +102,7 @@ export default {
           callback(new Error('请输入密码'))
         }else{
           if (!reg.test(value)) {
-            callback(new Error('密码应是6-16位数字、字母或字符！'))
+            callback(new Error('密码应是6-16位密码，区分大小写'))
           } else{
             callback()
           }
@@ -209,32 +209,44 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-          const TIME_COUNT = 60; //更改倒计时时间
-          if (!this.timer) {
-              this.count = TIME_COUNT;
-              this.show = false;
-              this.timer = setInterval(() => {
-                  if (this.count > 0 && this.count <= TIME_COUNT) {
-                      this.count--;
-                  } else {
-                      this.show = true;
-                      clearInterval(this.timer); // 清除定时器
-                      this.timer = null;
-                  }
-              }, 1000);
-          }
+          let regphone = /^1[3456789]\d{9}$/;
           //注册获取验证码
-          this.$axios({
-              url:`${this.$api.getCode}/${this.register.phoneNum}/0`,
-              method: "post",
-              timeout: 3000
-          })
-          .then(res => {
-              // console.log(res);
-          })
-          .catch(error => {
-              // console.log(error);
-          });
+          if(this.register.phoneNum != '' && regphone.test(this.register.phoneNum)){
+            const TIME_COUNT = 60; //更改倒计时时间
+            if (!this.timer) {
+                this.count = TIME_COUNT;
+                this.show = false;
+                this.timer = setInterval(() => {
+                    if (this.count > 0 && this.count <= TIME_COUNT) {
+                        this.count--;
+                    } else {
+                        this.show = true;
+                        clearInterval(this.timer); // 清除定时器
+                        this.timer = null;
+                    }
+                }, 1000);
+            }
+            this.$axios({
+                url:`${this.$api.getCode}/${this.register.phoneNum}/0`,
+                method: "post",
+                timeout: 3000
+            })
+            .then(res => {
+                this.$message({
+                  type: 'success', // warning、success
+                  message: "验证码已发送"
+                })
+            })
+            .catch(error => {
+                // console.log(error);
+            });
+          }else{
+            this.$message({
+              type: 'warning', // warning、success
+              message: '请注意手机号格式和不能为空'
+            })
+          }
+          
       // }
     },
      doRegiste(register) {

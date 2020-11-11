@@ -19,7 +19,7 @@
                             </el-radio-group>
                         </el-form-item>
                         <el-form-item label="" prop="desc">
-                            <el-input v-model="reportType.desc" placeholder="请填写举报类型，最多20字"></el-input>
+                            <el-input v-model="reportType.desc" placeholder="请填写举报类型"></el-input>
                         </el-form-item>
                     </el-form>
                 <span slot="footer" class="dialog-footer">

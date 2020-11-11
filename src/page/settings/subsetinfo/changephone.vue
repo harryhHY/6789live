@@ -107,7 +107,8 @@ export default {
       },
       //获取验证码倒计时
       getVerify() {
-        console.log(111);
+        let regphone = /^1[3456789]\d{9}$/;
+        if(this.ruleForm.checkphone != '' && regphone.test(this.ruleForm.checkphone)){
           const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
@@ -128,11 +129,21 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              // console.log(res);
+              this.$message({
+                type: 'success', // warning、success
+                message: "验证码已发送"
+              })
           })
           .catch(error => {
               console.log(error);
           });
+        }else{
+          this.$message({
+            type: 'warning', // warning、success
+            message: '请注意手机号格式和不能为空'
+          })
+        }
+          
       // }
     },
       submitForm(formName) {
