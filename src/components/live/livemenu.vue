@@ -15,7 +15,11 @@
           <div
             v-for="(item, key, index) in mylike"
             :key="item.id"
-            class="playnum cu left ov"
+            :class="
+              highlight == item.id
+                ? 'playnum1  cu left ov'
+                : 'playnum cu left ov'
+            "
             @click="changetype1(item.ch_columnm, item.id, item)"
           >
             {{ item.ch_name }}
@@ -48,7 +52,11 @@
               <div
                 v-for="(item, index) in footData"
                 :key="item.id"
-                class="playnum cu left ov"
+                :class="
+                  highlight == item.id
+                    ? 'playnum1  cu left ov'
+                    : 'playnum cu left ov'
+                "
                 @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
@@ -77,7 +85,11 @@
               <div
                 v-for="(item, index) in backetballdata"
                 :key="item.id"
-                class="playnum cu left ov"
+                :class="
+                  highlight == item.id
+                    ? 'playnum1  cu left ov'
+                    : 'playnum cu left ov'
+                "
                 @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
@@ -104,11 +116,15 @@
             ></div>
           </div>
           <div class="cl mylike" v-if="!bbflag">
-            <div class="cl" v-if="isCollapse">
+            <div class="cl" v-if="!isCollapse">
               <div
                 v-for="(item, index) in Collapsedata"
                 :key="item.id"
-                class="playnum cu left ov"
+                :class="
+                  highlight == item.id
+                    ? 'playnum1  cu left ov'
+                    : 'playnum cu left ov'
+                "
                 @click="changetype1(item.ch_columnm, item.id, item)"
               >
                 {{ item.ch_name }}
@@ -125,6 +141,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -135,7 +152,9 @@ export default {
       bbflag: false,
       Collapsedata: [], //综合
       isCollapse: false,
-      menutitle: "",
+      menutitle: "", //菜单标题
+      totalData: [], //所有的栏目
+      highlight: "",
     };
   },
   methods: {
@@ -201,6 +220,7 @@ export default {
               this.footData,
               this.Collapsedata
             );
+            this.totalData = totalList;
             totalList.map((item) => {
               newarr.push({ item });
             });
@@ -245,11 +265,20 @@ export default {
           this.$store.commit("communitydel", item);
           break;
       }
+      console.log(this.totalData);
+      for (let i = 0; i < this.totalData.length; i++) {
+        if (this.totalData[i].id == id) {
+          this.highlight = id;
+        }
+      }
     },
     //去个人关注设置
     gotoattention() {
       this.$router.push("/person/attention");
     },
+  },
+  computed: {
+    ...mapState(["menucomplexdata"]),
   },
   created() {
     this.getlivemenu();
@@ -285,6 +314,17 @@ export default {
     text-align: center;
     background-color: #112a40;
     color: #205789;
+    margin-top: 6px;
+    margin-right: 6px;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  .playnum1 {
+    background-color: #014681;
+    color: #47a7ff;
+    line-height: 23px;
+    width: 66px;
+    text-align: center;
     margin-top: 6px;
     margin-right: 6px;
     border-radius: 10px;
