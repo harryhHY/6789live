@@ -17,7 +17,7 @@
           {{ item.hname }} VS {{ item.aname }}
         </div>
       </div>
-      <div class="lookmore cu">查看更多直播</div>
+      <!-- <div class="lookmore cu">查看更多直播</div> -->
     </div>
   </div>
 </template>
