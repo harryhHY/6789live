@@ -237,7 +237,7 @@ export default {
       } else {
         type = 2;
       }
-      let url1 = `${this.$api.httppost.follow()}${type}/${item.id}`;
+      let url1 = `${this.$api.httppost.follow()}/${type}/${item.id}`;
       console.log(url1);
       this.$axios({
         method: "post",
