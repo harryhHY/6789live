@@ -46,7 +46,7 @@
                   @click="getVerify"
                   :disabled="disabled=!show"
               >
-              <span v-show="show">获取验证码</span>
+              <span v-show="show" v-preventReClick>获取验证码</span>
               <span v-show="!show" class="count">{{count}} s</span>
               </el-button>
             </div>
@@ -85,12 +85,13 @@ export default {
   data() {
     //用户名注册
     let regphone = /^1[3456789]\d{9}$/;
-    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/
+    let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/
+    let regname = /^(?!\d+$)[\da-zA-Z-_]{4,20}$/
       var validateName = (rule, value, callback) => {
         if(value == ''){
           callback(new Error('用户名不能为空'))
         }else{
-          if (!reg.test(value)) {
+          if (!regname.test(value)) {
             callback(new Error('用户名为4-20位英文或字母或“-”、“_”'))
           } else{
             callback()
@@ -102,7 +103,7 @@ export default {
           callback(new Error('请输入密码'))
         }else{
           if (!reg.test(value)) {
-            callback(new Error('密码应是6-16位密码，区分大小写'))
+            callback(new Error('密码应是6-20位密码，区分大小写'))
           } else{
             callback()
           }
@@ -212,33 +213,50 @@ export default {
           let regphone = /^1[3456789]\d{9}$/;
           //注册获取验证码
           if(this.register.phoneNum != '' && regphone.test(this.register.phoneNum)){
-            const TIME_COUNT = 60; //更改倒计时时间
-            if (!this.timer) {
-                this.count = TIME_COUNT;
-                this.show = false;
-                this.timer = setInterval(() => {
-                    if (this.count > 0 && this.count <= TIME_COUNT) {
-                        this.count--;
-                    } else {
-                        this.show = true;
-                        clearInterval(this.timer); // 清除定时器
-                        this.timer = null;
-                    }
-                }, 1000);
-            }
             this.$axios({
                 url:`${this.$api.getCode}/${this.register.phoneNum}/0`,
                 method: "post",
                 timeout: 3000
             })
             .then(res => {
-                this.$message({
-                  type: 'success', // warning、success
-                  message: "验证码已发送"
-                })
+              // console.log(res);
+                if(res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: '请一分钟后再试' 
+                    }) 
+                } else if (res.data.code == 0) {
+                  this.$message({
+                    type: 'success', // warning、success
+                    message: "验证码已发送"
+                  })
+                  const TIME_COUNT = 60; //更改倒计时时间
+                  if (!this.timer) {
+                      this.count = TIME_COUNT;
+                      this.show = false;
+                      this.timer = setInterval(() => {
+                          if (this.count > 0 && this.count <= TIME_COUNT) {
+                              this.count--;
+                          } else {
+                              this.show = true;
+                              clearInterval(this.timer); // 清除定时器
+                              this.timer = null;
+                          }
+                      }, 1000);
+                  }                             
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                }
             })
             .catch(error => {
                 // console.log(error);
+                this.$message({
+                  type: 'warning', // warning、success
+                  message: '请求频繁，请稍后再试'
+              })
             });
           }else{
             this.$message({

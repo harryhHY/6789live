@@ -249,7 +249,7 @@ export default {
             this.menu_num = data;
         },
         handleChange(value) {
-            console.log(value[2]);
+            console.log(value);
         },
         // 获取频道列表
         getChanelList(){
@@ -264,7 +264,8 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.options = res.data.params;               
+                    // this.options = res.data.params;
+                    this.options.push(res.data.params[2]);               
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success

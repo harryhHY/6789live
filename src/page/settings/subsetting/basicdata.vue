@@ -3,9 +3,9 @@
         <el-form :label-position="labelPosition" :inline="true" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
             <el-form-item label="性别" prop="gender">
                 <el-select v-model="ruleForm.gender" placeholder="请选择性别">
-                <el-option label="男" value="boy"></el-option>
-                <el-option label="女" value="girl"></el-option>
-                <el-option label="保密" value="xxx"></el-option>
+                <el-option label="男" value="1"></el-option>
+                <el-option label="女" value="2"></el-option>
+                <el-option label="保密" value="3"></el-option>
                 </el-select>
             </el-form-item>
             <br>
@@ -96,7 +96,7 @@ export default {
             return s.substr(birthMonth*2-(birthDay< arr[birthMonth-1]?2:0),2);//12  21
         },
       submitForm(formName) {
-          console.log(this.dateFormat(this.ruleForm.date1));
+          console.log(this.ruleForm.date1);
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.basic.basicInfo({
@@ -117,7 +117,7 @@ export default {
                         type: 'success', // warning、success
                         message: '设置成功'
                     })
-                    this.$refs[formName].resetFields();                            
+                    // this.$refs[formName].resetFields();                            
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'warning', // warning、success
@@ -135,6 +135,48 @@ export default {
           }
         });
       },
+      //获取个人信息
+        getInfo(){
+            this.$axios({
+                url:`${this.$api.myprofile}/0`,
+                method: "get",
+                timeout: 3000
+            })
+            .then(res => {
+                console.log(res);
+                if (res.data.code == 1) {
+                    this.$message({
+                        type: 'error', // warning、success
+                        message: res.data.msg 
+                    }) 
+                } else if (res.data.code == 0) {
+                    if(res.data.params.profile){
+                        if(res.data.params.profile.user_sex == 1){
+                            this.ruleForm.gender = '1'
+                        }else if(res.data.params.profile.user_sex == 2){
+                            this.ruleForm.gender = '2'
+                        }else{
+                            this.ruleForm.gender = '3'
+                        }
+                        this.ruleForm.date1 = new Date(res.data.params.profile.user_birthday);
+                        this.ruleForm.area = res.data.params.profile.user_location;
+                        this.ruleForm.hobby = res.data.params.profile.user_hobby;
+                        this.ruleForm.desc = res.data.params.profile.user_desc;
+                    }
+                    // let {} = 
+                    // this.profile = res.data.params.profile;
+                } else if (res.data.code == -1) {
+                    this.$message({
+                        type: 'success', // warning、success
+                        message: res.data.msg 
+                    })
+                    this.$router.push("/") 
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
@@ -146,7 +188,7 @@ export default {
         }
     },
     mounted(){
-
+        this.getInfo();
     }
 }
 </script>
