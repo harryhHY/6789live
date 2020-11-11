@@ -54,9 +54,9 @@
                 {{ item.ch_name }}
               </div>
             </div>
-            <div class="cu">
+            <!-- <div class="cu">
               <div class="lookmore"></div>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 篮球 -->
@@ -83,14 +83,14 @@
                 {{ item.ch_name }}
               </div>
             </div>
-            <div class="cu">
+            <!-- <div class="cu">
               <div class="lookmore"></div>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 综合 -->
         <div>
-          <div class="footerclass_header cu">
+          <div class="footerclass_header cu"  @click="changebbkUnfold(3, isCollapse)">
             <div>综合</div>
             <div
               :class="
@@ -101,7 +101,7 @@
             ></div>
           </div>
           <div class="cl mylike" v-if="!bbflag">
-            <div class="cl">
+            <div class="cl" v-if="isCollapse">
               <div
                 v-for="(item, index) in Collapsedata"
                 :key="item.id"
@@ -111,9 +111,9 @@
                 {{ item.ch_name }}
               </div>
             </div>
-            <div class="cu">
+            <!-- <div class="cu">
               <div class="lookmore"></div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ export default {
       backetballdata: [], //篮球
       bbflag: false,
       Collapsedata: [], //综合
-      isCollapse: true,
+      isCollapse: false,
       menutitle: "",
     };
   },
