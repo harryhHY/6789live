@@ -190,6 +190,15 @@ export default {
   },
   computed: {
     ...mapState(["liveList"]),
+    liveListfn(){
+     return this.$store.state.liveList
+    }
+  },
+  watch: {
+    liveListfn(newValue) {
+      // this.liveList = newValue
+      this.getlivedata();
+    }
   },
   created() {
     },
