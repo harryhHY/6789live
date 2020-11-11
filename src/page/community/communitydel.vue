@@ -237,6 +237,7 @@ export default {
     },
     async joincommunity() {
       let url = `${this.$api.httppost.follow1()}`;
+      this.$refs.livemenu.getlivemenu();
       this.$axios({
         method: "post",
         url,
@@ -252,10 +253,13 @@ export default {
           switch (this.action) {
             case 0:
               pipi = "加入社区成功";
+              this.likemenu.push(this.communitydel);
               break;
-
             default:
               pipi = "退出社区成功";
+              this.likemenu = this.likemenu.filter(
+                (item) => item.id !== this.communitydel.id
+              );
               break;
           }
           this.trigger();
@@ -275,21 +279,20 @@ export default {
     },
     judgment() {
       //判断是否存在关注列表
-      let timer = setTimeout(() => {
-        if (this.likemenu.length == 0) {
+
+      if (this.likemenu.length == 0) {
+        this.action = 0;
+        this.actionmsg = "+加入社区";
+      } else {
+        const likeId = this.handleLikeID() || [];
+        if (likeId.includes(this.communitydel.id)) {
+          this.action = 1;
+          this.actionmsg = "-退出社区";
+        } else {
           this.action = 0;
           this.actionmsg = "+加入社区";
-        } else {
-          const likeId = this.handleLikeID() || [];
-          if (likeId.includes(this.communitydel.id)) {
-            this.action = 1;
-            this.actionmsg = "-退出社区";
-          } else {
-            this.action = 0;
-            this.actionmsg = "+加入社区";
-          }
         }
-      }, 500);
+      }
     },
     gotopostdel() {
       this.$router.push("/postdetails");
@@ -351,9 +354,9 @@ export default {
     },
   },
   watch: {
-    menulikefn(newValue) {
-      this.likemenu = newValue;
-    },
+    // menulikefn(newValue) {
+    //   this.likemenu = newValue;
+    // },
     action(newValue) {
       this.action = newValue;
     },
