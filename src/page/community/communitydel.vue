@@ -197,6 +197,9 @@ export default {
     };
   },
   methods: {
+    gotopublish(){
+      this.$router.push('/publish')
+    },
     gotopostdetails(item){//跳转贴子详情页面
       this.$router.push('/postdetails');
       this.$store.commit('postdel',item)
