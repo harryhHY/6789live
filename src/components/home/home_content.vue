@@ -54,9 +54,9 @@
                 <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
-            <div class="communitymsg_header cl">
+            <div class="communitymsg_header cl" v-if="forum_foottball!=false">
               <div class="left footercomm">足球社区</div>
-              <div class="right cu">更多》</div>
+              <div class="right cu" @click="gotocommunity()" >更多》</div>
             </div>
             <div class="communitymsg">
               <div
@@ -100,7 +100,7 @@
                 <i>|</i>
               </div>
             </div>
-            <span class="cu right morespan">更多》</span>
+            <span class="cu right morespan" @click="gotonew()">更多》</span>
           </div>
           <div class="livemsg cl">
             <div
@@ -113,9 +113,9 @@
               <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>
-          <div class="communitymsg_header cl">
+          <div class="communitymsg_header cl" v-if="forum_basketball!=false">
             <div class="left footercomm">篮球社区</div>
-            <div class="right cu">更多》</div>
+            <div class="right cu" @click="gotocommunity()">更多》</div>
           </div>
           <div class="communitymsg">
             <div
@@ -283,6 +283,12 @@ export default {
     };
   },
   methods: {
+    gotonew(){
+       this.$router.push('/new')
+    },
+    gotocommunity(){
+      this.$router.push('/community')
+    },
     gotopostdetails(item) {
       //跳转贴子详情页面
       this.$router.push("/postdetails");
