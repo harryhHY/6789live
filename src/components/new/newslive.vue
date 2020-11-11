@@ -1,5 +1,5 @@
 <template>
-  <div class="newslive_div left">
+  <div class="newslive_div left" id="newslive_div">
     <div class="block">
       <el-carousel height="238px">
         <el-carousel-item v-for="(item, index) in swpList" :key="index">
@@ -128,6 +128,11 @@ export default {
     border-radius: 15px;
   }
 }
+#newslive_div {
+  .el-carousel__button {
+    width: 15px;
+  }
+}
 .newslive_div {
   width: 350px;
   margin-left: 18px;
@@ -137,6 +142,7 @@ export default {
 .swp {
   width: 356px;
   position: relative;
+
   img {
     width: 356px;
     height: 236px;

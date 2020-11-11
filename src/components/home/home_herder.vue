@@ -381,6 +381,9 @@ export default {
   }
 
   .menu {
+    .el-menu{
+    //  background-color:rgba(255,255,255,0.6);
+    }
     .el-menu.el-menu--horizontal {
       border: none;
     }

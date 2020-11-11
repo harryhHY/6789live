@@ -46,7 +46,6 @@ export default {
     //中间切换足球、篮球种类的
     changetype(index) {
       let data = this.liveList;
-      console.log(index);
       this.$store.commit("liveheader", index);
       for (let i = 0; i < this.liveList.length; i++) {
         if (i == index) {
@@ -55,7 +54,20 @@ export default {
           this.liveList[i].clicktype = false;
         }
       }
-      // this.$router.push("/live");
+      if (this.$route.path == "/Livedel") {
+        this.$router.push("/live");
+      }
+    },
+    createdchangetype(index) {
+      let data = this.liveList;
+      this.$store.commit("liveheader", index);
+      for (let i = 0; i < this.liveList.length; i++) {
+        if (i == index) {
+          this.liveList[i].clicktype = true;
+        } else {
+          this.liveList[i].clicktype = false;
+        }
+      }
     },
   },
   computed: {
@@ -66,11 +78,11 @@ export default {
   },
   watch: {
     liveheaderfn(newValue) {
-      console.log(newValue)
+      console.log(newValue);
     },
   },
   created() {
-    this.changetype(this.liveheader);
+    this.createdchangetype(this.liveheader);
   },
 };
 </script>

@@ -20,7 +20,7 @@
               <i>|</i>
             </div>
           </div>
-          <span class="cu right morespan">更多》</span>
+          <!-- <span class="cu right morespan">更多》</span> -->
         </div>
         <div class="time_class">
           {{ todaydate }}
@@ -110,7 +110,6 @@ export default {
     // 切换最新栏目
     changtype(id, name) {
       this.footballflag = name;
-      console.log(this.footballflag);
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
       }).then((res) => {
@@ -225,6 +224,7 @@ export default {
     },
   },
   created() {
+    this.footballflag = this.liveheader
     this.changeButtonList();
     this.football = this.menufootData;
     this.getdata();
