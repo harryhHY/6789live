@@ -13,9 +13,10 @@
                 <el-form-item prop="date1">
                     <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
                 </el-form-item>
-                <el-form-item label="星座">
-                    <el-input :disabled="disabled" v-model="ruleForm.constellation">{{constellation}}</el-input>
-                </el-form-item>
+            </el-form-item>
+            <br>
+            <el-form-item class="xingzuo" label="星座">
+                <el-input :disabled="disabled" v-model="ruleForm.constellation">{{constellation}}</el-input>
             </el-form-item>
             <br>
             <el-form-item label="地区" prop="area">
@@ -114,7 +115,7 @@ export default {
                 } else if (res.data.code == 0) {
                     this.$message({
                         type: 'success', // warning、success
-                        message: res.data.msg 
+                        message: '设置成功'
                     })
                     this.$refs[formName].resetFields();                            
                 } else if (res.data.code == -1) {

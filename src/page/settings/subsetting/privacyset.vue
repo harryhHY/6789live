@@ -74,7 +74,7 @@ export default {
                         if (res.data.code == 1) {
                             this.$message({
                                 type: 'error', // warning、success
-                                message: res.data.msg 
+                                message: "设置成功" 
                             }) 
                         } else if (res.data.code == 0) {
                             this.$message({
@@ -109,10 +109,6 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
                     // console.log(res.data.params[0].uPAccount,res.data.params[0].uPFollow,res.data.params[0].uPFans);
                     if(res.data.params.length > 0){
                         this.ruleForm.basic = String(res.data.params[0].u_p_account);                             

@@ -87,11 +87,9 @@ export default {
       },
       //获取验证码倒计时
     getVerify() {
-            // 验证手机号
-      // if (this.checkPhone() == false) {
-      //     return false;
-      // } else {
-          const TIME_COUNT = 60; //更改倒计时时间
+       let regmail = /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
+       if(this.ruleForm.checkMail != '' && regmail.test(this.ruleForm.checkMail)){
+         const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
               this.show = false;
@@ -111,11 +109,21 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              // console.log(res);
+              this.$message({
+                type: 'success', // warning、success
+                message: "验证码已发送"
+              })
           })
           .catch(error => {
               console.log(error);
           });
+       }else{
+         this.$message({
+            type: 'warning', // warning、success
+            message: '请注意邮箱格式和不能为空'
+          })
+       }
+          
       // }
     },
       submitForm(formName) {

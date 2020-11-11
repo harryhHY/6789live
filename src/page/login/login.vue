@@ -229,7 +229,9 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-          const TIME_COUNT = 60; //更改倒计时时间
+      let regphone = /^1[3456789]\d{9}$/;
+      if(this.iphone.phoneNum != '' && regphone.test(this.iphone.phoneNum)){
+        const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
               this.show = false;
@@ -249,11 +251,21 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              // console.log(res);
+              this.$message({
+                type: 'success', // warning、success
+                message: "验证码已发送"
+              })
           })
           .catch(error => {
               // console.log(error);
           });
+      }else{
+        this.$message({
+            type: 'warning', // warning、success
+            message: '请注意手机号格式和不能为空'
+          })
+      }
+          
     },
       resetForm(formName) {
         this.$refs[formName].resetFields();
@@ -276,7 +288,7 @@ export default {
               } else if (res.data.code == 0) {
                   this.$message({
                     type: 'success', // warning、success
-                    message: res.data.msg 
+                    message: '登录成功' 
                   })
                   //登录成功获取用户基本信息
                   this.$emit("childData")

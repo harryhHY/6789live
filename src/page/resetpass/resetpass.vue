@@ -199,7 +199,7 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                           type: 'success', // warning、success
-                          message: res.data.msg 
+                          message: '校验成功'
                         })
                         this.oneflag = false;
                         this.twoflag = true;
@@ -222,7 +222,9 @@ export default {
     },
     //获取验证码倒计时
     getVerify() {
-          const TIME_COUNT = 60; //更改倒计时时间
+      let regphone = /^1[3456789]\d{9}$/;
+      if(this.register.phoneNum != '' && regphone.test(this.register.phoneNum)){
+        const TIME_COUNT = 60; //更改倒计时时间
           if (!this.timer) {
               this.count = TIME_COUNT;
               this.show = false;
@@ -242,11 +244,21 @@ export default {
               timeout: 3000
           })
           .then(res => {
-              // console.log(res);
+              this.$message({
+                type: 'success', // warning、success
+                message: "验证码已发送"
+              })
           })
           .catch(error => {
               console.log(error);
           });
+      }else{
+          this.$message({
+            type: 'warning', // warning、success
+            message: '请注意手机号格式和不能为空'
+          })
+      }
+          
     },
     //上一步
     forward(){
@@ -282,7 +294,7 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '重置成功！' 
                         })
                         this.$router.push('/');
                         // this.active = this.active+1;
@@ -296,7 +308,8 @@ export default {
                     }
                 })
                 .catch(error => {
-                    this.$message("设置失败")
+                  // console.log(error);
+                  //   this.$message("设置失败")
                 })
             } else {
                 console.log('error submit!!');

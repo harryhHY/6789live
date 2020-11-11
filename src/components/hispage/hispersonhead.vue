@@ -136,7 +136,7 @@ export default {
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
-                        message: res.data.msg 
+                        message: '登录过期，请重新登录' 
                     })
                     this.$router.push("/") 
                 }
@@ -182,7 +182,7 @@ export default {
                     } else if (res.data.code == -1) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '登录过期，请重新登录' 
                         })
                         this.$router.push("/") 
                     }

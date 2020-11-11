@@ -96,7 +96,7 @@ export default {
                 } else if (res.data.code == 0) {
                     this.$message({
                         type: 'success', // warning、success
-                        message: res.data.msg 
+                        message: '关注成功' 
                     })                            
                 } else if (res.data.code == -1) {
 
