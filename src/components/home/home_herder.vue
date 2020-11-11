@@ -23,6 +23,7 @@
           @select="handleSelect"
           text-color="#ffffff"
           active-text-color="#1a90fc"
+          background-color= "transparent"
         >
           <el-menu-item
             v-for="(item, key, index) in title_data"
@@ -67,7 +68,12 @@
           <div class="left">
             <el-dropdown @command="gotosm">
               <span class="el-dropdown-link cu">
-                <el-avatar class="avatar" :size="25" :src="imgUrl + circleUrl" v-if="circleUrl"></el-avatar>
+                <el-avatar
+                  class="avatar"
+                  :size="25"
+                  :src="imgUrl + circleUrl"
+                  v-if="circleUrl"
+                ></el-avatar>
                 <el-avatar v-else> {{ namely }} </el-avatar>
                 {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
@@ -120,7 +126,7 @@ export default {
   data() {
     return {
       circleUrl: "",
-      imgUrl:this.JuheHOST,
+      imgUrl: this.JuheHOST,
       activeIndex2: "1",
       title_data: [
         {
@@ -152,7 +158,7 @@ export default {
           src: "/community",
         },
       ],
-      namely: '',
+      namely: "",
       menuitem: [
         {
           title: "账号设置",
@@ -178,38 +184,39 @@ export default {
   props: ["headerKey"],
   methods: {
     exit() {
-      this.$api.loginout.useLoginout(          
-            ).then(res => {
-                // console.log(res);
-                if (res.data.code == 1) {
-                    this.$message({
-                        type: 'error', // warning、success
-                        message: res.data.msg 
-                    }) 
-                } else if (res.data.code == 0) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$store.commit("token", "");
-                    localStorage.setItem("token", "");
-                    localStorage.setItem("user_name", "");
-                    localStorage.setItem("nick_name", "");
-                    localStorage.setItem("user_uid", "");
-                    localStorage.setItem("user_pic", "");
-                    this.$router.push("/");                           
-                } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$router.push("/") 
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                this.$message("参数错误");
-            })
+      this.$api.loginout
+        .useLoginout()
+        .then((res) => {
+          // console.log(res);
+          if (res.data.code == 1) {
+            this.$message({
+              type: "error", // warning、success
+              message: res.data.msg,
+            });
+          } else if (res.data.code == 0) {
+            this.$message({
+              type: "success", // warning、success
+              message: res.data.msg,
+            });
+            this.$store.commit("token", "");
+            localStorage.setItem("token", "");
+            localStorage.setItem("user_name", "");
+            localStorage.setItem("nick_name", "");
+            localStorage.setItem("user_uid", "");
+            localStorage.setItem("user_pic", "");
+            this.$router.push("/");
+          } else if (res.data.code == -1) {
+            this.$message({
+              type: "success", // warning、success
+              message: res.data.msg,
+            });
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.$message("参数错误");
+        });
     },
     gptoperson(e) {
       console.log(e);
@@ -221,44 +228,44 @@ export default {
       }
     },
     //获取用户信息
-        getbasic(){
-            this.$api.getbasicInfo.getbasic(
-
-            ).then(res => {
-                // console.log(res);
-                if (res.data.code == 1) {
-                    this.$message({
-                        type: 'error', // warning、success
-                        message: res.data.msg 
-                    }) 
-                } else if (res.data.code == 0) {
-                    if(res.data.params.user_nickname != ''){
-                      this.namely = res.data.params.user_nickname;
-                    }else{
-                      this.namely = res.data.params.user_name;;
-                    }
-                    if(res.data.params.user_pic){
-                      this.circleUrl = res.data.params.user_pic
-                    }
-                    // console.log(this.circleUrl);  
-                    localStorage.setItem('user_uid',res.data.params.user_uid);                       
-                    localStorage.setItem('user_pic',res.data.params.user_pic);                       
-                    localStorage.setItem('user_name',res.data.params.user_name);                       
-                    localStorage.setItem('nick_name',res.data.params.user_nickname);                       
-                } else if (res.data.code == -1) {
-                    this.$message({
-                        type: 'success', // warning、success
-                        message: res.data.msg 
-                    })
-                    this.$router.push("/")
-                }
-            })
-            .catch(error => {
-                this.$message("账号或密码错误");
-            })
-        },
-    getChildData(){
-      this.getbasic()
+    getbasic() {
+      this.$api.getbasicInfo
+        .getbasic()
+        .then((res) => {
+          // console.log(res);
+          if (res.data.code == 1) {
+            this.$message({
+              type: "error", // warning、success
+              message: res.data.msg,
+            });
+          } else if (res.data.code == 0) {
+            if (res.data.params.user_nickname != "") {
+              this.namely = res.data.params.user_nickname;
+            } else {
+              this.namely = res.data.params.user_name;
+            }
+            if (res.data.params.user_pic) {
+              this.circleUrl = res.data.params.user_pic;
+            }
+            // console.log(this.circleUrl);
+            localStorage.setItem("user_uid", res.data.params.user_uid);
+            localStorage.setItem("user_pic", res.data.params.user_pic);
+            localStorage.setItem("user_name", res.data.params.user_name);
+            localStorage.setItem("nick_name", res.data.params.user_nickname);
+          } else if (res.data.code == -1) {
+            this.$message({
+              type: "success", // warning、success
+              message: res.data.msg,
+            });
+            this.$router.push("/");
+          }
+        })
+        .catch((error) => {
+          this.$message("账号或密码错误");
+        });
+    },
+    getChildData() {
+      this.getbasic();
     },
     //登录
     gologin() {
@@ -299,17 +306,17 @@ export default {
   created() {
     this.activeIndex2 = this.headerKey;
   },
-  mounted(){
-    if(localStorage.getItem('nick_name')){
-      this.namely = localStorage.getItem('nick_name');
-    }else if(localStorage.getItem('user_name')){
-      this.namely = localStorage.getItem('user_name');
+  mounted() {
+    if (localStorage.getItem("nick_name")) {
+      this.namely = localStorage.getItem("nick_name");
+    } else if (localStorage.getItem("user_name")) {
+      this.namely = localStorage.getItem("user_name");
     }
-    if(localStorage.getItem('user_pic')){
-      this.circleUrl = localStorage.getItem('user_pic');
+    if (localStorage.getItem("user_pic")) {
+      this.circleUrl = localStorage.getItem("user_pic");
     }
     // console.log(this.circleUrl);
-  }
+  },
 };
 </script>
 
@@ -330,6 +337,9 @@ export default {
 .fenlei1 {
   color: #ffffff;
   margin: 0 10px;
+  .el-submenu__title:hover {
+   background-color:transparent;
+  }
 }
 .registeredicon {
   margin-top: 3px;
@@ -381,8 +391,8 @@ export default {
   }
 
   .menu {
-    .el-menu{
-    //  background-color:rgba(255,255,255,0.6);
+    .el-menu {
+      //  background-color:rgba(255,255,255,0.6);
     }
     .el-menu.el-menu--horizontal {
       border: none;
@@ -439,7 +449,7 @@ export default {
     margin-right: 3px;
   }
 }
-.avatar{
+.avatar {
   position: relative;
   top: 5px;
 }
