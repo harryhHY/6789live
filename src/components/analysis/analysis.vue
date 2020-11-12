@@ -80,7 +80,7 @@
       <div class="game_history_div">
         <div class="game_history_main">
           <div class="game_histor_header cl">
-            <div class="left cu b1b">全部赛事</div>
+            <!-- <div class="left cu b1b">全部赛事</div>
             <div class="left cu b1b">
               <el-dropdown>
                 <span class="el-dropdown-link">
@@ -94,7 +94,7 @@
                   <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </div>
+            </div> -->
           </div>
           <div>
             <div class="cl game_column">
@@ -157,24 +157,25 @@
         <div class="left recrdleft">
           <div class="recrdleft_header">
             <div class="left centerimg">
-              <img :src="liveList.aicon" alt="" />
-              <span class="recrd_left_header_team">{{ liveList.aname }}</span>
+              <img :src="liveList.hicon" alt="" />
+              <span class="recrd_left_header_team">{{ liveList.hname }}</span>
             </div>
             <div class="left cu b1b">
-              <el-dropdown>
+              <el-dropdown @command="hRecentNumfn">
                 <span class="el-dropdown-link">
-                  5场<i class="el-icon-arrow-down el-icon--right"></i>
+                  {{hRecentNum}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
-                <el-dropdown-menu
-                  slot="dropdown"
-                  v-for="(item, index) in game_num"
-                  :key="index"
-                >
-                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(item, index) in game_num"
+                    :key="item.id"
+                    :command="item.network"
+                    >{{ item.inquirenum }}</el-dropdown-item
+                  >
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
-            <div class="left cu b1b">
+            <!-- <div class="left cu b1b">
               <el-dropdown>
                 <span class="el-dropdown-link">
                   全部<i class="el-icon-arrow-down el-icon--right"></i>
@@ -187,8 +188,8 @@
                   >
                 </el-dropdown-menu>
               </el-dropdown>
-            </div>
-            <div class="left cu b1b">
+            </div> -->
+            <!-- <div class="left cu b1b">
               <el-dropdown>
                 <span class="el-dropdown-link">
                   赛事筛选<i class="el-icon-arrow-down el-icon--right"></i>
@@ -201,41 +202,56 @@
                   <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </div>
+            </div> -->
           </div>
           <div class="recrdleft_main">
             <div class="cl recrdleft_main_column">
-              <div class="left recrd_match">赛事</div>
-              <div class="left recrd_date">比赛日期</div>
+              <!-- <div class="left recrd_match">赛事</div> -->
+              <!-- <div class="left recrd_date">比赛日期</div> -->
               <div class="left recrd_ateam">主队</div>
               <div class="left recrd_score">比分</div>
               <div class="left recrd_bteam">客队</div>
-              <div class="left recrd_half">半场</div>
-              <div class="left recrd_winlose">胜负</div>
-              <div class="left recrd_trend">走势</div>
-              <div class="left recrd_goalnum">进球数</div>
+              <!-- <div class="left recrd_half">半场</div> -->
+              <!-- <div class="left recrd_winlose">胜负</div> -->
+              <!-- <div class="left recrd_trend">走势</div> -->
+              <!-- <div class="left recrd_goalnum">进球数</div> -->
             </div>
             <div
-              v-for="(item, index) in aRecrdList"
+              v-for="(item, index) in aRecrdListFilter"
               :key="index"
               class="cl recrdleft_main_data"
             >
-              <div class="left recrd_match ov">{{ item.recrd_match }}</div>
-              <div class="left recrd_date">{{ item.recrd_date }}</div>
-              <div class="left recrd_ateam ov">{{ item.recrd_ateam }}</div>
-              <div class="left recrd_score">{{ item.recrd_score }}</div>
-              <div class="left recrd_bteam ov">{{ item.recrd_bteam }}</div>
-              <div class="left recrd_half">{{ item.recrd_half }}</div>
-              <div class="left recrd_winlose">{{ item.recrd_winlose }}</div>
-              <div class="left recrd_trend">{{ item.recrd_trend }}</div>
-              <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div>
+              <!-- <div class="left recrd_match ov">{{ item.recrd_match }}</div> -->
+              <!-- <div class="left recrd_date">{{ item.recrd_date }}</div> -->
+              <div
+                class="left recrd_ateam ov"
+                v-text="item.isHost == 1 ? hTeamName : item.enemyName"
+              >
+                {{ item.enemyName }}
+              </div>
+              <div
+                class="left recrd_score"
+                v-text="
+                  item.scores[0] != null
+                    ? `${item.scores[0]}:${item.scores[1]}`
+                    : '暂无'
+                "
+              ></div>
+              <div
+                class="left recrd_bteam ov"
+                v-text="item.isHost == 0 ? hTeamName : item.enemyName"
+              ></div>
+              <!-- <div class="left recrd_half">{{ item.recrd_half }}</div> -->
+              <!-- <div class="left recrd_winlose">{{ item.recrd_winlose }}</div> -->
+              <!-- <div class="left recrd_trend">{{ item.recrd_trend }}</div> -->
+              <!-- <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div> -->
             </div>
-            <div class="Echarts">
+            <!-- <div class="Echarts">
               <div id="main" style="width: 6rem; height: 4rem"></div>
-            </div>
-            <div>
+            </div> -->
+            <!-- <div>
               青岛轻钢近5场，胜出0场，平局0场，输1场；胜率：20%；赢率：40%；大球率：80%
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="left recrdright">
@@ -245,20 +261,21 @@
               <span class="recrd_left_header_team">{{ liveList.aname }}</span>
             </div>
             <div class="left cu b1b">
-              <el-dropdown>
+              <el-dropdown @command="aRecentNumfn">
                 <span class="el-dropdown-link">
-                  5场<i class="el-icon-arrow-down el-icon--right"></i>
+                  {{aRecentNum}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
-                <el-dropdown-menu
-                  slot="dropdown"
-                  v-for="(item, index) in game_num"
-                  :key="index"
-                >
-                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(item, index) in game_num1"
+                    :key="item.id"
+                    :command="item.network"
+                    >{{ item.inquirenum }}</el-dropdown-item
+                  >
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
-            <div class="left cu b1b">
+            <!-- <div class="left cu b1b">
               <el-dropdown>
                 <span class="el-dropdown-link">
                   全部<i class="el-icon-arrow-down el-icon--right"></i>
@@ -285,41 +302,56 @@
                   <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </div>
+            </div> -->
           </div>
           <div class="recrdleft_main">
             <div class="cl recrdleft_main_column">
-              <div class="left recrd_match">赛事</div>
-              <div class="left recrd_date">比赛日期</div>
+              <!-- <div class="left recrd_match">赛事</div> -->
+              <!-- <div class="left recrd_date">比赛日期</div> -->
               <div class="left recrd_ateam">主队</div>
               <div class="left recrd_score">比分</div>
               <div class="left recrd_bteam">客队</div>
-              <div class="left recrd_half">半场</div>
-              <div class="left recrd_winlose">胜负</div>
-              <div class="left recrd_trend">走势</div>
-              <div class="left recrd_goalnum">进球数</div>
+              <!-- <div class="left recrd_half">半场</div> -->
+              <!-- <div class="left recrd_winlose">胜负</div> -->
+              <!-- <div class="left recrd_trend">走势</div> -->
+              <!-- <div class="left recrd_goalnum">进球数</div> -->
             </div>
             <div
-              v-for="(item, index) in aRecrdList"
+              v-for="(item, index) in aRecrdList1Filter"
               :key="index"
               class="cl recrdleft_main_data"
             >
-              <div class="left recrd_match ov">{{ item.recrd_match }}</div>
-              <div class="left recrd_date">{{ item.recrd_date }}</div>
-              <div class="left recrd_ateam ov">{{ item.recrd_ateam }}</div>
-              <div class="left recrd_score">{{ item.recrd_score }}</div>
-              <div class="left recrd_bteam ov">{{ item.recrd_bteam }}</div>
-              <div class="left recrd_half">{{ item.recrd_half }}</div>
-              <div class="left recrd_winlose">{{ item.recrd_winlose }}</div>
-              <div class="left recrd_trend">{{ item.recrd_trend }}</div>
-              <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div>
+              <!-- <div class="left recrd_match ov">{{ item.recrd_match }}</div> -->
+              <!-- <div class="left recrd_date">{{ item.recrd_date }}</div> -->
+              <div
+                class="left recrd_ateam ov"
+                v-text="item.isHost == 1 ? aTeamName : item.enemyName"
+              >
+                {{ item.enemyName }}
+              </div>
+              <div
+                class="left recrd_score"
+                v-text="
+                  item.scores[0] != null
+                    ? `${item.scores[0]}:${item.scores[1]}`
+                    : '暂无'
+                "
+              ></div>
+              <div
+                class="left recrd_bteam ov"
+                v-text="item.isHost == 0 ? aTeamName : item.enemyName"
+              ></div>
+              <!-- <div class="left recrd_half">{{ item.recrd_half }}</div> -->
+              <!-- <div class="left recrd_winlose">{{ item.recrd_winlose }}</div> -->
+              <!-- <div class="left recrd_trend">{{ item.recrd_trend }}</div> -->
+              <!-- <div class="left recrd_goalnum">{{ item.recrd_goalnum }}</div> -->
             </div>
-            <div class="Echarts">
+            <!-- <div class="Echarts">
               <div id="main1" style="width: 6rem; height: 4rem"></div>
-            </div>
-            <div>
+            </div> -->
+            <!-- <div>
               青岛轻钢近5场，胜出0场，平局0场，输1场；胜率：20%；赢率：40%；大球率：80%
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -681,6 +713,8 @@ export default {
   data() {
     return {
       checkmenutype: 1,
+      aTeamName: "", //客队名字
+      hTeamName: "", //主队名字
       trendList: [
         {
           title: "总",
@@ -724,42 +758,14 @@ export default {
       againstRecord: [], //历史交锋
       activeIndex: "2",
       headerKey: "2",
-      game_num: [
-        {
-          id: 1,
-          inquirenum: "5场",
-          network: 5,
-        },
-        {
-          id: 2,
-          inquirenum: "10场",
-          network: 10,
-        },
-      ],
-      aRecrdList: [
-        {
-          recrd_match: "中超",
-          recrd_date: "2020/9/15",
-          recrd_ateam: "洗澡一队",
-          recrd_score: "12:12",
-          recrd_bteam: "洗澡二队",
-          recrd_half: "1:0",
-          recrd_winlose: "胜",
-          recrd_trend: "负",
-          recrd_goalnum: "负",
-        },
-        {
-          recrd_match: "中超",
-          recrd_date: "2020/9/15",
-          recrd_ateam: "洗澡一队",
-          recrd_score: "12:12",
-          recrd_bteam: "洗澡二队",
-          recrd_half: "1:0",
-          recrd_winlose: "胜",
-          recrd_trend: "负",
-          recrd_goalnum: "负",
-        },
-      ],
+      game_num: [], //主队近期战绩
+      game_num1: [], //客队近期战绩
+      aRecrdList: [], //主队近期战绩
+      aRecrdListFilter: [], //主队近期筛选战绩
+      aRecrdList1: [], //客队近期战绩
+      aRecrdList1Filter: [], //客队近期筛选战绩
+      hRecentNum: "全部", //主队切换后状态
+      aRecentNum: "全部", //客队切换后状态
     };
   },
   methods: {
@@ -813,7 +819,28 @@ export default {
       };
       myChart.setOption(option);
     },
+    hRecentNumfn(command) {
+      this.game_num.map((item)=>{
+        if(item.network == command){
+          this.hRecentNum = item.inquirenum
+        }
+      })
+      let pipi = this.aRecrdList;
+      pipi.slice(0, command);
+      this.aRecrdListFilter = pipi.slice(0, command);
+    },
+    aRecentNumfn(command) {
+       this.game_num1.map((item)=>{
+        if(item.network == command){
+          this.aRecentNum = item.inquirenum
+        }
+      })
+      let pipi = this.aRecrdList1;
+      pipi.slice(0, command);
+      this.aRecrdList1Filter = pipi.slice(0, command);
+    },
     getdata() {
+      //获取首页数据
       this.$axios({
         url: `${this.$api.homeindex.sta()}${this.liveList.matchId}`,
         method: "get",
@@ -830,6 +857,9 @@ export default {
             hRecord,
             aRecord,
           } = history;
+
+          this.aTeamName = aTeamName; //客队名字
+          this.hTeamName = hTeamName; //主队名字
 
           goaldist.map((item) => {
             //进球分布数据
@@ -851,12 +881,39 @@ export default {
             }
           }
           this.againstRecord = againstRecord;
+
+          //近期战绩
+          this.aRecrdList = this.aRecrdListFilter = hRecord;
+          this.aRecrdList1 = this.aRecrdList1Filter = aRecord;
+          let hgame_num = Math.ceil(hRecord.length / 5);
+          let agame_num = Math.ceil(aRecord.length / 5);
+
+          let hList = [];
+          for (let i = 0; i < hgame_num; i++) {
+            hList.push({
+              id: i + 1,
+              inquirenum: `${(i + 1) * 5}场`,
+              network: (i + 1) * 5,
+            });
+          }
+          this.game_num = hList;
+
+          let aList = [];
+          for (let i = 0; i < agame_num; i++) {
+            aList.push({
+              id: i + 1,
+              inquirenum: `${(i + 1) * 5}场`,
+              network: (i + 1) * 5,
+            });
+          }
+          this.game_num1 = aList;
+          console.log(this.game_num1, this.game_num);
         }
       });
     },
-    handleSelect(key, keyPath) {
-      for (let i = 0; i < this.dataList.length; i++) {}
-    },
+    // handleSelect(key, keyPath) {
+    //   for (let i = 0; i < this.dataList.length; i++) {}
+    // },
   },
   computed: {
     ...mapState(["liveList"]),
@@ -866,8 +923,8 @@ export default {
     analysisheader,
   },
   mounted() {
-    this.myEcharts();
-    this.myEcharts2();
+    // this.myEcharts();
+    // this.myEcharts2();
   },
   created() {
     this.getdata();
