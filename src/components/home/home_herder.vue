@@ -71,11 +71,12 @@
                 <el-avatar
                   class="avatar"
                   :size="25"
-                  :src="imgUrl + circleUrl"
-                  v-if="circleUrl"
+                  :src="imgUrl + upic"
+                  v-if="upic"
                 ></el-avatar>
-                <el-avatar v-else> {{ namely }} </el-avatar>
-                {{ namely }}<i class="el-icon-arrow-down el-icon--right"></i>
+                <el-avatar v-else> {{ uname }} </el-avatar>
+               <span v-if="nickname">{{nickname}}<i class="el-icon-arrow-down el-icon--right"></i></span>
+               <span v-else>{{uname}}<i class="el-icon-arrow-down el-icon--right"></i></span>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -117,7 +118,7 @@
 <script>
 const login = () => import("@/page/login/login");
 const registered = () => import("@/page/registered/registered");
-import { mapState } from "vuex";
+import { mapState , mapMutations } from "vuex";
 export default {
   components: {
     login,
@@ -228,13 +229,16 @@ export default {
       this.$api.getbasicInfo
         .getbasic()
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           if (res.data.code == 1) {
             this.$message({
               type: "error", // warning、success
               message: res.data.msg,
             });
           } else if (res.data.code == 0) {
+            this.$store.commit("upic", res.data.params.user_pic);
+            this.$store.commit("uname", res.data.params.user_name);
+            this.$store.commit("nickname", res.data.params.user_nickname);
             if (res.data.params.user_nickname != "") {
               this.namely = res.data.params.user_nickname;
             } else {
@@ -249,15 +253,11 @@ export default {
             localStorage.setItem("user_name", res.data.params.user_name);
             localStorage.setItem("nick_name", res.data.params.user_nickname);
           } else if (res.data.code == -1) {
-            this.$message({
-              type: "success", // warning、success
-              message: '身份验证过期，请重新登录'
-            });
-            this.$router.push("/");
+            // this.$router.push("/");
           }
         })
         .catch((error) => {
-          this.$message("账号或密码错误");
+          console.log(error);
         });
     },
     getChildData() {
@@ -296,22 +296,14 @@ export default {
     },
   },
   computed: {
-    ...mapState(["token"]),
+    ...mapState(["token","uname","upic","nickname"]),
   },
   watch: {},
   created() {
     this.activeIndex2 = this.headerKey;
   },
   mounted() {
-    if (localStorage.getItem("nick_name")) {
-      this.namely = localStorage.getItem("nick_name");
-    } else if (localStorage.getItem("user_name")) {
-      this.namely = localStorage.getItem("user_name");
-    }
-    if (localStorage.getItem("user_pic")) {
-      this.circleUrl = localStorage.getItem("user_pic");
-    }
-    // console.log(this.circleUrl);
+    this.getbasic();
   },
 };
 </script>

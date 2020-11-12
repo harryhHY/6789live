@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name:"changename",
     data(){
@@ -60,6 +61,7 @@ export default {
                         type: 'success', // warning、success
                         message: res.data.msg 
                     })
+                    this.$store.commit("nickname", this.ruleForm.name);
                     this.name = this.ruleForm.name;
                     localStorage.setItem('nick_name',this.name)
                     this.$refs[formName].resetFields();                            

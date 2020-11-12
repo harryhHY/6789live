@@ -7,6 +7,9 @@ const state = {
   liveList: '',
   newsList: '',
   token: '',
+  uname:'',
+  nickname:'',
+  upic:'',
   replyInfo: {},
   liveheader: 0
 };
@@ -27,6 +30,15 @@ const mutations = {
    */
   token(state, data) {
     state.token = data;
+  },
+  uname(state,data){
+    state.uname = data;
+  },
+  nickname(state,data){
+    state.nickname = data;
+  },
+  upic(state,data){
+    state.upic = data;
   },
   communitydel(state, data) { //社区讨论区
     state.communitydel = data;

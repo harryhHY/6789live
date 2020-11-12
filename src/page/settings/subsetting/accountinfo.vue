@@ -59,7 +59,7 @@
 </template>
 
 <script>
-let uptoken = localStorage.getItem("token");
+import { mapState ,mapMutations } from "vuex";
 export default {
     name:"Accountinfo",
     data(){
@@ -67,7 +67,7 @@ export default {
             imgurl:this.JuheHOST,
             uploadActionUrl:this.$api.uploadActionUrl,
             avator:require("@/image/news.jpeg"),
-            Myheaders:{token : uptoken},
+            Myheaders:{token : localStorage.getItem("token")},
             showList:false,
             infoList:{
                 user_pic:''
@@ -78,6 +78,7 @@ export default {
         handleAvatarSuccess(res, file) {
             console.log(res);
             console.log(file);
+            this.$store.commit("upic", res.params.user_pic);
             this.infoList.user_pic = res.params.user_pic;
             localStorage.setItem('user_pic',res.params.user_pic); 
             if (res.code == 1) {
@@ -99,15 +100,16 @@ export default {
         },
         beforeAvatarUpload(file) {
             const isJPG = file.type === 'image/jpeg';
+            const isPNG = file.type === 'image/png';
             const isLt2M = file.size / 1024 / 1024 < 2;
 
-            if (!isJPG) {
-            this.$message.error('上传头像图片只能是 JPG 格式!');
+            if (!isJPG && !isPNG) {
+            this.$message.error('上传头像图片只能是 JPG,PNG 格式!');
             }
             if (!isLt2M) {
             this.$message.error('上传头像图片大小不能超过 2MB!');
             }
-            return isJPG && isLt2M;
+            return (isJPG || isPNG) && isLt2M;
         },
         goSetinfo(value){
             // this.$router.push("/setinfo/a")

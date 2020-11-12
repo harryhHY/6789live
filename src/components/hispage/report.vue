@@ -89,14 +89,13 @@
 </template>
 
 <script>
-let uptoken = localStorage.getItem("token");
 export default {
     name:"report",
      data() {
       return {
         imgurl:this.JuheHOST,
         uploadreport:`${this.$api.report.uploadreport}/${this.report_type}`,
-        Myheaders:{token : uptoken},
+        Myheaders:{token : localStorage.getItem("token")},
         uploadData:{
             type:'',
             id:'',
