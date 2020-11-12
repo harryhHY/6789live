@@ -111,12 +111,23 @@
               <div class="left trend">走势</div>
               <div class="left goals">进球数</div> -->
             </div>
-            <div class="cl game_column1">
+            <div
+              class="cl game_column1"
+              v-for="(item, index) in againstRecord"
+              :key="index"
+            >
               <!-- <div class="left match">足协杯</div> -->
               <!-- <div class="left matchtime">2020-05-01</div> -->
-              <div class="left ateam">青岛啤酒对</div>
-              <div class="left score">1:4</div>
-              <div class="left bteam">广州搓澡队</div>
+              <div class="left ateam">{{ item.hIdVsAid[0] }}</div>
+              <div
+                class="left score"
+                v-text="
+                  item.scores[0] != null && item.scores[0] != null
+                    ? `${item.scores[0]}:${item.scores[1]}`
+                    : '暂无'
+                "
+              ></div>
+              <div class="left bteam">{{ item.hIdVsAid[1] }}</div>
               <!-- <div class="left halftime">0:2</div>
               <div class="left corner">0：5</div>
               <div class="left winlose green">负</div>
@@ -125,7 +136,7 @@
               <div class="left trend green">输</div>
               <div class="left goals red">大</div> -->
             </div>
-            <div class="sum">
+            <!-- <div class="sum">
               近5场交锋，胜<span class="red">0</span>出场，平局<span
                 class="blue"
                 >0</span
@@ -136,7 +147,7 @@
               >输；其中<span class="red">1</span>场为大球，<span class="green"
                 >1</span
               >场为小球
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -710,6 +721,7 @@ export default {
       ],
       disstributed: [], //主队进球分布
       disstributed1: [], //客队进球分布
+      againstRecord: [], //历史交锋
       activeIndex: "2",
       headerKey: "2",
       game_num: [
@@ -802,7 +814,6 @@ export default {
       myChart.setOption(option);
     },
     getdata() {
-      console.log(this.liveList);
       this.$axios({
         url: `${this.$api.homeindex.sta()}${this.liveList.matchId}`,
         method: "get",
@@ -810,15 +821,36 @@ export default {
         let { code, msg, params } = res.data;
         if (code == 0) {
           let { goaldist, history } = params;
-          let { aTeamId, hTeamId } = history;
+          let {
+            aTeamId,
+            hTeamId,
+            againstRecord,
+            aTeamName,
+            hTeamName,
+            hRecord,
+            aRecord,
+          } = history;
+
           goaldist.map((item) => {
+            //进球分布数据
             if (item.teamId == aTeamId) {
-              this.disstributed1.push(item); //进球分布数据
+              this.disstributed1.push(item);
             } else if (item.teamId == hTeamId) {
               this.disstributed.push(item);
             }
           });
-          console.log(this.disstributed);
+
+          //历史交锋数据
+          for (let i = 0; i < againstRecord.length; i++) {
+            for (let t = 0; t < againstRecord[i].hIdVsAid.length; t++) {
+              if (againstRecord[i].hIdVsAid[t] == aTeamId) {
+                againstRecord[i].hIdVsAid[t] = aTeamName;
+              } else if (againstRecord[i].hIdVsAid[t] == hTeamId) {
+                againstRecord[i].hIdVsAid[t] = hTeamName;
+              }
+            }
+          }
+          this.againstRecord = againstRecord;
         }
       });
     },
