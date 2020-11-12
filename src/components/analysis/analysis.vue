@@ -4,7 +4,7 @@
     <div class="analys boxshadow">
       <analysisheader :checkmenutype="checkmenutype"></analysisheader>
       <!-- 联赛积分 -->
-      <div class="title_alliancepoints"></div>
+      <!-- <div class="title_alliancepoints"></div>
       <div class="alliancepoints_div cl">
         <div class="alliancepoints_left left">
           <div class="alliancepoints_left_header">
@@ -74,14 +74,13 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- 历史交锋 -->
       <div class="title_history"></div>
       <div class="game_history_div">
         <div class="game_history_main">
           <div class="game_histor_header cl">
             <div class="left cu b1b">全部赛事</div>
-            <div class="left cu b1b">主客相同</div>
             <div class="left cu b1b">
               <el-dropdown>
                 <span class="el-dropdown-link">
@@ -96,49 +95,35 @@
                 </el-dropdown-menu>
               </el-dropdown>
             </div>
-            <div class="left cu b1b">
-              <el-dropdown>
-                <span class="el-dropdown-link">
-                  下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu
-                  slot="dropdown"
-                  v-for="(item, index) in game_num"
-                  :key="index"
-                >
-                  <el-dropdown-item>{{ item.inquirenum }}</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </div>
           </div>
           <div>
             <div class="cl game_column">
-              <div class="left match">赛事</div>
-              <div class="left matchtime">比赛日期</div>
+              <!-- <div class="left match">赛事</div> -->
+              <!-- <div class="left matchtime">比赛日期</div> -->
               <div class="left ateam">主队</div>
               <div class="left score">比分</div>
               <div class="left bteam">客队</div>
-              <div class="left halftime">半场</div>
+              <!-- <div class="left halftime">半场</div>
               <div class="left corner">角球</div>
               <div class="left winlose">胜负</div>
               <div class="left winlosescore">胜负得分</div>
               <div class="left handicap">让球</div>
               <div class="left trend">走势</div>
-              <div class="left goals">进球数</div>
+              <div class="left goals">进球数</div> -->
             </div>
             <div class="cl game_column1">
-              <div class="left match">足协杯</div>
-              <div class="left matchtime">2020-05-01</div>
+              <!-- <div class="left match">足协杯</div> -->
+              <!-- <div class="left matchtime">2020-05-01</div> -->
               <div class="left ateam">青岛啤酒对</div>
               <div class="left score">1:4</div>
               <div class="left bteam">广州搓澡队</div>
-              <div class="left halftime">0:2</div>
+              <!-- <div class="left halftime">0:2</div>
               <div class="left corner">0：5</div>
               <div class="left winlose green">负</div>
               <div class="left winlosescore">10.08 20.08 20.08</div>
               <div class="left handicap">10.08 20.08 20.08</div>
               <div class="left trend green">输</div>
-              <div class="left goals red">大</div>
+              <div class="left goals red">大</div> -->
             </div>
             <div class="sum">
               近5场交锋，胜<span class="red">0</span>出场，平局<span
@@ -332,8 +317,100 @@
       <div class="distributed_main cl">
         <div class="distributed_left left">
           <div class="distributed_left_header">
-            <img :src="liveList.aicon" alt="" />
+            <img :src="liveList.hicon" alt="" />
             <span class="distributed_left_header_span">{{
+              liveList.hname
+            }}</span>
+          </div>
+          <div class="disstributed_left_main cl">
+            <div class="disstributed_left_main_titleleft left">
+              <div class="kong">　</div>
+              <div class="lei">总</div>
+              <div class="lei">主</div>
+              <div class="lei">客</div>
+            </div>
+            <div class="left disstributed_left_main_titleleft2">
+              <div class="kong cl disstributed_left_main_titleright">
+                <div class="left">0-15"</div>
+                <div class="left">15-30"</div>
+                <div class="left">30-45"</div>
+                <div class="left">45-60"</div>
+                <div class="left">60-75"</div>
+                <div class="left">75-90"</div>
+              </div>
+              <div
+                class="lei cl disstributed_left_main_right"
+                v-for="(item, index) in disstributed"
+                :key="index"
+              >
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount75to90 }}
+                  </div>
+                </div>
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount75to90 }}
+                  </div>
+                </div>
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount75to90 }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="distributed_right left">
+          <div class="distributed_left_header">
+            <img :src="liveList.aicon" alt="" />
+            <span class="alliancepoints_left_header_team">{{
               liveList.aname
             }}</span>
           </div>
@@ -355,76 +432,68 @@
               </div>
               <div
                 class="lei cl disstributed_left_main_right"
-                v-for="(item, index) in disstributed"
+                v-for="(item, index) in disstributed1"
                 :key="index"
               >
-                <div class="left">
-                  {{ item.num1 }}
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.goalCount75to90 }}
+                  </div>
                 </div>
-                <div class="left">
-                  {{ item.num2 }}
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.homeTeamGoalCount75to90 }}
+                  </div>
                 </div>
-                <div class="left">
-                  {{ item.num3 }}
-                </div>
-                <div class="left">
-                  {{ item.num4 }}
-                </div>
-                <div class="left">
-                  {{ item.num5 }}
-                </div>
-                <div class="left">
-                  {{ item.num6 }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="distributed_right left">
-          <div class="distributed_left_header">
-            <img :src="liveList.bicon" alt="" />
-            <span class="alliancepoints_left_header_team">{{
-              liveList.bname
-            }}</span>
-          </div>
-          <div class="disstributed_left_main cl">
-            <div class="disstributed_left_main_titleleft left">
-              <div class="kong">　</div>
-              <div class="lei">总</div>
-              <div class="lei">主</div>
-              <div class="lei">客</div>
-            </div>
-            <div class="left disstributed_left_main_titleleft2">
-              <div class="kong cl disstributed_left_main_titleright">
-                <div class="left">0-15"</div>
-                <div class="left">15-30"</div>
-                <div class="left">30-45"</div>
-                <div class="left">45-60"</div>
-                <div class="left">60-75"</div>
-                <div class="left">75-90"</div>
-              </div>
-              <div
-                class="lei cl disstributed_left_main_right"
-                v-for="(item, index) in disstributed"
-                :key="index"
-              >
-                <div class="left">
-                  {{ item.num1 }}
-                </div>
-                <div class="left">
-                  {{ item.num2 }}
-                </div>
-                <div class="left">
-                  {{ item.num3 }}
-                </div>
-                <div class="left">
-                  {{ item.num4 }}
-                </div>
-                <div class="left">
-                  {{ item.num5 }}
-                </div>
-                <div class="left">
-                  {{ item.num6 }}
+                <div class="cl">
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount0to15 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount15to30 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount30to45 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount45to60 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount60to75 }}
+                  </div>
+                  <div class="left disstributeddiv">
+                    {{ item.awayTeamGoalCount75to90 }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -432,7 +501,7 @@
         </div>
       </div>
       <!-- 走势 -->
-      <div class="title_trend"></div>
+      <!-- <div class="title_trend"></div>
       <div class="trend_main cl">
         <div class="trend_left left">
           <div class="distributed_left_header">
@@ -588,7 +657,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -639,32 +708,8 @@ export default {
           smallrate: "40%",
         },
       ],
-      disstributed: [
-        {
-          num1: 1,
-          num2: 2,
-          num3: 3,
-          num4: 4,
-          num5: 5,
-          num6: 6,
-        },
-        {
-          num1: 1,
-          num2: 2,
-          num3: 3,
-          num4: 4,
-          num5: 5,
-          num6: 6,
-        },
-        {
-          num1: 1,
-          num2: 2,
-          num3: 3,
-          num4: 4,
-          num5: 5,
-          num6: 6,
-        },
-      ],
+      disstributed: [], //主队进球分布
+      disstributed1: [], //客队进球分布
       activeIndex: "2",
       headerKey: "2",
       game_num: [
@@ -756,6 +801,27 @@ export default {
       };
       myChart.setOption(option);
     },
+    getdata() {
+      console.log(this.liveList);
+      this.$axios({
+        url: `${this.$api.homeindex.sta()}${this.liveList.matchId}`,
+        method: "get",
+      }).then((res) => {
+        let { code, msg, params } = res.data;
+        if (code == 0) {
+          let { goaldist, history } = params;
+          let { aTeamId, hTeamId } = history;
+          goaldist.map((item) => {
+            if (item.teamId == aTeamId) {
+              this.disstributed1.push(item); //进球分布数据
+            } else if (item.teamId == hTeamId) {
+              this.disstributed.push(item);
+            }
+          });
+          console.log(this.disstributed);
+        }
+      });
+    },
     handleSelect(key, keyPath) {
       for (let i = 0; i < this.dataList.length; i++) {}
     },
@@ -772,7 +838,7 @@ export default {
     this.myEcharts2();
   },
   created() {
-    console.log(this.liveList);
+    this.getdata();
   },
 };
 </script>
@@ -1052,7 +1118,7 @@ export default {
       line-height: 40px;
       text-align: center;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       div {
         background-color: #e2f1fe;
       }
@@ -1094,7 +1160,7 @@ export default {
       line-height: 40px;
       text-align: center;
       display: flex;
-      justify-content: center;
+      justify-content: start;
       div {
         border-right: 1px solid #dedede;
         border-bottom: 1px solid #dedede;
@@ -1447,7 +1513,7 @@ export default {
       }
     }
     .disstributed_left_main_right {
-      div {
+      .disstributeddiv {
         height: 35px;
         line-height: 35px;
         width: 16.5%;
@@ -1504,7 +1570,7 @@ export default {
       }
     }
     .disstributed_left_main_right {
-      div {
+      .disstributeddiv {
         height: 35px;
         line-height: 35px;
         width: 16.5%;
