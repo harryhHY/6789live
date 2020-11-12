@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="article_info">
-            <p class="p_title">他的发帖</p>
-            <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
+            <p class="p_title">最新发帖</p>
+            <!-- <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
                 <div class="article_left">
                     <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
                     <div class="article_content" ref="forum_body" v-html="item.forum_body"></div>
@@ -10,35 +10,38 @@
                 <p class="article_right">
                     {{item.addtime_format}}
                 </p>
-            </div>
+            </div> -->
             <div class="noarticle" v-if="articleList.length == 0 && authority == '暂未发布帖子'">
                 {{authority}}
             </div>
             <div class="noarticle" v-if="articleList.length == 0 && authority == '用户隐私不可见'">
                 {{authority}}
             </div>
-            <!-- <el-timeline :reverse="reverse">
+            <el-timeline :reverse="reverse" >
                 <el-timeline-item
-                v-for="(item, index) in activities"
+                v-for="(item, index) in articleList"
                 :key="index"
-                :icon="item.icon"
-                :type="item.type"
-                :color="item.color"
-                :size="item.size"
-                :timestamp="item.timestamp"
+                icon = "el-icon-edit"
+                size = 'large'
+                type = 'primary'
+                :timestamp="item.addtime_format"
                 placement="top"
                 :class="{'odd_line':index%2 != 1}"
                 >
-                <div :class="{'odd_con':index%2 != 1}">
+                <div :class="[{'odd_con':index%2 != 1},'article']" @click="gotopostdetails(item)">
                     <el-card>
-                        <h4>{{item.title}}</h4>
+                        <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
                         <hr>
-                        <img :src="item.imgsrc" alt="">
-                        <p>{{item.content}}</p>
+                        <div class="article_content" v-html="item.forum_body"></div>
                     </el-card>
                 </div>
                 </el-timeline-item>
-            </el-timeline> -->
+            </el-timeline>
+            <div class="more" @click="toArticle">
+                <el-tooltip class="item" effect="dark" content="查看更多" placement="right-start">
+                    <i class="el-icon-more"></i>
+                </el-tooltip>
+            </div>
         </div>
         <el-backtop target="body #home"></el-backtop>
     </div>
@@ -50,7 +53,8 @@ export default {
         return{
             uid:'',
             articleList: [],
-            authority:''
+            authority:'',
+            reverse:true,
         }
     },
     methods:{
@@ -92,6 +96,9 @@ export default {
             this.$router.push('/postdetails');
             this.$store.commit('postdel',item)
         },
+        toArticle(){
+            this.$router.push('/hispage/hisarticle')
+        }
     },
     mounted(){
         this.getaAticle();
@@ -128,9 +135,11 @@ export default {
         left: 100px;
     }
     .article{
-        width: 1000px;
-        height: 96px;
-        margin-left: 45px;
+        width: 480px;
+        // height: 120px;
+        overflow: hidden;
+        margin-left: 25px;
+        margin-top: 10px;
         border-bottom: 1px solid #d2d2d2;
         .article_left{
             width: 70%;
@@ -183,16 +192,31 @@ export default {
         cursor: pointer;
     }
 }
+.more{
+    width: 50px;
+    margin: auto;
+    cursor: pointer;
+}
+.more :hover{
+    color: #4b4848;
+}
+/deep/.el-timeline-item__node--large{
+    width: 20px;
+    height: 20px;
+}
+/deep/.odd_line .el-timeline-item__timestamp.is-top {
+    position: relative;
+    left: -130px;
+    // color: #333333;
+}
+/deep/.el-timeline {
+    padding-left: 530px;
 
-// /deep/.odd_line .el-timeline-item__timestamp.is-top {
-//     position: absolute;
-//     left: -130px;
-//     color: #333333;
-// }
-// /deep/.el-timeline {
-//     padding-left: 50%;
-
-// }
+}
+.odd_con{
+    position: relative;
+    left: -570px;
+}
 </style>
 <style scoped>
 .article_content >>> img{
@@ -211,5 +235,12 @@ export default {
 .article_content >>> a{
     pointer-events:none;
 }
-
+.title_tag{
+    font-size: 12px;
+    background-color: #82C4FF !important;
+    color: #ffffff;
+    padding: 3px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
 </style>
