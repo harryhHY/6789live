@@ -89,7 +89,9 @@ const base = {
   //用户评论添加
   comment:`${host}/apiv2/comment`,
   //贴子详情
-  forumdel:`${host}/apiv2/forum/`
+  forumdel:`${host}/apiv2/forum/`,
+  //数据分析
+  sta:`${host}/apiv2/live/sta/`
 }
 
 

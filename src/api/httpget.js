@@ -38,6 +38,9 @@ const homeindex = {
   },
   forumdel(){
     return base.forumdel
+  },
+  sta(){
+    return base.sta
   }
 }
 

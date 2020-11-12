@@ -46,11 +46,11 @@ export default {
           title: "直播间",
           src: "/livedel",
         },
-        // {
-        //   id: "2",
-        //   title: "数据分析",
-        //   src: "/analysis",
-        // },
+        {
+          id: "2",
+          title: "数据分析",
+          src: "/analysis",
+        },
         {
           id: "3",
           title: "指数",
