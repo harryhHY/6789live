@@ -44,7 +44,7 @@
                   <i>|</i>
                 </div>
               </div>
-              <span class="cu right morespan">更多》</span>
+              <span class="cu right morespan" @click="gotonew()">更多》</span>
             </div>
             <div class="livemsg cl">
               <div
