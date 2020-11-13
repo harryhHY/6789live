@@ -3,7 +3,7 @@
     <div class="header_div">
       <div class="header">热门直播</div>
     </div>
-    <div>
+    <div v-if="videoData != false">
       <div
         v-for="(item, key) in videoData"
         :key="key"
@@ -19,6 +19,7 @@
       </div>
       <!-- <div class="lookmore cu">查看更多直播</div> -->
     </div>
+    <div v-if="videoData == false" class="videotitle_div1">暂无热门直播</div>
   </div>
 </template>
 
@@ -104,6 +105,13 @@ export default {
     color: #848484;
     display: flex;
     align-items: center;
+    height: 35px;
+  }
+  .videotitle_div1 {
+    color: #848484;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 35px;
   }
   .videotitle_div:hover {
