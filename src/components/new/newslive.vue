@@ -16,7 +16,7 @@
           {{ title }}
         </div>
       </div>
-      <div>
+      <div v-if="videoData!=false">
         <div
           v-for="(item, key) in videoData"
           :key="key"
@@ -31,6 +31,9 @@
           </div>
         </div>
         <!-- <div class="lookmore cu">查看更多直播</div> -->
+      </div>
+      <div v-if="videoData==false" class="videotitle_div1">
+        暂无直播
       </div>
     </div>
   </div>
@@ -110,6 +113,13 @@ export default {
     display: flex;
     align-items: center;
     height: 35px;
+  }
+  .videotitle_div1{
+    color: #848484;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    justify-content: center;
   }
   .videotitle_div:hover {
     color: #1a90fc;
