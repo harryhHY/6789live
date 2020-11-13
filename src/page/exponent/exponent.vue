@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>
-          <div class="left">共【3/17】家公司</div>
+          <div class="left">共{{List.length}}家公司</div>
         </div>
         <div class="exponent_title cl">
           <div class="left w142">公司</div>
