@@ -189,7 +189,7 @@
     </div>
     <div class="report_div_com" v-if="showreport">
       <report
-        :report_type="1"
+        :report_type="2"
         :report_id="postdel.id"
         :visible="showreport"
         @chidVisible="getVisible"

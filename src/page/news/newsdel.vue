@@ -189,7 +189,15 @@
       ></textarea>
       <div class="fabiao cu" @click="replyreply()">回复</div>
     </div>
-    <div class="report_div_com" v-show="showreport">
+    <!-- <div class="report_div_com" v-show="showreport">
+      <report
+        :report_type="1"
+        :report_id="newsList.id"
+        :visible="showreport"
+        @chidVisible="getVisible"
+      ></report>
+    </div> -->
+    <div class="report_div_com" v-if="showreport">
       <report
         :report_type="1"
         :report_id="newsList.id"
