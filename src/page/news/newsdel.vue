@@ -8,17 +8,14 @@
       </div>
       <div class="title_div cl">
         <div class="newstype1 left">
-          {{ newsdel.newsChannelId }}
+          {{ newsdel.news_channel_id }}
         </div>
         <div class="title left">
-          {{ newsdel.newsTitle }}
+          {{ newsdel.news_title }}
         </div>
       </div>
       <div class="newsbody">
-        <div class="newsCoverUrl_div">
-          <img :src="host + newsdel.newsCoverUrl" class="newsCoverUrl" alt="" />
-        </div>
-        <div v-html="newsdel.newsBody"></div>
+        <div v-html="newsdel.news_body"></div>
       </div>
       <div class="cl title_bottom">
         <div class="left">6789直播</div>
@@ -172,12 +169,12 @@
           @click="gotonewsdel(item)"
         >
           <div class="tuijian_img left">
-            <img :src="host + item.newsCoverUrl" alt="" />
+            <img :src="host + item.news_cover_url" alt="" />
           </div>
           <div class="left">
             <div class="certerimg tuijian_title_div">
-              <div class="tuijian_title">{{ item.newsTitle }}</div>
-              <div class="tuijian_time">{{ item.newsAddtime | formDate }}</div>
+              <div class="tuijian_title">{{ item.news_title }}</div>
+              <div class="tuijian_time">{{ item.news_addtime | formDate }}</div>
             </div>
           </div>
         </div>
@@ -356,7 +353,7 @@ export default {
           promote,
           recentVisitor,
         } = res.data.params;
-        this.newsdel = news[0];
+        this.newsdel = news;
         this.accessList = recentVisitor;
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
