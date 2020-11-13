@@ -129,7 +129,7 @@ export default {
                     } else if (res.data.code == -1) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: "身份认证过期，请重新登录" 
                         })
                         this.$router.push("/") 
                     }
@@ -203,7 +203,7 @@ export default {
         //配置编辑器高度
         // editor.config.height = this.editorParams.height;
         //默认提示语
-        editor.config.placeholder = '请发表讲话3'
+        editor.config.placeholder = '多张图片请同时上传,最多上传3张'
 
         //配置菜单
         editor.config.menus = [

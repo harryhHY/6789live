@@ -97,7 +97,7 @@ export default {
 <style lang="less" scoped>
 .article_info{
     width: 100%;
-    padding: 0 10px;
+    // padding: 0 10px;
     margin-top: 5px;
     padding-bottom: 50px;
     .p_title{

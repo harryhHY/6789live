@@ -58,6 +58,7 @@
             v-for="(item, index) in accessList"
             :key="index"
             class="showavatar left cu"
+            @click="goPerson(item.id)"
           >
             <img :src="host + item.user_pic" alt="" class="showavatar_img" />
             <div>
@@ -366,7 +367,6 @@ export default {
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
         this.commentList = comments;
-        console.log(this.commentList);
         // let pipi = this.commentList;
         // for (let i = 0; i < pipi.length; i++) {
         //   pipi[i].flag = false;
@@ -588,6 +588,7 @@ export default {
   .showavatar_img {
     width: 70px;
     height: 70px;
+    cursor: pointer;
   }
 }
 .comment_content {
@@ -648,6 +649,7 @@ export default {
     img {
       width: 50px;
       height: 50px;
+      cursor: pointer;
     }
   }
   .otheruser_name {

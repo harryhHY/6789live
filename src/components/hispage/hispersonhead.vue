@@ -11,7 +11,7 @@
             <div class="des_con">
                 <div>
                     <p class="p1">用户名：{{profile.user_name}}</p>
-                    <p class="p2">个性签名：{{profile.user_desc}}</p>
+                    <div class="p2">个性签名：{{profile.user_desc}}</div>
                     <div class="info">
                         <p>关注：{{profile.user_follow_num}}</p>
                         <p>粉丝：{{profile.user_fans_num}}</p>
@@ -22,8 +22,8 @@
         <!-- <div v-if="uid !=0"> -->
         <div>
             <el-button class="reportbtn" size="mini" type="info" plain @click="reportHandler('id')">举报</el-button>
-            <el-button v-if="flag == 1" class="attentionbtn" size="mini" type="primary" @click="follow">+ 加关注</el-button>
-            <el-button v-if="flag == 2" class="attentionbtn" size="mini" type="primary" @click="follow">取消关注</el-button>
+            <el-button v-if="flag == 1" class="attentionbtn" size="mini" type="primary" @click="follow" v-preventReClick>+ 加关注</el-button>
+            <el-button v-if="flag == 2" class="attentionbtn" size="mini" type="primary" @click="follow" v-preventReClick>取消关注</el-button>
         </div>
         <!-- <div class="timer">
             <div class="date">
@@ -124,7 +124,7 @@ export default {
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
-                        message: res.data.msg 
+                        message: '您无权访问该用户资料' 
                     }) 
                 } else if (res.data.code == 0) {
                     this.profile = res.data.params.profile;
@@ -171,7 +171,7 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '成功！' 
                         })
                         if(this.flag == 1){
                             this.flag = 2
@@ -254,6 +254,9 @@ export default {
                 color: #1a90fc;
             }
             .p2{
+                margin-left: 50px;
+                width: 600px;
+                height: auto;
                 font-size: 14px;
                 color: #848484;
             }

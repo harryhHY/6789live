@@ -74,7 +74,7 @@ export default {
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
-                        message: res.data.msg 
+                        message: '您无权访问该用户帖子' 
                     })
                     this.authority = '用户隐私不可见' 
                 } else if (res.data.code == 0) {

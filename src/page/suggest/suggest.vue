@@ -168,7 +168,7 @@ export default {
         //配置编辑器高度
         // editor.config.height = this.editorParams.height;
         //默认提示语
-        editor.config.placeholder = '多张图片请同时上传最多上传3张'
+        editor.config.placeholder = '多张图片请同时上传,最多上传3张'
         //配置菜单
         editor.config.menus = [
             //'head',//标题

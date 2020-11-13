@@ -120,7 +120,7 @@
           </div>
           <div v-for="(item, index) in searchdata" :key="item.id" class="cl">
             <div class="user left userimg_div">
-              <img :src="host + item.user_pic" alt="" class="userimg" />
+              <img :src="host + item.user_pic" alt="" class="userimg" @click="goPerson(item.id)"/>
             </div>
             <div class="user left">{{ item.user_nickname }}</div>
             <div class="user left guanzhu cu" @click="attention(item)">
@@ -317,6 +317,16 @@ export default {
           this.consumeTime = (dateEnd - dateStart) / 1000;
         });
     },
+    //去个人中心
+    goPerson(value) {
+      let uid = localStorage.getItem("user_uid");
+      if (uid == value) {
+        this.$router.push("/person");
+      } else {
+        console.log(value);
+        this.$router.push({ name: "hishomeperson", params: { uname: value } });
+      }
+    },
   },
   components: {
     home_herder,
@@ -496,6 +506,7 @@ export default {
 .userimg {
   width: 60px;
   height: 60px;
+  cursor: pointer;
 }
 .news_title {
   width: 20%;
