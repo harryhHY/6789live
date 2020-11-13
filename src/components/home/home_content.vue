@@ -9,7 +9,7 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
-            <img :src="host + item.news_cover_url" alt="" class="swiper_img" />
+            <img :src="host + item.news_cover_url" alt="" class="swiper_img" @click="gotonewsdel(item)" />
           </el-carousel-item>
         </el-carousel>
       </div>
