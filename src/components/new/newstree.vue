@@ -3,7 +3,7 @@
     <div
       v-for="(item, index) in child"
       :key="index"
-      :style="{ 'margin-left': + deep * 30 + 'px',width:900-(deep*30) + 'px','word-wrap':'break-word'}"
+      :style="{ 'margin-left': + deep * 10 + 'px',width:900-(deep*10) + 'px','word-wrap':'break-word'}"
       class="replay"
       v-if="flag || showreply"
     >
@@ -18,6 +18,7 @@
         :itemChild="item.child"
         :deep="deep + 1"
         :key="'son' + item.id"
+        @getcommentid="reply"
       >
         <!-- :showreply="flag" -->
       </comment-tree>
@@ -37,6 +38,9 @@ export default {
   props: ["itemChild", "deep", "showreply"],
   methods: {
     reply(item) {
+      this.$emit("getcommentid", item);
+    },
+    reply1(item){
       this.$emit("getcommentid", item);
     },
     changeshow() {
