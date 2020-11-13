@@ -183,6 +183,7 @@
         type="text"
         v-model="commentReplyMsg"
         placeholder="输入回复内容"
+        maxlength="500"
       ></textarea>
       <div class="fabiao cu" @click="replyreply()">回复</div>
     </div>
@@ -693,6 +694,8 @@ export default {
   }
   .otheruser_msg {
     margin: 20px 0;
+    width: 900px;
+    word-wrap: break-word;
   }
   .otherusergoodreply {
     color: #848484;

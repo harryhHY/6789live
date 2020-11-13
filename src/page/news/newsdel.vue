@@ -105,12 +105,14 @@
                 </div>
                 <div class="left">
                   <div class="otheruser_name_div">
-                    <span class="otheruser_name">
-                      {{ item.user_name }}
-                    </span>
-                    <span class="otheruser_time">
-                      {{ item.c_addtime | formDate }}
-                    </span>
+                    <div>
+                      <span class="otheruser_name">
+                        {{ item.user_name }}
+                      </span>
+                      <span class="otheruser_time">
+                        {{ item.c_addtime | formDate }}
+                      </span>
+                    </div>
                     <div class="otheruser_msg">
                       {{ item.c_body }}
                     </div>
@@ -141,7 +143,7 @@
                 <!-- <div v-if="!item.child">暂无回复</div> -->
                 <newstree
                   :itemChild="item.child"
-                  v-if="item.child!=false"
+                  v-if="item.child != false"
                   :deep="deep"
                   :ref="`child${item.id}`"
                   :key="'father' + item.id"
@@ -185,6 +187,7 @@
       <textarea
         type="text"
         v-model="commentReplyMsg"
+        maxlength="500"
         placeholder="输入回复内容"
       ></textarea>
       <div class="fabiao cu" @click="replyreply()">回复</div>
@@ -261,7 +264,7 @@ export default {
             }
           });
       }
-      
+
       this.showReplyinput = false;
     },
     getcommentid(item) {
@@ -337,7 +340,7 @@ export default {
     },
     lookallreply(item) {
       //查看全部回复
-      console.log(item)
+      console.log(item);
       this.$refs[`child${item.id}`][0].changeshow();
     },
     getrouterdata() {
@@ -648,6 +651,8 @@ export default {
   }
   .otheruser_msg {
     margin: 20px 0;
+    width: 900px;
+    word-wrap: break-word;
   }
   .otherusergoodreply {
     color: #848484;

@@ -3,7 +3,7 @@
     <div
       v-for="(item, index) in child"
       :key="index"
-      :style="'margin-left:' + deep * 30 + 'px'"
+      :style="{ 'margin-left': + deep * 30 + 'px',width:900-(deep*30) + 'px','word-wrap':'break-word'}"
       class="replay"
       v-if="flag || showreply"
     >
