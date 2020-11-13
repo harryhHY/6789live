@@ -26,7 +26,7 @@
           {{ item.name }}
         </div>
       </div>
-      <div class="bankuai cl">
+      <div class="bankuai cl" v-show="search_type != 3">
         <div class="left">板块：</div>
         <el-select
           v-model="value"
@@ -231,6 +231,7 @@ export default {
       this.getsearchdata();
     },
     attention(item) {
+      //关注用户
       let type = 1;
       if (item.is_followed == 0) {
         type = 1;
@@ -250,12 +251,15 @@ export default {
       });
     },
     changesearch_type(id) {
+      // 切换新闻话题 用户
+
       this.search_type = id;
-      this.getsearchdata();
       this.value = "";
+      this.radio = "1";
+      this.plate = "";
       this.$api.attchanelist
         .attchanel({
-          type: id,
+          type: id + 1,
         })
         .then((res) => {
           let { code, msg } = res.data;
@@ -269,6 +273,7 @@ export default {
             let { channel, user_followed_id } = res.data.params;
             let totalList = channel[1].concat(channel[2], channel[3]);
             this.totalList = totalList;
+            this.getsearchdata();
           }
         });
     },
@@ -287,7 +292,7 @@ export default {
       this.getsearchdata();
     },
     changeoption() {
-      this.page = 1
+      this.page = 1;
       this.getsearchdata();
       console.log(this.keywords);
     },
@@ -307,7 +312,7 @@ export default {
           this.searchdata = data;
           let { page_size, total } = pagination;
           this.page_size = page_size;
-          this.totalArtcle = total
+          this.totalArtcle = total;
           let dateEnd = new Date().getTime();
           this.consumeTime = (dateEnd - dateStart) / 1000;
         });
