@@ -286,10 +286,10 @@ export default {
                 } else if (res.data.code == 0) {
                     this.$message({
                       type: 'success', // warning、success
-                      message: res.data.msg 
+                      message: '注册成功，请登录！'
                     })
                     //token存入VUEX
-                    this.token(res.data.params.token)
+                    // this.token(res.data.params.token)
                     this.dialogVisible = false;
                     this.$router.push("/")                              
                 } else if (res.data.code == -1) {

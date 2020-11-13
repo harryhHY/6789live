@@ -4,7 +4,7 @@
           <div class="first_box">我的头像：</div>
           <div>
               <img :src="imgurl + infoList.user_pic" alt="" v-if="infoList.user_pic">
-              <img src="avator" alt="" v-else>
+              <el-avatar class="avatar_img" v-else> {{ uname }} </el-avatar>
               <el-upload
                 :headers = "Myheaders"
                 :action="uploadActionUrl"
@@ -145,6 +145,9 @@ export default {
             })
         }
     },
+    computed: {
+        ...mapState(["uname"]),
+    },
     mounted(){
         console.log(this.$api.uploadActionUrl);
         // console.log(localStorage.getItem("token"));
@@ -163,7 +166,7 @@ export default {
         width: 100%;
         height: 80px;
         position: relative;
-        img{
+        img,.avatar_img{
             width: 60px;
             height: 60px;
             position: absolute;

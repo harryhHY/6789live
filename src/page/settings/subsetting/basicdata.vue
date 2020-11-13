@@ -28,7 +28,7 @@
             </el-form-item>
             <br>
             <el-form-item label="个人简介" prop="desc">
-                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                <el-input type="textarea" maxlength="100" show-word-limit v-model="ruleForm.desc"></el-input>
             </el-form-item>
             <br>
             <el-form-item class="btn_box">
@@ -158,7 +158,9 @@ export default {
                         }else{
                             this.ruleForm.gender = '3'
                         }
-                        this.ruleForm.date1 = new Date(res.data.params.profile.user_birthday);
+                        if(res.data.params.profile.user_birthday){
+                            this.ruleForm.date1 = new Date(res.data.params.profile.user_birthday);
+                        }
                         this.ruleForm.area = res.data.params.profile.user_location;
                         this.ruleForm.hobby = res.data.params.profile.user_hobby;
                         this.ruleForm.desc = res.data.params.profile.user_desc;

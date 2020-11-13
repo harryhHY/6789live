@@ -74,12 +74,12 @@ export default {
                         if (res.data.code == 1) {
                             this.$message({
                                 type: 'error', // warning、success
-                                message: "设置成功" 
+                                message: res.data.msg
                             }) 
                         } else if (res.data.code == 0) {
                             this.$message({
                                 type: 'success', // warning、success
-                                message: res.data.msg 
+                                message: '设置成功'
                             })                        
                         } else if (res.data.code == -1) {
 

@@ -31,7 +31,19 @@ export default {
           callback(new Error('请输入密码'))
         }else{
           if (!reg.test(value)) {
-            callback(new Error('密码应是6-12位数字、字母或字符！'))
+            callback(new Error('密码应是6-20位数字、字母或字符！'))
+          } else{
+            callback()
+          }
+        }
+      };
+      var validateAuthor = (rule, value, callback) => {
+        let author = /^[1-9][0-9]{5}([1][9][0-9]{2}|[2][0][0|1][0-9])([0][1-9]|[1][0|1|2])([0][1-9]|[1|2][0-9]|[3][0|1])[0-9]{3}([0-9]|[X])$/;
+        if(value == ''){
+          callback(new Error('请输入身份证号'))
+        }else{
+          if (!author.test(value)) {
+            callback(new Error('身份证格式错误！'))
           } else{
             callback()
           }
@@ -52,7 +64,7 @@ export default {
             { min: 2, max: 4, message: '长度在 2 到 4 个字符', trigger: 'blur' }
           ],
           realnumber:[
-            {required:true,message: '请输入身份证号', trigger: 'blur'}
+            {required:true,validator: validateAuthor, trigger: 'blur'}
           ]
         }
       }

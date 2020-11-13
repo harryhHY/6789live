@@ -11,7 +11,7 @@
             <div class="des_con">
                 <div>
                     <p class="p1">用户名：{{profile.user_name}}</p>
-                    <p class="p2">个性签名：{{profile.user_desc}}</p>
+                    <div class="p2">个性签名：{{profile.user_desc}}</div>
                     <div class="info">
                         <p>关注：{{profile.user_follow_num}}</p>
                         <p>粉丝：{{profile.user_fans_num}}</p>
@@ -232,12 +232,14 @@ export default {
                 color: #1a90fc;
             }
             .p2{
-                width: 500px;
+                margin-left: 50px;
+                width: 600px;
+                height: auto;
                 font-size: 14px;
                 color: #848484;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
+                // overflow: hidden;
+                // text-overflow: ellipsis;
+                // white-space: nowrap;
             }
             .info{
                 p{
