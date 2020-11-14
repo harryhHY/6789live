@@ -191,7 +191,7 @@ export default {
 .el-tabs{
     height: auto !important;
 }
-/deep/.el-tabs__active-bar{
+/deep/.help_left .el-tabs__active-bar{
     width: 28px !important;
     margin-left: 3px !important;
     height: 6px !important;
@@ -199,7 +199,7 @@ export default {
     bottom: 3px !important;
     z-index: 999 !important;
 }
-/deep/.el-tabs__item{
+/deep/.help_left .el-tabs__item{
    font-size: 18px;
    margin-bottom: 5px;
    letter-spacing:2px

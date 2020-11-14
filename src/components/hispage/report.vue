@@ -8,7 +8,7 @@
                 width="30%"
                 :modal-append-to-body="false"
                 :before-close="handleOneClose">
-                    <el-form :model="reportType" :rules="rules" ref="reportType" label-width="100px">
+                    <el-form :model="reportType" :rules="rules" ref="reportType" label-width="110px">
                         <el-form-item label="选择举报类型" prop="type">
                             <el-radio-group v-model="reportType.type">
                             <el-radio label="诈骗举报"></el-radio><br>
@@ -264,5 +264,6 @@ export default {
 /deep/.el-form-item__label {
     position: relative;
     top: -15px;
+    left: -20px;
 }
 </style>

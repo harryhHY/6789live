@@ -159,7 +159,7 @@ export default {
                 } else if (res.data.code == 0) {
                     this.$message({
                         type: 'success', // warning、success
-                        message: res.data.msg 
+                        message: '认证成功!'
                     })
                     this.$refs[formName].resetFields();                            
                 } else if (res.data.code == -1) {

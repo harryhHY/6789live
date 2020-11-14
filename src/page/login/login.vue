@@ -25,7 +25,7 @@
               <el-input v-model="user.password" show-password placeholder="请输入密码" autocomplete="off"></el-input>
             </el-form-item>
             <div class="auto_box">
-                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
+                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">记住密码</el-checkbox>
                 <span @click="toRegistered('go')" class="register">注册账号</span>
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
@@ -62,7 +62,7 @@
               </el-button>
             </div>
             <div class="auto_box">
-                <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox>
+                <!-- <el-checkbox class="autologin" v-model="checked" @change = "changeRadio">自动登录</el-checkbox> -->
                 <span class="register" @click="toRegistered('go')">注册账号</span>
                 <router-link to="/resetpass" class="fogetpass">忘记密码&nbsp;&nbsp;/&nbsp;&nbsp;</router-link>
             </div>
@@ -323,11 +323,17 @@ export default {
               }
           })
           .catch(error => {
-            this.$message("账号或密码错误");
+            this.$message("服务器响应失败，请稍后重试");
           })
       },
       doLogin() {
         if(this.activeName == 1){
+          // 判断复选框是否被勾选; 勾选则调用配置Cookie方法
+          if (this.checked) { // 记住密码
+              this.setCookie(this.user.username, this.user.password, 7); // 保存期限为7天
+          } else {
+              this.clearCookie(); // 清空 Cookie
+          }
           params = {
             name:this.$inHTMLData(this.user.username),
             mobile:"",
@@ -361,8 +367,35 @@ export default {
           });
         } 
       },
+      //记住密码
+      setCookie (name, pwd, exdays) {
+        var exdate = new Date()// 获取时间
+        exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays)// 保存的天数
+        // 字符串拼接cookie
+        window.document.cookie = 'userName' + '=' + name + ';path=/;expires=' + exdate.toGMTString()
+        window.document.cookie = 'userPwd' + '=' + pwd + ';path=/;expires=' + exdate.toGMTString()
+      },
+      // 读取cookie 将用户名和密码回显到input框中
+      getCookie () {
+        if (document.cookie.length > 0) {
+          var arr = document.cookie.split('; ')
+          for (var i = 0; i < arr.length; i++) {
+            var arr2 = arr[i].split('=')// 再次切割
+            if (arr2[0] === 'userName') {
+              this.user.username = arr2[1]
+            } else if (arr2[0] === 'userPwd') {
+              this.user.password = arr2[1]
+            }
+          }
+        }
+      },
+      // 清除Cookie
+      clearCookie() {
+          this.setCookie('', '', -1);
+      },
   },
   mounted(){
+    this.getCookie();
     // console.log(this.$api.login);
     // console.log(this.JuheHOST);
     // this.$axios({

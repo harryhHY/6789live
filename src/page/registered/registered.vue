@@ -297,7 +297,7 @@ export default {
                 }
             })
             .catch(error => {
-              this.$message("注册失败")
+              this.$message("服务器响应错误，注册失败")
             })
           } else {
             console.log('error submit!!');

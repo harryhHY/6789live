@@ -141,7 +141,7 @@ export default {
                 }
             })
             .catch(error => {
-                this.$message("账号或密码错误");
+                this.$message("服务器响应失败，请稍后~");
             })
         }
     },
