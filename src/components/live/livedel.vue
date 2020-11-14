@@ -33,10 +33,10 @@
               </div>
             </div>
           </div>
-          <div class="live_div" v-if="videosrc!=''">
+          <div class="live_div" v-show="videosrc!=''">
             <div id="dplayer" ref="dplayer"></div>
           </div>
-          <div v-if="videosrc==''">
+          <div v-show="videosrc==''">
             {{overlive}}
           </div>
           <div class="cl liveroom_div">
@@ -222,8 +222,8 @@ export default {
   },
   created() {},
   mounted() {
-    console.log(this.videosrc);
     this.getlivedata();
+    console.log(this.videosrc);
   },
 };
 </script>
