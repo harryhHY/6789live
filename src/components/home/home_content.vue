@@ -82,7 +82,7 @@
                 class="communitymsg_div cl cu"
                 @click="gotopostdetails(item)"
               >
-                <div class="communitymsg_class left">{{ item.forum_type }}</div>
+                <div class="communitymsg_class left">{{ item.ch_name }}</div>
                 <div class="communitymsg_title left">
                   标题 ： {{ item.forum_title }}
                 </div>
@@ -150,7 +150,7 @@
               class="communitymsg_div cl cu"
               @click="gotopostdetails(item)"
             >
-              <div class="communitymsg_class left">{{ item.forum_type }}</div>
+              <div class="communitymsg_class left">{{ item.ch_name }}</div>
               <div class="communitymsg_title left">
                 标题 ： {{ item.forum_title }}
               </div>
