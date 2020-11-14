@@ -34,7 +34,7 @@
           v-if="filter == false"
           v-for="(item, index) in List"
           :key="index"
-          class="exponentfor cl"
+          class="exponentfor  cl"
         >
           <div class="left w142">{{ item.provider }}</div>
           <div class="left w187 cl">
@@ -45,13 +45,13 @@
               {{ item }}
             </div>
           </div>
-          <div class="left w184">{{ item.data[3].refreshTime }}</div>
-          <div class="left w75">{{ item.data[5].marketOdds }}</div>
+          <div class="left w184 ov">{{ item.data[3].refreshTime }}</div>
+          <div class="left w75 ov">{{ item.data[5].marketOdds }}</div>
           <div class="left w75">{{ item.data[5].marketValue }}</div>
-          <div class="left w165">{{ item.data[5].refreshTime }}</div>
-          <div class="left w115">{{ item.data[1].marketOdds }}</div>
+          <div class="left w165 ov">{{ item.data[5].refreshTime }}</div>
+          <div class="left w115 ov">{{ item.data[1].marketOdds }}</div>
           <div class="left w115">{{ item.data[1].marketValue }}</div>
-          <div class="left w195">{{ item.data[1].refreshTime }}</div>
+          <div class="left w195 ov">{{ item.data[1].refreshTime }}</div>
         </div>
         <div
           v-if="filter != false"
@@ -68,13 +68,13 @@
               {{ item }}
             </div>
           </div>
-          <div class="left w184">{{ item.data[3].refreshTime }}</div>
+          <div class="left w184 ov">{{ item.data[3].refreshTime }}</div>
           <div class="left w75">{{ item.data[3].marketValue }}</div>
           <div class="left w75">{{ item.data[1].marketValue }}</div>
-          <div class="left w165">{{ item.data[1].refreshTime }}</div>
-          <div class="left w115">{{ item.data[1].marketOdds }}</div>
+          <div class="left w165 ov">{{ item.data[1].refreshTime }}</div>
+          <div class="left w115 ov">{{ item.data[1].marketOdds }}</div>
           <div class="left w115">{{ item.rangqiu1 }}</div>
-          <div class="left w195">{{ item.data[1].refreshTime }}</div>
+          <div class="left w195 ov">{{ item.data[1].refreshTime }}</div>
         </div>
       </div>
     </div>
@@ -190,6 +190,8 @@ export default {
       text-align: center;
       background-color: #e2f1fe;
       border: 1px solid #dedede;
+      display: flex;
+      justify-content: center;
       .w142 {
         width: 142px + 3px;
       }
@@ -209,13 +211,15 @@ export default {
         width: 232px + 3px;
       }
       .w195 {
-        width: 195px + 3px;
+        width: 185px + 3px;
       }
     }
     .exponentfor {
       line-height: 35px;
       text-align: center;
       margin: 0 3px;
+      display: flex;
+      justify-content: center;
       div {
         border: 1px solid #dedede;
         height: 35px;
@@ -243,7 +247,7 @@ export default {
         width: 115px + 2px;
       }
       .w195 {
-        width: 195px + 2px;
+        width: 185px + 2px;
       }
     }
   }
