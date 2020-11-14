@@ -60,8 +60,13 @@
           class="exponentfor cl"
         >
           <div class="left w142">{{ item.provider }}</div>
-          <div class="left w187">
-            {{ item.data[3].marketOdds }}
+         <div class="left w187 cl">
+            <div
+              v-for="(item, index) in item.data[3].marketOdds"
+              class="left w30"
+            >
+              {{ item }}
+            </div>
           </div>
           <div class="left w184">{{ item.data[3].refreshTime }}</div>
           <div class="left w75">{{ item.data[3].marketValue }}</div>
