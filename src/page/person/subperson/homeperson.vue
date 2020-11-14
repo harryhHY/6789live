@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="article_info">
+            <el-button class="publish" type="primary" icon="el-icon-edit" @click="toPublish">发帖</el-button>
             <p class="p_title">最新发帖</p>
             <!-- <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
                 <div class="article_left">
@@ -54,6 +55,9 @@ export default {
         }
     },
     methods:{
+        toPublish(){
+             this.$router.push('/publish')
+         },
         getaAticle(){
             this.$axios({
                 url:`${this.$api.myprofile}/${this.uid}`,
@@ -96,6 +100,13 @@ export default {
 </script>
 <style lang="less" scoped>
 .article_info{
+    .publish{
+        position: fixed;
+        top: 400px;
+        right: 340px;
+        opacity: 0.7;
+        z-index: 999;
+    }
     width: 100%;
     // padding: 0 10px;
     margin-top: 5px;

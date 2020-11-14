@@ -2,7 +2,7 @@
     <div class="attention">
         <p class="p_title">我的关注</p>
         <div class="attention_list">
-            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index">
+            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="goPerson(item.id)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
                 <div class="attenhead">
                     <img :src="imgurl + item.user_pic" alt="">
@@ -85,7 +85,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -104,7 +104,11 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }
+        },
+        //查看关注人个人中心
+        goPerson(value) {
+            this.$router.push({ name: "hishomeperson", params: { uname: value } });
+        },
     },
     mounted(){
         this.getAttention()
@@ -149,6 +153,7 @@ export default {
             transition: all .2s linear;
             border-radius: 1px;
             border-radius: 5px;
+            cursor: pointer;
             .attenhead{
                 height: 120px;
                 width: 80px;
@@ -210,6 +215,9 @@ export default {
                     font-size: 12px;
                     background-color: #d2d2d2;
                     color: #3c3c3c;
+                }
+                .attenbtn:hover{
+                    color: #f10f0f;
                 }
             }
         }

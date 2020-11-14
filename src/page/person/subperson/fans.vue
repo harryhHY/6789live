@@ -2,7 +2,7 @@
     <div class="attention">
         <p class="p_title">我的粉丝</p>
         <div class="attention_list">
-            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
+            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="goPerson(item.id)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
                 <div class="attenhead">
                     <img :src="imgurl + item.user_pic" alt="">
@@ -39,9 +39,6 @@ export default {
         }
     },
     methods:{
-        getIndex(i){
-            console.log(i);
-        },
         getFans(){
             this.$axios({
                 url:`${this.$api.followfans}/${this.uid}/2`,
@@ -49,7 +46,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -68,7 +65,12 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }
+        },
+        //查看粉丝个人中心
+        goPerson(value) {
+            console.log(value);
+            this.$router.push({ name: "hishomeperson", params: { uname: value } });
+        },
     },
     mounted(){
         this.getFans()
@@ -113,6 +115,7 @@ export default {
             transition: all .2s linear;
             border-radius: 1px;
             border-radius: 5px;
+            cursor: pointer;
             .attenhead{
                 height: 120px;
                 width: 80px;

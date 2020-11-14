@@ -104,6 +104,7 @@ export default {
         this.getaAticle();
     },
     created(){
+        // console.log(this.$route.params.uname);
         if(this.$route.params.uname){
             localStorage.setItem('otherId',this.$route.params.uname)
         }       

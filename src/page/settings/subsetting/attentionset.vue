@@ -196,10 +196,16 @@ export default {
     }
 }
 .active {
-   background: #014681;
-   border: 1px solid #014681;
-   color: #FFF;
+   background: #014681 !important;
+   border: 1px solid #014681 !important;
+   color: #FFF !important;
  }
+.active:focus {
+   background: #014681 !important;
+   border: 1px solid #014681 !important;
+   color: #FFF !important;
+ }
+
  .canclebtn{
     width: 120px;
     margin-left: 250px;
