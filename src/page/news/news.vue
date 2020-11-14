@@ -42,8 +42,8 @@
               </div>
               <div class="left ov">{{ item.news_title }}</div>
             </div>
-            <div class="details ov" @click="gotonewsdel(item)">
-              详情：{{ item.news_body }}
+            <div class="details ov cl" @click="gotonewsdel(item)" >
+              <span class="left">详情：</span><span class="left" v-html="item.news_body"></span>
             </div>
             <div class="label_div cl">
               <div
