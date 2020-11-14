@@ -9,7 +9,12 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
-            <img :src="host + item.news_cover_url" alt="" class="swiper_img" @click="gotonewsdel(item)" />
+            <img
+              :src="host + item.news_cover_url"
+              alt=""
+              class="swiper_img"
+              @click="gotonewsdel(item)"
+            />
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -61,11 +66,13 @@
                 <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
-            <div class="communitymsg_header cl" v-if="forum_foottball!=false" >
-              <div class="centerimg left img_div">
+            <div class="communitymsg_header cl">
+              <div class="left centerimg">
+                <div class="centerimg left img_div">
                 <img src="../../image/titleicon.png" class="titleicon" alt="" />
               </div>
               <div class="left footercomm">足球社区</div>
+              </div>
               <div class="right cu" @click="gotocommunity()">更多》</div>
             </div>
             <div class="communitymsg">
@@ -84,6 +91,7 @@
                 </div>
               </div>
             </div>
+            <div v-if="forum_foottball == false">暂无内容</div>
           </div>
         </div>
       </div>
@@ -126,11 +134,13 @@
               <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>
-          <div class="communitymsg_header cl" v-if="forum_basketball != false">
-            <div class="centerimg left img_div">
-              <img src="../../image/titleicon.png" class="titleicon" alt="" />
+          <div class="communitymsg_header cl">
+            <div class="left centerimg">
+              <div class="centerimg left img_div">
+                <img src="../../image/titleicon.png" class="titleicon" alt="" />
+              </div>
+              <div class="left footercomm">篮球社区</div>
             </div>
-            <div class="left footercomm">篮球社区</div>
             <div class="right cu" @click="gotocommunity()">更多》</div>
           </div>
           <div class="communitymsg">
@@ -149,6 +159,7 @@
               </div>
             </div>
           </div>
+          <div v-if="forum_basketball == false">暂无内容</div>
         </div>
       </div>
     </div>
