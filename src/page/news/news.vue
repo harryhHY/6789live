@@ -68,6 +68,9 @@
             </div> -->
           </div>
         </div>
+        <div v-if="newsdata==false">
+          暂无新闻
+        </div>
       </div>
     </div>
     <newslive v-if="live_data || promote_news_data"></newslive>
@@ -88,7 +91,7 @@ export default {
       host: "",
       newsClass: [], //新闻的栏目menu
       newsdata: [], ///新闻列表
-      changemenuflag: "0",
+      changemenuflag: "-1",
       live_data: [], //右边直播数据
       promote_news_data: [], //右边轮播数据
     };
@@ -174,6 +177,7 @@ export default {
     newslive,
   },
   created() {
+    console.log(this.changemenuflag)
     this.inst();
     this.getdata();
   },
