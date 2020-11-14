@@ -4,17 +4,19 @@
       v-for="(item, index) in child"
       :key="index"
       :style="{
-        'margin-left': deep>=74?'0px':'10px' ,
+        'margin-left': deep >= 74 ? '0px' : '0.1rem',
         'word-wrap': 'break-word',
       }"
       class="replay"
       v-if="flag || showreply"
     >
       <!--    @click="changeshow" -->
-      <div :style="{
-        width: 900 - deep * 10 + 'px',
-        'word-wrap': 'break-word',
-      }">
+      <div
+        :style="{
+          width: 9 - deep * 0.1 + 'rem',
+          'word-wrap': 'break-word',
+        }"
+      >
         {{ item.user_name }} : {{ item.c_body }}
         <span @click="reply(item)" class="reply_span cu">回复</span>
       </div>
@@ -22,7 +24,7 @@
       <comment-tree
         v-if="itemChild"
         :itemChild="item.child"
-        :deep="deep + 1 "
+        :deep="deep + 1"
         :key="'son' + item.id"
         @getcommentid="reply"
       >
@@ -61,7 +63,6 @@ export default {
         return this.itemChild;
       }
     },
-
   },
   watch: {
     itemChildfn(newValue) {
@@ -70,7 +71,7 @@ export default {
     },
   },
   created() {
-    console.log(this.deep)
+    console.log(this.deep);
     this.child = this.itemChild;
     // this.flag = this.showreply;
   },
