@@ -5,7 +5,10 @@
         <div>
         <div class="article_info">
             <p class="p_title">我的发帖</p>
-            <div class="article" v-for="(item,index) in articleList" :key="index" @click="gotopostdetails(item)">
+            <div class="article" 
+            v-for="(item,index) in articleList" 
+            :key="index" 
+            @click="gotopostdetails(item)">
                 <div class="article_left">
                     <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
                     <div class="article_content" ref="forum_body" v-html="item.forum_body"></div>
@@ -13,27 +16,12 @@
                 <p class="article_right">
                     {{item.addtime_format}}
                 </p>
+                
             </div>
+            <div class="showmore" v-if="articleList.length > 0" @click="showMore"><i class="el-icon-d-arrow-right more"></i></div>
             <div class="noarticle" v-if="articleList.length == 0">
                 暂未发布帖子
             </div>
-            <!-- <el-timeline :reverse="reverse" >
-                <el-timeline-item
-                v-for="(item, index) in articleList"
-                :key="index"
-                :timestamp="item.addtime_format"
-                placement="top"
-                :class="{'odd_line':index%2 != 1}"
-                >
-                <div :class="{'odd_con':index%2 != 1}" @click="gotopostdetails(item)">
-                    <el-card>
-                        <p class="article_title"><span class="title_tag">{{item.ch_name}}</span>{{item.forum_title}}</p>
-                        <hr>
-                        <div class="article_content" v-html="item.forum_body"></div>
-                    </el-card>
-                </div>
-                </el-timeline-item>
-            </el-timeline> -->
         </div>
         <el-backtop target="body #home"></el-backtop>
     </div>
@@ -51,6 +39,11 @@ export default {
         return{
             uid:0,
             articleList: [],
+            count: 10,
+            loading: false,
+            p:1,
+            total:'',
+            pageSize:'',
         }
     },
     mounted(){
@@ -61,20 +54,34 @@ export default {
              this.$router.push('/publish')
          },
          getaAticle(){
+             let params = {
+                p:this.p,
+             }
             this.$axios({
                 url:`${this.$api.myprofile}/${this.uid}`,
                 method: "get",
+                params:params,
                 timeout: 3000
             })
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    this.articleList = res.data.params.my_forum;
+                    this.total = res.data.params.pagination.total;
+                    this.pageSize = res.data.params.pagination.page_size;
+                    let receiveList = res.data.params.my_forum;
+                    if (this.p == 1) {
+                        this.articleList = receiveList;
+                    } else {
+                        let datalist = this.articleList;
+                        let list = datalist.concat(receiveList);
+                        this.articleList = list;
+                    }
+                    // console.log(this.articleList);
                 } else if (res.data.code == -1) {
                     // this.$message({
                     //     type: 'success', // warning、success
@@ -86,6 +93,17 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        showMore(){
+            this.p ++;
+            if(this.p <= Math.ceil(this.total/this.pageSize)){
+                this.getaAticle();
+            }else{
+                this.$message({
+                    type: 'warning', // warning、success
+                    message: '没有更多了！' 
+                })
+            }
         },
         gotopostdetails(item){//跳转贴子详情页面
             this.$router.push('/postdetails');
@@ -114,6 +132,7 @@ export default {
     width: 100%;
     margin-top: 5px;
     padding-bottom: 50px;
+    overflow: auto;
     .p_title{
         border-left: 5px solid #014681;
         color: #014681;
@@ -187,6 +206,20 @@ export default {
         height: 200px;
         line-height: 100px;
         color: #848484;
+    }
+    .showmore{
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        font-size: 25px;
+        .more{
+            font-weight: 600;
+            transform: rotate(90deg);
+        }
+    }
+    .more:hover{       
+        color: #177BDB;
+        cursor: pointer;
     }
 }
 </style>

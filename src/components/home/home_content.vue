@@ -286,14 +286,15 @@ export default {
       todaymenu: [
         {
           id: 1,
-          title: "篮球直播",
+          title: "足球直播",
           clicktype: true,
         },
         {
           id: 2,
-          title: "足球直播",
+          title: "篮球直播",
           clicktype: false,
         },
+        
         {
           id: 3,
           title: "已完结",
@@ -390,12 +391,12 @@ export default {
 
       switch (id) {
         case 1:
-          this.gametype = "篮球";
-          this.livecontentdata = this.live_data.basketball;
-          break;
-        case 2:
           this.gametype = "足球";
           this.livecontentdata = this.live_data.football;
+          break;
+        case 2:
+          this.gametype = "篮球";
+          this.livecontentdata = this.live_data.basketball;
           break;
         case 3:
           this.gametype = "完结";
