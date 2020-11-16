@@ -27,6 +27,7 @@
         :deep="deep + 1"
         :key="'son' + item.id"
         @getcommentid="reply"
+        :showreply="flag"
       >
         <!-- :deep="deep>=62?'62':`${deep + 1}`" -->
         <!-- :showreply="flag" -->
@@ -40,7 +41,7 @@ export default {
   data() {
     return {
       child: "",
-      flag: true,
+      flag: false,
     };
   },
   name: "comment-tree",
@@ -71,9 +72,8 @@ export default {
     },
   },
   created() {
-    console.log(this.deep);
     this.child = this.itemChild;
-    // this.flag = this.showreply;
+    this.flag = this.showreply;
   },
 };
 </script>

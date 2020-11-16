@@ -117,13 +117,13 @@
                   </div>
                 </div>
               </div>
-              <!-- <div
+              <div
                 class="replynum cu"
                 @click="lookallreply(item)"
                 v-if="!showreply"
               >
                 查看全部回复>
-              </div> -->
+              </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
                   <div class="otheruser_goods_img left"></div>
@@ -696,7 +696,7 @@ export default {
   }
   .replynum,
   .otherusergoodreply {
-    margin-left: 50px;
+    // margin-left: 50px;
     color: #848484;
   }
   .replay_child {
