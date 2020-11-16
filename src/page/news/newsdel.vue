@@ -120,9 +120,9 @@
               <div
                 class="replynum cu"
                 @click="lookallreply(item)"
-                v-if="!showreply"
+                v-if="!showreply && item.child!=false"
               >
-                查看全部回复>
+                查看全部回复
               </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
