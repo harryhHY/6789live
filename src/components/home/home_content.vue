@@ -446,9 +446,11 @@ export default {
 .home_content {
   background-image: url("../../image/bj.jpg");
   background-size: 100%;
+  display: flex;
+  justify-content: center;
 }
 .aname {
-  width: 50px;
+  width: 120px;
   font-size: 12px /**no */;
 }
 .rightcontent {
@@ -553,7 +555,7 @@ export default {
 }
 .homecontentleft {
   width: 920px;
-  margin-left: 307px;
+  // margin-left: 307px;
   .foot_div {
     width: 100%;
     margin-top: 5px;
@@ -684,7 +686,7 @@ export default {
   font-size: 14px;
   margin-top: 4px;
   margin-left: 5px;
-  width: 380px;
+  width: 500px;
   .homecontentright_menu_div {
     font-size: 20px;
     .dropdown {
