@@ -122,7 +122,7 @@
                 @click="lookallreply(item)"
                 v-if="!showreply && item.child!=false"
               >
-                查看全部回复
+               查看全部回复（{{ item.c_reply_count }}）
               </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
