@@ -10,7 +10,7 @@
             <el-button class="backbtn" @click="goback()">返回</el-button>
             <div class="chanel">
                 <el-cascader
-                    placeholder="请选择发帖频道"
+                    placeholder="请选择社区发帖频道"
                     v-model="value"
                     :options="options"
                     @change="handleChange">
@@ -204,7 +204,7 @@ export default {
                 let data = this.editor.txt.html()
                 this.$api.publish.publishPost({
                     forum_title:this.$inHTMLData(this.articletitle),
-                    channel:this.value[2],
+                    channel:this.value[1],
                     body:data
                 }).then(res => {
                     console.log(res);
@@ -264,8 +264,10 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    // this.options = res.data.params;
-                    this.options.push(res.data.params[2]);               
+                    // this.options = res.data.params;                    
+                    for(let i in res.data.params[2].children) {
+                        this.options.push(res.data.params[2].children[i]);
+                    }             
                 } else if (res.data.code == -1) {
                     this.$message({
                         type: 'success', // warning、success
