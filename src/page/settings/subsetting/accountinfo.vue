@@ -52,7 +52,8 @@
           <div class="first_box">身份认证：</div>
           <div>
               <p v-if="infoList.user_id" class="idcheck">已认证</p>
-              <el-link class="link" type="primary" @click="goSetinfo('authentication')" v-else>立即验证</el-link>
+              <p v-else>未认证</p>
+              <el-link class="link" type="primary" @click="goSetinfo('authentication')" v-if="!infoList.user_id">立即验证</el-link>
           </div>
       </div>
   </div>
