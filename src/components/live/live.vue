@@ -332,11 +332,11 @@ export default {
     color: #fff;
   }
   .gametype1 {
-    width: 38px;
+    width: 78px;
     height: 22px;
     line-height: 22px;
+    text-align: left;
     color: #a9a9a9;
-    text-align: center;
   }
 }
 .livecontent {
