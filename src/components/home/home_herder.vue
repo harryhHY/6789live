@@ -229,7 +229,7 @@ export default {
       this.$api.getbasicInfo
         .getbasic()
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.code == 1) {
             this.$message({
               type: "error", // warning、success
@@ -239,15 +239,6 @@ export default {
             this.$store.commit("upic", res.data.params.user_pic);
             this.$store.commit("uname", res.data.params.user_name);
             this.$store.commit("nickname", res.data.params.user_nickname);
-            if (res.data.params.user_nickname != "") {
-              this.namely = res.data.params.user_nickname;
-            } else {
-              this.namely = res.data.params.user_name;
-            }
-            if (res.data.params.user_pic) {
-              this.circleUrl = res.data.params.user_pic;
-            }
-            // console.log(this.circleUrl);
             localStorage.setItem("user_uid", res.data.params.user_uid);
             localStorage.setItem("user_pic", res.data.params.user_pic);
             localStorage.setItem("user_name", res.data.params.user_name);
@@ -303,7 +294,10 @@ export default {
     this.activeIndex2 = this.headerKey;
   },
   mounted() {
-    this.getbasic();
+    if(localStorage.getItem('token')){
+      this.getbasic();
+    }
+    
   },
 };
 </script>
