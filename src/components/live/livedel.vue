@@ -33,11 +33,11 @@
               </div>
             </div>
           </div>
-          <div class="live_div" v-show="videosrc!=''">
+          <div class="live_div" v-show="videosrc != ''">
             <div id="dplayer" ref="dplayer"></div>
           </div>
-          <div v-show="videosrc==''">
-            {{overlive}}
+          <div v-show="videosrc == ''">
+            {{ overlive }}
           </div>
           <div class="cl liveroom_div">
             <div
@@ -93,8 +93,32 @@ const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
 export default {
+  metaInfo() {
+    return {
+      title: this.pageName,
+      meta: this.metaList,
+    };
+  },
   data() {
     return {
+      metaList: [
+        //SEO优化的meta数组
+        {
+          name: "description",
+          content: "",
+        },
+        {
+          name: "keywords",
+          content: "",
+        },
+        {
+          property: "release_date",
+          content: "",
+        },
+      ],
+      pageName: "", //SEO优化的动态title
+      descriptionDate: "",
+      release_date: "",
       menu_num: "2",
       headerKey: "2",
       shareList: [
@@ -116,7 +140,7 @@ export default {
         },
       ],
       videosrc: "",
-      overlive:"直播已经结束",
+      overlive: "直播已经结束",
       signals: [],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
@@ -172,7 +196,6 @@ export default {
           },
         });
       } else {
-
       }
     },
     sharegoto(idx) {
@@ -201,6 +224,29 @@ export default {
     pve(e) {
       console.log(e);
     },
+    dateFormat(fmt, date) {
+      //时间格式
+      let ret = "";
+      date = new Date(date);
+      const opt = {
+        "Y+": date.getFullYear().toString(), // 年
+        "m+": (date.getMonth() + 1).toString(), // 月
+        "d+": date.getDate().toString(), // 日
+        "H+": date.getHours().toString(), // 时
+        "M+": date.getMinutes().toString(), // 分
+        "S+": date.getSeconds().toString(), // 秒
+      };
+      for (let k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+          fmt = fmt.replace(
+            ret[1],
+            ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0")
+          );
+        }
+      }
+      return fmt;
+    },
   },
   components: {
     livemenu,
@@ -220,10 +266,21 @@ export default {
       this.getlivedata();
     },
   },
-  created() {},
+  created() {
+    let date = this.liveList.gameTime;
+    this.descriptionDate = this.dateFormat("YYYY年mm月dd日", date);
+    this.release_date = this.dateFormat("YYYY-mm-dd HH:MM:SS", date);
+    console.log(this.release_date);
+  },
   mounted() {
     this.getlivedata();
     console.log(this.videosrc);
+    setTimeout(() => {
+      this.pageName = `${this.liveList.hname}VS${this.liveList.aname}_【6789体育直播】`;
+      this.metaList[0].content = `6789体育直播为您提供${this.descriptionDate} ${this.liveList.hname}VS${this.liveList.aname}比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。`; // description
+      this.metaList[1].content = `${this.liveList.hname}VS${this.liveList.aname},足球直播,6789直播,体育直播,NBA直播`; //name="keywords"
+      this.metaList[2].content = `${this.release_date}`;
+    }, 2000);
   },
 };
 </script>

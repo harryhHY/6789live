@@ -7,6 +7,10 @@ import store from '../static/store/index'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import host from "./api/httpurl";
+
+import MetaInfo from 'vue-meta-info'
+Vue.use(MetaInfo)
+
 // import less from 'less';
 // import './style/iconfont.css';
 import './assets/font/iconfont.css'
