@@ -54,7 +54,8 @@ export default {
           this.liveList[i].clicktype = false;
         }
       }
-      if (this.$route.path == "/Livedel") {
+     
+      if (this.$route.name == "Livedel") {
         this.$router.push("/live");
       }
     },
