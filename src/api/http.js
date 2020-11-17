@@ -119,15 +119,20 @@ instance.interceptors.request.use(function(config) {
     // console.log(initStore.state.token);
     config.headers.client = 'web';
     config.headers.token = initStore.state.token;
+    const options = {
+        headers:{
+           ' Cache-Control' : "no-cache"
+        }
+    }
     // const token = store.state.token;
     // if(token){
     //     config.headers.Authorization = token;
     // }
+    const client = axios.create(options)
     return config;
 }, function(error) {
     return Promise.reject(error);
 });
-
 //响应拦截
 instance.interceptors.response.use(
     // 请求成功

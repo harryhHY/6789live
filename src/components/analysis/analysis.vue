@@ -122,8 +122,8 @@
               <div
                 class="left score"
                 v-text="
-                  item.scores[0] != null && item.scores[0] != null
-                    ? `${item.scores[0]}:${item.scores[1]}`
+                  item.totalScores[0] != null && item.totalScores[0] != null
+                    ? `${item.totalScores[0]}:${item.totalScores[1]}`
                     : '暂无'
                 "
               ></div>
@@ -232,8 +232,8 @@
               <div
                 class="left recrd_score"
                 v-text="
-                  item.scores[0] != null
-                    ? `${item.scores[0]}:${item.scores[1]}`
+                  item.totalScores[0] != null
+                    ? `${item.totalScores[0]}:${item.totalScores[1]}`
                     : '暂无'
                 "
               ></div>
@@ -332,8 +332,8 @@
               <div
                 class="left recrd_score"
                 v-text="
-                  item.scores[0] != null
-                    ? `${item.scores[0]}:${item.scores[1]}`
+                  item.totalScores[0] != null
+                    ? `${item.totalScores[0]}:${item.totalScores[1]}`
                     : '暂无'
                 "
               ></div>
@@ -881,7 +881,7 @@ export default {
             }
           }
           this.againstRecord = againstRecord;
-
+          console.log(againstRecord)
           //近期战绩
           this.aRecrdList = this.aRecrdListFilter = hRecord;
           this.aRecrdList1 = this.aRecrdList1Filter = aRecord;
@@ -907,7 +907,7 @@ export default {
             });
           }
           this.game_num1 = aList;
-          console.log(this.game_num1, this.game_num);
+          // console.log(this.game_num1, this.game_num);
         }
       });
     },

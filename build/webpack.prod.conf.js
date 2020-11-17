@@ -48,7 +48,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       staticDir: path.join(__dirname, '../dist'),
 
       // 需要进行预渲染的路由，build后会生成对应的目录及index.html静态页面。
-      routes: ['/livedel'],
+      // routes: ['/livedel'],
 
       // 这个很重要，如果没有配置这段，也不会进行预渲染
       renderer: new Renderer({

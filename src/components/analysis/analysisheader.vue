@@ -5,7 +5,11 @@
         <div
           v-for="(item, index) in dataList"
           :key="index"
-          :class="index == checktype? 'left header_title clickdiv cu':'left header_title cu'"
+          :class="
+            index == checktype
+              ? 'left header_title clickdiv cu'
+              : 'left header_title cu'
+          "
           @click="gotowhere(item.src)"
         >
           {{ item.title }}
@@ -57,20 +61,25 @@ export default {
           src: "/exponent",
         },
       ],
-      checktype:1
+      checktype: 1,
     };
   },
-  props:["checkmenutype"],
+  props: ["checkmenutype"],
   methods: {
     gotowhere(e) {
-      this.$router.push(e)
-    }
+      if (e == "/livedel") {
+        this.$router.push({
+          name: "Livedel",
+          params: { matchId: `${this.liveList.matchId}` },
+        });
+      } else {
+        this.$router.push(e);
+      }
+    },
   },
-  watch: {
-    
-  },
-  created () {
-    this.checktype = this.checkmenutype
+  watch: {},
+  created() {
+    this.checktype = this.checkmenutype;
   },
   computed: {
     ...mapState(["liveList"]),
@@ -94,7 +103,7 @@ export default {
     text-align: center;
     line-height: 48px;
   }
-  .clickdiv{
+  .clickdiv {
     color: #01a0fc;
     border-bottom: 1px solid #01a0fc;
   }

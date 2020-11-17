@@ -144,7 +144,7 @@ export default {
       signals: [],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
-      pipiload:"",
+      pipiload: "",
     };
   },
   methods: {
@@ -165,21 +165,27 @@ export default {
     },
     getlivedata() {
       //直播详情页面请求数据
-      console.log(this.$route.params.matchId);
+      console.log(this.$route.params.matchId)
       this.$axios({
         url: `${this.$api.homeindex.getlivedel()}${this.$route.params.matchId}`,
       }).then((res) => {
-        let { murl, signals,afullname,hfullname,lfullname } = res.data.params;
+        let {
+          murl,
+          signals,
+          afullname,
+          hfullname,
+          lfullname,
+        } = res.data.params;
         this.videosrc = murl;
         this.signals = signals;
         this.newddplayer();
-        let liveList={...res.data.params}
-        liveList.aname = afullname
-        liveList.hname = hfullname
-        liveList.lname = lfullname
-        liveList.matchId = this.$route.params.matchId
+        let liveList = { ...res.data.params };
+        liveList.aname = afullname;
+        liveList.hname = hfullname;
+        liveList.lname = lfullname;
+        liveList.matchId = this.$route.params.matchId;
         this.pipiload = liveList;
-        console.log(this.pipiload)
+        console.log(this.pipiload);
       });
     },
     newddplayer() {
@@ -278,11 +284,12 @@ export default {
   created() {},
   mounted() {
     this.getlivedata();
-    let date = this.pipiload.gameTime;
-    this.descriptionDate = this.dateFormat("YYYY年mm月dd日", date);
-    this.release_date = this.dateFormat("YYYY-mm-dd HH:MM:SS", date);
 
     setTimeout(() => {
+      let date = this.pipiload.gameTime;
+      console.log(this.pipiload);
+      this.descriptionDate = this.dateFormat("YYYY年mm月dd日", date);
+      this.release_date = this.dateFormat("YYYY-mm-dd HH:MM:SS", date);
       this.pageName = `${this.pipiload.hname}VS${this.pipiload.aname}_【6789体育直播】`;
       this.metaList[0].content = `6789体育直播为您提供${this.descriptionDate} ${this.pipiload.hname}VS${this.pipiload.aname}比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。`; // description
       this.metaList[1].content = `${this.pipiload.hname}VS${this.pipiload.aname},足球直播,6789直播,体育直播,NBA直播`; //name="keywords"

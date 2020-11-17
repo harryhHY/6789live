@@ -89,7 +89,7 @@ export default new Router({
       component: () => Newdel
     },
     {
-      path: '/livedel/:matchId.html',
+      path: `/livedel/:matchId.html`,
       name: 'Livedel',
       component: () => Livedel
     },
