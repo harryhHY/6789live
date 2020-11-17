@@ -40,7 +40,7 @@
               <div class="newstype1 left ov">
                 {{ item.ch_name }}
               </div>
-              <div class="left ov">{{ item.news_title }}</div>
+              <div class="left ov"><a :href="delUrl+ item.id + '.html'" v-on:click.prevent="toNewsdel" >{{ item.news_title }}</a></div>
             </div>
             <div class="details ov cl" @click="gotonewsdel(item)">
               <span class="left">详情：</span
@@ -85,6 +85,7 @@ const newslive = () => import("../../components/new/newslive");
 export default {
   data() {
     return {
+      delUrl:"http://dev.6789zbz.com/front/newdel/",
       headerKey: "3",
       searchmsg: "",
       host: "",
@@ -141,9 +142,9 @@ export default {
       this.$api.homeindex.getnewsindex({}).then((res) => {
         let { live_data, news_data, promote_news_data } = res.data.params;
         this.newsdata = news_data;
+        console.log(this.newsdata);
         this.live_data = live_data;
         this.promote_news_data = promote_news_data;
-        console.log(this.promote_news_data);
         this.$store.commit("newslivedata", this.live_data);
         this.$store.commit("newsmenuswp", this.promote_news_data);
       });
@@ -154,6 +155,9 @@ export default {
       );
       console.log(this.newsClass);
     },
+    toNewsdel(){
+      return false;
+    }
   },
   computed: {
     ...mapState(["menubacketballdata", "menucomplexdata", "menufootData"]),
@@ -365,5 +369,8 @@ export default {
     color: #014681;
     background-color: #1a90fc;
   }
+}
+a{
+  color: inherit;
 }
 </style>

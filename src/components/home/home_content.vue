@@ -9,12 +9,14 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
+            <a :href="newdelUrl+ item.id + '.html'" v-on:click.prevent="toNewsdel" >
             <img
-              :src="host + item.news_cover_url"
+              :src="item.news_cover_url"
               alt=""
               class="swiper_img"
               @click="gotonewsdel(item)"
             />
+            </a>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -237,6 +239,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
+      newdelUrl:"http://dev.6789zbz.com/front/newdel/",
       delUrl: "http://dev.6789zbz.com/front/livedel/",
       swiperdata: [], //轮播图
       football: [
@@ -451,6 +454,9 @@ export default {
     gotodel(event) {
       return false;
     },
+    toNewsdel(){
+      return false;
+    }
   },
   created() {
     this.inst();
