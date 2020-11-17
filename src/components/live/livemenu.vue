@@ -258,20 +258,36 @@ export default {
     },
     //点击左边菜单 触发的事件
     changetype1(clid, id, item) {
-      switch (this.$route.path) {
-        case "/live":
+      switch (this.$route.name) {
+        case "Live":
           this.$store.commit("liveheader", clid - 1);
           this.$emit("changetype", clid, id);
           break;
-        case "/new":
+        case "Livedel":
+          this.$router.push("/live");
+          this.$store.commit("liveheader", clid - 1);
+          this.$emit("changetype", clid, id);
+          break;
+        case "New":
           this.$emit("changenewstype", id);
           break;
-        case "/community":
+        case "Newdel":
+          this.$router.push("/new");
+          this.$emit("changenewstype", id);
+          break;
+        case "Community":
+          this.$router.push("/communitydel");
+          this.$store.commit("communitydel", item);
+          break;
+        case "Communitydel":
+          console.log(item);
+          this.$store.commit("communitydel", item);
+          break;
+        case "Postdetails":
           this.$router.push("/communitydel");
           this.$store.commit("communitydel", item);
           break;
       }
-      console.log(this.totalData);
       for (let i = 0; i < this.totalData.length; i++) {
         if (this.totalData[i].id == id) {
           this.highlight = id;
