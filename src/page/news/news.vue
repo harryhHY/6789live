@@ -15,7 +15,7 @@
             "
             @click="changemenu(index, item)"
           >
-            {{ item.ch_name || '' }}
+            {{ item.ch_name || "" }}
             <div
               :class="
                 changemenuflag == index ? 'newsclass_click1' : 'newsclass_click'
@@ -176,7 +176,7 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
-       console.log( this.menucomplexdata, this.newsdata);
+      console.log(this.menucomplexdata, this.newsdata);
     },
     toNewsdel() {
       return false;
@@ -209,7 +209,6 @@ export default {
   },
   mounted() {
     this.getdata();
-   
   },
 };
 </script>
@@ -352,9 +351,8 @@ export default {
   }
   .newstime {
     font-size: 14px;
-    position: absolute;
-    bottom: 30px;
-    left: 350px;
+    margin-left: 50px;
+    margin-top: 7px;
   }
 }
 
