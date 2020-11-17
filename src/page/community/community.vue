@@ -77,9 +77,11 @@
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
               <div class="footer_type left">{{ item.columnm }}</div>
+              <a :href="postdelUrl+ item.id + '.html'" v-on:click.prevent="toPostdel" >
               <div class="footer_title left">
                 {{ item.forum_title }}
               </div>
+              </a>
             </div>
 
             <div class="cl footer_content_belong">
@@ -126,9 +128,11 @@
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
               <div class="footer_type left">{{ item.columnm }}</div>
+              <a :href="postdelUrl+ item.id + '.html'" v-on:click.prevent="toPostdel" >
               <div class="footer_title left">
                 {{ item.forum_title }}
               </div>
+              </a>
             </div>
 
             <div class="cl footer_content_belong">
@@ -178,9 +182,11 @@
           <div class="footer_content_left left">
             <div class="cl footer_content_left_titleheader">
               <div class="footer_type left">{{ item.columnm }}</div>
+              <a :href="postdelUrl+ item.id + '.html'" v-on:click.prevent="toPostdel" >
               <div class="footer_title left">
                 {{ item.forum_title }}
               </div>
+              </a>
             </div>
             <div class="cl footer_content_belong">
               <div class="left cl">
@@ -226,6 +232,7 @@ const livemenu = () => import("../../components/live/livemenu");
 export default {
   data() {
     return {
+      postdelUrl:"http://dev.6789zbz.com/front/postdetails/",
       headerKey: "4",
       footer_menu: [], //足球社区
       basket_menu: [], //篮球社区
@@ -277,6 +284,9 @@ export default {
         params: { id: `${item.id}` },
       });
     },
+    toPostdel(){
+      return false
+    }
   },
   computed: {
     ...mapState(["menufootData", "menubacketballdata", "menucomplexdata"]),
@@ -488,5 +498,8 @@ export default {
 }
 .footer_content_div {
   margin-bottom: 30px;
+}
+a {
+  color: inherit;
 }
 </style>
