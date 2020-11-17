@@ -230,7 +230,7 @@ export default {
       }
     },
     gotolive() {
-      this.$router.push("live");
+      this.$router.push("/live");
     },
     parentEvent(data) {
       this.menu_num = data;
