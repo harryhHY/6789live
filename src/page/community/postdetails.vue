@@ -171,7 +171,10 @@
           </div>
           <div class="left">
             <div class="certerimg tuijian_title_div">
-              <div class="tuijian_title">{{ item.news_title }}</div>
+              <a
+                  :href="delUrl + item.id + '.html'"
+                  v-on:click.prevent="toNewsdel"
+                  ><div class="tuijian_title">{{ item.news_title }}</div></a>
               <div class="tuijian_time">{{ item.news_addtime | formDate }}</div>
             </div>
           </div>
@@ -217,6 +220,7 @@ export default {
   },
   data() {
     return {
+      delUrl: "http://dev.6789zbz.com/front/newdel/",
       pageName: "",
       metaList: [
         //SEO优化的meta数组
@@ -485,6 +489,9 @@ export default {
         console.log(value);
         this.$router.push({ name: "hishomeperson", params: { uname: value } });
       }
+    },
+    toNewsdel() {
+      return false;
     },
   },
   components: {
@@ -818,5 +825,8 @@ export default {
       color: #848484;
     }
   }
+}
+a {
+  color: inherit;
 }
 </style>
