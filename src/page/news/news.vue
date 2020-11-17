@@ -40,7 +40,13 @@
               <div class="newstype1 left ov">
                 {{ item.ch_name }}
               </div>
-              <div class="left ov"><a :href="delUrl+ item.id + '.html'" v-on:click.prevent="toNewsdel" >{{ item.news_title }}</a></div>
+              <div class="left ov">
+                <a
+                  :href="delUrl + item.id + '.html'"
+                  v-on:click.prevent="toNewsdel"
+                  >{{ item.news_title }}</a
+                >
+              </div>
             </div>
             <div class="details ov cl" @click="gotonewsdel(item)">
               <span class="left">详情：</span
@@ -83,9 +89,28 @@ const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 export default {
+  metaInfo: {
+    title: `6789新闻首页_【6789体育直播】`,
+    meta: [
+      {
+        // set meta
+        name: "description",
+        content:
+          "6789体育直播为您比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。",
+      },
+      {
+        name: "keywords",
+        content: "足球直播,6789直播,体育直播,NBA直播",
+      },
+      {
+        property: "release_date",
+        content: "release_date",
+      },
+    ],
+  },
   data() {
     return {
-      delUrl:"http://dev.6789zbz.com/front/newdel/",
+      delUrl: "http://dev.6789zbz.com/front/newdel/",
       headerKey: "3",
       searchmsg: "",
       host: "",
@@ -155,9 +180,9 @@ export default {
       );
       console.log(this.newsClass);
     },
-    toNewsdel(){
+    toNewsdel() {
       return false;
-    }
+    },
   },
   computed: {
     ...mapState(["menubacketballdata", "menucomplexdata", "menufootData"]),
@@ -370,7 +395,7 @@ export default {
     background-color: #1a90fc;
   }
 }
-a{
+a {
   color: inherit;
 }
 </style>

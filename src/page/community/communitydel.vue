@@ -160,6 +160,25 @@ import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 export default {
+  metaInfo: {
+    title: `6789直播讨论区_【6789体育直播】`,
+    meta: [
+      {
+        // set meta
+        name: "description",
+        content:
+          "6789体育直播为您比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。",
+      },
+      {
+        name: "keywords",
+        content: "足球直播,6789直播,体育直播,NBA直播",
+      },
+      {
+        property: "release_date",
+        content: "release_date",
+      },
+    ],
+  },
   data() {
     return {
       headerKey: "4",

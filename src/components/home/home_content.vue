@@ -9,13 +9,16 @@
       <div class="swp left">
         <el-carousel :interval="4000" type="card">
           <el-carousel-item v-for="(item, index) in swiperdata" :key="item.id">
-            <a :href="newdelUrl+ item.id + '.html'" v-on:click.prevent="toNewsdel" >
-            <img
-              :src="item.news_cover_url"
-              alt=""
-              class="swiper_img"
-              @click="gotonewsdel(item)"
-            />
+            <a
+              :href="newdelUrl + item.id + '.html'"
+              v-on:click.prevent="toNewsdel"
+            >
+              <img
+                :src="item.news_cover_url"
+                alt=""
+                class="swiper_img"
+                @click="gotonewsdel(item)"
+              />
             </a>
           </el-carousel-item>
         </el-carousel>
@@ -60,11 +63,7 @@
                 class="live_div left cu"
                 @click="gotonewsdel(item)"
               >
-                <img
-                  :src="item.news_cover_url"
-                  alt=""
-                  class="live_img"
-                />
+                <img :src="item.news_cover_url" alt="" class="live_img" />
                 <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
@@ -237,9 +236,28 @@
 <script>
 import host from "../../api/httpurl";
 export default {
+  metaInfo: {
+    title: `6789首页_【6789体育直播】`,
+    meta: [
+      {
+        // set meta
+        name: "description",
+        content:
+          "6789体育直播为您比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。",
+      },
+      {
+        name: "keywords",
+        content: "足球直播,6789直播,体育直播,NBA直播",
+      },
+      {
+        property: "release_date",
+        content: "release_date",
+      },
+    ],
+  },
   data() {
     return {
-      newdelUrl:"http://dev.6789zbz.com/front/newdel/",
+      newdelUrl: "http://dev.6789zbz.com/front/newdel/",
       delUrl: "http://dev.6789zbz.com/front/livedel/",
       swiperdata: [], //轮播图
       football: [
@@ -454,9 +472,9 @@ export default {
     gotodel(event) {
       return false;
     },
-    toNewsdel(){
+    toNewsdel() {
       return false;
-    }
+    },
   },
   created() {
     this.inst();

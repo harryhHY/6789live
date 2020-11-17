@@ -33,8 +33,8 @@
             :key="index"
           >
             <div class="gametype_div left">
-                <div class="gametype">{{ type }}</div>
-                <div class="gametype1 ov">{{ item.lname }}</div> 
+              <div class="gametype">{{ type }}</div>
+              <div class="gametype1 ov">{{ item.lname }}</div>
             </div>
             <div class="aname ov left">
               {{ item.hname }}
@@ -69,7 +69,12 @@
             <div class="left type_div">
               {{ item.gameStage }}
             </div>
-            <div class="liveicon left cu" @click="gotolive(item)"><a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" ></a></div>
+            <div class="liveicon left cu" @click="gotolive(item)">
+              <a
+                :href="delUrl + item.matchId + '.html'"
+                v-on:click.stop.prevent="gotodel"
+              ></a>
+            </div>
           </div>
         </div>
       </div>
@@ -85,9 +90,28 @@ const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
 export default {
+  metaInfo: {
+    title: `6789直播首页_【6789体育直播】`,
+    meta: [
+      {
+        // set meta
+        name: "description",
+        content:
+          "6789体育直播为您比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。",
+      },
+      {
+        name: "keywords",
+        content: "足球直播,6789直播,体育直播,NBA直播",
+      },
+      {
+        property: "release_date",
+        content: "release_date",
+      },
+    ],
+  },
   data() {
     return {
-      delUrl:"http://dev.6789zbz.com/front/livedel/",
+      delUrl: "http://dev.6789zbz.com/front/livedel/",
       football: [], //栏目
       buttonList: [],
       livedata: [],
@@ -197,9 +221,9 @@ export default {
         }
       });
     },
-    gotodel(event){
+    gotodel(event) {
       return false;
-    }
+    },
   },
   components: {
     livemenu,
