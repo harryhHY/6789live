@@ -217,7 +217,7 @@
               <img :src="item.aicon" alt="" />
             </div>
             <div class="right aname ov">
-              <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >{{ item.aname }}</a>
+              <a :href="delUrl+ item.matchId + '.html'" v-on:click.prevent="gotodel" >{{ item.aname }}</a>
             </div>
           </div>
         </div>

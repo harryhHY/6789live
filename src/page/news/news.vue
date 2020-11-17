@@ -33,7 +33,7 @@
           :key="index"
         >
           <div class="left img_div" @click="gotonewsdel(item)">
-            <img :src="host + item.news_cover_url" alt="" class="news_img" />
+            <img :src="item.news_cover_url" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
             <div class="news_title cl" @click="gotonewsdel(item)">
@@ -143,6 +143,7 @@ export default {
         this.newsdata = news_data;
         this.live_data = live_data;
         this.promote_news_data = promote_news_data;
+        console.log(this.promote_news_data);
         this.$store.commit("newslivedata", this.live_data);
         this.$store.commit("newsmenuswp", this.promote_news_data);
       });

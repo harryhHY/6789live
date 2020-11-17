@@ -170,7 +170,7 @@
           @click="gotonewsdel(item)"
         >
           <div class="tuijian_img left">
-            <img :src="host + item.news_cover_url" alt="" />
+            <img :src="item.news_cover_url" alt="" />
           </div>
           <div class="left">
             <div class="certerimg tuijian_title_div">

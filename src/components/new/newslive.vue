@@ -4,7 +4,7 @@
       <el-carousel height="238px">
         <el-carousel-item v-for="(item, index) in swpList" :key="index">
           <div class="swp">
-            <img :src="host + item.news_cover_url" alt="" />
+            <img :src="item.news_cover_url" alt="" />
             <div class="newstitle">{{ item.news_title }}</div>
           </div>
         </el-carousel-item>
@@ -26,7 +26,7 @@
           <div class="videotype left">
             {{ item.gameStage }}
           </div>
-          <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
+          <a :href="delUrl+ item.matchId + '.html'" v-on:click.prevent="gotodel" >
           <div class="videotitle left ov">
             {{ item.aname }} VS {{ item.hname }}
           </div>

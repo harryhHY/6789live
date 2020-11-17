@@ -13,7 +13,7 @@
         <div class="videotype left ov">
           {{ item.lname }}
         </div>
-        <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
+        <a :href="delUrl+ item.matchId + '.html'" v-on:click.prevent="gotodel" >
         <div class="videotitle left ov">
           {{ item.hname }} VS {{ item.aname }}
         </div>
