@@ -61,7 +61,7 @@
                 @click="gotonewsdel(item)"
               >
                 <img
-                  :src="host + item.news_cover_url"
+                  :src="item.news_cover_url"
                   alt=""
                   class="live_img"
                 />
