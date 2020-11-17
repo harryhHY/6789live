@@ -391,7 +391,7 @@ export default {
         this.commentList = comments;
         let news_addtime = this.formDate(this.newsdel.news_addtime);
         this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
-        this.metaList[0].content = `${this.newsdel.news_body}`; // description
+        this.metaList[0].content = `${this.newsdel.news_body.replace(/<\/?.+?>/g,"")}`; // description
         this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
         this.metaList[2].content = `${news_addtime}`;
       });
@@ -459,13 +459,13 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => {
-      // let news_addtime = this.formDate(this.newsdel.news_addtime);
-      // this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
-      // this.metaList[0].content = `${this.newsdel.news_body}`; // description
-      // this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
-      // this.metaList[2].content = `${news_addtime}`;
-    }, 2000);
+    // setTimeout(() => {
+    //   // let news_addtime = this.formDate(this.newsdel.news_addtime);
+    //   // this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
+    //   // this.metaList[0].content = `${this.newsdel.news_body}`; // description
+    //   // this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
+    //   // this.metaList[2].content = `${news_addtime}`;
+    // }, 2000);
   },
 };
 </script>

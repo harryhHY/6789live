@@ -429,7 +429,7 @@ export default {
 
           let news_addtime = this.formDate(this.newsdel.forum_addtime);
           this.pageName = `${this.newsdel.forum_title}_【6789体育直播】`;
-          this.metaList[0].content = `${this.newsdel.forum_body}`; // description
+          this.metaList[0].content = `${this.newsdel.forum_body.replace(/<\/?.+?>/g,"")}`; // description
           this.metaList[1].content = `${this.newsdel.forum_title}`; //name="keywords"
           this.metaList[2].content = `${news_addtime}`;
         }
