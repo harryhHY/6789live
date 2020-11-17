@@ -13,9 +13,11 @@
         <div class="videotype left ov">
           {{ item.lname }}
         </div>
+        <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
         <div class="videotitle left ov">
           {{ item.hname }} VS {{ item.aname }}
         </div>
+        </a>
       </div>
       <!-- <div class="lookmore cu">查看更多直播</div> -->
     </div>
@@ -27,6 +29,7 @@
 export default {
   data() {
     return {
+      delUrl:"http://dev.6789zbz.com/front/livedel/",
       videoData: [],
     };
   },
@@ -45,6 +48,9 @@ export default {
         this.videoData = params;
       });
     },
+    gotodel(event){
+      return false;
+    }
   },
   watch: {
     data(newValue) {
@@ -133,5 +139,8 @@ export default {
     line-height: 30px;
     border-radius: 15px;
   }
+}
+a{
+  color: inherit;
 }
 </style>

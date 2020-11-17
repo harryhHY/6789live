@@ -188,26 +188,27 @@
           class="cl livecontent_div"
           @click="gotolive(item)"
         >
+        
           <div class="left livegametype_div">
             <div class="livegametype">{{ gametype }}</div>
             <div class="ov">{{ item.lname }}</div>
           </div>
-          <div class="cl leftcontent left">
-            <div class="left aname ov">
-              {{ item.hname }}
+            <div class="cl leftcontent left">
+              <div class="left aname ov">
+                {{ item.hname }}
+              </div>
+              <div class="aicon left">
+                <img :src="item.hicon" alt="" />
+              </div>
+              <div class="ascore left">
+                {{ item.hTotalScore }}
+              </div>
             </div>
-            <div class="aicon left">
-              <img :src="item.hicon" alt="" />
-            </div>
-            <div class="ascore left">
-              {{ item.hTotalScore }}
-            </div>
-          </div>
-
           <div class="left time_div">
             <div class="time">{{ item.gameTimeFormat }}</div>
             <div class="ov">{{ item.gameStage }}</div>
           </div>
+          
           <div class="rightcontent left cl">
             <div class="right ascore">
               {{ item.aTotalScore }}
@@ -216,7 +217,7 @@
               <img :src="item.aicon" alt="" />
             </div>
             <div class="right aname ov">
-              {{ item.aname }}
+              <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >{{ item.aname }}</a>
             </div>
           </div>
         </div>
@@ -233,6 +234,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
+      delUrl:"http://dev.6789zbz.com/front/livedel/",
       swiperdata: [], //轮播图
       football: [
         {
@@ -410,6 +412,7 @@ export default {
           this.livecontentdata = this.live_data.gameover;
           break;
       }
+      console.log(this.livecontentdata);
     },
     inst() {
       this.host = host;
@@ -438,6 +441,9 @@ export default {
         }
       }
     },
+    gotodel(event){
+      return false;
+    }
   },
   created() {
     this.inst();
@@ -780,5 +786,8 @@ export default {
 
 .footerclick {
   color: #1a90fc;
+}
+a{
+  color: inherit;
 }
 </style>

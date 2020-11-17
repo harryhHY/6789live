@@ -26,9 +26,11 @@
           <div class="videotype left">
             {{ item.gameStage }}
           </div>
+          <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
           <div class="videotitle left ov">
             {{ item.aname }} VS {{ item.hname }}
           </div>
+          </a>
         </div>
         <!-- <div class="lookmore cu">查看更多直播</div> -->
       </div>
@@ -45,6 +47,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
+      delUrl:"http://dev.6789zbz.com/front/livedel/",
       title: "热门直播",
       videoData: [],
       swpList: [],
@@ -62,6 +65,9 @@ export default {
     inithost() {
       this.host = host;
     },
+    gotodel(event){
+      return false;
+    }
   },
   computed: {
     ...mapState(["newslivedata", "newsmenuswp"]),
@@ -172,5 +178,8 @@ export default {
     color: #ffffff;
     padding: 0 10px;
   }
+}
+a{
+  color: inherit;
 }
 </style>

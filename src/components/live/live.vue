@@ -33,10 +33,8 @@
             :key="index"
           >
             <div class="gametype_div left">
-              <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
                 <div class="gametype">{{ type }}</div>
-                <div class="gametype1 ov">{{ item.lname }}</div>
-              </a>
+                <div class="gametype1 ov">{{ item.lname }}</div> 
             </div>
             <div class="aname ov left">
               {{ item.hname }}
@@ -71,7 +69,7 @@
             <div class="left type_div">
               {{ item.gameStage }}
             </div>
-            <div class="liveicon left cu" @click="gotolive(item)"></div>
+            <div class="liveicon left cu" @click="gotolive(item)"><a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" ></a></div>
           </div>
         </div>
       </div>
@@ -186,6 +184,7 @@ export default {
         let { dataFootball, dataBasketball, hot_live } = res.data.params;
         let pipi = this.footballflag + 1;
         this.livemenudata = hot_live;
+        console.log(this.livemenudata);
         switch (pipi) {
           case 1:
             this.livedata = dataFootball;
