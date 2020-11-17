@@ -4,7 +4,7 @@
       <el-carousel height="238px">
         <el-carousel-item v-for="(item, index) in swpList" :key="index">
           <div class="swp">
-            <img :src="item.news_cover_url" alt="" />
+            <img :src="item.news_cover_url" alt="" @click="gotonewsdel(item)" />
             <div class="newstitle">{{ item.news_title }}</div>
           </div>
         </el-carousel-item>
@@ -16,7 +16,7 @@
           {{ title }}
         </div>
       </div>
-      <div v-if="videoData!=false">
+      <div v-if="videoData != false">
         <div
           v-for="(item, key) in videoData"
           :key="key"
@@ -26,17 +26,18 @@
           <div class="videotype left">
             {{ item.gameStage }}
           </div>
-          <a :href="delUrl+ item.matchId + '.html'" v-on:click.prevent="gotodel" >
-          <div class="videotitle left ov">
-            {{ item.aname }} VS {{ item.hname }}
-          </div>
+          <a
+            :href="delUrl + item.matchId + '.html'"
+            v-on:click.prevent="gotodel"
+          >
+            <div class="videotitle left ov">
+              {{ item.aname }} VS {{ item.hname }}
+            </div>
           </a>
         </div>
         <!-- <div class="lookmore cu">查看更多直播</div> -->
       </div>
-      <div v-if="videoData==false" class="videotitle_div1">
-        暂无直播
-      </div>
+      <div v-if="videoData == false" class="videotitle_div1">暂无直播</div>
     </div>
   </div>
 </template>
@@ -47,7 +48,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
-      delUrl:"http://dev.6789zbz.com/front/livedel/",
+      delUrl: "http://dev.6789zbz.com/front/livedel/",
       title: "热门直播",
       videoData: [],
       swpList: [],
@@ -57,7 +58,7 @@ export default {
   methods: {
     gotovideo(e) {
       this.$store.commit("liveList", e);
-       this.$router.push({
+      this.$router.push({
         name: "Livedel",
         params: { matchId: `${e.matchId}` },
       });
@@ -65,9 +66,16 @@ export default {
     inithost() {
       this.host = host;
     },
-    gotodel(event){
+    gotodel(event) {
       return false;
-    }
+    },
+    gotonewsdel(e) {
+      this.$store.commit("newsList", e);
+      this.$router.push({
+        name: "Newdel",
+        params: { id: `${e.id}` },
+      });
+    },
   },
   computed: {
     ...mapState(["newslivedata", "newsmenuswp"]),
@@ -76,7 +84,7 @@ export default {
   watch: {},
   created() {
     this.videoData = this.newslivedata;
-    this.swpList = this.newsmenuswp.slice(0,4);
+    this.swpList = this.newsmenuswp.slice(0, 4);
     this.inithost();
   },
 };
@@ -123,7 +131,7 @@ export default {
     align-items: center;
     height: 35px;
   }
-  .videotitle_div1{
+  .videotitle_div1 {
     color: #848484;
     display: flex;
     align-items: center;
@@ -179,7 +187,7 @@ export default {
     padding: 0 10px;
   }
 }
-a{
+a {
   color: inherit;
 }
 </style>
