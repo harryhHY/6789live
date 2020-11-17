@@ -15,7 +15,7 @@
             "
             @click="changemenu(index, item)"
           >
-            {{ item.ch_name }}
+            {{ item.ch_name || '' }}
             <div
               :class="
                 changemenuflag == index ? 'newsclass_click1' : 'newsclass_click'
@@ -127,7 +127,6 @@ export default {
     },
     changemenu(idx, item) {
       this.changemenuflag = idx;
-      console.log(item.id);
       this.menuDataFilter(item.id);
     },
     menuDataFilter(id) {
@@ -167,7 +166,6 @@ export default {
       this.$api.homeindex.getnewsindex({}).then((res) => {
         let { live_data, news_data, promote_news_data } = res.data.params;
         this.newsdata = news_data;
-        console.log(this.newsdata);
         this.live_data = live_data;
         this.promote_news_data = promote_news_data;
         this.$store.commit("newslivedata", this.live_data);
@@ -178,7 +176,7 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
-      console.log(this.newsClass);
+       console.log( this.menucomplexdata, this.newsdata);
     },
     toNewsdel() {
       return false;
@@ -207,9 +205,11 @@ export default {
     newslive,
   },
   created() {
-    console.log(this.changemenuflag);
     this.inst();
+  },
+  mounted() {
     this.getdata();
+   
   },
 };
 </script>

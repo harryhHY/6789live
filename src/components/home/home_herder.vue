@@ -219,6 +219,7 @@ export default {
       console.log(e);
     },
     gotosm(src) {
+      console.log(src)
       this.$router.push(src);
       if (src == "/live") {
         this.$store.commit("liveheader", 0);

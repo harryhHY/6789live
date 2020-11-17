@@ -160,41 +160,41 @@ export default {
   methods: {
     getlivemenu() {
       //获取关注列表
-      // console.log(this.$route.path);
-      let type = 0;
-      switch (this.$route.path) {
-        case "/live":
-          type = 1;
+      console.log(this.$route.path);
+      let type1 = 0;
+      switch (this.$route.name) {
+        case "Live":
+          type1 = 1;
           this.menutitle = "直播分类";
           break;
-        case "/Livedel":
-          type = 1;
+        case "Livedel":
+          type1 = 1;
           this.menutitle = "直播分类";
           break;
-        case "/new":
-          type = 2;
+        case "New":
+          type1 = 2;
           this.menutitle = "新闻分类";
           break;
-        case "/newdel":
-          type = 2;
+        case "Newdel":
+          type1 = 2;
           this.menutitle = "新闻分类";
           break;
-        case "/community":
-          type = 3;
+        case "Community":
+          type1 = 3;
           this.menutitle = "社区分类";
           break;
-        case "/communitydel":
-          type = 3;
+        case "Communitydel":
+          type1 = 3;
           this.menutitle = "社区分类";
           break;
-        case "/postdetails":
-          type = 3;
+        case "Postdetails":
+          type1 = 3;
           this.menutitle = "社区分类";
           break;
       }
       this.$api.attchanelist
         .attchanel({
-          type,
+          type:type1,
         })
         .then((res) => {
           let { code, msg } = res.data;
@@ -208,7 +208,11 @@ export default {
             let { channel, user_followed_id } = res.data.params;
             this.backetballdata = channel[2];
             this.footData = channel[1];
-            this.Collapsedata = channel[3];
+            if(channel[3]){
+              this.Collapsedata = channel[3];
+            }else{
+               this.Collapsedata = []
+            }
 
             this.$store.commit("menufootData", this.footData);
             this.$store.commit("menubacketballdata", this.backetballdata);
