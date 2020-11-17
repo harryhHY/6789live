@@ -165,6 +165,7 @@ export default {
     },
     getlivedata() {
       //直播详情页面请求数据
+      console.log(this.$route.params.matchId);
       this.$axios({
         url: `${this.$api.homeindex.getlivedel()}${this.$route.params.matchId}`,
       }).then((res) => {

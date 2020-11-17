@@ -17,6 +17,7 @@
             <div class="noarticle" v-if="articleList.length == 0 && authority == '暂未发布帖子'">
                 {{authority}}
             </div>
+            <div class="showmore" v-if="articleList.length > 0" @click="showMore"><i class="el-icon-d-arrow-right more"></i></div>
             <div class="noarticle" v-if="articleList.length == 0 && authority == '用户隐私不可见'">
                 {{authority}}
             </div>
@@ -37,7 +38,10 @@ export default {
         return{
             uid:'',
             articleList: [],
-            authority:''
+            authority:'',
+            p:1,
+            total:'',
+            pageSize:'',
         }
     },
     mounted(){
@@ -53,9 +57,13 @@ export default {
             }else{
                 this.uid = localStorage.getItem('otherId')
             }
+            let params = {
+                p:this.p,
+             }
             this.$axios({
                 url:`${this.$api.myprofile}/${this.uid}`,
                 method: "get",
+                params:params,
                 timeout: 3000
             })
             .then(res => {
@@ -67,7 +75,16 @@ export default {
                     })
                     this.authority = '用户隐私不可见' 
                 } else if (res.data.code == 0) {
-                    this.articleList = res.data.params.my_forum;
+                    this.total = res.data.params.pagination.total;
+                    this.pageSize = res.data.params.pagination.page_size;
+                    let receiveList = res.data.params.my_forum;
+                    if (this.p == 1) {
+                        this.articleList = receiveList;
+                    } else {
+                        let datalist = this.articleList;
+                        let list = datalist.concat(receiveList);
+                        this.articleList = list;
+                    }
                     this.authority = '暂未发布帖子'
                 } else if (res.data.code == -1) {
                     this.$message({
@@ -80,6 +97,17 @@ export default {
             .catch(error => {
                 console.log(error);
             });
+        },
+        showMore(){
+            this.p ++;
+            if(this.p <= Math.ceil(this.total/this.pageSize)){
+                this.getaAticle();
+            }else{
+                this.$message({
+                    type: 'warning', // warning、success
+                    message: '没有更多了！' 
+                })
+            }
         },
         gotopostdetails(item){//跳转贴子详情页面
             this.$router.push('/postdetails');
@@ -187,5 +215,38 @@ export default {
         background-color: aliceblue;
         cursor: pointer;
     }
+    .showmore{
+        text-align: center;
+        height: 50px;
+        line-height: 50px;
+        font-size: 25px;
+        .more{
+            font-weight: 600;
+            transform: rotate(90deg);
+        }
+    }
+    .more:hover{       
+        color: #177BDB;
+        cursor: pointer;
+    }
 }
+</style>
+<style scoped>
+.article_content >>> img{
+    width: 115px;
+    height: 73px;
+    display: none;
+}
+.article_content >>> p{
+    width: 100%;
+    height: 15px;
+    line-height: 15px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.article_content >>> a{
+    pointer-events:none;
+}
+
 </style>
