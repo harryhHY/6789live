@@ -69,9 +69,13 @@
             <div class="communitymsg_header cl">
               <div class="left centerimg">
                 <div class="centerimg left img_div">
-                <img src="../../image/titleicon.png" class="titleicon" alt="" />
-              </div>
-              <div class="left footercomm">足球社区</div>
+                  <img
+                    src="../../image/titleicon.png"
+                    class="titleicon"
+                    alt=""
+                  />
+                </div>
+                <div class="left footercomm">足球社区</div>
               </div>
               <div class="right cu" @click="gotocommunity()">更多》</div>
             </div>
@@ -294,7 +298,7 @@ export default {
           title: "篮球直播",
           clicktype: false,
         },
-        
+
         {
           id: 3,
           title: "已完结",
@@ -369,7 +373,10 @@ export default {
     gotolive(e) {
       console.log(e);
       this.$store.commit("liveList", e);
-      this.$router.push("Livedel");
+      this.$router.push({
+        name: "Livedel",
+        params: { matchId: `${e.matchId}` },
+      });
     },
     handleCommand(command) {
       console.log(command);

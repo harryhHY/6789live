@@ -54,7 +54,10 @@ export default {
   methods: {
     gotovideo(e) {
       this.$store.commit("liveList", e);
-      this.$router.push("Livedel");
+       this.$router.push({
+        name: "Livedel",
+        params: { matchId: `${e.matchId}` },
+      });
     },
     inithost() {
       this.host = host;
