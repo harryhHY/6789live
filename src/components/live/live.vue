@@ -33,8 +33,10 @@
             :key="index"
           >
             <div class="gametype_div left">
-              <div class="gametype">{{ type }}</div>
-              <div class="gametype1 ov">{{ item.lname }}</div>
+              <a :href="delUrl+ item.matchId + '.html'" v-on:click.stop.prevent="gotodel" >
+                <div class="gametype">{{ type }}</div>
+                <div class="gametype1 ov">{{ item.lname }}</div>
+              </a>
             </div>
             <div class="aname ov left">
               {{ item.hname }}
@@ -87,6 +89,7 @@ const liveheader = () => import("./liveheader");
 export default {
   data() {
     return {
+      delUrl:"http://dev.6789zbz.com/front/livedel/",
       football: [], //栏目
       buttonList: [],
       livedata: [],
@@ -195,6 +198,9 @@ export default {
         }
       });
     },
+    gotodel(event){
+      return false;
+    }
   },
   components: {
     livemenu,
