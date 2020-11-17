@@ -63,23 +63,23 @@ Vue.directive('preventReClick', {
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   if (to.matched.some((item) => item.meta.requireAuth)) {
-      // let token = true
-      let token = localStorage.getItem("token");
-      // console.log(token);
-      if (token) {
-          next();
-      } else {
-        Vue.prototype.$message({
-          type: 'warning',
-          message: "请先登录再进行操作"
-        }) 
-          // next({
-          //     path: "/"
-          // })
-      }
-  } else {
-      // 不需要登陆
+    // let token = true
+    let token = localStorage.getItem("token");
+    // console.log(token);
+    if (token) {
       next();
+    } else {
+      Vue.prototype.$message({
+        type: 'warning',
+        message: "请先登录再进行操作"
+      })
+      // next({
+      //     path: "/"
+      // })
+    }
+  } else {
+    // 不需要登陆
+    next();
   }
 })
 
@@ -91,5 +91,8 @@ new Vue({
   components: {
     App
   },
-  template: '<App/>'
+  template: '<App/>',
+  mounted() {
+    document.dispatchEvent(new Event('render-event'))
+  }
 })

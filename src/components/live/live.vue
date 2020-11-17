@@ -133,7 +133,10 @@ export default {
     gotolive(e) {
       // console.log(e);
       this.$store.commit("liveList", e);
-      this.$router.push("Livedel");
+      this.$router.push({
+        name: "Livedel",
+        params: { matchId: `${e.matchId}` },
+      });
     },
     // 左边直播分类传过来的值
     changetype(clid, id) {
@@ -223,7 +226,7 @@ export default {
     },
   },
   created() {
-    this.footballflag = this.liveheader
+    this.footballflag = this.liveheader;
     this.changeButtonList();
     this.football = this.menufootData;
     this.getdata();
@@ -239,8 +242,8 @@ export default {
 }
 #live {
   background: url("../../image/bj.jpg") 0 0 no-repeat,
-  url("../../image/3.jpg") 800px 0 repeat;
- background-position: 0 0, 800px 0;
+    url("../../image/3.jpg") 800px 0 repeat;
+  background-position: 0 0, 800px 0;
   background-size: 100%;
 }
 .playname {

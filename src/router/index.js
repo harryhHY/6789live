@@ -44,6 +44,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: '/front',
   routes: [{
       path: '/',
       name: 'Home',
@@ -88,7 +89,7 @@ export default new Router({
       component: () => Newdel
     },
     {
-      path: '/livedel',
+      path: '/livedel/:matchId.html',
       name: 'Livedel',
       component: () => Livedel
     },

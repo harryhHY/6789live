@@ -10,26 +10,26 @@
           <div class="live_title centerimg">
             <div class="livecontent cl">
               <div class="aname ov left">
-                {{ liveList.hname }}
+                {{ pipiload.hfullname }}
               </div>
               <div class="left aicon">
-                <img :src="liveList.hicon" alt="" class="aiconimg" />
+                <img :src="pipiload.hicon" alt="" class="aiconimg" />
               </div>
               <div class="ascore left">
-                {{ liveList.hTotalScore }}
+                {{ pipiload.hTotalScore }}
               </div>
               <div class="time_type left">
-                <div>{{ liveList.gameTimeFormat }}</div>
-                <div>{{ liveList.gameStage }}</div>
+                <div>{{ pipiload.gameTimeFormat }}</div>
+                <div>{{ pipiload.gameStage }}</div>
               </div>
               <div class="ascore left">
-                {{ liveList.aTotalScore }}
+                {{ pipiload.aTotalScore }}
               </div>
               <div class="left aicon">
-                <img :src="liveList.aicon" alt="" class="aiconimg" />
+                <img :src="pipiload.aicon" alt="" class="aiconimg" />
               </div>
               <div class="bname ov left">
-                {{ liveList.aname }}
+                {{ pipiload.afullname }}
               </div>
             </div>
           </div>
@@ -63,11 +63,11 @@
               <img src="../../image/news/shareicon4.png" alt="" class="cu" />
             </div> -->
             <div class="right ana_div">
-              <div class="cl left anadiv cu" @click="gotoanalysis(liveList)">
+              <div class="cl left anadiv cu" @click="gotoanalysis(pipiload)">
                 <div class="anaimg left"></div>
                 <div class="ana left">数据分析</div>
               </div>
-              <div class="indnxdiv left cu cl" @click="gotoexponent(liveList)">
+              <div class="indnxdiv left cu cl" @click="gotoexponent(pipiload)">
                 <div class="left indeximg"></div>
                 <div>指数</div>
               </div>
@@ -144,6 +144,7 @@ export default {
       signals: [],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
+      pipiload:"",
     };
   },
   methods: {
@@ -165,12 +166,19 @@ export default {
     getlivedata() {
       //直播详情页面请求数据
       this.$axios({
-        url: `${this.$api.homeindex.getlivedel()}${this.liveList.matchId}`,
+        url: `${this.$api.homeindex.getlivedel()}${this.$route.params.matchId}`,
       }).then((res) => {
-        let { murl, signals } = res.data.params;
+        let { murl, signals,afullname,hfullname,lfullname } = res.data.params;
         this.videosrc = murl;
         this.signals = signals;
         this.newddplayer();
+        let liveList={...res.data.params}
+        liveList.aname = afullname
+        liveList.hname = hfullname
+        liveList.lname = lfullname
+        liveList.matchId = this.$route.params.matchId
+        this.pipiload = liveList;
+        console.log(this.pipiload)
       });
     },
     newddplayer() {
@@ -266,19 +274,17 @@ export default {
       this.getlivedata();
     },
   },
-  created() {
-    let date = this.liveList.gameTime;
-    this.descriptionDate = this.dateFormat("YYYY年mm月dd日", date);
-    this.release_date = this.dateFormat("YYYY-mm-dd HH:MM:SS", date);
-    console.log(this.release_date);
-  },
+  created() {},
   mounted() {
     this.getlivedata();
-    console.log(this.videosrc);
+    let date = this.pipiload.gameTime;
+    this.descriptionDate = this.dateFormat("YYYY年mm月dd日", date);
+    this.release_date = this.dateFormat("YYYY-mm-dd HH:MM:SS", date);
+
     setTimeout(() => {
-      this.pageName = `${this.liveList.hname}VS${this.liveList.aname}_【6789体育直播】`;
-      this.metaList[0].content = `6789体育直播为您提供${this.descriptionDate} ${this.liveList.hname}VS${this.liveList.aname}比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。`; // description
-      this.metaList[1].content = `${this.liveList.hname}VS${this.liveList.aname},足球直播,6789直播,体育直播,NBA直播`; //name="keywords"
+      this.pageName = `${this.pipiload.hname}VS${this.pipiload.aname}_【6789体育直播】`;
+      this.metaList[0].content = `6789体育直播为您提供${this.descriptionDate} ${this.pipiload.hname}VS${this.pipiload.aname}比赛直播,6789体育直播是国内最好的体育直播网站之一,主要提供足球直播,NBA直播,等国内外体育赛事直播,我们一直最用心。`; // description
+      this.metaList[1].content = `${this.pipiload.hname}VS${this.pipiload.aname},足球直播,6789直播,体育直播,NBA直播`; //name="keywords"
       this.metaList[2].content = `${this.release_date}`;
     }, 2000);
   },
