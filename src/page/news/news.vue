@@ -42,8 +42,9 @@
               </div>
               <div class="left ov">{{ item.news_title }}</div>
             </div>
-            <div class="details ov cl" @click="gotonewsdel(item)" >
-              <span class="left">详情：</span><span class="left" v-html="item.news_body"></span>
+            <div class="details ov cl" @click="gotonewsdel(item)">
+              <span class="left">详情：</span
+              ><span class="left" v-html="item.news_body"></span>
             </div>
             <div class="label_div cl">
               <div
@@ -68,9 +69,7 @@
             </div> -->
           </div>
         </div>
-        <div v-if="newsdata==false">
-          暂无新闻
-        </div>
+        <div v-if="newsdata == false">暂无新闻</div>
       </div>
     </div>
     <newslive v-if="live_data || promote_news_data"></newslive>
@@ -129,7 +128,8 @@ export default {
     },
     gotonewsdel(e) {
       this.$router.push({
-        path: "/newdel",
+        name: "Newdel",
+        params: { id: `${e.id}` },
       });
       this.$store.commit("newsList", e);
     },
@@ -178,7 +178,7 @@ export default {
     newslive,
   },
   created() {
-    console.log(this.changemenuflag)
+    console.log(this.changemenuflag);
     this.inst();
     this.getdata();
   },

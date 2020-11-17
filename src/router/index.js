@@ -84,7 +84,7 @@ export default new Router({
       component: () => Postdetails
     },
     {
-      path: '/newdel',
+      path: '/newdel/:id.html',
       name: 'Newdel',
       component: () => Newdel
     },

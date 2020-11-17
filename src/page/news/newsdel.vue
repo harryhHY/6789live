@@ -120,9 +120,9 @@
               <div
                 class="replynum cu"
                 @click="lookallreply(item)"
-                v-if="!showreply && item.child!=false"
+                v-if="!showreply && item.child != false"
               >
-               查看全部回复（{{ item.c_reply_count }}）
+                查看全部回复（{{ item.c_reply_count }}）
               </div>
               <div class="otherusergoodreply cl">
                 <div class="otherusergood left cu" @click="star(item)">
@@ -220,8 +220,30 @@ const report = () => import("../../components/person/report");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
+  metaInfo() {
+    return {
+      title: this.pageName,
+      meta: this.metaList,
+    };
+  },
   data() {
     return {
+      pageName: "",
+      metaList: [
+        //SEO优化的meta数组
+        {
+          name: "description",
+          content: "",
+        },
+        {
+          name: "keywords",
+          content: "",
+        },
+        {
+          property: "release_date",
+          content: "",
+        },
+      ],
       newstitle: "",
       headerKey: "3",
       querydata: "",
@@ -351,9 +373,9 @@ export default {
     },
     getrouterdata() {
       //获取新闻详情
-      console.log(this.$api.homeindex.newsdel());
+      console.log();
       this.$axios({
-        url: `${this.$api.homeindex.newsdel()}${this.newsList.id}`,
+        url: `${this.$api.homeindex.newsdel()}${this.$route.params.id}`,
       }).then((res) => {
         let {
           news,
@@ -367,12 +389,11 @@ export default {
         this.recommend = promote;
         this.$store.commit("newslivedata", live_data);
         this.commentList = comments;
-        // let pipi = this.commentList;
-        // for (let i = 0; i < pipi.length; i++) {
-        //   pipi[i].flag = false;
-        // }
-        // console.log(pipi);
-        // this.commentList = pipi;
+        let news_addtime = this.formDate(this.newsdel.news_addtime);
+        this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
+        this.metaList[0].content = `${this.newsdel.news_body}`; // description
+        this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
+        this.metaList[2].content = `${news_addtime}`;
       });
     },
     inithost() {
@@ -392,6 +413,26 @@ export default {
       //新闻推荐跳转新闻详情页面
       this.$store.commit("newsList", item);
       document.documentElement.scrollTop = 0;
+    },
+    formDate(value) {
+      let date = new Date(value * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = date.getFullYear() + "-";
+      let M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      let D = date.getDate() + " ";
+      let h =
+        date.getHours().length <= 1
+          ? "0" + date.getHours() + ":"
+          : date.getHours() + ":";
+      let m =
+        date.getMinutes() < 10
+          ? "0" + date.getMinutes() + ":"
+          : date.getMinutes() + ":";
+      let s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return Y + M + D + h + m + s;
     },
   },
   components: {
@@ -418,13 +459,13 @@ export default {
     },
   },
   mounted() {
-    // console.log(this.newsList.id);
-    // const dp = new DPlayer({
-    //   container: document.getElementById("dplayer"),
-    //   video: {
-    //     url: this.videosrc,
-    //   },
-    // });
+    setTimeout(() => {
+      // let news_addtime = this.formDate(this.newsdel.news_addtime);
+      // this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
+      // this.metaList[0].content = `${this.newsdel.news_body}`; // description
+      // this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
+      // this.metaList[2].content = `${news_addtime}`;
+    }, 2000);
   },
 };
 </script>

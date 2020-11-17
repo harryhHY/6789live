@@ -188,27 +188,26 @@
           class="cl livecontent_div"
           @click="gotolive(item)"
         >
-        
           <div class="left livegametype_div">
             <div class="livegametype">{{ gametype }}</div>
             <div class="ov">{{ item.lname }}</div>
           </div>
-            <div class="cl leftcontent left">
-              <div class="left aname ov">
-                {{ item.hname }}
-              </div>
-              <div class="aicon left">
-                <img :src="item.hicon" alt="" />
-              </div>
-              <div class="ascore left">
-                {{ item.hTotalScore }}
-              </div>
+          <div class="cl leftcontent left">
+            <div class="left aname ov">
+              {{ item.hname }}
             </div>
+            <div class="aicon left">
+              <img :src="item.hicon" alt="" />
+            </div>
+            <div class="ascore left">
+              {{ item.hTotalScore }}
+            </div>
+          </div>
           <div class="left time_div">
             <div class="time">{{ item.gameTimeFormat }}</div>
             <div class="ov">{{ item.gameStage }}</div>
           </div>
-          
+
           <div class="rightcontent left cl">
             <div class="right ascore">
               {{ item.aTotalScore }}
@@ -217,7 +216,11 @@
               <img :src="item.aicon" alt="" />
             </div>
             <div class="right aname ov">
-              <a :href="delUrl+ item.matchId + '.html'" v-on:click.prevent="gotodel" >{{ item.aname }}</a>
+              <a
+                :href="delUrl + item.matchId + '.html'"
+                v-on:click.prevent="gotodel"
+                >{{ item.aname }}</a
+              >
             </div>
           </div>
         </div>
@@ -234,7 +237,7 @@ import host from "../../api/httpurl";
 export default {
   data() {
     return {
-      delUrl:"http://dev.6789zbz.com/front/livedel/",
+      delUrl: "http://dev.6789zbz.com/front/livedel/",
       swiperdata: [], //轮播图
       football: [
         {
@@ -367,10 +370,11 @@ export default {
       // 'http://dev.6789zbz.com' +
     },
     gotonewsdel(e) {
-      this.$router.push({
-        path: "/newdel",
-      });
       this.$store.commit("newsList", e);
+      this.$router.push({
+        name: "Newdel",
+        params: { id: `${e.id}` },
+      });
     },
     gotolive(e) {
       console.log(e);
@@ -441,9 +445,9 @@ export default {
         }
       }
     },
-    gotodel(event){
+    gotodel(event) {
       return false;
-    }
+    },
   },
   created() {
     this.inst();
@@ -787,7 +791,7 @@ export default {
 .footerclick {
   color: #1a90fc;
 }
-a{
+a {
   color: inherit;
 }
 </style>

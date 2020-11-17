@@ -117,7 +117,7 @@
               <div
                 class="replynum cu"
                 @click="lookallreply(item)"
-                 v-if="!showreply && item.child!=false"
+                v-if="!showreply && item.child != false"
               >
                 查看全部回复（{{ item.c_reply_count }}）
               </div>
@@ -261,12 +261,12 @@ export default {
       console.log(this.showcommentid);
       this.showcommentid = item.id;
     },
-    gotonewsdel(item) {
-      //新闻推荐跳转新闻详情页面
+    gotonewsdel(e) {
+      this.$store.commit("newsList", e);
       this.$router.push({
-        path: "/newdel",
+        name: "Newdel",
+        params: { id: `${e.id}` },
       });
-      this.$store.commit("newsList", item);
     },
     commentreply() {
       //评论回复

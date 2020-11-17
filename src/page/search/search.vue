@@ -120,7 +120,12 @@
           </div>
           <div v-for="(item, index) in searchdata" :key="item.id" class="cl">
             <div class="user left userimg_div">
-              <img :src="host + item.user_pic" alt="" class="userimg" @click="goPerson(item.id)"/>
+              <img
+                :src="host + item.user_pic"
+                alt=""
+                class="userimg"
+                @click="goPerson(item.id)"
+              />
             </div>
             <div class="user left">{{ item.user_nickname }}</div>
             <div class="user left guanzhu cu" @click="attention(item)">
@@ -278,10 +283,11 @@ export default {
         });
     },
     gotonewsdel(e) {
-      this.$router.push({
-        path: "/newdel",
-      });
       this.$store.commit("newsList", e);
+      this.$router.push({
+        name: "Newdel",
+        params: { id: `${e.id}` },
+      });
     },
     gotocommdel() {
       this.$router.push("/communitydel");
