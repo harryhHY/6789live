@@ -80,3 +80,10 @@
     }, 2000);
 
     path: '/newdel/:id.html',
+
+
+
+        this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });

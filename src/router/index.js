@@ -79,7 +79,7 @@ export default new Router({
       component: () => Communitydel
     },
     {
-      path: '/postdetails',
+      path: '/postdetails/:id.html',
       name: 'Postdetails',
       component: () => Postdetails
     },

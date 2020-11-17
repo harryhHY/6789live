@@ -209,8 +209,30 @@ const report = () => import("../../components/person/report");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
+  metaInfo() {
+    return {
+      title: this.pageName,
+      meta: this.metaList,
+    };
+  },
   data() {
     return {
+      pageName: "",
+      metaList: [
+        //SEO优化的meta数组
+        {
+          name: "description",
+          content: "",
+        },
+        {
+          name: "keywords",
+          content: "",
+        },
+        {
+          property: "release_date",
+          content: "",
+        },
+      ],
       newstitle: "",
       headerKey: "4",
       querydata: "",
@@ -392,7 +414,7 @@ export default {
       //获取新闻详情
 
       this.$axios({
-        url: `${this.$api.homeindex.forumdel()}${this.postdel.id}`,
+        url: `${this.$api.homeindex.forumdel()}${this.$route.params.id}`,
       }).then((res) => {
         let { code, msg, params } = res.data;
         if (code == 0) {
@@ -404,6 +426,12 @@ export default {
           this.recommend = promote; //新闻推荐
           this.accessList = recent_visitor;
           this.$store.commit("newslivedata", hotLive);
+
+          let news_addtime = this.formDate(this.newsdel.forum_addtime);
+          this.pageName = `${this.newsdel.forum_title}_【6789体育直播】`;
+          this.metaList[0].content = `${this.newsdel.forum_body}`; // description
+          this.metaList[1].content = `${this.newsdel.forum_title}`; //name="keywords"
+          this.metaList[2].content = `${news_addtime}`;
         }
       });
       // console.log(this.$api.homeindex.newsdel());
@@ -424,6 +452,26 @@ export default {
       //   this.commentList = comments;
       //   console.log(this.commentList);
       // });
+    },
+    formDate(value) {
+      let date = new Date(value * 1000); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+      let Y = date.getFullYear() + "-";
+      let M =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      let D = date.getDate() + " ";
+      let h =
+        date.getHours().length <= 1
+          ? "0" + date.getHours() + ":"
+          : date.getHours() + ":";
+      let m =
+        date.getMinutes() < 10
+          ? "0" + date.getMinutes() + ":"
+          : date.getMinutes() + ":";
+      let s =
+        date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+      return Y + M + D + h + m + s;
     },
     inithost() {
       this.host = host;

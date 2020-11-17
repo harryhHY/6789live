@@ -243,7 +243,10 @@ export default {
   },
   methods: {
     gotopostdetails(item) {
-      this.$router.push("/postdetails");
+      this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });
       this.$store.commit("postdel", item);
     },
     gotocommunitydel(item) {
@@ -269,7 +272,10 @@ export default {
     },
     gotocommdel(item) {
       this.$store.commit("postdel", item);
-      this.$router.push("/postdetails");
+      this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });
     },
   },
   computed: {

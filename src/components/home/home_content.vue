@@ -328,7 +328,10 @@ export default {
     },
     gotopostdetails(item) {
       //跳转贴子详情页面
-      this.$router.push("/postdetails");
+      this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });
       this.$store.commit("postdel", item);
     },
     // 获取首页页面数据

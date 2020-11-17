@@ -204,7 +204,10 @@ export default {
     },
     gotopostdetails(item) {
       //跳转贴子详情页面
-      this.$router.push("/postdetails");
+      this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });
       this.$store.commit("postdel", item);
     },
     delsort(item) {
@@ -295,7 +298,10 @@ export default {
       }
     },
     gotopostdel() {
-      this.$router.push("/postdetails");
+      this.$router.push({
+        name: "Postdetails",
+        params: { id: `${item.id}` },
+      });
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
