@@ -194,7 +194,7 @@ export default {
       }
       this.$api.attchanelist
         .attchanel({
-          type:type1,
+          type: type1,
         })
         .then((res) => {
           let { code, msg } = res.data;
@@ -206,12 +206,14 @@ export default {
             });
           } else if (code == 0) {
             let { channel, user_followed_id } = res.data.params;
-            this.backetballdata = channel[2];
-            this.footData = channel[1];
-            if(channel[3]){
+            if (channel[1]) {
+              this.footData = channel[1];
+            }
+            if (channel[2]) {
+              this.backetballdata = channel[2];
+            }
+            if (channel[3]) {
               this.Collapsedata = channel[3];
-            }else{
-               this.Collapsedata = []
             }
 
             this.$store.commit("menufootData", this.footData);
