@@ -81,7 +81,7 @@
         </div> -->
       </div>
     </div>
-    <liveVideo />
+    <liveVideo :data="livemenudata"  />
   </div>
 </template>
 
@@ -145,6 +145,7 @@ export default {
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
       pipiload: "",
+      livemenudata:[],//热门直播
     };
   },
   methods: {
@@ -175,11 +176,15 @@ export default {
           afullname,
           hfullname,
           lfullname,
-        } = res.data.params;
+        } = res.data.params.data;
+        let {
+          hot_live
+        } = res.data.params
+        this.livemenudata = hot_live
         this.videosrc = murl;
         this.signals = signals;
         this.newddplayer();
-        let liveList = { ...res.data.params };
+        let liveList = { ...res.data.params.data };
         liveList.aname = afullname;
         liveList.hname = hfullname;
         liveList.lname = lfullname;

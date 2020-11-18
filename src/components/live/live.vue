@@ -160,28 +160,53 @@ export default {
     changtype(id, name) {
       this.footballflag = name;
       this.p = 1;
-      this.$axios({
-        url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
-        params: {
-          p: this.p,
-        },
-      }).then((res) => {
-        let { dataFootball, dataBasketball, hot_live } = res.data.params;
-        let pipi = name + 1;
-        this.livemenudata = hot_live;
-        switch (pipi) {
-          case 2:
-            this.livedata = dataFootball;
+      if (id == -100) {
+        this.$axios({
+          url: `${this.$api.homeindex.getliveindex()}${name}`,
+          params: {
+            p: this.p,
+          },
+        }).then((res) => {
+          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let pipi = name + 1;
+          this.livemenudata = hot_live;
+          switch (pipi) {
+            case 2:
+              this.livedata = dataFootball;
 
-            this.type = "足球";
-            break;
-          case 3:
-            this.livedata = dataBasketball;
-            this.type = "篮球";
-            break;
-        }
-        console.log(pipi, this.type);
-      });
+              this.type = "足球";
+              break;
+            case 3:
+              this.livedata = dataBasketball;
+              this.type = "篮球";
+              break;
+          }
+          console.log(pipi, this.type);
+        });
+      } else {
+        this.$axios({
+          url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
+          params: {
+            p: this.p,
+          },
+        }).then((res) => {
+          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let pipi = name + 1;
+          this.livemenudata = hot_live;
+          switch (pipi) {
+            case 2:
+              this.livedata = dataFootball;
+
+              this.type = "足球";
+              break;
+            case 3:
+              this.livedata = dataBasketball;
+              this.type = "篮球";
+              break;
+          }
+          console.log(pipi, this.type);
+        });
+      }
     },
     //跳转直播页面
     gotolive(e) {
@@ -194,24 +219,49 @@ export default {
     },
     // 左边直播分类传过来的值
     changetype(clid, id) {
-      this.$axios({
-        url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
-      }).then((res) => {
-        let { dataFootball, dataBasketball, hot_live } = res.data.params;
-        this.livemenudata = hot_live;
-        switch (clid) {
-          case 1:
-            this.livedata = dataFootball;
+      this.p = 1;
+      if (id == -100) {
+        this.$axios({
+          url: `${this.$api.homeindex.getliveindex()}${clid}`,
+          params: {
+            p: this.p,
+          },
+        }).then((res) => {
+          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          this.livemenudata = hot_live;
+          switch (clid) {
+            case 1:
+              this.livedata = dataFootball;
 
-            this.type = "足球";
-            break;
-          case 2:
-            this.livedata = dataBasketball;
+              this.type = "足球";
+              break;
+            case 2:
+              this.livedata = dataBasketball;
 
-            this.type = "篮球";
-            break;
-        }
-      });
+              this.type = "篮球";
+              break;
+          }
+        });
+      } else {
+        this.$axios({
+          url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
+        }).then((res) => {
+          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          this.livemenudata = hot_live;
+          switch (clid) {
+            case 1:
+              this.livedata = dataFootball;
+
+              this.type = "足球";
+              break;
+            case 2:
+              this.livedata = dataBasketball;
+
+              this.type = "篮球";
+              break;
+          }
+        });
+      }
     },
     //日期函数
     getDate1(num) {

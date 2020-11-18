@@ -216,6 +216,43 @@ export default {
               this.Collapsedata = channel[3];
             }
 
+            if (this.$route.name == "Live" || this.$route.name == "Livedel") {
+              let footAll = {
+                ch_columnm: 1,
+                ch_columnm_name: "全部",
+                ch_desc: "直播-西甲",
+                ch_logo:
+                  "/static/image/20201029/a5765f21627509671506f405794d8687fb2b00c1.png",
+                ch_name: "全部",
+                ch_order: 1,
+                ch_owner: "",
+                ch_reply_num: 0,
+                ch_status: 0,
+                ch_type: 1,
+                ch_views_num: 0,
+                id: -100,
+              };
+              let backetAll = {
+                ch_columnm: 2,
+                ch_columnm_name: "篮球",
+                ch_desc: "直播-NBA",
+                ch_logo:
+                  "/static/image/20201029/891ff34fc30bc030dc60a79988c98e7de0e77220.png",
+                ch_name: "全部",
+                ch_order: 1,
+                ch_owner: "",
+                ch_reply_num: 0,
+                ch_status: 0,
+                ch_type: 1,
+                ch_views_num: 0,
+                id: -100,
+              };
+              this.footData.unshift(footAll);
+              this.backetballdata.unshift(backetAll);
+              this.$store.commit("menufootData", this.footData);
+              this.$store.commit("menubacketballdata", this.backetballdata);
+            }
+
             this.$store.commit("menufootData", this.footData);
             this.$store.commit("menubacketballdata", this.backetballdata);
             this.$store.commit("menucomplexdata", this.Collapsedata);
@@ -295,8 +332,8 @@ export default {
         }
       }
     },
-    allchange(){
-       this.highlight = ""
+    allchange() {
+      this.highlight = "";
     },
     //去个人关注设置
     gotoattention() {
