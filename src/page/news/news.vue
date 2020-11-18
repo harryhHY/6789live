@@ -1,9 +1,17 @@
 <template>
   <div class="new cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu @changenewstype="changenewstype"></livemenu>
+    <livemenu @changenewstype="changenewstype" ref="livemenuNews"></livemenu>
     <div class="new_content boxshadow left">
       <div>
+        <div
+          :class="
+            changemenuflag == '-1' ? 'newsclass1 left cu' : 'newsclass left cu'
+          "
+          @click="showAllData()"
+        >
+          全部
+        </div>
         <div class="newsclass_div cl">
           <div
             v-for="(item, index) in newsClass"
@@ -75,7 +83,7 @@
             </div> -->
           </div>
         </div>
-        <div v-if="newsdata != false">
+        <div v-if="newsdata != false" class="pagination">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -135,6 +143,13 @@ export default {
     };
   },
   methods: {
+    showAllData() {
+      //展示全部
+      this.changemenuflag = "-1";
+      this.p = 1;
+      this.getdata();
+      this.$refs.livemenuNews.allchange();
+    },
     handleCurrentChange(val) {
       //跳转页面
       this.p = val;
@@ -160,8 +175,8 @@ export default {
         })
         .then((res) => {
           let { code, params } = res.data;
-          let { news_data , pagination } = params;
-           let { page_size, total } = pagination;
+          let { news_data, pagination } = params;
+          let { page_size, total } = pagination;
           if (code == 0) {
             this.newsdata = news_data;
             this.page_size = page_size;
@@ -265,6 +280,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.pagination {
+  display: flex;
+  justify-content: center;
+}
 .newsclass_div {
   overflow: hidden;
 }

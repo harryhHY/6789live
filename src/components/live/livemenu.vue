@@ -295,6 +295,9 @@ export default {
         }
       }
     },
+    allchange(){
+       this.highlight = ""
+    },
     //去个人关注设置
     gotoattention() {
       this.$router.push("/person/attention");
