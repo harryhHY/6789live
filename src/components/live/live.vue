@@ -91,7 +91,7 @@ const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
 export default {
   metaInfo: {
-    title: `6789直播首页_【6789体育直播】`,
+    title: `直播_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,
     meta: [
       {
         // set meta
@@ -142,16 +142,17 @@ export default {
         let pipi = name + 1;
         this.livemenudata = hot_live;
         switch (pipi) {
-          case "1":
+          case 2:
             this.livedata = dataFootball;
 
             this.type = "足球";
             break;
-          case "2":
+          case 3:
             this.livedata = dataBasketball;
             this.type = "篮球";
             break;
         }
+        console.log(pipi,this.type)
       });
     },
     //跳转直播页面
@@ -237,11 +238,16 @@ export default {
       return this.$store.state.liveheader;
     },
     menufootDatafn() {
-      return this.$store.state.menufootData;
+      if(this.liveheader==0){
+         return this.$store.state.menufootData;
+      }else{
+        return this.$store.state.menubacketballdata;
+      }
     },
   },
   watch: {
     liveheaderfn(newValue) {
+      console.log(newValue)
       this.footballflag = newValue;
       if (newValue == 0) {
         this.football = this.menufootData;

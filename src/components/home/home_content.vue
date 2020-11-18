@@ -237,7 +237,7 @@
 import host from "../../api/httpurl";
 export default {
   metaInfo: {
-    title: `6789首页_【6789体育直播】`,
+    title: `6789直播6789体育直播足球直播NBA直播体育直播_【高清】`,
     meta: [
       {
         // set meta

@@ -240,7 +240,7 @@ const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 export default {
   metaInfo: {
-    title: `6789社区首页_【6789体育直播】`,
+    title: `社区_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,
     meta: [
       {
         // set meta
