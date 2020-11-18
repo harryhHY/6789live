@@ -187,10 +187,11 @@ export default {
                 // result 即服务端返回的接口
                 let url = localStorage.getItem('editerUrl');
                 console.log(url, result)
-                let newImg = result.data.map(item => item = url + item);
+                // let newImg = result.data.map(item => item = url + item);
                 // insertImgFn 可把图片插入到编辑器，传入图片 src ，执行函数即可
                 // console.log(newImg);
-                newImg.forEach(item => insertImgFn(item))
+                // newImg.forEach(item => insertImgFn(item))
+                result.data.forEach(item => insertImgFn(item))
             }
         }
         // 创建编辑器

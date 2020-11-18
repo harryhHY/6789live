@@ -156,18 +156,18 @@ export default {
                         message: res.data.msg 
                     }) 
                 } else if (res.data.code == 0) {
-                    let feedback_pic = res.data.params.feedback_pic;
-                    for(let index in feedback_pic){
-                        feedback_pic[index] = this.imgurl + feedback_pic[index];
-                        // console.log(res.data.params.feedback_pic[index]);
-                    }
-                    let feedback_reply = res.data.params.feedback_reply;
-                    for(let index in feedback_reply){                       
-                        for(let i in feedback_reply[index].f_r_pic){
-                            feedback_reply[index].f_r_pic[i] = this.imgurl + feedback_reply[index].f_r_pic[i];
-                            // console.log(res.data.params.feedback_reply[index].f_r_pic[i]);
-                        }
-                    }
+                    // let feedback_pic = res.data.params.feedback_pic;
+                    // for(let index in feedback_pic){
+                    //     feedback_pic[index] = this.imgurl + feedback_pic[index];
+                    //     // console.log(res.data.params.feedback_pic[index]);
+                    // }
+                    // let feedback_reply = res.data.params.feedback_reply;
+                    // for(let index in feedback_reply){                       
+                    //     for(let i in feedback_reply[index].f_r_pic){
+                    //         feedback_reply[index].f_r_pic[i] = this.imgurl + feedback_reply[index].f_r_pic[i];
+                    //         // console.log(res.data.params.feedback_reply[index].f_r_pic[i]);
+                    //     }
+                    // }
                     this.detail_list = res.data.params;
                     this.reply_list = res.data.params.feedback_reply;                  
                 } else if (res.data.code == -1) {

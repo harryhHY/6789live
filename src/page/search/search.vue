@@ -121,7 +121,7 @@
           <div v-for="(item, index) in searchdata" :key="item.id" class="cl">
             <div class="user left userimg_div">
               <img
-                :src="host + item.user_pic"
+                :src="item.user_pic"
                 alt=""
                 class="userimg"
                 @click="goPerson(item.id)"

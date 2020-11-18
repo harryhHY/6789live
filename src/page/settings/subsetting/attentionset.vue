@@ -11,7 +11,7 @@
                     <div class="column"><div v-if="data[0].ch_columnm_name">{{data[0].ch_columnm_name}}</div></div>
                     <el-checkbox-group v-model="ruleForm.footradio" @change="handleCheckedCitiesChange">
                     <el-checkbox :label="item.id" name="footradio" :checked="item.is_followed == '1' ? checker : nochecker" v-for="(item,index) in data" :key="index">
-                        <img class="team" :src="imgurl + item.ch_logo" alt="">
+                        <img class="team" :src="item.ch_logo" alt="">
                         {{item.ch_name}}
                     </el-checkbox>
                     </el-checkbox-group>

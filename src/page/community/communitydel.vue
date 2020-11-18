@@ -28,7 +28,7 @@
       <div class="communitydel_main">
         <div class="main_header cl">
           <div class="left">
-            <img :src="host + communitydel.ch_logo" alt="" />
+            <img :src="communitydel.ch_logo" alt="" />
           </div>
           <div class="main_header_right left">
             <div class="cl">

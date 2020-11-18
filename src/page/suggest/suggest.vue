@@ -20,7 +20,7 @@
                         <!-- 详情：{{item.feedback_body}}   -->
                     </p>
                     <span href="#" @click="toSuggetDetail(item.id)">详情>></span>
-                    <img v-for="(images,index) in item.feedback_pic" :key="index" :src="imgurl + images" alt="">
+                    <img v-for="(images,index) in item.feedback_pic" :key="index" :src="images" alt="">
                 </div>
                 <div class="message">
                     您有新消息

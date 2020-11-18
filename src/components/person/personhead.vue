@@ -6,7 +6,7 @@
         </div>
         <div>
             <div class="avator_con">
-                <img :src="imgurl + profile.user_pic" alt="" v-if="profile.user_pic">
+                <img :src="profile.user_pic" alt="" v-if="profile.user_pic">
             </div>
             <div class="des_con">
                 <div>

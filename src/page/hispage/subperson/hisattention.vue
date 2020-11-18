@@ -5,7 +5,7 @@
             <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
                 <div class="attenhead">
-                    <img :src="imgurl + item.user_pic" alt="">
+                    <img :src="item.user_pic" alt="">
                 </div>
                 <div class="attenmid">
                     <div class="sign">{{item.user_name}}</div>

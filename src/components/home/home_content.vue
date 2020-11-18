@@ -135,7 +135,7 @@
               class="live_div left cu"
               @click="gotonewsdel(item)"
             >
-              <img :src="host + item.news_cover_url" alt="" class="live_img" />
+              <img :src="item.news_cover_url" alt="" class="live_img" />
               <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>

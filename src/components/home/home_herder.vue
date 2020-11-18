@@ -71,7 +71,7 @@
                 <el-avatar
                   class="avatar"
                   :size="25"
-                  :src="imgUrl + upic"
+                  :src="upic"
                   v-if="upic"
                 ></el-avatar>
                 <el-avatar v-else> {{ uname }} </el-avatar>

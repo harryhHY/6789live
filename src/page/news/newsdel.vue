@@ -60,7 +60,7 @@
             class="showavatar left cu"
             @click="goPerson(item.id)"
           >
-            <img :src="host + item.user_pic" alt="" class="showavatar_img" />
+            <img :src="item.user_pic" alt="" class="showavatar_img" />
             <div>
               {{ item.user_name }}
             </div>
