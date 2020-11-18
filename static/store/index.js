@@ -61,6 +61,9 @@ const mutations = {
   menulike(state, data) {//我关注的栏目
     state.menulike = data;
   },
+  newsNenu(state, data) {//我关注的栏目
+    state.newsNenu = data;
+  },
   /**
    * 跳转新闻详情页面
    * @param {obj} state 

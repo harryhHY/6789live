@@ -273,6 +273,7 @@ export default {
           break;
         case "Newdel":
           this.$router.push("/new");
+          this.$store.commit("newsNenu", id);
           this.$emit("changenewstype", id);
           break;
         case "Community":

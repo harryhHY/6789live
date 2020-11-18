@@ -144,12 +144,16 @@ export default {
         });
     },
     changenewstype(id) {
+      this.menuDataFilter(id);
+      this.newsClass = this.menubacketballdata.concat(
+        this.menucomplexdata,
+        this.menufootData
+      );
       for (let i = 0; i < this.newsClass.length; i++) {
         if (this.newsClass[i].id == id) {
           this.changemenuflag = i;
         }
       }
-      this.menuDataFilter(id);
     },
     gotonewsdel(e) {
       this.$router.push({
@@ -176,14 +180,18 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
-      console.log(this.menucomplexdata, this.newsdata);
     },
     toNewsdel() {
       return false;
     },
   },
   computed: {
-    ...mapState(["menubacketballdata", "menucomplexdata", "menufootData"]),
+    ...mapState([
+      "menubacketballdata",
+      "menucomplexdata",
+      "menufootData",
+      "newsNenu",
+    ]),
     menufootDatafn() {
       return this.$store.state.menufootData;
     },
@@ -208,7 +216,12 @@ export default {
     this.inst();
   },
   mounted() {
-    this.getdata();
+    if (this.newsNenu != "") {
+      this.changenewstype(this.newsNenu);
+      this.$store.commit("newsNenu", "");
+    } else {
+      this.getdata();
+    }
   },
 };
 </script>
