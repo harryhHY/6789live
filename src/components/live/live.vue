@@ -160,7 +160,7 @@ export default {
     changtype(id, name) {
       this.footballflag = name;
       this.p = 1;
-      if (id == -100 || -101) {
+      if (id == -100 || id == -101) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${name}`,
           params: {
@@ -220,7 +220,7 @@ export default {
     // 左边直播分类传过来的值
     changetype(clid, id) {
       this.p = 1;
-      if (id == -100 || -101) {
+      if (id == -100 || id == -101) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${clid}`,
           params: {
@@ -245,6 +245,9 @@ export default {
       } else {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
+          params:{
+            p:this.p
+          }
         }).then((res) => {
           let { dataFootball, dataBasketball, hot_live } = res.data.params;
           this.livemenudata = hot_live;
