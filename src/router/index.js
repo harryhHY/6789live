@@ -44,7 +44,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/front',
+  base: '/front/',
   routes: [{
       path: '/',
       name: 'Home',
@@ -142,18 +142,22 @@ export default new Router({
       children:[
         {
           path:"homeperson",
+          name:"homeperson",
           component: () => Homeperson,
         },
         {
           path:"article",
+          name:"article",
           component: () => Article,
         },
         {
           path:"attention",
+          name:"attention",
           component: () => Attention,
         },
         {
           path:"fans",
+          name:"fans",
           component: () => Fans,
         },
       ]

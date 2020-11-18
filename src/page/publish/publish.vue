@@ -201,7 +201,7 @@ export default {
     methods:{
          getEditorData() {
             // 通过代码获取编辑器内容
-            if(this.articletitle && this.value[2] ){
+            if(this.articletitle && this.value[1] ){
                 let data = this.editor.txt.html()
                 this.$api.publish.publishPost({
                     forum_title:this.$inHTMLData(this.articletitle),
