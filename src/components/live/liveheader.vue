@@ -54,7 +54,11 @@ export default {
           this.liveList[i].clicktype = false;
         }
       }
-     
+      switch (this.$route.name) {
+        case "Live":
+          this.$emit("getdata");
+          break;
+      }
       if (this.$route.name == "Livedel") {
         this.$router.push("/live");
       }
@@ -74,7 +78,7 @@ export default {
   computed: {
     ...mapState(["liveheader"]),
     liveheaderfn() {
-     return this.$store.state.liveheader;
+      return this.$store.state.liveheader;
     },
   },
   watch: {

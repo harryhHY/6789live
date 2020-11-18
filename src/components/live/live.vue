@@ -3,7 +3,7 @@
     <home_herder :headerKey="headerKey"></home_herder>
     <livemenu @changetype="changetype" />
     <div class="live_content left">
-      <liveheader></liveheader>
+      <liveheader @getdata="directliveheader"></liveheader>
       <div class="livemain boxshadow">
         <div class="cl footerheader">
           <div class="football_class left">
@@ -25,7 +25,7 @@
         <div class="time_class">
           {{ todaydate }}
         </div>
-        <div class="live_all">
+        <div class="live_all" v-show="livedata!=false">
           <div></div>
           <div
             class="livecontent cl"
@@ -76,6 +76,9 @@
               ></a>
             </div>
           </div>
+        </div>
+        <div class="live_all1" v-show="livedata==false">
+          暂无直播数据
         </div>
       </div>
     </div>
@@ -201,6 +204,10 @@ export default {
     //循环出多日期
     changeButtonList() {
       this.todaydate = this.getDate1(0);
+    },
+    directliveheader(){//直接点击liveheader
+      this.footballflag = this.liveheader
+      this.getdata()
     },
     getdata() {
       this.$axios({
@@ -478,7 +485,10 @@ export default {
 
   background: #01a0fc;
 }
-
+.live_all1{
+  font-size: 18px;
+  margin-left: 50px;
+}
 .time_class {
   position: relative;
   display: inline-block;
