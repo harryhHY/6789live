@@ -75,6 +75,16 @@
             </div> -->
           </div>
         </div>
+        <div v-if="newsdata != false">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :page-size="page_size"
+            layout="prev, pager, next, jumper"
+            :total="total"
+          >
+          </el-pagination>
+        </div>
         <div v-if="newsdata == false">暂无新闻</div>
       </div>
     </div>
@@ -119,9 +129,20 @@ export default {
       changemenuflag: "-1",
       live_data: [], //右边直播数据
       promote_news_data: [], //右边轮播数据
+      total: "", //分页总数
+      page_size: 1, //一页数量
+      p: 1, //分页第几页
     };
   },
   methods: {
+    handleCurrentChange(val) {
+      //跳转页面
+      this.p = val;
+      this.getdata();
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
     inst() {
       this.host = host;
     },
@@ -131,15 +152,20 @@ export default {
     },
     menuDataFilter(id) {
       //数据筛选
+      this.p = 1;
       this.$api.homeindex
         .getnewsindex({
           cid: id,
+          p: this.p,
         })
         .then((res) => {
           let { code, params } = res.data;
-          let { news_data } = params;
+          let { news_data , pagination } = params;
+           let { page_size, total } = pagination;
           if (code == 0) {
             this.newsdata = news_data;
+            this.page_size = page_size;
+            this.total = total;
           }
         });
     },
@@ -167,14 +193,26 @@ export default {
     },
     getdata() {
       //获取新闻首页数据
-      this.$api.homeindex.getnewsindex({}).then((res) => {
-        let { live_data, news_data, promote_news_data } = res.data.params;
-        this.newsdata = news_data;
-        this.live_data = live_data;
-        this.promote_news_data = promote_news_data;
-        this.$store.commit("newslivedata", this.live_data);
-        this.$store.commit("newsmenuswp", this.promote_news_data);
-      });
+      this.$api.homeindex
+        .getnewsindex({
+          p: this.p,
+        })
+        .then((res) => {
+          let {
+            live_data,
+            news_data,
+            promote_news_data,
+            pagination,
+          } = res.data.params;
+          this.newsdata = news_data;
+          this.live_data = live_data;
+          let { page_size, total } = pagination;
+          this.page_size = page_size;
+          this.total = total;
+          this.promote_news_data = promote_news_data;
+          this.$store.commit("newslivedata", this.live_data);
+          this.$store.commit("newsmenuswp", this.promote_news_data);
+        });
 
       this.newsClass = this.menubacketballdata.concat(
         this.menucomplexdata,
