@@ -70,13 +70,17 @@ export default {
       }
     },
     methods:{
+      //base64转码
+      encode(str){
+        return  str == null ? null : btoa(encodeURIComponent(str));
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.$api.checkreal.checkrealPerson({
-                pwd:this.ruleForm.pass,
-                real_name:this.ruleForm.checkname,
-                id_no:this.ruleForm.realnumber
+                pwd:this.$inHTMLData(this.encode(this.ruleForm.pass)),
+                real_name:this.$inHTMLData(this.ruleForm.checkname),
+                id_no:this.$inHTMLData(this.ruleForm.realnumber)
             }).then(res => {
                 // console.log(res);
                 if (res.data.code == 1) {
