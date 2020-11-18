@@ -77,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div v-if="livedata != false">
+        <div v-if="livedata != false" class="pagination">
           <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -159,12 +159,12 @@ export default {
     // 切换最新栏目
     changtype(id, name) {
       this.footballflag = name;
-      this.p = 1
+      this.p = 1;
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
-        params:{
-          p:this.p
-        }
+        params: {
+          p: this.p,
+        },
       }).then((res) => {
         let { dataFootball, dataBasketball, hot_live } = res.data.params;
         let pipi = name + 1;
@@ -233,21 +233,26 @@ export default {
     directliveheader() {
       //直接点击liveheader
       this.footballflag = this.liveheader;
-      this.p=1;
+      this.p = 1;
       this.getdata();
     },
     getdata() {
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
-        params:{
-          p:this.p
-        }
+        params: {
+          p: this.p,
+        },
       }).then((res) => {
-        let { dataFootball, dataBasketball, hot_live , pagination } = res.data.params;
+        let {
+          dataFootball,
+          dataBasketball,
+          hot_live,
+          pagination,
+        } = res.data.params;
 
-        let{page_size , total} = pagination;
+        let { page_size, total } = pagination;
         this.total = total;
-        this.page_size = page_size
+        this.page_size = page_size;
         let pipi = this.footballflag + 1;
         this.livemenudata = hot_live;
         console.log(this.livemenudata);
@@ -295,7 +300,7 @@ export default {
       } else {
         this.football = this.menubacketballdata;
       }
-      this.p=1
+      this.p = 1;
       this.getdata();
     },
     menufootDatafn(newValue) {
@@ -312,6 +317,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.pagination {
+  display: flex;
+  justify-content: center;
+}
 .livemain {
   background-color: #fff;
   padding: 13px 0;
