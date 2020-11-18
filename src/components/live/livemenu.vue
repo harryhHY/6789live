@@ -245,7 +245,7 @@ export default {
                 ch_status: 0,
                 ch_type: 1,
                 ch_views_num: 0,
-                id: -100,
+                id: -101,
               };
               this.footData.unshift(footAll);
               this.backetballdata.unshift(backetAll);

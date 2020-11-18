@@ -160,7 +160,7 @@ export default {
     changtype(id, name) {
       this.footballflag = name;
       this.p = 1;
-      if (id == -100) {
+      if (id == -100 || -101) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${name}`,
           params: {
@@ -220,7 +220,7 @@ export default {
     // 左边直播分类传过来的值
     changetype(clid, id) {
       this.p = 1;
-      if (id == -100) {
+      if (id == -100 || -101) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${clid}`,
           params: {
