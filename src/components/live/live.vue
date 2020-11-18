@@ -25,7 +25,7 @@
         <div class="time_class">
           {{ todaydate }}
         </div>
-        <div class="live_all" v-show="livedata!=false">
+        <div class="live_all" v-show="livedata != false">
           <div></div>
           <div
             class="livecontent cl"
@@ -77,9 +77,17 @@
             </div>
           </div>
         </div>
-        <div class="live_all1" v-show="livedata==false">
-          暂无直播数据
+        <div v-if="livedata != false">
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :page-size="page_size"
+            layout="prev, pager, next, jumper"
+            :total="total"
+          >
+          </el-pagination>
         </div>
+        <div class="live_all1" v-show="livedata == false">暂无直播数据</div>
       </div>
     </div>
     <liveVideo v-if="livemenudata" :data="livemenudata" :type="type" />
@@ -124,9 +132,22 @@ export default {
       todaydate: "",
       type: "",
       livemenudata: [],
+      total: "", //分页总数
+      page_size: 1, //一页数量
+      p: 1, //分页第几页
     };
   },
   methods: {
+    //分页
+    handleCurrentChange(val) {
+      //跳转页面
+      this.p = val;
+      this.getdata();
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+
     gotoexponent(e) {
       this.$store.commit("liveList", e);
       this.$router.push("/exponent");
@@ -138,8 +159,12 @@ export default {
     // 切换最新栏目
     changtype(id, name) {
       this.footballflag = name;
+      this.p = 1
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${name}/${id}`,
+        params:{
+          p:this.p
+        }
       }).then((res) => {
         let { dataFootball, dataBasketball, hot_live } = res.data.params;
         let pipi = name + 1;
@@ -155,7 +180,7 @@ export default {
             this.type = "篮球";
             break;
         }
-        console.log(pipi,this.type)
+        console.log(pipi, this.type);
       });
     },
     //跳转直播页面
@@ -205,15 +230,24 @@ export default {
     changeButtonList() {
       this.todaydate = this.getDate1(0);
     },
-    directliveheader(){//直接点击liveheader
-      this.footballflag = this.liveheader
-      this.getdata()
+    directliveheader() {
+      //直接点击liveheader
+      this.footballflag = this.liveheader;
+      this.p=1;
+      this.getdata();
     },
     getdata() {
       this.$axios({
         url: `${this.$api.homeindex.getliveindex()}${this.footballflag + 1}`,
+        params:{
+          p:this.p
+        }
       }).then((res) => {
-        let { dataFootball, dataBasketball, hot_live } = res.data.params;
+        let { dataFootball, dataBasketball, hot_live , pagination } = res.data.params;
+
+        let{page_size , total} = pagination;
+        this.total = total;
+        this.page_size = page_size
         let pipi = this.footballflag + 1;
         this.livemenudata = hot_live;
         console.log(this.livemenudata);
@@ -245,22 +279,23 @@ export default {
       return this.$store.state.liveheader;
     },
     menufootDatafn() {
-      if(this.liveheader==0){
-         return this.$store.state.menufootData;
-      }else{
+      if (this.liveheader == 0) {
+        return this.$store.state.menufootData;
+      } else {
         return this.$store.state.menubacketballdata;
       }
     },
   },
   watch: {
     liveheaderfn(newValue) {
-      console.log(newValue)
+      console.log(newValue);
       this.footballflag = newValue;
       if (newValue == 0) {
         this.football = this.menufootData;
       } else {
         this.football = this.menubacketballdata;
       }
+      this.p=1
       this.getdata();
     },
     menufootDatafn(newValue) {
@@ -485,7 +520,7 @@ export default {
 
   background: #01a0fc;
 }
-.live_all1{
+.live_all1 {
   font-size: 18px;
   margin-left: 50px;
 }
