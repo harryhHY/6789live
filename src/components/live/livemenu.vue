@@ -106,7 +106,7 @@
             class="footerclass_header cu"
             @click="changebbkUnfold(3, isCollapse)"
           >
-            <div>综合</div>
+            <div>其他</div>
             <div
               :class="
                 isCollapse
@@ -160,7 +160,6 @@ export default {
   methods: {
     getlivemenu() {
       //获取关注列表
-      console.log(this.$route.path);
       let type1 = 0;
       switch (this.$route.name) {
         case "Live":

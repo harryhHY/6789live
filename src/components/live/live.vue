@@ -36,7 +36,7 @@
               <div class="gametype">{{ type }}</div>
               <div class="gametype1 ov">{{ item.lname }}</div>
             </div>
-            <div class="aname ov left">
+            <div class="hname ov left">
               {{ item.hname }}
             </div>
             <div class="left aicon">
@@ -245,21 +245,19 @@ export default {
       } else {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${clid}/${id}`,
-          params:{
-            p:this.p
-          }
+          params: {
+            p: this.p,
+          },
         }).then((res) => {
           let { dataFootball, dataBasketball, hot_live } = res.data.params;
           this.livemenudata = hot_live;
           switch (clid) {
             case 1:
               this.livedata = dataFootball;
-
               this.type = "足球";
               break;
             case 2:
               this.livedata = dataBasketball;
-
               this.type = "篮球";
               break;
           }
@@ -332,7 +330,13 @@ export default {
     liveheader,
   },
   computed: {
-    ...mapState(["liveheader", "menufootData", "menubacketballdata"]),
+    ...mapState([
+      "liveheader",
+      "menufootData",
+      "menubacketballdata",
+      "clid",
+      "livedelId",
+    ]),
     liveheaderfn() {
       return this.$store.state.liveheader;
     },
@@ -354,17 +358,22 @@ export default {
         this.football = this.menubacketballdata;
       }
       this.p = 1;
-      this.getdata();
+      // this.getdata();
     },
     menufootDatafn(newValue) {
       this.football = newValue;
     },
   },
   created() {
-    this.footballflag = this.liveheader;
-    this.changeButtonList();
-    this.football = this.menufootData;
-    this.getdata();
+    if (this.livedelId != "") {
+      this.changetype(this.clid, this.livedelId);
+      this.$store.commit("livedelId", "");
+    } else {
+      this.footballflag = this.liveheader;
+      this.changeButtonList();
+      this.football = this.menufootData;
+      this.getdata();
+    }
   },
 };
 </script>
@@ -489,10 +498,17 @@ export default {
   align-items: center;
   text-align: center;
   border-bottom: 1px solid #848484;
-  .aname {
+  .hname {
     font-size: 14px;
     width: 125px;
     text-align: right;
+    margin-right: 4px;
+  }
+  .bname {
+    font-size: 14px;
+    width: 125px;
+    text-align: right;
+    margin-left: 4px;
   }
   .aicon {
     .aiconimg {

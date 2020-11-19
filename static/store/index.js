@@ -95,6 +95,12 @@ const mutations = {
    */
   setReplyInfo(state, reply) {
     state.replyInfo = reply
+  },
+  clid(state,data){
+    state.clid = data
+  },
+  livedelId(state,data){
+    state.livedelId = data
   }
 };
 const actions = {

@@ -248,7 +248,8 @@ export default {
     },
     // 左边直播分类传过来的值
     pve(clid,id) {
-      console.log(clid,id);
+      this.$store.commit("clid", clid);
+      this.$store.commit("livedelId", id);
     },
     dateFormat(fmt, date) {
       //时间格式
