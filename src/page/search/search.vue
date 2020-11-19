@@ -309,6 +309,7 @@ export default {
     },
     bankuaichange(val) {
       //板块选择器
+      this.page = 1
       this.plate = val;
       this.getsearchdata();
     },
