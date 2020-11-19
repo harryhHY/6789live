@@ -81,7 +81,7 @@ export default {
                         let list = datalist.concat(receiveList);
                         this.articleList = list;
                     }
-                    // console.log(this.articleList);
+                    console.log(this.articleList);
                 } else if (res.data.code == -1) {
                     // this.$message({
                     //     type: 'success', // warning、success
@@ -106,8 +106,11 @@ export default {
             }
         },
         gotopostdetails(item){//跳转贴子详情页面
-            this.$router.push('/postdetails');
-            this.$store.commit('postdel',item)
+            this.$store.commit('postdel',item);
+            this.$router.push({
+                name: "Postdetails",
+                params: { id: `${item.id}` },
+            });
         },
     },
     mounted() {

@@ -86,8 +86,12 @@ export default {
             });
         },
         gotopostdetails(item){//跳转贴子详情页面
-            this.$router.push('/postdetails');
-            this.$store.commit('postdel',item)
+            // this.$router.push('/postdetails');
+            this.$store.commit('postdel',item);
+            this.$router.push({
+                name: "Postdetails",
+                params: { id: `${item.id}` },
+            });
         },
         toArticle(){
             this.$router.push('/person/article')
