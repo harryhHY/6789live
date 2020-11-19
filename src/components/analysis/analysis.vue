@@ -163,7 +163,8 @@
             <div class="left cu b1b">
               <el-dropdown @command="hRecentNumfn">
                 <span class="el-dropdown-link">
-                  {{hRecentNum}}<i class="el-icon-arrow-down el-icon--right"></i>
+                  {{ hRecentNum
+                  }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item
@@ -263,7 +264,8 @@
             <div class="left cu b1b">
               <el-dropdown @command="aRecentNumfn">
                 <span class="el-dropdown-link">
-                  {{aRecentNum}}<i class="el-icon-arrow-down el-icon--right"></i>
+                  {{ aRecentNum
+                  }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item
@@ -327,7 +329,7 @@
                 class="left recrd_ateam ov"
                 v-text="item.isHost == 1 ? aTeamName : item.enemyName"
               >
-                {{ item.enemyName }}
+                <!-- {{ item.enemyName }} -->
               </div>
               <div
                 class="left recrd_score"
@@ -756,6 +758,17 @@ export default {
       disstributed: [], //主队进球分布
       disstributed1: [], //客队进球分布
       againstRecord: [], //历史交锋
+      againstRecordNull: [
+        {
+          hIdVsAid: [
+            "-",'-'
+          ],
+          halfScores: "-",
+          totalScores: [
+          "-","-"
+          ],
+        },
+      ],
       activeIndex: "2",
       headerKey: "2",
       game_num: [], //主队近期战绩
@@ -820,21 +833,21 @@ export default {
       myChart.setOption(option);
     },
     hRecentNumfn(command) {
-      this.game_num.map((item)=>{
-        if(item.network == command){
-          this.hRecentNum = item.inquirenum
+      this.game_num.map((item) => {
+        if (item.network == command) {
+          this.hRecentNum = item.inquirenum;
         }
-      })
+      });
       let pipi = this.aRecrdList;
       pipi.slice(0, command);
       this.aRecrdListFilter = pipi.slice(0, command);
     },
     aRecentNumfn(command) {
-       this.game_num1.map((item)=>{
-        if(item.network == command){
-          this.aRecentNum = item.inquirenum
+      this.game_num1.map((item) => {
+        if (item.network == command) {
+          this.aRecentNum = item.inquirenum;
         }
-      })
+      });
       let pipi = this.aRecrdList1;
       pipi.slice(0, command);
       this.aRecrdList1Filter = pipi.slice(0, command);
@@ -880,8 +893,12 @@ export default {
               }
             }
           }
-          this.againstRecord = againstRecord;
-          console.log(againstRecord)
+          if (againstRecord != false) {
+            this.againstRecord = againstRecord;
+          } else {
+            this.againstRecord =this.againstRecordNull;
+          }
+          console.log(againstRecord);
           //近期战绩
           this.aRecrdList = this.aRecrdListFilter = hRecord;
           this.aRecrdList1 = this.aRecrdList1Filter = aRecord;
