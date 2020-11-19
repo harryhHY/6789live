@@ -23,7 +23,7 @@
           @select="handleSelect"
           text-color="#ffffff"
           active-text-color="#1a90fc"
-          background-color= "transparent"
+          background-color="transparent"
         >
           <el-menu-item
             v-for="(item, key, index) in title_data"
@@ -75,8 +75,13 @@
                   v-if="upic"
                 ></el-avatar>
                 <el-avatar v-else> {{ uname }} </el-avatar>
-               <span v-if="nickname">{{nickname}}<i class="el-icon-arrow-down el-icon--right"></i></span>
-               <span v-else>{{uname}}<i class="el-icon-arrow-down el-icon--right"></i></span>
+                <span v-if="nickname"
+                  >{{ nickname
+                  }}<i class="el-icon-arrow-down el-icon--right"></i
+                ></span>
+                <span v-else
+                  >{{ uname }}<i class="el-icon-arrow-down el-icon--right"></i
+                ></span>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item
@@ -118,7 +123,7 @@
 <script>
 const login = () => import("@/page/login/login");
 const registered = () => import("@/page/registered/registered");
-import { mapState , mapMutations } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: {
     login,
@@ -197,7 +202,7 @@ export default {
           } else if (res.data.code == 0) {
             this.$message({
               type: "success", // warning、success
-              message: "登出成功！"
+              message: "登出成功！",
             });
             this.$store.commit("token", "");
             localStorage.setItem("token", "");
@@ -219,7 +224,7 @@ export default {
       console.log(e);
     },
     gotosm(src) {
-      console.log(src)
+      console.log(src);
       this.$router.push(src);
       if (src == "/live") {
         this.$store.commit("liveheader", 0);
@@ -288,17 +293,16 @@ export default {
     },
   },
   computed: {
-    ...mapState(["token","uname","upic","nickname"]),
+    ...mapState(["token", "uname", "upic", "nickname"]),
   },
   watch: {},
   created() {
     this.activeIndex2 = this.headerKey;
   },
   mounted() {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem("token")) {
       this.getbasic();
     }
-    
   },
 };
 </script>
@@ -321,7 +325,7 @@ export default {
   color: #ffffff;
   margin: 0 10px;
   .el-submenu__title:hover {
-   background-color:transparent;
+    background-color: transparent;
   }
 }
 .registeredicon {
@@ -345,6 +349,9 @@ export default {
 #home_header {
   background-image: url("../../image/header.png");
   background-size: 100%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 .istokendiv {
   position: absolute;

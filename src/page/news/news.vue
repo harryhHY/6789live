@@ -428,7 +428,7 @@ export default {
   }
 }
 .news_content:hover{
-  background-color: #dedede;
+  background-color: #f6f6f6;
 }
 .newslive {
   padding: 20px;
@@ -455,7 +455,7 @@ export default {
   margin-left: 43px;
   .label {
     background-color: #aeaeae;
-    color: #848484;
+    color: #ffffff;
     width: 79px;
     height: 20px;
     line-height: 20px;
@@ -463,7 +463,7 @@ export default {
     border-radius: 10px;
   }
   .label:hover {
-    color: #014681;
+    color: #ffffff;
     background-color: #1a90fc;
   }
 }

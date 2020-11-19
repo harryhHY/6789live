@@ -48,7 +48,7 @@
                 >
                   <span
                     @click="changtype(index, item)"
-                    :class="index == footballflag ? 'footerclick' : ''"
+                    :class="index == footballflag ? 'footerclick lili' : 'lili'"
                     >{{ item }}</span
                   >
                   <i>|</i>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="left footercomm">足球社区</div>
               </div>
-              <div class="right cu" @click="gotocommunity()">更多》</div>
+              <div class="right cu morespan" @click="gotocommunity()">更多》</div>
             </div>
             <div class="communitymsg">
               <div
@@ -120,7 +120,7 @@
               >
                 <span
                   @click="changtype1(key, item)"
-                  :class="key == baskeballflag ? 'footerclick' : ''"
+                  :class="key == baskeballflag ? 'footerclick lili' : 'lili'"
                   >{{ item }}</span
                 >
                 <i>|</i>
@@ -146,7 +146,7 @@
               </div>
               <div class="left footercomm">篮球社区</div>
             </div>
-            <div class="right cu" @click="gotocommunity()">更多》</div>
+            <div class="right cu morespan" @click="gotocommunity()">更多》</div>
           </div>
           <div class="communitymsg">
             <div
@@ -564,6 +564,9 @@ export default {
     margin-left: 10px;
   }
 }
+.lili:hover{
+  color: #1a90fc;
+}
 .footercomm {
   margin-left: 15px;
   color: #1a90fc;
@@ -664,6 +667,9 @@ export default {
     color: #a9a9a9;
     font-size: 16px;
     line-height: 30px;
+  }
+  .morespan:hover{
+    color: #1a90fc;
   }
   .footer_content {
     padding: 16px 16px;

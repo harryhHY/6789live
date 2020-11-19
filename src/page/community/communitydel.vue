@@ -516,12 +516,18 @@ export default {
           color: #014581;
           background-color: #e1f1fe;
           padding-left: 20px;
+          height: 45px;
           .main_title_left {
             .news {
               width: 68px;
               height: 44px;
               line-height: 44px;
               text-align: center;
+            }
+            .news:hover {
+              color: #01a1fc;
+              // box-shadow: 0 1px 1px -1px #01a0fc;
+              border-bottom: 1px solid #01a0fc;
             }
             .click {
               color: #01a1fc;
