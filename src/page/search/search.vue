@@ -103,7 +103,7 @@
             :key="item.id"
             @click="gotonewsdel(item)"
           >
-            <div class="left news_title1">{{ item.news_title }}</div>
+            <div class="left news_title1 ov">{{ item.news_title }}</div>
             <div class="left news_title1">{{ item.ch_name }}</div>
             <div class="left news_title1">
               {{ item.news_addtime | formDate }}
@@ -136,6 +136,7 @@
         <div class="cl">
           <div class="right pagination_div">
             <el-pagination
+              :current-page.sync="page"
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :page-size="page_size"
@@ -223,6 +224,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.page = val;
+      console.log(val);
       this.getsearchdata();
     },
     inst() {
@@ -233,6 +235,7 @@ export default {
     },
     radiochange(val) {
       console.log(this.radio);
+      this.page = 1;
       this.getsearchdata();
     },
     attention(item) {
@@ -257,7 +260,7 @@ export default {
     },
     changesearch_type(id) {
       // 切换新闻话题 用户
-
+      this.page = 1;
       this.search_type = id;
       this.value = "";
       this.radio = "1";
@@ -276,7 +279,19 @@ export default {
             });
           } else if (code == 0) {
             let { channel, user_followed_id } = res.data.params;
-            let totalList = channel[1].concat(channel[2], channel[3]);
+            let List1 = [];
+            let List2 = [];
+            let List3 = [];
+            if (channel[1]) {
+              List1 = channel[1];
+            }
+            if (channel[2]) {
+              List2 = channel[2];
+            }
+            if (channel[3]) {
+              List3 = channel[3];
+            }
+            let totalList = List1.concat(List2, List3);
             this.totalList = totalList;
             this.getsearchdata();
           }
