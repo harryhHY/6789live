@@ -389,7 +389,7 @@ export default {
         if (code == 0) {
           console.log(params);
           this.$message({
-            message: msg,
+            message: '成功',
             type: "success",
           });
           this.getrouterdata();
