@@ -140,11 +140,13 @@
           @click="gotopostdetails(item)"
         >
           <div class="left menu_type_div">
-            <span class="menu_type">{{ communitydel.ch_columnm_name }}</span>
-            {{ item.forum_title }}
+            <span class="menu_type ov">{{ communitydel.ch_columnm_name }}</span>
+            <span>
+              {{ item.forum_title }}
+            </span>
           </div>
           <div class="lookdel centerimg">
-            查看详情
+            查看
             <span></span>
           </div>
         </div>
@@ -591,7 +593,7 @@ export default {
     }
   }
   .community_menu {
-    width: 353px;
+    width: 370px;
     margin-top: 20px;
     margin-left: 9px;
     padding: 0 11px;
@@ -622,12 +624,12 @@ export default {
         background-color: #fff;
       }
       .menu_type_div {
-        width: 220px;
+        width: 280px;
         margin: 11px 8px;
         font-size: 16px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2; //控制行数
+        -webkit-line-clamp: 1; //控制行数
         overflow: hidden;
       }
       .menu_type {
