@@ -77,7 +77,7 @@ export default {
 .live_video {
   font-size: 14px;
   width: 325px;
-  margin-left: 7px;
+  margin-left: 20px;
   background-color: #fff;
   border-top: 3px solid #1a90fc;
   border-radius: 5px;
