@@ -388,6 +388,7 @@ export default {
       }
       .menu_header_foot_class_title:hover {
         color: #01a0fc;
+        box-shadow:0 1px 1px -1px  #01a0fc;
       }
     }
   }
@@ -494,6 +495,9 @@ export default {
         }
       }
     }
+  }
+  .footer_content:hover{
+    background-color: #dedede;
   }
   .bsktitle {
     background-image: url("../../image/cmm/bsbtitle.png");
