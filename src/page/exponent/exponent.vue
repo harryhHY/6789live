@@ -5,7 +5,7 @@
       <analysisheader :checkmenutype="checkmenutype"></analysisheader>
       <div class="exponent_div">
         <div class="exponent_header cl">
-          <div class="left select_div cu" @click="openValue">
+          <!-- <div class="left select_div cu" @click="openValue">
             <span>{{ value }}</span>
             <img src="../../image/al/down.png" alt="" class="select_img" />
             <div class="opthings_div" v-show="show">
@@ -18,8 +18,26 @@
                 {{ item.provider }}
               </div>
             </div>
+          </div> -->
+          <div class="left">
+            <el-select v-model="value1" multiple placeholder="请选择">
+              <el-option
+                v-for="item in tableData"
+                :key="item.value"
+                :label="item.label"
+                :value="item.provider"
+              >
+              </el-option>
+            </el-select>
           </div>
-          <div class="left" v-text="filter!=false?`共${filter.length}/${List.length}家公司`:`共${List.length}家公司`"></div>
+          <div
+            class="left"
+            v-text="
+              filter != false
+                ? `共${filter.length}/${List.length}家公司`
+                : `共${List.length}家公司`
+            "
+          ></div>
         </div>
         <div class="exponent_title cl">
           <div class="left w142">公司</div>
@@ -34,7 +52,7 @@
           v-if="filter == false"
           v-for="(item, index) in List"
           :key="index"
-          class="exponentfor  cl"
+          class="exponentfor cl"
         >
           <div class="left w142">{{ item.provider }}</div>
           <div class="left w187 cl">
@@ -60,7 +78,7 @@
           class="exponentfor cl"
         >
           <div class="left w142">{{ item.provider }}</div>
-         <div class="left w187 cl">
+          <div class="left w187 cl">
             <div
               v-for="(item, index) in item.data[3].marketOdds"
               class="left w30"
@@ -92,14 +110,13 @@ export default {
       headerKey: "2",
       tableData: [], //下拉公司选项
       show: false,
-      value: "足协杯公司",
       List: [], //指数数据
       filter: [],
+      value1: [],
     };
   },
   methods: {
     changeopthings(e) {
-      this.value = e;
       let pipi = this.List;
       this.filter = [];
       for (let i = 0; i < pipi.length; i++) {
@@ -126,6 +143,24 @@ export default {
   },
   computed: {
     ...mapState(["liveList"]),
+  },
+  watch: {
+    value1(newValue) {
+      let pipi = this.List;
+      let newArr = [];
+      let lili = [];
+      newValue.map((item) => {
+        newArr.push({ item });
+      });
+      pipi.filter((item) => {
+        newArr.map((it) => {
+          if (item.provider == it.item) {
+            lili.push(item);
+          }
+        });
+      });
+      this.filter = lili;
+    },
   },
   components: {
     home_herder,
@@ -231,7 +266,7 @@ export default {
         width: 187px + 2px;
         .w30 {
           border: none;
-          width:33%;
+          width: 33%;
         }
       }
       .w184 {
