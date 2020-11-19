@@ -427,6 +427,7 @@ export default {
   }
   .logon_span:hover {
     cursor: pointer;
+    color: #1a90fc;
   }
 }
 .exit {
