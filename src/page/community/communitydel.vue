@@ -95,7 +95,7 @@
                     <div class="main_content_title left">
                       {{ item.forum_title }}
                     </div>
-                    <img src="../../image/cmm/imgs.png" alt="" />
+                    <!-- <img src="../../image/cmm/imgs.png" alt="" /> -->
                   </div>
                 </div>
               </div>
