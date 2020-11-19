@@ -331,6 +331,9 @@ export default {
         }
       }
     },
+    fixHL(id) {
+      return this.highlight = id;
+    },
     allchange() {
       this.highlight = "";
     },

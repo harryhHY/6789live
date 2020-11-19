@@ -1,7 +1,7 @@
 <template>
   <div id="live" class="cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu @changetype="changetype" />
+    <livemenu @changetype="changetype" ref="livemenu1"/>
     <div class="live_content left">
       <liveheader @getdata="directliveheader"></liveheader>
       <div class="livemain boxshadow">
@@ -96,7 +96,8 @@
 
 <script>
 import { mapState } from "vuex";
-const livemenu = () => import("../live/livemenu");
+// const livemenu = () => import("../live/livemenu");
+import livemenu from '../live/livemenu'
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
@@ -132,7 +133,7 @@ export default {
       todaydate: "",
       type: "",
       livemenudata: [],
-      total: "", //分页总数
+      total: 100, //分页总数
       page_size: 1, //一页数量
       p: 1, //分页第几页
     };
@@ -284,6 +285,7 @@ export default {
     directliveheader() {
       //直接点击liveheader
       this.footballflag = this.liveheader;
+      this.$refs.livemenu1.fixHL("")
       this.p = 1;
       this.getdata();
     },
@@ -365,9 +367,13 @@ export default {
     },
   },
   created() {
-    if (this.livedelId != "") {
+  },
+  mounted () {
+     if (this.livedelId != "") {
       this.changetype(this.clid, this.livedelId);
-      this.$store.commit("livedelId", "");
+      this.$refs.livemenu1.fixHL(this.livedelId)
+      // this.$store.commit("livedelId", "");
+      console.log( this.$refs.livemenu1.fixHL(this.livedelId))
     } else {
       this.footballflag = this.liveheader;
       this.changeButtonList();
