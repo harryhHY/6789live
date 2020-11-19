@@ -357,7 +357,7 @@ export default {
   position: absolute;
   left: 1334px;
   top: 0px;
-  height: 85px;
+  height: 75px;
   display: flex;
   align-items: center;
 }

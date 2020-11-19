@@ -63,7 +63,9 @@
                 class="live_div left cu"
                 @click="gotonewsdel(item)"
               >
-                <img :src="item.news_cover_url" alt="" class="live_img" />
+                <div class="live_img_div">
+                  <img :src="item.news_cover_url" alt="" class="live_img" />
+                </div>
                 <span class="live_title ov">{{ item.news_title }}</span>
               </div>
             </div>
@@ -78,7 +80,9 @@
                 </div>
                 <div class="left footercomm">足球社区</div>
               </div>
-              <div class="right cu morespan" @click="gotocommunity()">更多》</div>
+              <div class="right cu morespan" @click="gotocommunity()">
+                更多》
+              </div>
             </div>
             <div class="communitymsg">
               <div
@@ -135,7 +139,9 @@
               class="live_div left cu"
               @click="gotonewsdel(item)"
             >
-              <img :src="item.news_cover_url" alt="" class="live_img" />
+              <div class="live_img_div">
+                <img :src="item.news_cover_url" alt="" class="live_img" />
+              </div>
               <span class="live_title ov">{{ item.news_title }}</span>
             </div>
           </div>
@@ -564,7 +570,7 @@ export default {
     margin-left: 10px;
   }
 }
-.lili:hover{
+.lili:hover {
   color: #1a90fc;
 }
 .footercomm {
@@ -668,7 +674,7 @@ export default {
     font-size: 16px;
     line-height: 30px;
   }
-  .morespan:hover{
+  .morespan:hover {
     color: #1a90fc;
   }
   .footer_content {
@@ -714,9 +720,24 @@ export default {
       overflow: hidden;
       font-family: PingFangSC-Regular;
     }
+    .live_img_div {
+      width: 208px;
+      height: 120px;
+      overflow: hidden;
+      position: relative;
+    }
     .live_img {
       width: 208px;
       height: 120px;
+    }
+    .live_img_div:hover .live_img {
+      width: 248px;
+      height: 160px;
+      position: absolute;
+      left: -20px;
+      top: -20px;
+      -moz-transition: all 1s;
+      transition: all 1s;
     }
   }
 }
