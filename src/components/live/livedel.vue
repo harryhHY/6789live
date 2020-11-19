@@ -36,7 +36,7 @@
           <div class="live_div" v-show="videosrc != ''">
             <div id="dplayer" ref="dplayer"></div>
           </div>
-          <div v-show="videosrc == ''">
+          <div v-show="videosrc == ''" class="overlive">
             {{ overlive }}
           </div>
           <div class="cl liveroom_div">
@@ -49,6 +49,9 @@
             >
               {{ item.title }}
             </div>
+          </div>
+          <div>
+            {{modify_content}}
           </div>
           <div class="livebottom cl">
             <div class="looktoday left" @click="gotolive()">
@@ -146,6 +149,7 @@ export default {
       nex: "asdasdasdasdasdasdsad",
       pipiload: "",
       livemenudata:[],//热门直播
+      modify_content:"",//直播描述
     };
   },
   methods: {
@@ -178,8 +182,10 @@ export default {
           lfullname,
         } = res.data.params.data;
         let {
-          hot_live
+          hot_live,
+          modify_content
         } = res.data.params
+        this.modify_content = modify_content
         this.livemenudata = hot_live
         this.videosrc = murl;
         this.signals = signals;
@@ -241,8 +247,8 @@ export default {
       this.menu_num = data;
     },
     // 左边直播分类传过来的值
-    pve(e) {
-      console.log(e);
+    pve(clid,id) {
+      console.log(clid,id);
     },
     dateFormat(fmt, date) {
       //时间格式
@@ -305,6 +311,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.overlive{
+  text-align: center;
+}
 .livedel_div {
   background-color: #ffffff;
   border-radius: 10px;
