@@ -23,7 +23,7 @@
                     <img v-for="(images,index) in item.feedback_pic" :key="index" :src="images" alt="">
                 </div>
                 <div class="message">
-                    您有新消息
+                    您有新消息({{item.feedback_new_reply}})
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@ export default {
             if(localStorage.getItem("imgList")){
                 this.urlImgList = JSON.parse(localStorage.getItem("imgList"));
             } 
-            console.log(this.urlImgList);      
+            // console.log(String(this.urlImgList));      
             let data = this.editor.txt.html()
             if(this.articletitle != ''){
                 this.$api.sendsuggest.suggest({
@@ -97,10 +97,11 @@ export default {
                     } else if (res.data.code == 0) {
                         this.$message({
                             type: 'success', // warning、success
-                            message: res.data.msg 
+                            message: '反馈提交成功！' 
                         })
                         //成功清除保存的imglist
-                        localStorage.setItem("imgList", ['']);                   
+                        localStorage.setItem("imgList", ['']);
+                        this.getSuggestList()                  
                     } else if (res.data.code == -1) {
                         this.$message({
                             type: 'success', // warning、success

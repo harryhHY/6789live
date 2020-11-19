@@ -2,7 +2,7 @@
     <div class="attention">
         <p class="p_title">他的关注</p>
         <div class="attention_list">
-            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="getIndex(index)">
+            <div :class="['subatten',{'subatten2':(index+1) % 4 !== 0}]" v-for="(item,index) in attentionData" :key="index" @click="goPerson(item.id)">
             <!-- <p class="guanzhu" :style="{ width: newWidth < 100 ? 100 : newWidth + 'px' }">2222</p> -->
                 <div class="attenhead">
                     <img :src="item.user_pic" alt="">
@@ -56,7 +56,7 @@ export default {
                 timeout: 3000
             })
             .then(res => {
-                // console.log(res);
+                console.log(res);
                 if (res.data.code == 1) {
                     this.$message({
                         type: 'error', // warning、success
@@ -77,7 +77,18 @@ export default {
             .catch(error => {
                 console.log(error);
             });
-        }
+        },
+        //去个人中心
+        goPerson(value) {
+            let uid = localStorage.getItem("user_uid");
+            if (uid == value) {
+                this.$router.push("/person");
+            } else {
+                console.log(value);
+                this.$router.push({ name: "hishomeperson", params: { uname: value } });
+                this.$router.go(0);
+            }
+        },
     },
     mounted(){
         this.getAttention()

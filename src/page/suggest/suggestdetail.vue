@@ -99,6 +99,7 @@ export default {
                 this.replyUrlImgList = JSON.parse(localStorage.getItem("relpyImgList"));
             }           
             let data = this.editor.txt.html()
+            // console.log(String(this.replyUrlImgList));
             //回复提交
             this.$axios({
                 url:`${this.$api.suggestreply}/${this.uid}`,

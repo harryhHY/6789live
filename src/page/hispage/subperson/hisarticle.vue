@@ -113,7 +113,7 @@ export default {
             this.$store.commit('postdel',item);
             this.$router.push({
                 name: "Postdetails",
-                params: { id: `${item.id}` },
+                params: { id: `${item.forum_id}` },
             });
         },
     },
