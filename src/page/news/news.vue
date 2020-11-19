@@ -39,12 +39,13 @@
           class="news_content cl"
           v-for="(item, index) in newsdata"
           :key="index"
+          @click="gotonewsdel(item)"
         >
-          <div class="left img_div" @click="gotonewsdel(item)">
+          <div class="left img_div" >
             <img :src="item.news_cover_url" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
-            <div class="news_title cl" @click="gotonewsdel(item)">
+            <div class="news_title cl" >
               <div class="newstype1 left ov">
                 {{ item.ch_name }}
               </div>
@@ -56,7 +57,7 @@
                 >
               </div>
             </div>
-            <div class="details ov cl" @click="gotonewsdel(item)">
+            <div class="details ov cl" >
               <span class="left">详情：</span
               ><span class="left" v-html="item.news_body"></span>
             </div>
@@ -185,6 +186,7 @@ export default {
         });
     },
     changenewstype(id) {
+      event.stopPropagation();
       this.menuDataFilter(id);
       this.newsClass = this.menubacketballdata.concat(
         this.menucomplexdata,
@@ -425,7 +427,9 @@ export default {
     margin-top: 7px;
   }
 }
-
+.news_content:hover{
+  background-color: #dedede;
+}
 .newslive {
   padding: 20px;
 }

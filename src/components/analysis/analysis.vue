@@ -224,12 +224,16 @@
             >
               <!-- <div class="left recrd_match ov">{{ item.recrd_match }}</div> -->
               <!-- <div class="left recrd_date">{{ item.recrd_date }}</div> -->
-              <div
-                class="left recrd_ateam ov"
-                v-text="item.isHost == 1 ? hTeamName : item.enemyName"
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="item.isHost == 1 ? hTeamName : item.enemyName"
+                placement="top"
               >
-                {{ item.enemyName }}
-              </div>
+                <div class="left recrd_ateam ov cu">
+                  {{ item.isHost == 1 ? hTeamName : item.enemyName }}
+                </div>
+              </el-tooltip>
               <div
                 class="left recrd_score"
                 v-text="
@@ -238,10 +242,16 @@
                     : '暂无'
                 "
               ></div>
-              <div
-                class="left recrd_bteam ov"
-                v-text="item.isHost == 0 ? hTeamName : item.enemyName"
-              ></div>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="item.isHost == 0 ? hTeamName : item.enemyName"
+                placement="top"
+              >
+                <div class="left recrd_bteam ov cu">
+                  {{ item.isHost == 0 ? hTeamName : item.enemyName }}
+                </div>
+              </el-tooltip>
               <!-- <div class="left recrd_half">{{ item.recrd_half }}</div> -->
               <!-- <div class="left recrd_winlose">{{ item.recrd_winlose }}</div> -->
               <!-- <div class="left recrd_trend">{{ item.recrd_trend }}</div> -->
@@ -325,12 +335,16 @@
             >
               <!-- <div class="left recrd_match ov">{{ item.recrd_match }}</div> -->
               <!-- <div class="left recrd_date">{{ item.recrd_date }}</div> -->
-              <div
-                class="left recrd_ateam ov"
-                v-text="item.isHost == 1 ? aTeamName : item.enemyName"
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="item.isHost == 1 ? aTeamName : item.enemyName"
+                placement="top"
               >
-                <!-- {{ item.enemyName }} -->
-              </div>
+                <div class="left recrd_ateam ov cu">
+                  {{ item.isHost == 1 ? aTeamName : item.enemyName }}
+                </div>
+              </el-tooltip>
               <div
                 class="left recrd_score"
                 v-text="
@@ -339,10 +353,16 @@
                     : '暂无'
                 "
               ></div>
-              <div
-                class="left recrd_bteam ov"
-                v-text="item.isHost == 0 ? aTeamName : item.enemyName"
-              ></div>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="item.isHost == 0 ? aTeamName : item.enemyName"
+                placement="top"
+              >
+                <div class="left recrd_bteam ov cu">
+                  {{ item.isHost == 0 ? aTeamName : item.enemyName }}
+                </div>
+              </el-tooltip>
               <!-- <div class="left recrd_half">{{ item.recrd_half }}</div> -->
               <!-- <div class="left recrd_winlose">{{ item.recrd_winlose }}</div> -->
               <!-- <div class="left recrd_trend">{{ item.recrd_trend }}</div> -->
@@ -760,13 +780,9 @@ export default {
       againstRecord: [], //历史交锋
       againstRecordNull: [
         {
-          hIdVsAid: [
-            "-",'-'
-          ],
+          hIdVsAid: ["-", "-"],
           halfScores: "-",
-          totalScores: [
-          "-","-"
-          ],
+          totalScores: ["-", "-"],
         },
       ],
       activeIndex: "2",
@@ -896,7 +912,7 @@ export default {
           if (againstRecord != false) {
             this.againstRecord = againstRecord;
           } else {
-            this.againstRecord =this.againstRecordNull;
+            this.againstRecord = this.againstRecordNull;
           }
           console.log(againstRecord);
           //近期战绩
@@ -1422,13 +1438,13 @@ export default {
         width: 86px;
       }
       .recrd_ateam {
-        width: 94.5px;
+        width: 94.5px * 2;
       }
       .recrd_score {
         width: 50px;
       }
       .recrd_bteam {
-        width: 94.5px;
+        width: 94.5px *2;
       }
       .recrd_half {
         width: 49px;
@@ -1533,13 +1549,13 @@ export default {
         width: 86px;
       }
       .recrd_ateam {
-        width: 94.5px;
+        width: 94.5px * 2;
       }
       .recrd_score {
         width: 50px;
       }
       .recrd_bteam {
-        width: 94.5px;
+        width: 94.5px *2;
       }
       .recrd_half {
         width: 49px;
