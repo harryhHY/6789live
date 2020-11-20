@@ -14,7 +14,7 @@
             >
               <span
                 @click="changtype(item.id, item.ch_columnm)"
-                :class="item.id == footballflag ? 'footerclick' : ''"
+                :class="item.id == HL ? 'footerclick' : ''"
                 >{{ item.ch_name }}</span
               >
               <i>|</i>
@@ -136,6 +136,7 @@ export default {
       total: 100, //分页总数
       page_size: 1, //一页数量
       p: 1, //分页第几页
+      HL:'',//选中高亮
     };
   },
   methods: {
@@ -159,9 +160,11 @@ export default {
     },
     // 切换最新栏目
     changtype(id, name) {
+      this.HL = id
+      this.$refs.livemenu1.fixHL(id)
       this.footballflag = name;
       this.p = 1;
-      if (id == -100 || id == -101) {
+      if (id < 0) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${name}`,
           params: {
@@ -199,7 +202,12 @@ export default {
             p: this.p,
           },
         }).then((res) => {
-          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let {
+            dataFootball,
+            dataBasketball,
+            hot_live,
+            other,
+          } = res.data.params;
           let pipi = name + 1;
           this.livemenudata = hot_live;
           switch (pipi) {
@@ -211,6 +219,10 @@ export default {
             case 3:
               this.livedata = dataBasketball;
               this.type = "篮球";
+              break;
+            case 4:
+              this.livedata = other;
+              this.type = "其他";
               break;
           }
           console.log(pipi, this.type);
@@ -228,26 +240,35 @@ export default {
     },
     // 左边直播分类传过来的值
     changetype(clid, id) {
+      this.HL = id
       this.p = 1;
-      if (id == -100 || id == -101) {
+      if (id < 0) {
         this.$axios({
           url: `${this.$api.homeindex.getliveindex()}${clid}`,
           params: {
             p: this.p,
           },
         }).then((res) => {
-          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let {
+            dataFootball,
+            dataBasketball,
+            hot_live,
+            other,
+          } = res.data.params;
           this.livemenudata = hot_live;
           console.log(clid);
           switch (clid) {
             case 1:
               this.livedata = dataFootball;
-
               this.type = "足球";
               break;
             case 2:
               this.livedata = dataBasketball;
               this.type = "篮球";
+              break;
+            case 3:
+              this.livedata = other;
+              this.type = "其他";
               break;
           }
         });
@@ -258,7 +279,12 @@ export default {
             p: this.p,
           },
         }).then((res) => {
-          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let {
+            dataFootball,
+            dataBasketball,
+            hot_live,
+            other,
+          } = res.data.params;
           this.livemenudata = hot_live;
           switch (clid) {
             case 1:
@@ -268,6 +294,10 @@ export default {
             case 2:
               this.livedata = dataBasketball;
               this.type = "篮球";
+              break;
+            case 3:
+              this.livedata = other;
+              this.type = "其他";
               break;
           }
         });
@@ -309,6 +339,7 @@ export default {
           dataBasketball,
           hot_live,
           pagination,
+          other
         } = res.data.params;
 
         let { page_size, total } = pagination;
@@ -324,6 +355,10 @@ export default {
           case 2:
             this.livedata = dataBasketball;
             this.type = "篮球";
+            break;
+          case 3:
+            this.livedata = other;
+            this.type = "其他";
             break;
         }
       });
@@ -351,20 +386,12 @@ export default {
       return this.$store.state.liveheader;
     },
     menufootDatafn() {
-       return this.channel[this.liveheader];
-      // if (this.liveheader == 0) {
-      //   return this.$store.state.menufootData;
-      // } else {
-      //   return this.$store.state.menubacketballdata;
-      // }
+      return this.channel[this.liveheader];
     },
   },
   watch: {
     liveheaderfn(newValue) {
-      // console.log(newValue);
       this.footballflag = newValue;
-      // this.football = this.channel[newValue];
-      // console.log(this.football);
       this.p = 1;
     },
     menufootDatafn(newValue) {
