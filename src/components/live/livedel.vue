@@ -319,6 +319,7 @@ export default {
   background-color: #ffffff;
   border-radius: 10px;
   padding-top: 22px;
+  width: 1188px;
   .hometitle {
     color: #2a88f3;
     border-left: 5px solid #014681;
