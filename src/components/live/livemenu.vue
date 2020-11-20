@@ -106,7 +106,7 @@
             class="footerclass_header cu"
             @click="changebbkUnfold(3, isCollapse)"
           >
-            <div>其他</div>
+            <div>综合</div>
             <div
               :class="
                 isCollapse

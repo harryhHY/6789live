@@ -230,6 +230,7 @@ export default {
         }).then((res) => {
           let { dataFootball, dataBasketball, hot_live } = res.data.params;
           this.livemenudata = hot_live;
+          console.log(clid)
           switch (clid) {
             case 1:
               this.livedata = dataFootball;
@@ -238,7 +239,6 @@ export default {
               break;
             case 2:
               this.livedata = dataBasketball;
-
               this.type = "篮球";
               break;
           }
