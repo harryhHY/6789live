@@ -33,12 +33,14 @@
           </div>
         </div>
         <!-- 足球 -->
-        <div class="footerclass">
+        <div class="footerclass" v-for="(item, index) in channel">
           <div
             class="footerclass_header cu"
             @click="changebbkUnfold(1, footdataflag)"
           >
-            <div>足球</div>
+            <div>
+              {{ item[1].ch_columnm_name }}
+            </div>
             <div
               :class="
                 footdataflag
@@ -50,16 +52,16 @@
           <div class="cl mylike" v-if="!footdataflag">
             <div class="cl">
               <div
-                v-for="(item, index) in footData"
-                :key="item.id"
+                v-for="(item1, index) in item"
+                :key="item1.id"
                 :class="
-                  highlight == item.id
+                  highlight == item1.id
                     ? 'playnum1  cu left ov'
                     : 'playnum cu left ov'
                 "
-                @click="changetype1(item.ch_columnm, item.id, item)"
+                @click="changetype1(item1.ch_columnm, item1.id, item1)"
               >
-                {{ item.ch_name }}
+                {{ item1.ch_name }}
               </div>
             </div>
             <!-- <div class="cu">
@@ -68,7 +70,7 @@
           </div>
         </div>
         <!-- 篮球 -->
-        <div>
+        <!-- <div>
           <div
             class="footerclass_header cu"
             @click="changebbkUnfold(2, bbflag)"
@@ -95,13 +97,10 @@
                 {{ item.ch_name }}
               </div>
             </div>
-            <!-- <div class="cu">
-              <div class="lookmore"></div>
-            </div> -->
           </div>
-        </div>
+        </div> -->
         <!-- 综合 -->
-        <div>
+        <!-- <div>
           <div
             class="footerclass_header cu"
             @click="changebbkUnfold(3, isCollapse)"
@@ -130,11 +129,8 @@
                 {{ item.ch_name }}
               </div>
             </div>
-            <!-- <div class="cu">
-              <div class="lookmore"></div>
-            </div> -->
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -155,6 +151,7 @@ export default {
       menutitle: "", //菜单标题
       totalData: [], //所有的栏目
       highlight: "",
+      channel: [], //所有栏目的原数组
     };
   },
   methods: {
@@ -205,6 +202,12 @@ export default {
             });
           } else if (code == 0) {
             let { channel, user_followed_id } = res.data.params;
+
+            for (let item in channel) {
+              this.channel.push(channel[item]);
+            }
+            console.log(this.channel);
+            this.$store.commit("channel", this.channel);
             if (channel[1]) {
               this.footData = channel[1];
             }
@@ -246,10 +249,27 @@ export default {
                 ch_views_num: 0,
                 id: -101,
               };
+              let otherAll = {
+                ch_columnm: 3,
+                ch_columnm_name: "其他",
+                ch_desc: "直播-NBA",
+                ch_logo:
+                  "/static/image/20201029/891ff34fc30bc030dc60a79988c98e7de0e77220.png",
+                ch_name: "全部",
+                ch_order: 1,
+                ch_owner: "",
+                ch_reply_num: 0,
+                ch_status: 0,
+                ch_type: 1,
+                ch_views_num: 0,
+                id: -101,
+              };
               this.footData.unshift(footAll);
               this.backetballdata.unshift(backetAll);
+              this.Collapsedata.unshift(otherAll);
               this.$store.commit("menufootData", this.footData);
               this.$store.commit("menubacketballdata", this.backetballdata);
+              this.$store.commit("menubacketballdata", this.Collapsedata);
             }
 
             this.$store.commit("menufootData", this.footData);

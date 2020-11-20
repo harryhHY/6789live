@@ -93,6 +93,7 @@
                   {{ item.ch_owner }}
                 </div>
                 <div class="left footer_time">
+                  {{ item.forum_owner }}
                   {{ item.forum_addtime | formDate }}
                 </div>
               </div>
@@ -495,7 +496,7 @@ export default {
       }
     }
   }
-  .footer_content:hover{
+  .footer_content:hover {
     background-color: #f6f6f6;
   }
   .bsktitle {

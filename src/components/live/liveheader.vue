@@ -2,16 +2,37 @@
   <div>
     <div class="header cl">
       <div class="left">
-        <div class="header_column">
-          <img src="../../image/news/sicon.png" alt="" class="sicon" />
-          <img
-            :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
-            v-for="(item, key) in liveList"
-            :key="item.id"
-            @click="changetype(key)"
-            alt=""
-            class="cu siconimg"
-          />
+        <div class="header_column cl">
+          <img src="../../image/news/sicon.png" alt="" class="sicon left" />
+          <div
+            class="left"
+            v-for="(item, index) in channel"
+            :key="index"
+            :class="
+              liveListflag == index
+                ? 'cu siconimg1 siconimg cl'
+                : ' cu siconimg cl'
+            "
+            @click="changetype(index)"
+          >
+            <div
+              :class="
+                liveListflag == index
+                  ? 'channel channel1 right'
+                  : '  channel right'
+              "
+            >
+              {{ item[2].ch_columnm_name }}
+            </div>
+            <!-- <img
+              :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
+              v-for="(item, key) in liveList"
+              :key="item.id"
+              @click="changetype(key)"
+              alt=""
+              class="cu siconimg"
+            /> -->
+          </div>
         </div>
       </div>
     </div>
@@ -31,13 +52,13 @@ export default {
           imgsrc1: require("../../image/news/ftb1.png"),
           clicktype: true,
         },
-        {
-          id: 2,
-          playdata: "篮球",
-          imgsrc: require("../../image/news/bbk.png"),
-          imgsrc1: require("../../image/news/bbk1.png"),
-          clicktype: false,
-        },
+        // {
+        //   id: 2,
+        //   playdata: "篮球",
+        //   imgsrc: require("../../image/news/bbk.png"),
+        //   imgsrc1: require("../../image/news/bbk1.png"),
+        //   clicktype: false,
+        // },
       ],
       liveListflag: 0,
     };
@@ -45,15 +66,8 @@ export default {
   methods: {
     //中间切换足球、篮球种类的
     changetype(index) {
-      let data = this.liveList;
       this.$store.commit("liveheader", index);
-      for (let i = 0; i < this.liveList.length; i++) {
-        if (i == index) {
-          this.liveList[i].clicktype = true;
-        } else {
-          this.liveList[i].clicktype = false;
-        }
-      }
+      this.liveListflag = index;
       switch (this.$route.name) {
         case "Live":
           this.$emit("getdata");
@@ -64,19 +78,12 @@ export default {
       }
     },
     createdchangetype(index) {
-      let data = this.liveList;
       this.$store.commit("liveheader", index);
-      for (let i = 0; i < this.liveList.length; i++) {
-        if (i == index) {
-          this.liveList[i].clicktype = true;
-        } else {
-          this.liveList[i].clicktype = false;
-        }
-      }
+      this.liveListflag = index;
     },
   },
   computed: {
-    ...mapState(["liveheader"]),
+    ...mapState(["liveheader", "channel"]),
     liveheaderfn() {
       return this.$store.state.liveheader;
     },
@@ -101,7 +108,30 @@ export default {
     .siconimg {
       margin-top: 23px;
       margin-right: 35px;
+      background-image: url("../../image/news/ftb.png");
+      background-size: 100%;
+      width: 112px;
+      height: 32px;
+    }
+    .siconimg1 {
+      background-image: url("../../image/news/ftb1.png");
+    }
+    .siconimg:hover {
+      background-image: url("../../image/news/ftb1.png");
     }
   }
+}
+.channel {
+  font-family: "HiraginoSansGB-W3";
+  font-size: 22px;
+  color: #b8cada;
+  padding-bottom: 7px;
+  margin-right: 13px;
+}
+.channel1 {
+  color: #014681;
+}
+.siconimg:hover .channel{
+  color: #014681;
 }
 </style>

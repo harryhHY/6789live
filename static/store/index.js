@@ -99,6 +99,9 @@ const mutations = {
   clid(state,data){
     state.clid = data
   },
+  channel(state,data){
+    state.channel = data
+  },
   livedelId(state,data){
     state.livedelId = data
   }

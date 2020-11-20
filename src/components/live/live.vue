@@ -168,18 +168,26 @@ export default {
             p: this.p,
           },
         }).then((res) => {
-          let { dataFootball, dataBasketball, hot_live } = res.data.params;
+          let {
+            dataFootball,
+            dataBasketball,
+            hot_live,
+            other,
+          } = res.data.params;
           let pipi = name + 1;
           this.livemenudata = hot_live;
           switch (pipi) {
             case 2:
               this.livedata = dataFootball;
-
               this.type = "足球";
               break;
             case 3:
               this.livedata = dataBasketball;
               this.type = "篮球";
+              break;
+            case 4:
+              this.livedata = other;
+              this.type = "其他";
               break;
           }
           console.log(pipi, this.type);
@@ -230,7 +238,7 @@ export default {
         }).then((res) => {
           let { dataFootball, dataBasketball, hot_live } = res.data.params;
           this.livemenudata = hot_live;
-          console.log(clid)
+          console.log(clid);
           switch (clid) {
             case 1:
               this.livedata = dataFootball;
@@ -308,7 +316,6 @@ export default {
         this.page_size = page_size;
         let pipi = this.footballflag + 1;
         this.livemenudata = hot_live;
-        console.log(this.livemenudata);
         switch (pipi) {
           case 1:
             this.livedata = dataFootball;
@@ -338,29 +345,27 @@ export default {
       "menubacketballdata",
       "clid",
       "livedelId",
+      "channel",
     ]),
     liveheaderfn() {
       return this.$store.state.liveheader;
     },
     menufootDatafn() {
-      if (this.liveheader == 0) {
-        return this.$store.state.menufootData;
-      } else {
-        return this.$store.state.menubacketballdata;
-      }
+       return this.channel[this.liveheader];
+      // if (this.liveheader == 0) {
+      //   return this.$store.state.menufootData;
+      // } else {
+      //   return this.$store.state.menubacketballdata;
+      // }
     },
   },
   watch: {
     liveheaderfn(newValue) {
-      console.log(newValue);
+      // console.log(newValue);
       this.footballflag = newValue;
-      if (newValue == 0) {
-        this.football = this.menufootData;
-      } else {
-        this.football = this.menubacketballdata;
-      }
+      // this.football = this.channel[newValue];
+      // console.log(this.football);
       this.p = 1;
-      // this.getdata();
     },
     menufootDatafn(newValue) {
       this.football = newValue;
@@ -401,7 +406,6 @@ export default {
     url("../../image/3.jpg") 800px 0 repeat;
   background-position: 0 0, 800px 0;
   background-size: 100%;
-
 }
 .playname {
   display: inline-block;
