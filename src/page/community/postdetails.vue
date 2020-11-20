@@ -58,6 +58,7 @@
             v-for="(item, index) in accessList"
             :key="index"
             class="showavatar left cu"
+            @click="goPerson(item.id)"
           >
             <img :src="item.user_pic" alt="" class="showavatar_img" />
             <div>
