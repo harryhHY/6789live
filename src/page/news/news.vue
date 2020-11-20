@@ -4,20 +4,12 @@
     <livemenu @changenewstype="changenewstype" ref="livemenuNews"></livemenu>
     <div class="new_content boxshadow left">
       <div>
-        <div
-          :class="
-            changemenuflag == '-1' ? 'newsclass1 left cu' : 'newsclass left cu'
-          "
-          @click="showAllData()"
-        >
-          全部
-        </div>
         <div class="newsclass_div cl">
           <div
             v-for="(item, index) in newsClass"
             :key="index"
             :class="
-              changemenuflag == index
+              changemenuflag == item.id
                 ? 'newsclass1 left cu'
                 : 'newsclass left cu'
             "
@@ -26,7 +18,9 @@
             {{ item.ch_name || "" }}
             <div
               :class="
-                changemenuflag == index ? 'newsclass_click1' : 'newsclass_click'
+                changemenuflag == item.id
+                  ? 'newsclass_click1'
+                  : 'newsclass_click'
               "
             ></div>
           </div>
@@ -41,11 +35,11 @@
           :key="index"
           @click="gotonewsdel(item)"
         >
-          <div class="left img_div" >
+          <div class="left img_div">
             <img :src="item.news_cover_url" alt="" class="news_img" />
           </div>
           <div class="left news_content_right">
-            <div class="news_title cl" >
+            <div class="news_title cl">
               <div class="newstype1 left ov">
                 {{ item.ch_name }}
               </div>
@@ -57,7 +51,7 @@
                 >
               </div>
             </div>
-            <div class="details ov cl" >
+            <div class="details ov cl">
               <span class="left">详情：</span
               ><span class="left" v-html="item.news_body"></span>
             </div>
@@ -144,13 +138,6 @@ export default {
     };
   },
   methods: {
-    showAllData() {
-      //展示全部
-      this.changemenuflag = "-1";
-      this.p = 1;
-      this.getdata();
-      this.$refs.livemenuNews.allchange();
-    },
     handleCurrentChange(val) {
       //跳转页面
       this.p = val;
@@ -163,8 +150,15 @@ export default {
       this.host = host;
     },
     changemenu(idx, item) {
-      this.changemenuflag = idx;
-      this.menuDataFilter(item.id);
+      if (item.id == -1) {
+        this.changemenuflag = "-1";
+        this.p = 1;
+        this.getdata();
+        this.$refs.livemenuNews.allchange();
+      } else {
+        this.changemenuflag = item.id;
+        this.menuDataFilter(item.id);
+      }
     },
     menuDataFilter(id) {
       //数据筛选
@@ -192,9 +186,25 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
+      let all = {
+        ch_columnm: 1,
+        ch_columnm_name: "足球",
+        ch_desc: "新闻-西甲",
+        ch_logo:
+          "/static/image/20201029/5f6506183c1043ebec5f20ea2e5e31cee877ebff.png",
+        ch_name: "全部",
+        ch_order: 1,
+        ch_owner: "",
+        ch_reply_num: 0,
+        ch_status: 0,
+        ch_type: 2,
+        ch_views_num: 0,
+        id: -1,
+      };
+      this.newsClass.unshift(all);
       for (let i = 0; i < this.newsClass.length; i++) {
         if (this.newsClass[i].id == id) {
-          this.changemenuflag = i;
+          this.changemenuflag = id;
         }
       }
     },
@@ -235,6 +245,22 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
+      let all = {
+        ch_columnm: 1,
+        ch_columnm_name: "足球",
+        ch_desc: "新闻-西甲",
+        ch_logo:
+          "/static/image/20201029/5f6506183c1043ebec5f20ea2e5e31cee877ebff.png",
+        ch_name: "全部",
+        ch_order: 1,
+        ch_owner: "",
+        ch_reply_num: 0,
+        ch_status: 0,
+        ch_type: 2,
+        ch_views_num: 0,
+        id: -1,
+      };
+      this.newsClass.unshift(all);
     },
     toNewsdel() {
       return false;
@@ -260,6 +286,22 @@ export default {
         this.menucomplexdata,
         this.menufootData
       );
+      let all = {
+        ch_columnm: 1,
+        ch_columnm_name: "足球",
+        ch_desc: "新闻-西甲",
+        ch_logo:
+          "/static/image/20201029/5f6506183c1043ebec5f20ea2e5e31cee877ebff.png",
+        ch_name: "全部",
+        ch_order: 1,
+        ch_owner: "",
+        ch_reply_num: 0,
+        ch_status: 0,
+        ch_type: 2,
+        ch_views_num: 0,
+        id: -1,
+      };
+      this.newsClass.unshift(all);
     },
   },
   components: {
@@ -427,7 +469,7 @@ export default {
     margin-top: 7px;
   }
 }
-.news_content:hover{
+.news_content:hover {
   background-color: #f6f6f6;
 }
 .newslive {
