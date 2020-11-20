@@ -201,6 +201,7 @@ export default {
             });
           } else if (res.data.code == 0) {
             this.$message({
+              showClose: true,
               type: "success", // warning、success
               message: "登出成功！",
             });

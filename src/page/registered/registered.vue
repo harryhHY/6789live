@@ -8,7 +8,8 @@
     :visible="dialogVisible"
     width="100%"
     center
-    :before-close="handleClose">
+    :before-close="handleClose"
+    :modal-append-to-body="false">
     <p class="line_top"></p>
     <p class="line_bottom"></p>
   <p class="title">6789专注于为您提供体育赛事直播与互动交流平台</p>
