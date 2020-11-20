@@ -310,7 +310,9 @@ export default {
 <style lang="less" scoped>
 .header_box {
   width: 100%;
-  position: relative;
+  position: fixed;
+  z-index: 100;
+  top: 0;
   .footlogin {
     width: 100%;
     position: absolute;

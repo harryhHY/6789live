@@ -17,5 +17,6 @@ export default {
   background-image: url("./image/bj.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
+  margin-top: 81px;
 }
 </style>
