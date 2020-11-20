@@ -142,7 +142,7 @@ export default {
         },
       ],
       videosrc: "",
-      overlive: "直播已经结束",
+      overlive: "暂无直播",
       signals: [],
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",

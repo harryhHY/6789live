@@ -97,6 +97,7 @@ export default {
   background-color: #fff;
   border-top: 3px solid #1a90fc;
   border-radius: 5px;
+  margin-top: 20px;
   .header_div {
     padding-bottom: 10px;
     border-bottom: 1px solid #848484;
