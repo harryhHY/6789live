@@ -50,8 +50,7 @@
               {{ item.title }}
             </div>
           </div>
-          <div>
-            {{modify_content}}
+          <div v-html="modify_content">
           </div>
           <div class="livebottom cl">
             <div class="looktoday left" @click="gotolive()">
