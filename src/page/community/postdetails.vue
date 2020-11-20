@@ -6,6 +6,14 @@
       <div class="banner">
         <img src="" alt="" />
       </div>
+      <div class="communitydel_header">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path:fromname.path }">{{
+            fromname.name
+          }}</el-breadcrumb-item>
+          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
       <div class="title_div cl">
         <div class="newstype1 left">
           {{ postdel.columnm }}
@@ -256,6 +264,7 @@ export default {
       showReplyinput: false,
       showcommentid: 0, //评论回复id
       showcommentheight: "", //评论的位置
+      fromname: {}, //回跳名字
     };
   },
   methods: {
@@ -512,6 +521,25 @@ export default {
   },
   computed: {
     ...mapState(["newsList", "newsmenuswp", "postdel"]),
+  },
+  beforeRouteEnter(to, from, next) {
+    console.log(from.path)
+    next((vm) => {
+      switch (from.name) {
+        case "Home":
+          vm.fromname.name = "首页";
+          vm.fromname.path = from.path;
+          break;
+        case "Community":
+          vm.fromname.name = "社区";
+          vm.fromname.path = from.path;
+          break;
+        case "Communitydel":
+          vm.fromname.name = "讨论区";
+          vm.fromname.path = from.path;
+          break;
+      }
+    });
   },
   mounted() {
     // console.log(this.newsList.id);

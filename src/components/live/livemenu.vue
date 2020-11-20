@@ -240,10 +240,14 @@ export default {
     },
     //是否收齐直播栏目
     changebbkUnfold(index, even) {
-      console.log(index);
-      let data = JSON.parse(JSON.stringify(this.footdataflag));
-      data[index].flag = !data[index].flag;
-      this.footdataflag = data
+      this.footdataflag[index] = Object.assign({},this.footdataflag[index],{
+        flag: !this.footdataflag[index].flag
+      })
+      this.$set(this.footdataflag,index, this.footdataflag[index])
+      // console.log(index);
+      // let data = JSON.parse(JSON.stringify(this.footdataflag));
+      // data[index].flag = !data[index].flag;
+      // this.footdataflag = data
     },
     //点击左边菜单 触发的事件
     changetype1(clid, id, item) {
