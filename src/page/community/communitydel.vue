@@ -510,6 +510,9 @@ export default {
           margin-right: 35px;
         }
       }
+      .release:hover{
+        background-image: url("../../image/cmm/release1.png");
+      }
       .main_data {
         margin: 0 35px;
         .main_title {
