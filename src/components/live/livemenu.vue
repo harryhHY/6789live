@@ -36,7 +36,7 @@
         <div class="footerclass" v-for="(item, index) in channel">
           <div
             class="footerclass_header cu"
-            @click="changebbkUnfold(1, footdataflag)"
+            @click="changebbkUnfold(index, footdataflag)"
           >
             <div>
               {{ item[1].ch_columnm_name }}
@@ -64,73 +64,8 @@
                 {{ item1.ch_name }}
               </div>
             </div>
-            <!-- <div class="cu">
-              <div class="lookmore"></div>
-            </div> -->
           </div>
         </div>
-        <!-- 篮球 -->
-        <!-- <div>
-          <div
-            class="footerclass_header cu"
-            @click="changebbkUnfold(2, bbflag)"
-          >
-            <div>篮球</div>
-            <div
-              :class="
-                bbflag ? 'footerclass_header_img' : 'footerclass_header_img1'
-              "
-            ></div>
-          </div>
-          <div class="cl mylike" v-if="!bbflag">
-            <div class="cl">
-              <div
-                v-for="(item, index) in backetballdata"
-                :key="item.id"
-                :class="
-                  highlight == item.id
-                    ? 'playnum1  cu left ov'
-                    : 'playnum cu left ov'
-                "
-                @click="changetype1(item.ch_columnm, item.id, item)"
-              >
-                {{ item.ch_name }}
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- 综合 -->
-        <!-- <div>
-          <div
-            class="footerclass_header cu"
-            @click="changebbkUnfold(3, isCollapse)"
-          >
-            <div>综合</div>
-            <div
-              :class="
-                isCollapse
-                  ? 'footerclass_header_img'
-                  : 'footerclass_header_img1'
-              "
-            ></div>
-          </div>
-          <div class="cl mylike" v-if="!isCollapse">
-            <div class="cl" v-if="!isCollapse">
-              <div
-                v-for="(item, index) in Collapsedata"
-                :key="item.id"
-                :class="
-                  highlight == item.id
-                    ? 'playnum1  cu left ov'
-                    : 'playnum cu left ov'
-                "
-                @click="changetype1(item.ch_columnm, item.id, item)"
-              >
-                {{ item.ch_name }}
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -143,11 +78,11 @@ export default {
     return {
       mylike: [], //我的关注
       footData: [], //足球
-      footdataflag: false,
-      backetballdata: [], //篮球
+      footdataflag: [],
       bbflag: false,
-      Collapsedata: [], //综合
       isCollapse: false,
+      backetballdata: [], //篮球
+      Collapsedata: [], //综合
       menutitle: "", //菜单标题
       totalData: [], //所有的栏目
       highlight: "",
@@ -207,6 +142,11 @@ export default {
               this.channel.push(channel[item]);
             }
             console.log(this.channel);
+            let list = { flag: false };
+            for (let i = 0; i < this.channel.length; i++) {
+              this.footdataflag.push(list);
+            }
+            console.log(this.footdataflag);
             this.$store.commit("channel", this.channel);
             if (channel[1]) {
               this.footData = channel[1];
@@ -262,7 +202,7 @@ export default {
                 ch_status: 0,
                 ch_type: 1,
                 ch_views_num: 0,
-                id: -101,
+                id: -102,
               };
               this.footData.unshift(footAll);
               this.backetballdata.unshift(backetAll);
@@ -299,18 +239,11 @@ export default {
         });
     },
     //是否收齐直播栏目
-    changebbkUnfold(id, even) {
-      switch (id) {
-        case 1:
-          this.footdataflag = !even;
-          break;
-        case 2:
-          this.bbflag = !even;
-          break;
-        case 3:
-          this.isCollapse = !even;
-          break;
-      }
+    changebbkUnfold(index, even) {
+      console.log(index)
+      let data = this.footdataflag;
+      data[index].flag = true
+      console.log(data[index].flag,data);
     },
     //点击左边菜单 触发的事件
     changetype1(clid, id, item) {
