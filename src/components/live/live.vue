@@ -1,7 +1,7 @@
 <template>
   <div id="live" class="cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu @changetype="changetype" ref="livemenu1"/>
+    <livemenu @changetype="changetype" ref="livemenu1" />
     <div class="live_content left">
       <liveheader @getdata="directliveheader"></liveheader>
       <div class="livemain boxshadow">
@@ -97,7 +97,7 @@
 <script>
 import { mapState } from "vuex";
 // const livemenu = () => import("../live/livemenu");
-import livemenu from '../live/livemenu'
+import livemenu from "../live/livemenu";
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
@@ -285,7 +285,7 @@ export default {
     directliveheader() {
       //直接点击liveheader
       this.footballflag = this.liveheader;
-      this.$refs.livemenu1.fixHL("")
+      this.$refs.livemenu1.fixHL("");
       this.p = 1;
       this.getdata();
     },
@@ -366,20 +366,22 @@ export default {
       this.football = newValue;
     },
   },
-  created() {
-  },
-  mounted () {
-     if (this.livedelId != "") {
+  created() {},
+  mounted() {
+    if (this.livedelId != "") {
       this.changetype(this.clid, this.livedelId);
-      this.$refs.livemenu1.fixHL(this.livedelId)
-      // this.$store.commit("livedelId", "");
-      console.log( this.$refs.livemenu1.fixHL(this.livedelId))
+      this.$refs.livemenu1.fixHL(this.livedelId);
+
+      console.log(this.$refs.livemenu1.fixHL(this.livedelId));
     } else {
       this.footballflag = this.liveheader;
       this.changeButtonList();
       this.football = this.menufootData;
       this.getdata();
     }
+  },
+  beforeDestroy() {
+    this.$store.commit("livedelId", "");
   },
 };
 </script>
