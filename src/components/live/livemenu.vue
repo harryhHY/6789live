@@ -36,20 +36,20 @@
         <div class="footerclass" v-for="(item, index) in channel">
           <div
             class="footerclass_header cu"
-            @click="changebbkUnfold(index, footdataflag)"
+            @click="changebbkUnfold(index)"
           >
             <div>
               {{ item[1].ch_columnm_name }}
             </div>
             <div
               :class="
-                footdataflag
+                footdataflag[index].flag
                   ? 'footerclass_header_img'
                   : 'footerclass_header_img1'
               "
             ></div>
           </div>
-          <div class="cl mylike" v-if="!footdataflag">
+          <div class="cl mylike" v-if="!footdataflag[index].flag">
             <div class="cl">
               <div
                 v-for="(item1, index) in item"
@@ -240,10 +240,10 @@ export default {
     },
     //是否收齐直播栏目
     changebbkUnfold(index, even) {
-      console.log(index)
-      let data = this.footdataflag;
-      data[index].flag = true
-      console.log(data[index].flag,data);
+      console.log(index);
+      let data = JSON.parse(JSON.stringify(this.footdataflag));
+      data[index].flag = !data[index].flag;
+      this.footdataflag = data
     },
     //点击左边菜单 触发的事件
     changetype1(clid, id, item) {
