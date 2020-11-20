@@ -172,9 +172,10 @@
           <div class="left">
             <div class="certerimg tuijian_title_div">
               <a
-                  :href="delUrl + item.id + '.html'"
-                  v-on:click.prevent="toNewsdel"
-                  ><div class="tuijian_title">{{ item.news_title }}</div></a>
+                :href="delUrl + item.id + '.html'"
+                v-on:click.prevent="toNewsdel"
+                ><div class="tuijian_title">{{ item.news_title }}</div></a
+              >
               <div class="tuijian_time">{{ item.news_addtime | formDate }}</div>
             </div>
           </div>
@@ -389,7 +390,7 @@ export default {
         if (code == 0) {
           console.log(params);
           this.$message({
-            message: '成功',
+            message: "成功",
             type: "success",
           });
           this.getrouterdata();
@@ -433,7 +434,10 @@ export default {
 
           let news_addtime = this.formDate(this.newsdel.forum_addtime);
           this.pageName = `${this.newsdel.forum_title}_【6789体育直播】`;
-          this.metaList[0].content = `${this.newsdel.forum_body.replace(/<\/?.+?>/g,"")}`; // description
+          this.metaList[0].content = `${this.newsdel.forum_body.replace(
+            /<\/?.+?>/g,
+            ""
+          )}`; // description
           this.metaList[1].content = `${this.newsdel.forum_title}`; //name="keywords"
           this.metaList[2].content = `${news_addtime}`;
         }
@@ -565,7 +569,7 @@ export default {
 }
 .newsdel_content {
   font-size: 14px;
-  margin-left: 29px;
+  margin-left: 29px + 279px;
   margin-top: 7px;
   width: 1090px;
   background-color: #ffffff;

@@ -407,7 +407,7 @@ export default {
   .communitydel_content {
     background-color: #fff;
     border-radius: 5px;
-    margin: 20px 0 0 48px;
+    margin: 20px 0 0 307px;
     width: 1166px;
     .communitydel_header {
       margin-left: 19px;

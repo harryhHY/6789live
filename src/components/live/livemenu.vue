@@ -332,7 +332,7 @@ export default {
       }
     },
     fixHL(id) {
-      return this.highlight = id;
+      return (this.highlight = id);
     },
     allchange() {
       this.highlight = "";
@@ -352,12 +352,35 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.livemenu::-webkit-scrollbar {
+  // 纵向滚动条和横向滚动条宽度
+  width: 1px;
+  height: 1px;
+}
+
+.livemenu::-webkit-scrollbar-thumb {
+  // 滚动条背景条样式
+  border-radius: 1px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #5b5f63;
+}
+
+.livemenu::-webkit-scrollbar-track {
+  // 滚动条按钮样式
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+  background: #00284d;
+}
 .livemenu {
   width: 279px;
   margin-top: -24px;
   background-image: url("../../image/news/leftbg.png");
   background-size: 100%;
   height: 1027px;
+  position: fixed;
+  top: 75px;
+  left: 0;
+  overflow-y: scroll;
   .mylike {
     margin: 19px 25px 0 25px;
   }

@@ -493,7 +493,7 @@ export default {
 }
 .newsdel_content {
   font-size: 14px;
-  margin-left: 29px;
+  margin-left: 29px + 279px;
   margin-top: 7px;
   width: 1090px;
   background-color: #ffffff;

@@ -336,7 +336,7 @@ export default {
   background-size: 100%;
 }
 .livedel_content {
-  margin-left: 29px;
+  margin-left: 29px + 279px;
   .live_div {
     width: 968px;
     height: 540px;

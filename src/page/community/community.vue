@@ -349,7 +349,7 @@ export default {
 }
 .community_content {
   width: 1165px;
-  margin: 20px 0 20px 48px;
+  margin: 20px 0 20px 327px;
   border-radius: 5px;
   background: #fff;
   .menu_header {

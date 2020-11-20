@@ -401,6 +401,7 @@ export default {
     url("../../image/3.jpg") 800px 0 repeat;
   background-position: 0 0, 800px 0;
   background-size: 100%;
+
 }
 .playname {
   display: inline-block;
@@ -411,7 +412,7 @@ export default {
 .live_content {
   font-size: 14px;
   width: 1195px;
-  margin-left: 29px;
+  margin-left: 308px;
 }
 
 .live_all {

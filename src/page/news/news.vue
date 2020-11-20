@@ -404,7 +404,7 @@ export default {
 .new_content {
   width: 1031px;
   margin-top: 7px;
-  margin-left: 48px;
+  margin-left: 48px + 279px;
   background-color: #fff;
   border-radius: 5px;
   padding: 0 48px 76px 42px;
