@@ -1,7 +1,7 @@
 <template>
   <div class="communitydel cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu ref="livemenu"></livemenu>
+    <livemenu ref="livemenu" @delsort='getdeldata'></livemenu>
     <div class="communitydel_content boxshadow left">
       <div class="communitydel_header">
         <el-breadcrumb separator="/">

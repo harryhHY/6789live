@@ -275,6 +275,7 @@ export default {
           break;
         case "Communitydel":
           console.log(item);
+          this.$emit('delsort',item)
           this.$store.commit("communitydel", item);
           break;
         case "Postdetails":
