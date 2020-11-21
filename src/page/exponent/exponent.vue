@@ -19,7 +19,7 @@
               </div>
             </div>
           </div> -->
-          <div class="left">
+          <div class="left duoxuan">
             <el-select v-model="value1" multiple placeholder="请选择">
               <el-option
                 v-for="item in tableData"
@@ -31,7 +31,7 @@
             </el-select>
           </div>
           <div
-            class="left"
+            class="left comnum"
             v-text="
               filter != false
                 ? `共${filter.length}/${List.length}家公司`
@@ -189,6 +189,7 @@ export default {
     border: 1px solid #dedede;
     .exponent_header {
       line-height: 54px;
+      margin: 5px 0 ;
       .select_div {
         width: 155px;
         height: 30px;
@@ -261,6 +262,7 @@ export default {
       }
       .w142 {
         width: 142px + 2px;
+        border-left: none;
       }
       .w187 {
         width: 187px + 2px;
@@ -282,9 +284,19 @@ export default {
         width: 115px + 2px;
       }
       .w195 {
-        width: 185px + 2px;
+        width: 195px + 2px;
+        border-right: none;
       }
     }
+    .exponentfor:hover{
+      background-color: #f7f7f7;
+    }
   }
+}
+.duoxuan{
+  margin-left: 20px;
+}
+.comnum{
+  margin-left: 10px;
 }
 </style>
