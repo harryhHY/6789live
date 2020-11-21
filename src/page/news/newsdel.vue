@@ -354,7 +354,7 @@ export default {
         if (code == 0) {
           console.log(params);
           this.$message({
-            message: '成功',
+            message: "成功",
             type: "success",
           });
           this.getrouterdata();
@@ -391,7 +391,10 @@ export default {
         this.commentList = comments;
         let news_addtime = this.formDate(this.newsdel.news_addtime);
         this.pageName = `${this.newsdel.news_title}_【6789体育直播】`;
-        this.metaList[0].content = `${this.newsdel.news_body.replace(/<\/?.+?>/g,"")}`; // description
+        this.metaList[0].content = `${this.newsdel.news_body.replace(
+          /<\/?.+?>/g,
+          ""
+        )}`; // description
         this.metaList[1].content = `${this.newsdel.news_title}`; //name="keywords"
         this.metaList[2].content = `${news_addtime}`;
       });
@@ -477,6 +480,9 @@ export default {
   padding: 5px 10px;
   border-radius: 5px;
   margin: 80px 0 0 5px;
+}
+.fabiao:hover {
+  background-color: #555;
 }
 .report_div_com {
   position: fixed;
@@ -620,6 +626,7 @@ export default {
   }
 }
 .showavatar_div {
+  margin-top: 5px;
   margin-left: 47px;
   padding-left: 70px;
   border-bottom: 1px solid #848484;
@@ -702,6 +709,9 @@ export default {
     width: 900px;
     word-wrap: break-word;
   }
+  .otheruser_msg:hover {
+    color: #1a90fc;
+  }
   .otherusergoodreply {
     color: #848484;
     margin-bottom: 19px;
@@ -715,6 +725,9 @@ export default {
         width: 13px;
         height: 13px;
       }
+    }
+    .otherusergood:hover {
+      color: #1a90fc;
     }
     .otherusergood:hover .otheruser_goods_img {
       background-image: url("../../image/news/goods1.png");
@@ -730,6 +743,9 @@ export default {
         background-repeat: no-repeat;
         background-image: url("../../image/news/reply.png");
       }
+    }
+    .otheruserreply:hover{
+      color: #1a90fc;
     }
     .otheruserreply:hover .otheruser_reply_img {
       background-image: url("../../image/news/reply1.png");
@@ -776,7 +792,7 @@ export default {
     }
   }
 }
-.tuijian_div:hover{
+.tuijian_div:hover {
   background-color: #f7f7f7;
 }
 </style>

@@ -8,7 +8,7 @@
       </div>
       <div class="communitydel_header">
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path:fromname.path }">{{
+          <el-breadcrumb-item :to="{ path: fromname.path }">{{
             fromname.name
           }}</el-breadcrumb-item>
           <el-breadcrumb-item>贴子详情</el-breadcrumb-item>
@@ -523,7 +523,7 @@ export default {
     ...mapState(["newsList", "newsmenuswp", "postdel"]),
   },
   beforeRouteEnter(to, from, next) {
-    console.log(from.path)
+    console.log(from.path);
     next((vm) => {
       switch (from.name) {
         case "Home":
@@ -580,6 +580,9 @@ export default {
   padding: 5px 10px;
   border-radius: 5px;
   margin: 80px 0 0 5px;
+}
+.fabiao:hover {
+  background-color: #555;
 }
 .report_div_com {
   position: fixed;
@@ -725,6 +728,7 @@ export default {
   }
 }
 .showavatar_div {
+  margin-top: 5px;
   margin-left: 47px;
   padding-left: 70px;
   border-bottom: 1px solid #848484;
@@ -785,6 +789,9 @@ export default {
     width: 900px;
     word-wrap: break-word;
   }
+  .otheruser_msg:hover {
+    color: #1a90fc;
+  }
   .otherusergoodreply {
     color: #848484;
     margin-bottom: 19px;
@@ -798,6 +805,9 @@ export default {
         width: 13px;
         height: 13px;
       }
+    }
+    .otherusergood:hover {
+      color: #1a90fc;
     }
     .otherusergood:hover .otheruser_goods_img {
       background-image: url("../../image/news/goods1.png");
@@ -813,6 +823,9 @@ export default {
         background-repeat: no-repeat;
         background-image: url("../../image/news/reply.png");
       }
+    }
+    .otheruserreply:hover {
+      color: #1a90fc;
     }
     .otheruserreply:hover .otheruser_reply_img {
       background-image: url("../../image/news/reply1.png");
@@ -859,7 +872,7 @@ export default {
     }
   }
 }
-.tuijian_div:hover{
+.tuijian_div:hover {
   background-color: #f7f7f7;
 }
 a {
