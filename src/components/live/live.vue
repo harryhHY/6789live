@@ -31,14 +31,24 @@
             class="livecontent cl"
             v-for="(item, index) in livedata"
             :key="index"
+            @click="gotoanalysis(item)"
           >
             <div class="gametype_div left">
               <div class="gametype">{{ type }}</div>
               <div class="gametype1 ov">{{ item.lname }}</div>
             </div>
-            <div class="hname ov left">
-              {{ item.hname }}
-            </div>
+
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="item.hname"
+              placement="top"
+            >
+              <div class="hname ov left">
+                {{ item.hname }}
+              </div>
+            </el-tooltip>
+
             <div class="left aicon">
               <img :src="item.hicon" alt="" class="aiconimg" />
             </div>
@@ -55,10 +65,19 @@
             <div class="left aicon">
               <img :src="item.aicon" alt="" class="aiconimg" />
             </div>
-            <div class="bname ov left">
-              {{ item.aname }}
-            </div>
-            <div class="cl left anadiv cu" @click="gotoanalysis(item)">
+
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="item.aname"
+              placement="top"
+            >
+              <div class="bname ov left">
+                {{ item.aname }}
+              </div>
+            </el-tooltip>
+
+            <div class="cl left anadiv cu">
               <div class="anaimg left"></div>
               <div class="ana left">数据分析</div>
             </div>
@@ -136,7 +155,7 @@ export default {
       total: 100, //分页总数
       page_size: 1, //一页数量
       p: 1, //分页第几页
-      HL:'',//选中高亮
+      HL: "", //选中高亮
     };
   },
   methods: {
@@ -151,6 +170,7 @@ export default {
     },
 
     gotoexponent(e) {
+      event.stopPropagation();
       this.$store.commit("liveList", e);
       this.$router.push("/exponent");
     },
@@ -160,8 +180,8 @@ export default {
     },
     // 切换最新栏目
     changtype(id, name) {
-      this.HL = id
-      this.$refs.livemenu1.fixHL(id)
+      this.HL = id;
+      this.$refs.livemenu1.fixHL(id);
       this.footballflag = name;
       this.p = 1;
       if (id < 0) {
@@ -232,6 +252,7 @@ export default {
     //跳转直播页面
     gotolive(e) {
       // console.log(e);
+      event.stopPropagation();
       this.$store.commit("liveList", e);
       this.$router.push({
         name: "Livedel",
@@ -240,7 +261,7 @@ export default {
     },
     // 左边直播分类传过来的值
     changetype(clid, id) {
-      this.HL = id
+      this.HL = id;
       this.p = 1;
       if (id < 0) {
         this.$axios({
@@ -339,7 +360,7 @@ export default {
           dataBasketball,
           hot_live,
           pagination,
-          other
+          other,
         } = res.data.params;
 
         let { page_size, total } = pagination;
@@ -541,13 +562,13 @@ export default {
   .hname {
     font-size: 14px;
     width: 125px;
-    text-align: right;
+    text-align: center;
     margin-right: 4px;
   }
   .bname {
     font-size: 14px;
     width: 125px;
-    text-align: right;
+    text-align: center;
     margin-left: 4px;
   }
   .aicon {
@@ -564,7 +585,7 @@ export default {
   .bname {
     font-size: 14px;
     width: 125px;
-    text-align: left;
+    text-align: center;
   }
   .anadiv {
     font-size: 14px;
