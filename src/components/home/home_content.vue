@@ -835,7 +835,7 @@ export default {
   }
 }
 .time_div {
-  width: 10%;
+  width: 13%;
   text-align: center;
   padding: 0 18px;
 }

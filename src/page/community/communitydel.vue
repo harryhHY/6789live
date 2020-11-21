@@ -525,7 +525,7 @@ export default {
           height: 45px;
           .main_title_left {
             .news {
-              width: 68px;
+              margin-right: 20px;
               height: 44px;
               line-height: 44px;
               text-align: center;
@@ -600,6 +600,9 @@ export default {
               text-align: center;
             }
           }
+        }
+        .main_content:hover{
+          background-color: #f7f7f7;
         }
       }
     }
