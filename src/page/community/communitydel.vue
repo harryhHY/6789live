@@ -8,7 +8,7 @@
           <el-breadcrumb-item :to="{ path: '/community' }"
             >社区</el-breadcrumb-item
           >
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+          <el-breadcrumb-item>讨论区</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="banner">
