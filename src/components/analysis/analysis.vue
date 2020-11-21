@@ -793,8 +793,8 @@ export default {
       aRecrdListFilter: [], //主队近期筛选战绩
       aRecrdList1: [], //客队近期战绩
       aRecrdList1Filter: [], //客队近期筛选战绩
-      hRecentNum: "全部", //主队切换后状态
-      aRecentNum: "全部", //客队切换后状态
+      hRecentNum: "10场", //主队切换后状态
+      aRecentNum: "10场", //客队切换后状态
     };
   },
   methods: {
@@ -918,6 +918,9 @@ export default {
           //近期战绩
           this.aRecrdList = this.aRecrdListFilter = hRecord;
           this.aRecrdList1 = this.aRecrdList1Filter = aRecord;
+
+          this.aRecrdListFilter = hRecord.slice(0, 10);
+          this.aRecrdList1Filter = aRecord.slice(0, 10);
           let hgame_num = Math.ceil(hRecord.length / 5);
           let agame_num = Math.ceil(aRecord.length / 5);
 
@@ -1444,7 +1447,7 @@ export default {
         width: 50px * 2;
       }
       .recrd_bteam {
-        width: 94.5px *2;
+        width: 94.5px * 2;
       }
       .recrd_half {
         width: 49px;
@@ -1552,10 +1555,10 @@ export default {
         width: 94.5px * 2;
       }
       .recrd_score {
-        width: 50px *2;
+        width: 50px * 2;
       }
       .recrd_bteam {
-        width: 94.5px *2;
+        width: 94.5px * 2;
       }
       .recrd_half {
         width: 49px;
