@@ -522,6 +522,7 @@ export default {
 .ascore {
   font-size: 18px;
   color: #014681;
+  margin:0 4px ;
 }
 .newsheader {
   margin-top: 4px;
@@ -755,7 +756,6 @@ export default {
 }
 .homecontentright {
   font-size: 14px;
-  margin-top: 4px;
   margin-left: 5px;
   width: 500px;
   .homecontentright_menu_div {
@@ -777,7 +777,7 @@ export default {
   .livecotentleft {
     background-color: #fff;
     border-radius: 0 15px 15px 15px;
-    padding: 10px 12px;
+    padding: 10px 5px;
   }
   .todaymenu {
     cursor: pointer;
@@ -799,6 +799,10 @@ export default {
     justify-content: center;
     border-bottom: 1px #d2d2d2 solid;
     padding: 10px 0;
+  }
+  .livecontent_div:hover{
+    background-color: #f7f7f7;
+    cursor: pointer;
   }
   .ateam {
     width: 33%;
