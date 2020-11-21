@@ -1240,7 +1240,7 @@ export default {
       line-height: 40px;
       text-align: center;
       display: flex;
-      justify-content: start;
+      justify-content: center;
       div {
         background-color: #e2f1fe;
       }
@@ -1282,7 +1282,7 @@ export default {
       line-height: 40px;
       text-align: center;
       display: flex;
-      justify-content: start;
+      justify-content: center;
       div {
         border-right: 1px solid #dedede;
         border-bottom: 1px solid #dedede;
@@ -1402,13 +1402,13 @@ export default {
         width: 86px + 1px;
       }
       .recrd_ateam {
-        width: 94.5px + 1px;
+        width: (94.5px + 1px) * 2;
       }
       .recrd_score {
-        width: 50px + 1px;
+        width: (50px + 1px) * 2;
       }
       .recrd_bteam {
-        width: 94.5px + 1px;
+        width: (94.5px + 1px) * 2;
       }
       .recrd_half {
         width: 49px + 1px;
@@ -1441,7 +1441,7 @@ export default {
         width: 94.5px * 2;
       }
       .recrd_score {
-        width: 50px;
+        width: 50px * 2;
       }
       .recrd_bteam {
         width: 94.5px *2;
@@ -1513,13 +1513,13 @@ export default {
         width: 86px + 1px;
       }
       .recrd_ateam {
-        width: 94.5px + 1px;
+        width: (94.5px + 1px) * 2;
       }
       .recrd_score {
-        width: 50px + 1px;
+        width: (50px + 1px) * 2;
       }
       .recrd_bteam {
-        width: 94.5px + 1px;
+        width: (94.5px + 1px) * 2;
       }
       .recrd_half {
         width: 49px + 1px;
@@ -1552,7 +1552,7 @@ export default {
         width: 94.5px * 2;
       }
       .recrd_score {
-        width: 50px;
+        width: 50px *2;
       }
       .recrd_bteam {
         width: 94.5px *2;
