@@ -514,6 +514,7 @@ export default {
   align-items: center;
 }
 .aicon {
+  margin: 0 4px;
   img {
     width: 35px;
     height: 35px;
@@ -522,7 +523,6 @@ export default {
 .ascore {
   font-size: 18px;
   color: #014681;
-  margin:0 4px ;
 }
 .newsheader {
   margin-top: 4px;
@@ -756,7 +756,7 @@ export default {
 }
 .homecontentright {
   font-size: 14px;
-  margin-left: 5px;
+  margin-left: 20px;
   width: 500px;
   .homecontentright_menu_div {
     font-size: 20px;
