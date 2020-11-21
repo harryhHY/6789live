@@ -489,6 +489,9 @@ export default {
             width: 105px;
             text-align: center;
           }
+          .joincom:hover{
+            background-color: #f6f6f6;
+          }
           .comm_num,
           .introduction {
             color: #555;
