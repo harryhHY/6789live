@@ -11,7 +11,7 @@
           <el-breadcrumb-item :to="{ path:fromname.path }">{{
             fromname.name
           }}</el-breadcrumb-item>
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+          <el-breadcrumb-item>贴子详情</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="title_div cl">
