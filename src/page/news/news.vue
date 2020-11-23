@@ -182,10 +182,12 @@ export default {
     changenewstype(id) {
       event.stopPropagation();
       this.menuDataFilter(id);
-      this.newsClass = this.menubacketballdata.concat(
-        this.menucomplexdata,
-        this.menufootData
-      );
+      let duoduo = [];
+      for (let i = 0; i < this.channel.length; i++) {
+        this.channel[i].map((item) => {
+          duoduo.push(item);
+        });
+      }
       let all = {
         ch_columnm: 1,
         ch_columnm_name: "足球",
@@ -201,7 +203,8 @@ export default {
         ch_views_num: 0,
         id: -1,
       };
-      this.newsClass.unshift(all);
+      duoduo.unshift(all);
+      this.newsClass = duoduo;
       for (let i = 0; i < this.newsClass.length; i++) {
         if (this.newsClass[i].id == id) {
           this.changemenuflag = id;
@@ -241,10 +244,12 @@ export default {
           this.$store.commit("newsmenuswp", this.promote_news_data);
         });
 
-      this.newsClass = this.menubacketballdata.concat(
-        this.menucomplexdata,
-        this.menufootData
-      );
+      let duoduo = [];
+      for (let i = 0; i < this.channel.length; i++) {
+        this.channel[i].map((item) => {
+          duoduo.push(item);
+        });
+      }
       let all = {
         ch_columnm: 1,
         ch_columnm_name: "足球",
@@ -260,7 +265,8 @@ export default {
         ch_views_num: 0,
         id: -1,
       };
-      this.newsClass.unshift(all);
+      duoduo.unshift(all);
+      this.newsClass = duoduo;
     },
     toNewsdel() {
       return false;
@@ -272,9 +278,10 @@ export default {
       "menucomplexdata",
       "menufootData",
       "newsNenu",
+      "channel",
     ]),
     menufootDatafn() {
-      return this.$store.state.menufootData;
+      return this.$store.state.channel;
     },
     name() {
       return this.data;
@@ -282,10 +289,12 @@ export default {
   },
   watch: {
     menufootDatafn(newValue) {
-      this.newsClass = this.menubacketballdata.concat(
-        this.menucomplexdata,
-        this.menufootData
-      );
+      let duoduo = [];
+      for (let i = 0; i < this.channel.length; i++) {
+        this.channel[i].map((item) => {
+          duoduo.push(item);
+        });
+      }
       let all = {
         ch_columnm: 1,
         ch_columnm_name: "足球",
@@ -301,7 +310,8 @@ export default {
         ch_views_num: 0,
         id: -1,
       };
-      this.newsClass.unshift(all);
+      duoduo.unshift(all);
+      this.newsClass = duoduo;
     },
   },
   components: {
