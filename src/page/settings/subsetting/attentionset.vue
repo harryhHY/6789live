@@ -78,13 +78,14 @@ export default {
             this.active = name;
             console.log(this.active);
             //清空其他页面已选项
-            // this.checkedbox = [''];
-            console.log(this.checkedbox);
+            this.checkedbox = [];
+            // console.log(this.checkedbox);
             //根据name获取其他类别
             this.getChanelList()
         },
         submitForm(ruleForm) {
             this.$api.editchanel.editerchanel({
+                type:this.active,
                 channel:this.checkedbox
             }).then(res => {
                 // console.log(res);
@@ -139,18 +140,6 @@ export default {
             .catch(error => {
                 this.$message("获取失败");
             })
-            // this.$axios({
-            //     url:`${this.$api.chanel}/${this.active}`,
-            //     method: "get",
-            //     timeout: 3000
-            // })
-            // .then(res => {
-            //     this.checkboxList = res.data.params;
-            //     console.log(res.data.params);
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // });
         }
     },
     mounted(){
