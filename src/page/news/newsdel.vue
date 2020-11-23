@@ -795,4 +795,11 @@ export default {
 .tuijian_div:hover {
   background-color: #f7f7f7;
 }
+
+</style>
+<style>
+.newsbody p video{
+  width: 100%;
+  height: auto;
+}
 </style>
