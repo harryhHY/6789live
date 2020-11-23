@@ -34,10 +34,7 @@
         </div>
         <!-- 足球 -->
         <div class="footerclass" v-for="(item, index) in channel">
-          <div
-            class="footerclass_header cu"
-            @click="changebbkUnfold(index)"
-          >
+          <div class="footerclass_header cu" @click="changebbkUnfold(index)">
             <div>
               {{ item[0].ch_columnm_name }}
             </div>
@@ -141,12 +138,10 @@ export default {
             for (let item in channel) {
               this.channel.push(channel[item]);
             }
-            console.log(this.channel);
             let list = { flag: false };
             for (let i = 0; i < this.channel.length; i++) {
               this.footdataflag.push(list);
             }
-            console.log(this.footdataflag);
             this.$store.commit("channel", this.channel);
             if (channel[1]) {
               this.footData = channel[1];
@@ -159,54 +154,22 @@ export default {
             }
 
             if (this.$route.name == "Live" || this.$route.name == "Livedel") {
-              let footAll = {
-                ch_columnm: 1,
-                ch_columnm_name: "全部",
-                ch_desc: "直播-西甲",
-                ch_logo:
-                  "/static/image/20201029/a5765f21627509671506f405794d8687fb2b00c1.png",
-                ch_name: "全部",
-                ch_order: 1,
-                ch_owner: "",
-                ch_reply_num: 0,
-                ch_status: 0,
-                ch_type: 1,
-                ch_views_num: 0,
-                id: -100,
-              };
-              let backetAll = {
-                ch_columnm: 2,
-                ch_columnm_name: "篮球",
-                ch_desc: "直播-NBA",
-                ch_logo:
-                  "/static/image/20201029/891ff34fc30bc030dc60a79988c98e7de0e77220.png",
-                ch_name: "全部",
-                ch_order: 1,
-                ch_owner: "",
-                ch_reply_num: 0,
-                ch_status: 0,
-                ch_type: 1,
-                ch_views_num: 0,
-                id: -101,
-              };
-              let otherAll = {
-                ch_columnm: 3,
-                ch_columnm_name: "其他",
-                ch_desc: "直播-NBA",
-                ch_logo:
-                  "/static/image/20201029/891ff34fc30bc030dc60a79988c98e7de0e77220.png",
-                ch_name: "全部",
-                ch_order: 1,
-                ch_owner: "",
-                ch_reply_num: 0,
-                ch_status: 0,
-                ch_type: 1,
-                ch_views_num: 0,
-                id: -102,
-              };
-              this.footData.unshift(footAll);
-              this.backetballdata.unshift(backetAll);
-              this.Collapsedata.unshift(otherAll);
+              let allList = [];
+              for (let i = 0; i < this.channel.length; i++) {
+                for (let t = 0; t < this.channel[i].length; t++) {
+                  if (t == 0) {
+                    allList.push(JSON.parse(JSON.stringify(this.channel[i][t])));
+                  }
+                }
+              }
+              
+              for (let x = 0; x < allList.length; x++) {
+                allList[x].ch_name = "全部";
+                allList[x].id = -100 - allList[x].ch_columnm;
+              }
+              for(let s =0 ;s<this.channel.length; s++){
+                this.channel[s].unshift(allList[s])
+              }
               this.$store.commit("menufootData", this.footData);
               this.$store.commit("menubacketballdata", this.backetballdata);
               this.$store.commit("menubacketballdata", this.Collapsedata);
@@ -240,10 +203,10 @@ export default {
     },
     //是否收齐直播栏目
     changebbkUnfold(index, even) {
-      this.footdataflag[index] = Object.assign({},this.footdataflag[index],{
-        flag: !this.footdataflag[index].flag
-      })
-      this.$set(this.footdataflag,index, this.footdataflag[index])
+      this.footdataflag[index] = Object.assign({}, this.footdataflag[index], {
+        flag: !this.footdataflag[index].flag,
+      });
+      this.$set(this.footdataflag, index, this.footdataflag[index]);
       // console.log(index);
       // let data = JSON.parse(JSON.stringify(this.footdataflag));
       // data[index].flag = !data[index].flag;
@@ -275,7 +238,7 @@ export default {
           break;
         case "Communitydel":
           console.log(item);
-          this.$emit('delsort',item)
+          this.$emit("delsort", item);
           this.$store.commit("communitydel", item);
           break;
         case "Postdetails":

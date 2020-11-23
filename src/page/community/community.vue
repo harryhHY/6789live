@@ -424,20 +424,14 @@ export default {
   },
   computed: {
     ...mapState([
-      "menufootData",
-      "menubacketballdata",
-      "menucomplexdata",
       "channel",
     ]),
-    menufootDatafn() {
+    channelfn() {
       return this.$store.state.channel;
     },
   },
   watch: {
-    menufootDatafn(newValue) {
-      // this.footer_menu = this.menufootData;
-      // this.basket_menu = this.menubacketballdata;
-      // this.complex_menu = this.menucomplexdata;
+    channelfn(newValue) {
       this.judgeMenu();
     },
   },

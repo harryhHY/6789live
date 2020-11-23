@@ -18,11 +18,11 @@
             <div
               :class="
                 liveListflag == index
-                  ? 'channel channel1 right'
-                  : '  channel right'
+                  ? 'channel channel1 left'
+                  : '  channel left'
               "
             >
-              {{ item[2].ch_columnm_name }}
+              {{ item[0].ch_columnm_name }}
             </div>
             <!-- <img
               :src="item.clicktype ? item.imgsrc1 : item.imgsrc"
@@ -109,6 +109,7 @@ export default {
       margin-top: 23px;
       margin-right: 35px;
       background-image: url("../../image/news/ftb.png");
+      background-repeat: no-repeat;
       background-size: 100%;
       width: 112px;
       height: 32px;
@@ -126,7 +127,7 @@ export default {
   font-size: 22px;
   color: #b8cada;
   padding-bottom: 7px;
-  margin-right: 13px;
+  margin-left: 50px;
 }
 .channel1 {
   color: #014681;
