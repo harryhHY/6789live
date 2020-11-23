@@ -15,6 +15,23 @@
             >
               {{ item.ch_name }}
             </div>
+            <div
+              class="left moremenu cu ov"
+              v-if="footerMore != false"
+              @click="showMoreMenu(0)"
+            >
+              更多>
+              <div class="footerMoreMenu" v-show="footerflag">
+                <div
+                  v-for="(item, index) in footerMore"
+                  :key="item.ch_desc + index"
+                  class="footerMoreMenudel"
+                  @click="gotocommunitydel(item)"
+                >
+                  {{ item.ch_name }}
+                </div>
+              </div>
+            </div>
           </div>
           <!-- 篮球栏目 -->
           <div class="left menu_header_bsb"></div>
@@ -27,6 +44,23 @@
             >
               {{ item.ch_name }}
             </div>
+            <div
+              class="left moremenu cu ov"
+              v-if="basketMore != false"
+              @click="showMoreMenu(1)"
+            >
+              更多>
+              <div class="footerMoreMenu" v-show="basketflag">
+                <div
+                  v-for="(item, index) in basketMore"
+                  :key="item.ch_desc + index"
+                  class="footerMoreMenudel"
+                  @click="gotocommunitydel(item)"
+                >
+                  {{ item.ch_name }}
+                </div>
+              </div>
+            </div>
           </div>
           <!-- 综合栏目 -->
           <div class="left menu_header_translation"></div>
@@ -38,6 +72,23 @@
               @click="gotocommunitydel(item)"
             >
               {{ item.ch_name }}
+            </div>
+            <div
+              class="left moremenu cu ov"
+              v-if="complexMore != false"
+              @click="showMoreMenu(2)"
+            >
+              更多>
+              <div class="footerMoreMenu" v-show="complexflag">
+                <div
+                  v-for="(item, index) in complexMore"
+                  :key="item.ch_desc + index"
+                  class="footerMoreMenudel"
+                  @click="gotocommunitydel(item)"
+                >
+                  {{ item.ch_name }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -264,8 +315,14 @@ export default {
       postdelUrl: "http://dev.6789zbz.com/front/postdetails/",
       headerKey: "4",
       footer_menu: [], //足球社区
+      footerMore: [], //足球社区更多
+      footerflag: false, //足球社区显示
       basket_menu: [], //篮球社区
+      basketMore: [], //篮球社区更多
+      basketflag: false, //篮球社区显示
       complex_menu: [], //综合社区
+      complexMore: [], //综合社区更多
+      complexflag: false, //综合社区显示
       serachMsg: "",
       todaypost: 0,
       yesterdaypost: 0,
@@ -300,7 +357,7 @@ export default {
         this.listfooterdata = forum[1];
         this.listbasketdata = forum[2];
         this.listcomplexdata = forum[3];
-        console.log(this.listcomplexdata == undefined);
+        // console.log(this.listcomplexdata == undefined);
       });
     },
     serach(msg) {
@@ -316,18 +373,72 @@ export default {
     toPostdel() {
       return false;
     },
+    showMoreMenu(e) {
+      //查看更多栏目
+      switch (e) {
+        case 0:
+          this.footerflag = !this.footerflag;
+          break;
+        case 1:
+          this.basketflag = !this.basketflag;
+          break;
+        case 2:
+          this.complexflag = !this.complexflag;
+          break;
+      }
+
+      console.log(this.footerflag);
+    },
+    judgeMenu() {
+      let channelList = this.channel;
+      let data = [];
+      for (let i = 0; i < channelList.length; i++) {
+        if (i == 0) {
+          if (channelList[i].length > 6) {
+            this.footer_menu = channelList[i].slice(0, 5);
+            this.footerMore = channelList[i].slice(5);
+          } else {
+            this.footer_menu = channelList[i];
+          }
+        } else if (i == 1) {
+          if (channelList[i].length > 6) {
+            this.basket_menu = channelList[i].slice(0, 5);
+            this.basketMore = channelList[i].slice(5);
+          } else {
+            this.basket_menu = channelList[i];
+          }
+        } else if (i > 1) {
+          let xixi = channelList[i]
+          for(let t =0;t<xixi.length;t++){
+            data.push(xixi[t])
+          }
+          if (data.length > 6) {
+            this.complex_menu = data.slice(0, 5);
+            this.complexMore = data.slice(5);
+          } else {
+            this.complex_menu = data;
+          }
+        }
+      }
+    },
   },
   computed: {
-    ...mapState(["menufootData", "menubacketballdata", "menucomplexdata"]),
+    ...mapState([
+      "menufootData",
+      "menubacketballdata",
+      "menucomplexdata",
+      "channel",
+    ]),
     menufootDatafn() {
-      return this.$store.state.menufootData;
+      return this.$store.state.channel;
     },
   },
   watch: {
     menufootDatafn(newValue) {
-      this.footer_menu = this.menufootData;
-      this.basket_menu = this.menubacketballdata;
-      this.complex_menu = this.menucomplexdata;
+      // this.footer_menu = this.menufootData;
+      // this.basket_menu = this.menubacketballdata;
+      // this.complex_menu = this.menucomplexdata;
+      this.judgeMenu();
     },
   },
   components: {
@@ -341,6 +452,27 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.moremenu {
+  width: 33%;
+  line-height: 34px;
+  text-align: center;
+  color: #555;
+}
+
+.footerMoreMenu {
+  width: 90px;
+  position: absolute;
+  z-index: 999;
+  border-radius: 5px;
+  .footerMoreMenudel {
+    text-align: center;
+    background-color: #fff;
+  }
+  .footerMoreMenudel:hover {
+    background-color: #f7f7f7;
+    color: #01a0fc;
+  }
+}
 .community {
   background: url("../../image/bj.jpg") 0 0 no-repeat,
     url("../../image/3.jpg") 800px 0 repeat;

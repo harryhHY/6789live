@@ -39,7 +39,7 @@
             @click="changebbkUnfold(index)"
           >
             <div>
-              {{ item[1].ch_columnm_name }}
+              {{ item[0].ch_columnm_name }}
             </div>
             <div
               :class="
