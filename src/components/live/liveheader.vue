@@ -124,10 +124,13 @@ export default {
 }
 .channel {
   font-family: "HiraginoSansGB-W3";
-  font-size: 22px;
+  font-size: 14px;
   color: #b8cada;
+  width: 112px - 50px;
+  text-align: center;
   padding-bottom: 7px;
   margin-left: 50px;
+  margin-top: 5px;
 }
 .channel1 {
   color: #014681;
