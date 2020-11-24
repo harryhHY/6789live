@@ -209,6 +209,9 @@
       ></report>
     </div>
     <newslive v-if="newsmenuswp"></newslive>
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -219,6 +222,7 @@ const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 const newstree = () => import("../../components/new/newstree");
 const report = () => import("../../components/person/report");
+const Footer = () => import("../../components/footer/footer");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
@@ -514,6 +518,7 @@ export default {
     newslive,
     newstree: newstree,
     report,
+    Footer,
   },
   created() {
     this.inithost();

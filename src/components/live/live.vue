@@ -110,6 +110,9 @@
       </div>
     </div>
     <liveVideo v-if="livemenudata" :data="livemenudata" :type="type" />
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -120,6 +123,7 @@ import livemenu from "../live/livemenu";
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
+const Footer = () => import("../footer/footer");
 export default {
   metaInfo: {
     title: `直播_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,
@@ -393,6 +397,7 @@ export default {
     liveVideo,
     home_herder,
     liveheader,
+    Footer,
   },
   computed: {
     ...mapState([

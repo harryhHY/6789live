@@ -278,10 +278,13 @@
           </div>
         </div>
       </div>
-
+       
       <!-- <div class="centerimg more_div">
         <div class="more cu"></div>
       </div> -->
+    </div>
+    <div class="left footermargin">
+      <Footer></Footer>
     </div>
   </div>
 </template>
@@ -290,6 +293,7 @@
 import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
+const Footer = () => import("../../components/footer/footer");
 export default {
   metaInfo: {
     title: `社区_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,
@@ -438,6 +442,7 @@ export default {
   components: {
     home_herder,
     livemenu,
+    Footer
   },
   created() {
     this.getdata(this.footer_menu);

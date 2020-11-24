@@ -50,8 +50,7 @@
               {{ item.title }}
             </div>
           </div>
-          <div v-html="modify_content">
-          </div>
+          <div v-html="modify_content"></div>
           <div class="livebottom cl">
             <div class="looktoday left" @click="gotolive()">
               【点击观看今日直播】
@@ -83,7 +82,10 @@
         </div> -->
       </div>
     </div>
-    <liveVideo :data="livemenudata"  />
+    <liveVideo :data="livemenudata" />
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -94,6 +96,7 @@ const livemenu = () => import("../live/livemenu");
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
+const Footer = () => import("../footer/footer");
 export default {
   metaInfo() {
     return {
@@ -147,8 +150,8 @@ export default {
       pre: "asdasdasdasdadasd",
       nex: "asdasdasdasdasdasdsad",
       pipiload: "",
-      livemenudata:[],//热门直播
-      modify_content:"",//直播描述
+      livemenudata: [], //热门直播
+      modify_content: "", //直播描述
     };
   },
   methods: {
@@ -169,7 +172,7 @@ export default {
     },
     getlivedata() {
       //直播详情页面请求数据
-      console.log(this.$route.params.matchId)
+      console.log(this.$route.params.matchId);
       this.$axios({
         url: `${this.$api.homeindex.getlivedel()}${this.$route.params.matchId}`,
       }).then((res) => {
@@ -180,12 +183,9 @@ export default {
           hfullname,
           lfullname,
         } = res.data.params.data;
-        let {
-          hot_live,
-          modify_content
-        } = res.data.params
-        this.modify_content = modify_content
-        this.livemenudata = hot_live
+        let { hot_live, modify_content } = res.data.params;
+        this.modify_content = modify_content;
+        this.livemenudata = hot_live;
         this.videosrc = murl;
         this.signals = signals;
         this.newddplayer();
@@ -246,7 +246,7 @@ export default {
       this.menu_num = data;
     },
     // 左边直播分类传过来的值
-    pve(clid,id) {
+    pve(clid, id) {
       this.$store.commit("clid", clid);
       this.$store.commit("livedelId", id);
     },
@@ -279,6 +279,7 @@ export default {
     liveVideo,
     home_herder,
     liveheader,
+    Footer,
   },
   computed: {
     ...mapState(["liveList"]),
@@ -311,7 +312,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.overlive{
+.overlive {
   text-align: center;
 }
 .livedel_div {

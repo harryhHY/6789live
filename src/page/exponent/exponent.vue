@@ -96,6 +96,9 @@
         </div>
       </div>
     </div>
+    <div class="margin50">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -103,6 +106,7 @@
 import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
 const analysisheader = () => import("../../components/analysis/analysisheader");
+const Footer = () => import("../../components/footer/footer");
 export default {
   data() {
     return {
@@ -165,6 +169,7 @@ export default {
   components: {
     home_herder,
     analysisheader,
+    Footer
   },
   created() {
     this.getratedata();
@@ -189,7 +194,7 @@ export default {
     border: 1px solid #dedede;
     .exponent_header {
       line-height: 54px;
-      margin: 5px 0 ;
+      margin: 5px 0;
       .select_div {
         width: 155px;
         height: 30px;
@@ -288,15 +293,15 @@ export default {
         border-right: none;
       }
     }
-    .exponentfor:hover{
+    .exponentfor:hover {
       background-color: #f7f7f7;
     }
   }
 }
-.duoxuan{
+.duoxuan {
   margin-left: 20px;
 }
-.comnum{
+.comnum {
   margin-left: 10px;
 }
 </style>

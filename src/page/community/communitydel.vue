@@ -1,7 +1,7 @@
 <template>
   <div class="communitydel cl">
     <home_herder :headerKey="headerKey"></home_herder>
-    <livemenu ref="livemenu" @delsort='getdeldata'></livemenu>
+    <livemenu ref="livemenu" @delsort="getdeldata"></livemenu>
     <div class="communitydel_content boxshadow left">
       <div class="communitydel_header">
         <el-breadcrumb separator="/">
@@ -153,6 +153,9 @@
         <!-- <div class="lookmorr">查看更多</div> -->
       </div>
     </div>
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -161,6 +164,7 @@ import { mapState } from "vuex";
 import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
+const Footer = () => import("../../components/footer/footer");
 export default {
   metaInfo: {
     title: `6789直播讨论区_【6789体育直播】`,
@@ -373,6 +377,7 @@ export default {
   components: {
     home_herder,
     livemenu,
+    Footer,
   },
   computed: {
     ...mapState(["communitydel", "menulike"]),
@@ -489,7 +494,7 @@ export default {
             width: 105px;
             text-align: center;
           }
-          .joincom:hover{
+          .joincom:hover {
             background-color: #f6f6f6;
           }
           .comm_num,
@@ -513,7 +518,7 @@ export default {
           margin-right: 35px;
         }
       }
-      .release:hover{
+      .release:hover {
         background-image: url("../../image/cmm/release1.png");
       }
       .main_data {
@@ -601,7 +606,7 @@ export default {
             }
           }
         }
-        .main_content:hover{
+        .main_content:hover {
           background-color: #f7f7f7;
         }
       }

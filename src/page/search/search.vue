@@ -148,11 +148,15 @@
         </div>
       </div>
     </div>
+    <div class="margin50">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
 <script>
 const home_herder = () => import("../../components/home/home_herder");
+const Footer = () => import("../../components/footer/footer");
 import host from "../../api/httpurl";
 export default {
   data() {
@@ -309,7 +313,7 @@ export default {
     },
     bankuaichange(val) {
       //板块选择器
-      this.page = 1
+      this.page = 1;
       this.plate = val;
       this.getsearchdata();
     },
@@ -352,6 +356,7 @@ export default {
   },
   components: {
     home_herder,
+    Footer
   },
   created() {
     this.inst();

@@ -92,6 +92,9 @@
       </div>
     </div>
     <newslive v-if="live_data || promote_news_data"></newslive>
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -101,6 +104,7 @@ import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
+const Footer = () => import("../../components/footer/footer");
 export default {
   metaInfo: {
     title: `新闻_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,
@@ -318,6 +322,7 @@ export default {
     livemenu,
     home_herder,
     newslive,
+    Footer,
   },
   created() {
     this.inst();

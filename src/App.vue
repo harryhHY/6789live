@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" >
 @import url("./style/index");
 #app {
   height: 100%;
@@ -19,4 +19,5 @@ export default {
   background-repeat: no-repeat;
   margin-top: 81px;
 }
+
 </style>

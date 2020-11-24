@@ -724,6 +724,9 @@
         </div>
       </div> -->
     </div>
+    <div class="margin50">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -731,6 +734,7 @@
 import { mapState } from "vuex";
 const home_herder = () => import("../home/home_herder");
 const analysisheader = () => import("./analysisheader");
+const Footer = () => import("../footer/footer");
 export default {
   data() {
     return {
@@ -957,6 +961,7 @@ export default {
   components: {
     home_herder,
     analysisheader,
+    Footer
   },
   mounted() {
     // this.myEcharts();
