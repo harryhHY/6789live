@@ -123,7 +123,7 @@ import livemenu from "../live/livemenu";
 const liveVideo = () => import("../live/live_video");
 const home_herder = () => import("../home/home_herder");
 const liveheader = () => import("./liveheader");
-const Footer = () => import("../footer/footer");
+const Footer = () => import("../footer/footer1");
 export default {
   metaInfo: {
     title: `直播_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,

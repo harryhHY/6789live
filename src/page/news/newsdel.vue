@@ -216,7 +216,7 @@
 <script>
 import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
-const Footer = () => import("../../components/footer/footer");
+const Footer = () => import("../../components/footer/footer1");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 const newstree = () => import("../../components/new/newstree");

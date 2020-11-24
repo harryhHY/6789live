@@ -104,7 +104,7 @@ import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
-const Footer = () => import("../../components/footer/footer");
+const Footer = () => import("../../components/footer/footer1");
 export default {
   metaInfo: {
     title: `新闻_6789直播_6789体育直播足球直播NBA直播体育直播_【高清】`,

@@ -164,7 +164,7 @@ import { mapState } from "vuex";
 import host from "../../api/httpurl";
 const home_herder = () => import("../../components/home/home_herder");
 const livemenu = () => import("../../components/live/livemenu");
-const Footer = () => import("../../components/footer/footer");
+const Footer = () => import("../../components/footer/footer1");
 export default {
   metaInfo: {
     title: `6789直播讨论区_【6789体育直播】`,

@@ -222,7 +222,7 @@ const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 const newstree = () => import("../../components/new/newstree");
 const report = () => import("../../components/person/report");
-const Footer = () => import("../../components/footer/footer");
+const Footer = () => import("../../components/footer/footer1");
 import host from "../../api/httpurl";
 import DPlayer from "dplayer";
 export default {
