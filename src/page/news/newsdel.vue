@@ -207,12 +207,16 @@
       ></report>
     </div>
     <newslive v-if="newsmenuswp"></newslive>
+    <div class="left footermargin">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 const home_herder = () => import("../../components/home/home_herder");
+const Footer = () => import("../../components/footer/footer");
 const livemenu = () => import("../../components/live/livemenu");
 const newslive = () => import("../../components/new/newslive");
 const newstree = () => import("../../components/new/newstree");
@@ -444,6 +448,7 @@ export default {
     newslive,
     newstree: newstree,
     report,
+    Footer,
   },
   created() {
     this.inithost();
@@ -744,7 +749,7 @@ export default {
         background-image: url("../../image/news/reply.png");
       }
     }
-    .otheruserreply:hover{
+    .otheruserreply:hover {
       color: #1a90fc;
     }
     .otheruserreply:hover .otheruser_reply_img {
@@ -795,10 +800,9 @@ export default {
 .tuijian_div:hover {
   background-color: #f7f7f7;
 }
-
 </style>
 <style>
-.newsbody p video{
+.newsbody p video {
   width: 100%;
   height: auto;
 }
