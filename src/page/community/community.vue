@@ -466,6 +466,8 @@ export default {
   .footerMoreMenudel {
     text-align: center;
     background-color: #fff;
+    border: 1px solid rgb(167, 160, 160);
+    border-radius: 5px;
   }
   .footerMoreMenudel:hover {
     background-color: #f7f7f7;
