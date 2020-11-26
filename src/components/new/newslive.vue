@@ -24,7 +24,7 @@
           class="videotitle_div cu"
         >
           <div class="videotype left">
-            {{ item.gameStage }}
+            {{ item.gameStage == null? '进行中': item.gameStage}}
           </div>
           <a
             :href="delUrl + item.matchId + '.html'"
