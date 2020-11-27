@@ -66,7 +66,14 @@
                 <div class="live_img_div">
                   <img :src="item.news_cover_url" alt="" class="live_img" />
                 </div>
-                <span class="live_title ov">{{ item.news_title }}</span>
+                <span class="live_title ov">
+                  <a
+                    :href="newdelUrl + item.id + '.html'"
+                    v-on:click.prevent="gotodel"
+                  >
+                    {{ item.news_title }}
+                  </a>
+                </span>
               </div>
             </div>
             <div class="communitymsg_header cl">
@@ -93,7 +100,12 @@
               >
                 <div class="communitymsg_class left">{{ item.ch_name }}</div>
                 <div class="communitymsg_title left">
-                  标题 ： {{ item.forum_title }}
+                  <a
+                    :href="commUrl + item.id + '.html'"
+                    v-on:click.prevent="gotodel"
+                  >
+                    标题 ： {{ item.forum_title }}
+                  </a>
                 </div>
                 <div class="communitymsg_time right">
                   {{ item.forum_addtime | formDate }}
@@ -142,7 +154,14 @@
               <div class="live_img_div">
                 <img :src="item.news_cover_url" alt="" class="live_img" />
               </div>
-              <span class="live_title ov">{{ item.news_title }}</span>
+              <span class="live_title ov">
+                <a
+                  :href="newdelUrl + item.id + '.html'"
+                  v-on:click.prevent="gotodel"
+                >
+                  {{ item.news_title }}
+                </a></span
+              >
             </div>
           </div>
           <div class="communitymsg_header cl">
@@ -163,7 +182,12 @@
             >
               <div class="communitymsg_class left">{{ item.ch_name }}</div>
               <div class="communitymsg_title left">
-                标题 ： {{ item.forum_title }}
+                <a
+                  :href="commUrl + item.id + '.html'"
+                  v-on:click.prevent="gotodel"
+                >
+                  标题 ： {{ item.forum_title }}
+                </a>
               </div>
               <div class="communitymsg_time right">
                 {{ item.forum_addtime | formDate }}
@@ -265,6 +289,7 @@ export default {
     return {
       newdelUrl: "http://dev.6789zbz.com/front/newdel/",
       delUrl: "http://dev.6789zbz.com/front/livedel/",
+      commUrl: "http://dev.6789zbz.com/front/postdetails/",
       swiperdata: [], //轮播图
       football: [
         {
@@ -800,7 +825,7 @@ export default {
     border-bottom: 1px #d2d2d2 solid;
     padding: 10px 0;
   }
-  .livecontent_div:hover{
+  .livecontent_div:hover {
     background-color: #f7f7f7;
     cursor: pointer;
   }
